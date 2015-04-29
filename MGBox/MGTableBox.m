@@ -9,10 +9,14 @@
 @implementation MGTableBox
 
 - (void)layout {
-  self.height = 0;
 
-  // refresh
-  self.boxes = self.allLines.mutableCopy;
+  // cleanse
+  [self.boxes removeAllObjects];
+
+  // put in the lines
+  [self.boxes addObjectsFromArray:self.topLines.array];
+  [self.boxes addObjectsFromArray:self.middleLines.array];
+  [self.boxes addObjectsFromArray:self.bottomLines.array];
 
   // and all together now
   [super layout];
@@ -20,12 +24,18 @@
 
 - (void)layoutWithSpeed:(NSTimeInterval)speed completion:(Block)completion {
 
-  // refresh
-  self.boxes = self.allLines.mutableCopy;
+  // cleanse
+  [self.boxes removeAllObjects];
+
+  // put in the lines
+  [self.boxes addObjectsFromArray:self.topLines.array];
+  [self.boxes addObjectsFromArray:self.middleLines.array];
+  [self.boxes addObjectsFromArray:self.bottomLines.array];
 
   // and smoothly together now
   [super layoutWithSpeed:speed completion:completion];
 }
+
 
 #pragma mark - Getters
 
@@ -48,13 +58,6 @@
     _bottomLines = NSMutableOrderedSet.orderedSet;
   }
   return _bottomLines;
-}
-
-- (NSOrderedSet *)allLines {
-  NSMutableOrderedSet *all = self.topLines.mutableCopy;
-  [all addObjectsFromArray:self.middleLines.array];
-  [all addObjectsFromArray:self.bottomLines.array];
-  return all;
 }
 
 @end

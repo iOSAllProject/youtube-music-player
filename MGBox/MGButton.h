@@ -5,11 +5,18 @@
 //
 
 #import "MGLayoutBox.h"
+#import "NSObject+MGEvents.h"
 
 @class MGBox;
 
 @interface MGButton : UIButton <MGLayoutBox>
 
+@property (nonatomic, assign) CGFloat maxWidth; // get rid of this
+
 - (void)setup;
+
+// event handling
+@property (nonatomic, retain) NSMutableDictionary *eventHandlers;
+- (void)onControlEvent:(UIControlEvents)controlEvent do:(Block)handler;
 
 @end

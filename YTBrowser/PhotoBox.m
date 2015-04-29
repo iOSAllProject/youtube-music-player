@@ -10,7 +10,7 @@
 @implementation PhotoBox
 #pragma mark - Init
 
-static CGFloat imageHeight = 67.5;
+static CGFloat imageHeight = 68;
 static CGFloat imageWidth = 120.0;
 
 - (void)setup {
@@ -22,14 +22,12 @@ static CGFloat imageWidth = 120.0;
     self.backgroundColor =  [UIColor whiteColor];
 
   // shadow
-    /*
+    
   self.layer.shadowColor = [UIColor colorWithWhite:0.12 alpha:1].CGColor;
   self.layer.shadowOffset = CGSizeMake(0, 0.5);
   self.layer.shadowRadius = 1;
   self.layer.shadowOpacity = 1;
-    */
-  self.layer.rasterizationScale = 1.0;
-  self.layer.shouldRasterize = YES;
+
 }
 
 #pragma mark - Factories
@@ -88,8 +86,9 @@ static CGFloat imageWidth = 120.0;
     UIImage *image = [UIImage imageWithData:data];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 
-    imageView.frame = CGRectMake(14.25,14.25,imageWidth, imageHeight);
+    imageView.frame = CGRectMake(14,14,imageWidth, imageHeight);
     [self addSubview:imageView];
+    
     imageView.alpha = 0;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
     | UIViewAutoresizingFlexibleHeight;
@@ -100,21 +99,18 @@ static CGFloat imageWidth = 120.0;
     }];
 
 
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 19.25, 14.25,size.width - imageWidth - 22.25,imageHeight)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 19, 14,size.width - imageWidth - 22,imageHeight)];
+   // [label setFrame:CGRectIntegral(label.frame)];
+   // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     label.backgroundColor = [UIColor clearColor];
     label.text = self.titleString;
     label.numberOfLines = 0;
     
-    label.font = [UIFont fontWithName:@"Helvetica" size:12.0f];
+    label.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
-/*
-    label.layer.shadowColor = [UIColor colorWithWhite:0.12 alpha:1].CGColor;
-    label.layer.shadowOffset = CGSizeMake(0, 0.5);
-    label.layer.shadowRadius = 1;
-    label.layer.shadowOpacity = 1;
-    label.layer.rasterizationScale = 1.0;
-    label.layer.shouldRasterize = YES;*/
+
+
 
   });
 }

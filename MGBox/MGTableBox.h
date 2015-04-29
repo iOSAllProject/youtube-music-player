@@ -10,6 +10,4 @@
 @property (nonatomic, retain) NSMutableOrderedSet *middleLines;
 @property (nonatomic, retain) NSMutableOrderedSet *bottomLines;
 
-- (NSOrderedSet *)allLines;
-
 @end

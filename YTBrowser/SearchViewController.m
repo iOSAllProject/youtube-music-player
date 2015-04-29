@@ -10,17 +10,18 @@
 #import "ViewController.h"
 #import "MGBox.h"
 #import "MGScrollView.h"
-
+#import "MGTableBoxStyled.h"
 #import "JSONModelLib.h"
 #import "VideoModel.h"
-
+#import "MGLine.h"
+#import "MediaManager.h"
 #import "PhotoBox.h"
 #import "WebVideoViewController.h"
 
 @interface SearchViewController () <UITextFieldDelegate>
 {
     MGScrollView* scroller;
-    MGBox* searchBox;
+    //MGBox* tablesGrid;
     NSArray* videos;
     
 }
@@ -33,13 +34,15 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    scroller = [[MGScrollView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,self.view.frame.size.height)];
+    scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutTableStyle;
+    
+    scroller.sizingMode = MGResizingShrinkWrap;
     scroller.bottomPadding = 8;
-    scroller.backgroundColor = [UIColor colorWithWhite:0.25 alpha:1];
+    scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
-
+    
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 300.0, 44.0)];
     searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 290.0, 44.0)];
@@ -55,8 +58,10 @@
     self.navigationItem.titleView = searchBarView;
     CGFloat barHeight = 40.0f;
     CGFloat barWidth = self.view.frame.size.width;
-    self.pThumb = [[UIImageView alloc] init];
     
+    
+    
+    self.pThumb = [[UIImageView alloc] init];
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.view.frame.size.height-barHeight, self.view.frame.size.width, barHeight)];
     self.playerBar.backgroundColor =  [UIColor blackColor];
     
@@ -64,7 +69,6 @@
     self.pTitle.textColor = [UIColor whiteColor];
     self.pTitle.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
     self.pTitle.numberOfLines = 0;
-
 
     [self.view addSubview:self.playerBar];
     [self.view addSubview:self.pTitle];
@@ -129,6 +133,7 @@
     if([scroller.boxes count] > 0)
         [scroller.boxes removeObjectsInRange:NSMakeRange(0, scroller.boxes.count)];
     
+    
     //add boxes for all videos
     for (int i=0;i<videos.count;i++) {
         
@@ -136,34 +141,37 @@
         VideoModel* video = videos[i];
         //create a box
         NSURL *url = [NSURL URLWithString:video.thumbnail];
-        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width,94)];
-        
+        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width,96)];
+        box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [self playSelectedSong:video];
 
         };
-        
+
         //add the box
         [scroller.boxes addObject:box];
     }
-    
+
     //re-layout the scroll view
-    [scroller layoutWithSpeed:0.3 completion:nil];
+    [scroller layout];
 }
 
 
 -(void) playSelectedSong: (VideoModel*) video {
-    if(!self.videoPlayer)
-        self.videoPlayer= [[ViewController alloc] initVideoPlayer:video.videoId title:video.title];
+
     NSURL *url = [NSURL URLWithString:video.thumbnail];
     [self loadThumbnailImage:url];
     self.pTitle.text = video.title;
-
-    /*
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
     
-    [self presentViewController:navigationController animated:YES completion:nil];
-     */
+    [[MediaManager sharedInstance] playWithVideoId:video.videoId];
+    
+    /*
+     if(!self.videoPlayer)
+     self.videoPlayer= [[ViewController alloc] initVideoPlayer:video.videoId title:video.title];
+     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    
+    [self presentViewController:navigationController animated:YES completion:nil];*/
+    
 }
 
 -(void) loadThumbnailImage:(NSURL *)url {

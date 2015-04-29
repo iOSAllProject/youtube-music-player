@@ -7,8 +7,7 @@
 #import "MGScrollView.h"
 #import "MGLayoutManager.h"
 
-// default keyboardMargin
-#define KEYBOARD_MARGIN 8
+#define SCROLL_MARGIN 8
 
 @implementation MGScrollView {
   CGFloat keyboardNudge;
@@ -22,12 +21,10 @@
 @synthesize margin, topMargin, bottomMargin, leftMargin, rightMargin;
 @synthesize padding, topPadding, rightPadding, bottomPadding, leftPadding;
 @synthesize attachedTo, replacementFor, sizingMode;
-@synthesize fixedPosition, zIndex, layingOut, slideBoxesInFromEmpty;
+@synthesize fixedPosition, zIndex, layingOut;
 
 // MGLayoutBox protocol optionals
 @synthesize tapper, tappable, onTap;
-
-#pragma mark - Factories
 
 + (id)scroller {
   MGScrollView *scroller = [[self alloc] initWithFrame:CGRectZero];
@@ -39,8 +36,6 @@
   MGScrollView *scroller = [[self alloc] initWithFrame:frame];
   return scroller;
 }
-
-#pragma mark - Init and setup
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
@@ -55,18 +50,9 @@
 }
 
 - (void)setup {
-
-  // defaults
-  self.keyboardMargin = KEYBOARD_MARGIN;
-  self.keepFirstResponderAboveKeyboard = YES;
-
-  // watch for the keyboard
   [NSNotificationCenter.defaultCenter addObserver:self
       selector:@selector(keyboardWillAppear:) name:UIKeyboardWillShowNotification
       object:nil];
-  [NSNotificationCenter.defaultCenter addObserver:self
-      selector:@selector(keyboardWillDisappear:)
-      name:UIKeyboardWillHideNotification object:nil];
 }
 
 #pragma mark - Layout
@@ -118,14 +104,6 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)recogniser
        shouldReceiveTouch:(UITouch *)touch {
-
-  // say yes to UIScrollView's internal recognisers
-  if (recogniser == self.panGestureRecognizer || recogniser
-      == self.gestureRecognizers[0]) {
-    return YES;
-  }
-
-  // say no if a UIControl got there first (iOS 6 makes this unnecessary)
   return ![touch.view isKindOfClass:UIControl.class];
 }
 
@@ -172,30 +150,15 @@
   }];
 }
 
-#pragma mark - Dealing with the keyboard
+#pragma mark - Dealing with keyboards
 
 - (void)keyboardWillAppear:(NSNotification *)note {
-
-  // haven't been asked to deal with keyboard scrolling?
-  if (!self.keepAboveKeyboard && !self.keepFirstResponderAboveKeyboard) {
+  if (!self.keepAboveKeyboard) {
     return;
   }
 
-  // target, if given an explicit view to keep above keyboard
+  // target's frame
   UIView *view = self.keepAboveKeyboard;
-
-  // target by finding a descendant that's first respondent
-  if (!view && self.keepFirstResponderAboveKeyboard) {
-    UIResponder *first = UIApplication.sharedApplication.currentFirstResponder;
-    if ([first isKindOfClass:UIView.class]
-        && [(id)first isDescendantOfView:self]) {
-      view = (id)first;
-    } else {
-      return;
-    }
-  }
-
-  // target rect in local space
   CGRect target = [view.superview convertRect:view.frame toView:self];
 
   // keyboard's frame
@@ -203,8 +166,9 @@
   keyboard = [self convertRect:keyboard fromView:nil];
 
   // determine overage
-  CGFloat targetBottom = target.origin.y + target.size.height;
-  CGFloat over = targetBottom + self.keyboardMargin - keyboard.origin.y;
+  CGFloat keyboardMargin = SCROLL_MARGIN,
+      targetBottom = target.origin.y + target.size.height,
+      over = targetBottom + keyboardMargin - keyboard.origin.y;
 
   // need to nudge?
   keyboardNudge = over > 0 ? over : 0;
@@ -219,17 +183,6 @@
     CGPoint offset = self.contentOffset;
     offset.y += over;
     self.contentOffset = offset;
-  } completion:nil];
-}
-
-- (void)keyboardWillDisappear:(NSNotification *)note {
-  double d = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-  int curve = [note.userInfo[UIKeyboardAnimationCurveUserInfoKey] intValue];
-  [UIView animateWithDuration:d delay:0 options:curve animations:^{
-    CGPoint offset = self.contentOffset;
-    offset.y -= keyboardNudge;
-    self.contentOffset = offset;
-    keyboardNudge = 0;
   } completion:nil];
 }
 
