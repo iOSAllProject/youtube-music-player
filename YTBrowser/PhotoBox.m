@@ -10,8 +10,8 @@
 @implementation PhotoBox
 #pragma mark - Init
 
-static CGFloat imageHeight = 68;
-static CGFloat imageWidth = 120.0;
+static CGFloat imageHeight = 60;
+static CGFloat imageWidth = 107.0;
 
 - (void)setup {
 
@@ -86,7 +86,8 @@ static CGFloat imageWidth = 120.0;
     UIImage *image = [UIImage imageWithData:data];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 
-    imageView.frame = CGRectMake(14,14,imageWidth, imageHeight);
+    CGFloat imagePadding = (size.height - imageHeight)/2;
+    imageView.frame = CGRectMake(imagePadding,imagePadding,imageWidth, imageHeight);
     [self addSubview:imageView];
     
     imageView.alpha = 0;
@@ -99,7 +100,7 @@ static CGFloat imageWidth = 120.0;
     }];
 
 
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 19, 14,size.width - imageWidth - 22,imageHeight)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 15, imagePadding,size.width - imageWidth - 50,imageHeight)];
    // [label setFrame:CGRectIntegral(label.frame)];
    // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     label.backgroundColor = [UIColor clearColor];
@@ -109,6 +110,13 @@ static CGFloat imageWidth = 120.0;
     label.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
+    
+    CGFloat buttonSize = 20.0;
+    CGFloat buttonPadding = (size.height - buttonSize)/2;
+    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x+label.frame.size.width+5, buttonPadding, buttonSize, buttonSize)];
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"more-128"] forState:UIControlStateNormal];
+    [self addSubview:moreOptions];
+      
 
 
 

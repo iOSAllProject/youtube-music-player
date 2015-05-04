@@ -10,6 +10,7 @@
 #import "YTPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
+#import "MediaManager.h"
 @interface ViewController : UIViewController <YTPlayerViewDelegate>
 - (id)initWithImages:(NSArray *)images andContentView:(UIView*)contentView;
 -(id) initVideoPlayer:(NSString*)videoId title:(NSString*)title ;

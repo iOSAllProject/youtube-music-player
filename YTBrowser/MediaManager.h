@@ -2,12 +2,14 @@
 #import "YTPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
-@interface MediaManager : NSObject{
+#import "VideoModel.h"
+@interface MediaManager : NSObject<YTPlayerViewDelegate>{
     
 }
 
 +(MediaManager *)sharedInstance;
--(void)playWithVideoId:(NSString *)video;
+-(void)playWithVideo:(VideoModel *)video;
+-(void)initializeVideoPlayer:(UIView *) playerView;
+-(YTPlayerView *)getVideoPlayer;
 
 @end

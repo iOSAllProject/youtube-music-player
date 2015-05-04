@@ -58,20 +58,18 @@
     self.navigationItem.titleView = searchBarView;
     CGFloat barHeight = 40.0f;
     CGFloat barWidth = self.view.frame.size.width;
-    
-    
-    
-    self.pThumb = [[UIImageView alloc] init];
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.view.frame.size.height-barHeight, self.view.frame.size.width, barHeight)];
     self.playerBar.backgroundColor =  [UIColor blackColor];
     
-    self.pTitle = [[UILabel alloc] initWithFrame:CGRectMake(75.0, self.playerBar.origin.y+5, self.view.frame.size.width-120, 30.0)];
-    self.pTitle.textColor = [UIColor whiteColor];
-    self.pTitle.font = [UIFont fontWithName:@"Helvetica" size:10.0f];
-    self.pTitle.numberOfLines = 0;
-
+    UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
+    [self.playerBar addGestureRecognizer:playerTap];
+    
     [self.view addSubview:self.playerBar];
-    [self.view addSubview:self.pTitle];
+    [[MediaManager sharedInstance] initializeVideoPlayer:self.playerBar];
+
+
+    //[self.view addSubview:self.playerBar];
+    //[self.view addSubview:self.pTitle];
     
     //add search box
    //[scroller.boxes addObject: searchBox];
@@ -141,10 +139,10 @@
         VideoModel* video = videos[i];
         //create a box
         NSURL *url = [NSURL URLWithString:video.thumbnail];
-        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width,96)];
+        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width,80)];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
-            [self playSelectedSong:video];
+            [[MediaManager sharedInstance] playWithVideo:video];
 
         };
 
@@ -157,39 +155,12 @@
 }
 
 
--(void) playSelectedSong: (VideoModel*) video {
-
-    NSURL *url = [NSURL URLWithString:video.thumbnail];
-    [self loadThumbnailImage:url];
-    self.pTitle.text = video.title;
+-(void) displayDetailedPlayer {
+    if(!self.videoPlayer) {
+        self.videoPlayer = [[ViewController alloc] init];
+    }
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    [self presentViewController:navigationController animated:YES completion:nil];
     
-    [[MediaManager sharedInstance] playWithVideoId:video.videoId];
-    
-    /*
-     if(!self.videoPlayer)
-     self.videoPlayer= [[ViewController alloc] initVideoPlayer:video.videoId title:video.title];
-     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
-    
-    [self presentViewController:navigationController animated:YES completion:nil];*/
-    
-}
-
--(void) loadThumbnailImage:(NSURL *)url {
-
-    dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
-    dispatch_async(q, ^{
-        /* Fetch the image from the server... */
-        
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        UIImage *img = [[UIImage alloc] initWithData:data];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            /* This is the main thread again, where we set the tableView's image to
-             be what we just fetched. */
-            self.pThumb.image= img;
-            self.pThumb.frame = CGRectMake(0.0, self.playerBar.frame.origin.y, 70.0, 40.0);
-            [self.view addSubview:self.pThumb];
-            
-        });
-    });
 }
 @end
