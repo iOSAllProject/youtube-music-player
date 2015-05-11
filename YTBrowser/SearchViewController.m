@@ -18,12 +18,14 @@
 #import "PhotoBox.h"
 #import "WebVideoViewController.h"
 
+static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/search?q=%@&order=relevance&part=snippet&maxResults=50&type=video&videoSyndicated=true&key=AIzaSyBfXPGjGR3V49O30aEMk3VPHVwEQQ_XkN8";
+
 @interface SearchViewController () <UITextFieldDelegate>
 {
     MGScrollView* scroller;
+    MGBox *libraryView;
     //MGBox* tablesGrid;
     NSArray* videos;
-    
 }
 
 @end
@@ -53,7 +55,7 @@
     searchBar.delegate = self;
     searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
     searchBar.placeholder = @"Search";
-    searchBar.text = @"John Mayer";
+    searchBar.text = @"Maroon 5 Live";
     [searchBarView addSubview:searchBar];
     self.navigationItem.titleView = searchBarView;
     CGFloat barHeight = 40.0f;
@@ -67,6 +69,10 @@
     [self.view addSubview:self.playerBar];
     [[MediaManager sharedInstance] initializeVideoPlayer:self.playerBar];
 
+    libraryView = [MGBox boxWithSize:(CGSize) {self.view.frame.size.width, 40}];
+    [self setupLibraryView];
+    [scroller.boxes addObject:libraryView];
+    [scroller layout];
 
     //[self.view addSubview:self.playerBar];
     //[self.view addSubview:self.pTitle];
@@ -75,7 +81,23 @@
    //[scroller.boxes addObject: searchBox];
   //  self.navigationItem.titleView = searchBox;
     //fire up the first search
-    [self searchYoutubeVideosForTerm: searchBar.text];
+    //[self searchYoutubeVideosForTerm: searchBar.text];
+}
+
+-(void) setupLibraryView {
+    MGBox *titleBox = [MGBox boxWithSize:(CGSize) {self.view.frame.size.width, 40}];
+    CGFloat hPad = 20.0;
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(hPad, 5.0, titleBox.size.width-hPad, titleBox.size.height)];
+    titleLabel.text = @"LIBRARY";
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
+    titleLabel.textColor = [UIColor blackColor];
+    [titleBox addSubview:titleLabel];
+    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(hPad/2, titleBox.size.height-1, titleBox.size.width-hPad, 0.5)];
+    border.backgroundColor = [UIColor grayColor];
+    [titleBox addSubview:border];
+    [libraryView.boxes addObject:titleBox];
+    
+    
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
@@ -92,7 +114,7 @@
     term = [term stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     //make HTTP call
-    NSString *searchCall2 = [NSString stringWithFormat:@"https://www.googleapis.com/youtube/v3/search?q=%@&order=relevance&part=snippet&maxResults=50&type=video&videoSyndicated=true&key=AIzaSyBfXPGjGR3V49O30aEMk3VPHVwEQQ_XkN8", term];
+    NSString *searchCall2 = [NSString stringWithFormat:searchQuery, term];
     
     NSLog(@"%@", searchCall2);
 
@@ -139,13 +161,13 @@
         VideoModel* video = videos[i];
         //create a box
         NSURL *url = [NSURL URLWithString:video.thumbnail];
-        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width,80)];
+        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width-20,80)];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];
 
         };
-
+        
         //add the box
         [scroller.boxes addObject:box];
     }

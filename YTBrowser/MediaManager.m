@@ -158,7 +158,8 @@ static MediaManager *sharedInstance = nil;
 #pragma mark Notifications
 
 -(void)appIsInBackground:(NSNotification*)notification{
-    [self.player playVideo];
+    if(isPlaying)
+        [self.player playVideo];
 }
 
 -(void)keepPlaying{

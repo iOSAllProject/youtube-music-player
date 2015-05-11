@@ -4,20 +4,20 @@
 #import "AppConstant.h"
 #import "PhotoBox.h"
 @interface PhotoBox()
-
 @end
 
 @implementation PhotoBox
 #pragma mark - Init
-
+AHKActionSheet *actionSheet;
+UIImage *image;
 static CGFloat imageHeight = 60;
 static CGFloat imageWidth = 107.0;
 
 - (void)setup {
 
   // positioning
-  self.rightMargin = 0;
-  self.leftMargin = 0;
+  self.rightMargin = 10;
+  self.leftMargin = 10;
   // background
     self.backgroundColor =  [UIColor whiteColor];
 
@@ -25,7 +25,7 @@ static CGFloat imageWidth = 107.0;
     
   self.layer.shadowColor = [UIColor colorWithWhite:0.12 alpha:1].CGColor;
   self.layer.shadowOffset = CGSizeMake(0, 0.5);
-  self.layer.shadowRadius = 1;
+  self.layer.shadowRadius = 0;
   self.layer.shadowOpacity = 1;
 
 }
@@ -37,6 +37,7 @@ static CGFloat imageWidth = 107.0;
   // box with photo number tag
   PhotoBox *box = [PhotoBox boxWithSize:size];
   box.titleString = title;
+  box.url = url;
   // add a loading spinner
   UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -55,6 +56,7 @@ static CGFloat imageWidth = 107.0;
   box.asyncLayoutOnce = ^{
       [wbox loadPhotoFromURL:url withCellSize:size];
   };
+
 
   return box;
 }
@@ -114,13 +116,81 @@ static CGFloat imageWidth = 107.0;
     CGFloat buttonSize = 20.0;
     CGFloat buttonPadding = (size.height - buttonSize)/2;
     UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x+label.frame.size.width+5, buttonPadding, buttonSize, buttonSize)];
-    [moreOptions setBackgroundImage:[UIImage imageNamed:@"more-128"] forState:UIControlStateNormal];
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
     [self addSubview:moreOptions];
+    [moreOptions addTarget:self
+                 action:@selector(showMore:)
+       forControlEvents:UIControlEventTouchUpInside];
       
+    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
+    border.backgroundColor = [UIColor grayColor];
+    [self addSubview:border];
+
 
 
 
   });
 }
+
+-(void) showMore:(id) sender{
+    actionSheet = [[AHKActionSheet alloc] initWithTitle:nil];
+    
+    actionSheet.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
+    actionSheet.blurRadius = 8.0f;
+    actionSheet.buttonHeight = 50.0f;
+    actionSheet.cancelButtonHeight = 50.0f;
+    actionSheet.animationDuration = 0.5f;
+    actionSheet.cancelButtonShadowColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
+    actionSheet.separatorColor = [UIColor colorWithWhite:1.0f alpha:0.3f];
+    actionSheet.selectedBackgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+    UIFont *defaultFont = [UIFont fontWithName:@"Avenir" size:17.0f];
+    actionSheet.buttonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                          NSForegroundColorAttributeName : [UIColor whiteColor] };
+    actionSheet.disabledButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                                  NSForegroundColorAttributeName : [UIColor grayColor] };
+    actionSheet.destructiveButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                                     NSForegroundColorAttributeName : [UIColor redColor] };
+    actionSheet.cancelButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                                NSForegroundColorAttributeName : [UIColor whiteColor] };
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+    // do UI stuff back in UI land
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.frame = CGRectMake(10, 10, 71, 40);
+    [headerView addSubview:imageView];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSData *data = [NSData dataWithContentsOfURL:self.url];
+        UIImage *image = [UIImage imageWithData:data];
+        imageView.image = image;
+    });
+    
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(91, 20, 200, 20)];
+    label1.text = self.titleString;
+    label1.textColor = [UIColor whiteColor];
+    label1.font = [UIFont fontWithName:@"Avenir" size:17.0f];
+    label1.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label1];
+    actionSheet.headerView = headerView;
+
+    
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Add to Favorites", nil)
+                              image:[UIImage imageNamed:@"Icon2"]
+                               type:AHKActionSheetButtonTypeDefault
+                            handler:nil];
+    
+        [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"Share with Jukebox"]
+                                  image:[UIImage imageNamed:@"Icon3"]
+                                   type:AHKActionSheetButtonTypeDefault
+                                handler:nil];
+    
+    /*
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Delete", nil)
+                              image:[UIImage imageNamed:@"Icon4"]
+                               type:AHKActionSheetButtonTypeDestructive
+                            handler:nil];*/
+    [actionSheet show];
+
+}
+
 
 @end
