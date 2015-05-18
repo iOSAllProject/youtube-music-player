@@ -32,12 +32,12 @@ static CGFloat imageWidth = 107.0;
 
 #pragma mark - Factories
 
-+ (PhotoBox *)photoBoxForURL:(NSURL*)url title:(NSString*)title withSize:(CGSize) size
++ (PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size
 {
   // box with photo number tag
   PhotoBox *box = [PhotoBox boxWithSize:size];
-  box.titleString = title;
-  box.url = url;
+  box.video = video;
+  NSURL *url = [NSURL URLWithString:video.thumbnail];
   // add a loading spinner
   UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -89,7 +89,7 @@ static CGFloat imageWidth = 107.0;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 
     CGFloat imagePadding = (size.height - imageHeight)/2;
-    imageView.frame = CGRectMake(imagePadding,imagePadding,imageWidth, imageHeight);
+    imageView.frame = CGRectMake(0,imagePadding,imageWidth, imageHeight);
     [self addSubview:imageView];
     
     imageView.alpha = 0;
@@ -106,7 +106,7 @@ static CGFloat imageWidth = 107.0;
    // [label setFrame:CGRectIntegral(label.frame)];
    // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     label.backgroundColor = [UIColor clearColor];
-    label.text = self.titleString;
+    label.text = self.video.title;
     label.numberOfLines = 0;
     
     label.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
@@ -159,13 +159,14 @@ static CGFloat imageWidth = 107.0;
     imageView.frame = CGRectMake(10, 10, 71, 40);
     [headerView addSubview:imageView];
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSData *data = [NSData dataWithContentsOfURL:self.url];
+        NSURL *url = [NSURL URLWithString:self.video.thumbnail];
+        NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *image = [UIImage imageWithData:data];
         imageView.image = image;
     });
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(91, 20, 200, 20)];
-    label1.text = self.titleString;
+    label1.text = self.video.title;
     label1.textColor = [UIColor whiteColor];
     label1.font = [UIFont fontWithName:@"Avenir" size:17.0f];
     label1.backgroundColor = [UIColor clearColor];
@@ -176,20 +177,28 @@ static CGFloat imageWidth = 107.0;
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Add to Favorites", nil)
                               image:[UIImage imageNamed:@"Icon2"]
                                type:AHKActionSheetButtonTypeDefault
-                            handler:nil];
+                            handler:^(AHKActionSheet *as) {
+                                [self insertSongToLibrary];
+                            }];
     
         [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"Share with Jukebox"]
                                   image:[UIImage imageNamed:@"Icon3"]
                                    type:AHKActionSheetButtonTypeDefault
                                 handler:nil];
     
-    /*
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"Delete", nil)
-                              image:[UIImage imageNamed:@"Icon4"]
-                               type:AHKActionSheetButtonTypeDestructive
-                            handler:nil];*/
     [actionSheet show];
 
+}
+
+-(void) insertSongToLibrary {
+    JBCoreDataStack *coreDataStack = [JBCoreDataStack defaultStack];
+    Song *song = [NSEntityDescription insertNewObjectForEntityForName:@"Song" inManagedObjectContext:coreDataStack.managedObjectContext];
+    song.videoId = self.video.videoId;
+    song.title = self.video.title;
+    song.url = self.video.thumbnail;
+    NSLog(@"Saved %@ %@ %@", song.videoId, song.title, song.url);
+    [coreDataStack saveContext];
+    
 }
 
 

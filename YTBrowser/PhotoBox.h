@@ -5,10 +5,13 @@
 #import "MGLine.h"
 #import "MGBox.h"
 #import "AHKActionSheet.h"
+#import "JBCoreDataStack.h"
+#import "Song.h"
+#import "VideoModel.h"
 @interface PhotoBox : MGBox
 
-+(PhotoBox *)photoBoxForURL:(NSURL*)url title:(NSString*)title withSize:(CGSize) size;
++(PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size;
 
-@property (strong, nonatomic) NSString* titleString;
-@property (strong, nonatomic) NSURL* url;
+@property (strong, nonatomic) VideoModel *video;
+
 @end

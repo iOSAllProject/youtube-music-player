@@ -22,12 +22,15 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
 @interface SearchViewController () <UITextFieldDelegate>
 {
+    
     MGScrollView* scroller;
     MGBox *libraryView;
     //MGBox* tablesGrid;
     NSArray* videos;
+    UISearchBar *searchBar;
+    
 }
-
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation SearchViewController
@@ -45,7 +48,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
     
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 300.0, 44.0)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 300.0, 44.0)];
     searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 290.0, 44.0)];
     [searchBar setBackgroundColor:[UIColor clearColor]];
@@ -71,8 +74,6 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
     libraryView = [MGBox boxWithSize:(CGSize) {self.view.frame.size.width, 40}];
     [self setupLibraryView];
-    [scroller.boxes addObject:libraryView];
-    [scroller layout];
 
     //[self.view addSubview:self.playerBar];
     //[self.view addSubview:self.pTitle];
@@ -83,11 +84,21 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //fire up the first search
     //[self searchYoutubeVideosForTerm: searchBar.text];
 }
+-(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
+    searchBar.showsCancelButton = YES;
+    return YES;
+}
+
+- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    searchBar.showsCancelButton = NO;
+}
 
 -(void) setupLibraryView {
     MGBox *titleBox = [MGBox boxWithSize:(CGSize) {self.view.frame.size.width, 40}];
     CGFloat hPad = 20.0;
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(hPad, 5.0, titleBox.size.width-hPad, titleBox.size.height)];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(hPad/2, 5.0, titleBox.size.width-hPad, titleBox.size.height)];
     titleLabel.text = @"LIBRARY";
     titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
     titleLabel.textColor = [UIColor blackColor];
@@ -96,9 +107,42 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     border.backgroundColor = [UIColor grayColor];
     [titleBox addSubview:border];
     [libraryView.boxes addObject:titleBox];
-    
+    [self fetchedResultsController];
+    [_fetchedResultsController performFetch:nil];
+    NSInteger *numRows = [_fetchedResultsController.fetchedObjects count];
+    NSLog(@"%d", numRows);
+    [self showLibrary];
+    [scroller.boxes addObject:libraryView];
+    //re-layout the scroll view
+    [scroller layout];
     
 }
+-(void) showLibrary {
+    for (Song *song in _fetchedResultsController.fetchedObjects){
+        //get the data
+        VideoModel *video = [self createVideo:song];
+        //create a box
+        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,80)];
+        box.frame = CGRectIntegral(box.frame);
+        box.onTap = ^{
+            [[MediaManager sharedInstance] playWithVideo:video];
+            
+        };
+        
+        //add the box
+        [libraryView.boxes addObject:box];
+    }
+
+}
+
+-(VideoModel *) createVideo:(Song*) song {
+    VideoModel *video = [[VideoModel alloc] init];
+    video.title = song.title;
+    video.videoId = song.videoId;
+    video.thumbnail = song.url;
+    return video;
+}
+
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
@@ -160,8 +204,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         //get the data
         VideoModel* video = videos[i];
         //create a box
-        NSURL *url = [NSURL URLWithString:video.thumbnail];
-        PhotoBox *box = [PhotoBox photoBoxForURL:url title:video.title withSize:CGSizeMake(self.view.frame.size.width-20,80)];
+        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,80)];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];
@@ -184,5 +227,22 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
     [self presentViewController:navigationController animated:YES completion:nil];
     
+}
+
+
+#pragma coreData
+
+
+- (NSFetchedResultsController * ) fetchedResultsController {
+    if(_fetchedResultsController != nil){
+        return self.fetchedResultsController;
+    }
+    
+    JBCoreDataStack *coreDataStack = [JBCoreDataStack defaultStack];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Song"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"videoId" ascending:true]];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    return _fetchedResultsController;
 }
 @end

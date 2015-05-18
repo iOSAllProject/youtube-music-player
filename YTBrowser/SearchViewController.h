@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
+#import "JBCoreDataStack.h"
+#import "Song.h"
 @interface SearchViewController : UIViewController
 @property (nonatomic,strong) ViewController *videoPlayer;
 @property (nonatomic, strong) UIView *playerBar;
