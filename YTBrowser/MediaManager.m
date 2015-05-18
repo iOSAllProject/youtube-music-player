@@ -214,5 +214,8 @@ static MediaManager *sharedInstance = nil;
 }
 
 
+-(VideoModel *) getCurrentlyPlaying {
+    return currentlyPlaying;
+}
 
 @end

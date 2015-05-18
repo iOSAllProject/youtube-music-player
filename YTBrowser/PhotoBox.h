@@ -10,8 +10,10 @@
 #import "VideoModel.h"
 @interface PhotoBox : MGBox
 
-+(PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size;
++(PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size withLine: (BOOL) drawLine;
 
 @property (strong, nonatomic) VideoModel *video;
+@property (nonatomic, assign) BOOL drawLine;
+
 
 @end

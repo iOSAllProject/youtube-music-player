@@ -16,21 +16,21 @@
 #import "MGLine.h"
 #import "MediaManager.h"
 #import "PhotoBox.h"
-#import "WebVideoViewController.h"
-
+#import "CarbonKit.h"
+#import "LibraryViewController.h"
 static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/search?q=%@&order=relevance&part=snippet&maxResults=50&type=video&videoSyndicated=true&key=AIzaSyBfXPGjGR3V49O30aEMk3VPHVwEQQ_XkN8";
 
-@interface SearchViewController () <UITextFieldDelegate>
+@interface SearchViewController () <UITextFieldDelegate, CarbonTabSwipeDelegate, UISearchBarDelegate>
 {
     
     MGScrollView* scroller;
-    MGBox *libraryView;
-    //MGBox* tablesGrid;
     NSArray* videos;
     UISearchBar *searchBar;
+    CarbonTabSwipeNavigation *tabSwipe;
+    UIBarButtonItem *searchButton;
+    UILabel *titleLabel;
     
 }
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation SearchViewController
@@ -39,15 +39,38 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    
+    //bottom music player constants
+    CGFloat barHeight = 40.0f;
+    CGFloat barWidth = self.view.frame.size.width;
+    
+    
+    //Set up Tabs
+    NSArray *names = @[@"SONGS",@"PLAYLISTS", @"JUKEBOXES"];
+    UIColor *color = [UIColor whiteColor];
+    UIFont *tabFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
+    tabSwipe = [[CarbonTabSwipeNavigation alloc] createWithRootViewController:self tabNames:names tintColor:color delegate:self];
+    
+    [tabSwipe setNormalColor:[UIColor colorWithRed:1.0 green:0 blue:0 alpha:.8] font:tabFont]; // default tintColor with alpha 0.8
+    [tabSwipe setSelectedColor:[UIColor colorWithRed:1.0 green:0 blue:0 alpha:1] font:tabFont]; // default tintColor
+    [tabSwipe setIndicatorHeight:3.f]; // default 3.f
+    [tabSwipe addShadow];
+    
+    //Add search scrollview
+    CGFloat navBarPadding = self.navigationController.navigationBar.frame.size.height+20;
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutTableStyle;
-    
     scroller.sizingMode = MGResizingShrinkWrap;
     scroller.bottomPadding = 8;
     scroller.backgroundColor = [UIColor whiteColor];
+    scroller.frame = CGRectMake(0.0, navBarPadding, self.view.size.width, self.view.size.height - navBarPadding - barHeight );
     [self.view addSubview:scroller];
+    scroller.hidden = YES;
     
+    
+    //Setup search bar
     searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 300.0, 44.0)];
     searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 290.0, 44.0)];
@@ -61,8 +84,27 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     searchBar.text = @"Maroon 5 Live";
     [searchBarView addSubview:searchBar];
     self.navigationItem.titleView = searchBarView;
-    CGFloat barHeight = 40.0f;
-    CGFloat barWidth = self.view.frame.size.width;
+    searchBar.hidden = YES;
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
+    titleLabel.text = @"YOUTIFY";
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
+
+    [searchBarView addSubview:titleLabel];
+    
+    
+    //Setup search icon
+    searchButton = [[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemSearch
+                                       target:self action:@selector(searchClicked:)];
+    [searchButton  setTintColor:[UIColor redColor]];
+    self.navigationItem.rightBarButtonItem = searchButton;
+    
+
+
+    
+    
+    
+    //setup music player at bottom of screen
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.view.frame.size.height-barHeight, self.view.frame.size.width, barHeight)];
     self.playerBar.backgroundColor =  [UIColor blackColor];
     
@@ -72,9 +114,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     [self.view addSubview:self.playerBar];
     [[MediaManager sharedInstance] initializeVideoPlayer:self.playerBar];
 
-    libraryView = [MGBox boxWithSize:(CGSize) {self.view.frame.size.width, 40}];
-    [self setupLibraryView];
-
+    
     //[self.view addSubview:self.playerBar];
     //[self.view addSubview:self.pTitle];
     
@@ -85,70 +125,31 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //[self searchYoutubeVideosForTerm: searchBar.text];
 }
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    searchBar.showsCancelButton = YES;
     return YES;
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
     [searchBar resignFirstResponder];
-    searchBar.showsCancelButton = NO;
-}
-
--(void) setupLibraryView {
-    MGBox *titleBox = [MGBox boxWithSize:(CGSize) {self.view.frame.size.width, 40}];
-    CGFloat hPad = 20.0;
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame: CGRectMake(hPad/2, 5.0, titleBox.size.width-hPad, titleBox.size.height)];
-    titleLabel.text = @"LIBRARY";
-    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
-    titleLabel.textColor = [UIColor blackColor];
-    [titleBox addSubview:titleLabel];
-    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(hPad/2, titleBox.size.height-1, titleBox.size.width-hPad, 0.5)];
-    border.backgroundColor = [UIColor grayColor];
-    [titleBox addSubview:border];
-    [libraryView.boxes addObject:titleBox];
-    [self fetchedResultsController];
-    [_fetchedResultsController performFetch:nil];
-    NSInteger *numRows = [_fetchedResultsController.fetchedObjects count];
-    NSLog(@"%d", numRows);
-    [self showLibrary];
-    [scroller.boxes addObject:libraryView];
-    //re-layout the scroll view
-    [scroller layout];
+    searchBar.hidden = YES;
+    titleLabel.hidden = NO;
+    self.navigationItem.rightBarButtonItem = searchButton;
+    scroller.hidden = YES;
     
 }
--(void) showLibrary {
-    for (Song *song in _fetchedResultsController.fetchedObjects){
-        //get the data
-        VideoModel *video = [self createVideo:song];
-        //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,80)];
-        box.frame = CGRectIntegral(box.frame);
-        box.onTap = ^{
-            [[MediaManager sharedInstance] playWithVideo:video];
-            
-        };
-        
-        //add the box
-        [libraryView.boxes addObject:box];
-    }
 
-}
 
--(VideoModel *) createVideo:(Song*) song {
-    VideoModel *video = [[VideoModel alloc] init];
-    video.title = song.title;
-    video.videoId = song.videoId;
-    video.thumbnail = song.url;
-    return video;
+-(void) searchClicked:(id) sender{
+    searchBar.hidden = NO;
+    searchBar.showsCancelButton = YES;
+    titleLabel.hidden= YES;
+    self.navigationItem.rightBarButtonItem = nil;
+    [searchBar becomeFirstResponder];
+    scroller.hidden = NO;
+    
 }
 
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    [searchBar resignFirstResponder];
-    [self searchYoutubeVideosForTerm:searchBar.text];
-}
 
 -(void)searchYoutubeVideosForTerm:(NSString*)term
 {
@@ -204,11 +205,11 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         //get the data
         VideoModel* video = videos[i];
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,80)];
+        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,80) withLine:YES];
+        
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];
-
         };
         
         //add the box
@@ -217,6 +218,12 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
     //re-layout the scroll view
     [scroller layout];
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    [searchBar resignFirstResponder];
+    [self searchYoutubeVideosForTerm:searchBar.text];
 }
 
 
@@ -229,20 +236,11 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     
 }
 
-
-#pragma coreData
-
-
-- (NSFetchedResultsController * ) fetchedResultsController {
-    if(_fetchedResultsController != nil){
-        return self.fetchedResultsController;
-    }
-    
-    JBCoreDataStack *coreDataStack = [JBCoreDataStack defaultStack];
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Song"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"videoId" ascending:true]];
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    
-    return _fetchedResultsController;
+// delegate
+- (UIViewController *)tabSwipeNavigation:(CarbonTabSwipeNavigation *)tabSwipe viewControllerAtIndex:(NSUInteger)index {
+    LibraryViewController *vc = [[LibraryViewController alloc] init];
+    return  vc;// return viewController at index
 }
+
+
 @end

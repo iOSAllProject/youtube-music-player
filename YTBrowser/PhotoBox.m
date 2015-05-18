@@ -4,6 +4,7 @@
 #import "AppConstant.h"
 #import "PhotoBox.h"
 @interface PhotoBox()
+
 @end
 
 @implementation PhotoBox
@@ -12,6 +13,7 @@ AHKActionSheet *actionSheet;
 UIImage *image;
 static CGFloat imageHeight = 60;
 static CGFloat imageWidth = 107.0;
+
 
 - (void)setup {
 
@@ -32,10 +34,11 @@ static CGFloat imageWidth = 107.0;
 
 #pragma mark - Factories
 
-+ (PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size
++ (PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine
 {
   // box with photo number tag
   PhotoBox *box = [PhotoBox boxWithSize:size];
+  box.drawLine = drawLine;
   box.video = video;
   NSURL *url = [NSURL URLWithString:video.thumbnail];
   // add a loading spinner
@@ -121,10 +124,11 @@ static CGFloat imageWidth = 107.0;
     [moreOptions addTarget:self
                  action:@selector(showMore:)
        forControlEvents:UIControlEventTouchUpInside];
-      
-    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
-    border.backgroundColor = [UIColor grayColor];
-    [self addSubview:border];
+    if(self.drawLine){
+        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
+        border.backgroundColor = [UIColor grayColor];
+        [self addSubview:border];
+      }
 
 
 

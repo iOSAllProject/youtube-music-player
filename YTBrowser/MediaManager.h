@@ -11,5 +11,5 @@
 -(void)playWithVideo:(VideoModel *)video;
 -(void)initializeVideoPlayer:(UIView *) playerView;
 -(YTPlayerView *)getVideoPlayer;
-
+-(VideoModel*) getCurrentlyPlaying;
 @end
