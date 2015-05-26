@@ -24,6 +24,9 @@
 		30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */; };
 		3093C0B71B0953A600EEC6F7 /* JBCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */; };
 		3093C0BD1B095F2400EEC6F7 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0BC1B095F2400EEC6F7 /* Song.m */; };
+		3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */; };
+		3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */; };
+		3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */; };
 		309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830C1AFF3325005E44B9 /* AHKActionSheet.m */; };
 		309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830E1AFF3325005E44B9 /* AHKActionSheetViewController.m */; };
 		309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 309483101AFF3325005E44B9 /* UIImage+AHKAdditions.m */; };
@@ -31,7 +34,6 @@
 		309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309AE31D1B094D1B004CF1E2 /* CoreData.framework */; };
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
 		30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F663401AECD24A00CF0C12 /* Images.xcassets */; };
-		9C52A7C6169DF63B00805818 /* WebVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C52A7C5169DF63B00805818 /* WebVideoViewController.m */; };
 		9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */; };
 		9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB3A116BAE6AE00C8AB3A /* JSONModelArray.m */; };
 		9C9BB3B816BAE6AE00C8AB3A /* JSONModelClassProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB3A316BAE6AE00C8AB3A /* JSONModelClassProperty.m */; };
@@ -103,6 +105,13 @@
 		3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBCoreDataStack.m; sourceTree = "<group>"; };
 		3093C0BB1B095F2400EEC6F7 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
 		3093C0BC1B095F2400EEC6F7 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
+		3093C0BF1B09793C00EEC6F7 /* CarbonKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonKit.h; sourceTree = "<group>"; };
+		3093C0C01B09793C00EEC6F7 /* CarbonSwipeRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonSwipeRefresh.h; sourceTree = "<group>"; };
+		3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarbonSwipeRefresh.m; sourceTree = "<group>"; };
+		3093C0C21B09793C00EEC6F7 /* CarbonTabSwipeNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonTabSwipeNavigation.h; sourceTree = "<group>"; };
+		3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarbonTabSwipeNavigation.m; sourceTree = "<group>"; };
+		3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
+		3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		309482F91AFF2D04005E44B9 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		309482FB1AFF2D0D005E44B9 /* libPods-AHKActionSheet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AHKActionSheet.a"; path = "Pods/../build/Debug-iphoneos/libPods-AHKActionSheet.a"; sourceTree = "<group>"; };
 		3094830B1AFF3325005E44B9 /* AHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHKActionSheet.h; sourceTree = "<group>"; };
@@ -118,8 +127,6 @@
 		309AE31D1B094D1B004CF1E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		309AE3201B094D61004CF1E2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9C52A7C4169DF63B00805818 /* WebVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebVideoViewController.h; sourceTree = "<group>"; };
-		9C52A7C5169DF63B00805818 /* WebVideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebVideoViewController.m; sourceTree = "<group>"; };
 		9C9BB39E16BAE6AE00C8AB3A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
 		9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
 		9C9BB3A016BAE6AE00C8AB3A /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
@@ -229,6 +236,18 @@
 			path = Categories;
 			sourceTree = "<group>";
 		};
+		3093C0BE1B09793C00EEC6F7 /* CarbonKit */ = {
+			isa = PBXGroup;
+			children = (
+				3093C0BF1B09793C00EEC6F7 /* CarbonKit.h */,
+				3093C0C01B09793C00EEC6F7 /* CarbonSwipeRefresh.h */,
+				3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */,
+				3093C0C21B09793C00EEC6F7 /* CarbonTabSwipeNavigation.h */,
+				3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */,
+			);
+			path = CarbonKit;
+			sourceTree = "<group>";
+		};
 		3094830A1AFF3325005E44B9 /* AHKActionSheet */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,6 +326,7 @@
 		9CA623CD169591AC003F6334 = {
 			isa = PBXGroup;
 			children = (
+				3093C0BE1B09793C00EEC6F7 /* CarbonKit */,
 				3093C0BB1B095F2400EEC6F7 /* Song.h */,
 				3093C0BC1B095F2400EEC6F7 /* Song.m */,
 				309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */,
@@ -349,6 +369,8 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */,
+				3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */,
 				30916CE81AF0A91600327CAA /* MediaManager.h */,
 				3093C0B51B0953A600EEC6F7 /* JBCoreDataStack.h */,
 				3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */,
@@ -368,8 +390,6 @@
 				9CA623F7169591AC003F6334 /* SearchViewController.h */,
 				9CA623F8169591AC003F6334 /* SearchViewController.m */,
 				9CA623E3169591AC003F6334 /* Supporting Files */,
-				9C52A7C4169DF63B00805818 /* WebVideoViewController.h */,
-				9C52A7C5169DF63B00805818 /* WebVideoViewController.m */,
 			);
 			path = YTBrowser;
 			sourceTree = "<group>";
@@ -499,7 +519,6 @@
 				30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */,
 				9CA6246D169598BC003F6334 /* VideoLink.m in Sources */,
 				9CA6246E169598BC003F6334 /* VideoModel.m in Sources */,
-				9C52A7C6169DF63B00805818 /* WebVideoViewController.m in Sources */,
 				9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */,
 				309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */,
 				30916CE31AF0928B00327CAA /* MGLayoutManager.m in Sources */,
@@ -508,15 +527,18 @@
 				9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */,
 				9C9BB3B816BAE6AE00C8AB3A /* JSONModelClassProperty.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
+				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
 				309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */,
 				9C9BB3BA16BAE6AE00C8AB3A /* NSArray+JSONModel.m in Sources */,
 				9C9BB3BB16BAE6AE00C8AB3A /* JSONAPI.m in Sources */,
+				3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */,
 				3093C0B71B0953A600EEC6F7 /* JBCoreDataStack.m in Sources */,
 				30916CE41AF0928B00327CAA /* MGLine.m in Sources */,
 				9C9BB3BC16BAE6AE00C8AB3A /* JSONHTTPClient.m in Sources */,
 				30916CE11AF0928B00327CAA /* MGBox.m in Sources */,
 				9C9BB3BD16BAE6AE00C8AB3A /* JSONModel+networking.m in Sources */,
+				3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */,
 				30916CE21AF0928B00327CAA /* MGButton.m in Sources */,
 				9C9BB3BE16BAE6AE00C8AB3A /* JSONKeyMapper.m in Sources */,
 				9C9BB3BF16BAE6AE00C8AB3A /* JSONValueTransformer.m in Sources */,
