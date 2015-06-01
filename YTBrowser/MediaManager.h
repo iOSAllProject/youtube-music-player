@@ -3,6 +3,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "VideoModel.h"
+#import <XCDYouTubeKit/XCDYouTubeKit.h>
 @interface MediaManager : NSObject<YTPlayerViewDelegate>{
     
 }
@@ -10,6 +11,8 @@
 +(MediaManager *)sharedInstance;
 -(void)playWithVideo:(VideoModel *)video;
 -(void)initializeVideoPlayer:(UIView *) playerView;
--(YTPlayerView *)getVideoPlayer;
+-(XCDYouTubeVideoPlayerViewController *)getVideoPlayer;
 -(VideoModel*) getCurrentlyPlaying;
+-(void) runInBackground;
+-(UIView *) getMiniPlayer;
 @end

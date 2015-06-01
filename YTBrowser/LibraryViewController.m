@@ -4,6 +4,7 @@
 @interface LibraryViewController ()
 {
     MGScrollView* scroller;
+    BOOL videoPlayerInitialized;
 }
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
@@ -19,7 +20,7 @@
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutGridStyle;
-    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 100.0 - 40.0 );
+    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 100.0 - 40 );
     scroller.sizingMode = MGResizingShrinkWrap;
     scroller.bottomPadding = 0;
     
@@ -35,7 +36,6 @@
     
     //TODO DEBUGGING
     NSInteger *numRows = [_fetchedResultsController.fetchedObjects count];
-    NSLog(@"%d", numRows);
     
     [self showLibrary];
     //re-layout the scroll view
@@ -43,6 +43,10 @@
     
 }
 -(void) showLibrary {
+    //clean the old videos
+    if([scroller.boxes count] > 0)
+        [scroller.boxes removeObjectsInRange:NSMakeRange(0, scroller.boxes.count)];
+    
     int counter = 0;
     BOOL drawLine = YES;
     for (Song *song in _fetchedResultsController.fetchedObjects){
@@ -52,7 +56,7 @@
         if(counter == [_fetchedResultsController.fetchedObjects count])
             drawLine = NO;
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,80) withLine:drawLine];
+        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,55) withLine:drawLine];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];
@@ -74,6 +78,13 @@
     return video;
 }
 
+-(void) prepareForMiniVideoPlayer {
+    if(!videoPlayerInitialized){
+        scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 100.0 - 40.0 );
+        videoPlayerInitialized = YES;
+        [scroller layoutIfNeeded];
+    }
+}
 
 #pragma coreData
 
@@ -90,4 +101,5 @@
     
     return _fetchedResultsController;
 }
+
 @end

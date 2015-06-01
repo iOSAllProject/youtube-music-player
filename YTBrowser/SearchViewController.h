@@ -12,7 +12,6 @@
 #import "Song.h"
 @interface SearchViewController : UIViewController
 @property (nonatomic,strong) ViewController *videoPlayer;
-@property (nonatomic, strong) UIView *playerBar;
 @property (nonatomic,strong) UIImageView *pThumb;
 @property (nonatomic, strong) UILabel *pTitle;
 @end

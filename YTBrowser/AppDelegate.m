@@ -8,20 +8,64 @@
 
 #import "AppDelegate.h"
 #import "SearchViewController.h"
+#import "RESideMenu.h"
+#import "DEMOLeftMenuViewController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    NSError *setCategoryError = nil;
-    [[AVAudioSession sharedInstance] setCategory: AVAudioSessionCategoryPlayback error: &setCategoryError];
+
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[SearchViewController alloc] init]];
+    DEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
+
+    
+    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
+                                                                    leftMenuViewController:leftMenuViewController
+                                                                   rightMenuViewController:nil];
+    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"sky"];
+    sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
+    sideMenuViewController.delegate = self;
+    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
+    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
+    sideMenuViewController.contentViewShadowOpacity = 0.6;
+    sideMenuViewController.contentViewShadowRadius = 12;
+    sideMenuViewController.contentViewShadowEnabled = YES;
+    self.window.rootViewController = sideMenuViewController;
+    
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    CGFloat barHeight = 40.0f;
+    CGFloat barWidth = self.window.frame.size.width;
+    self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.window.frame.size.height-barHeight, self.window.frame.size.width, barHeight)];
+    self.playerBar.backgroundColor =  [UIColor blackColor];
+    [[MediaManager sharedInstance] initializeVideoPlayer:self.playerBar];
+    
+    /*
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
     SearchViewController *home = [[SearchViewController alloc] init];
     UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:home];
-    [self.window setRootViewController:navController];
+    [self.window setRootViewController:navController];*/
     [self.window makeKeyAndVisible];
     
+    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+        
+        // Load resources for iOS 6.1 or earlier
+        [[UINavigationBar appearance]setTintColor:[UIColor clearColor]];
+    } else {
+        [[UINavigationBar appearance]setTintColor:[UIColor blackColor]]; // it set color of bar button item text
+        [[UINavigationBar appearance]setBarTintColor:[UIColor whiteColor]]; // it set color of navigation
+        [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault]; // it set Style of UINavigationBar
+        [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set title color of Navigation Bar
+        // Load resources for iOS 7 or later
+        
+    }
+    
+ //   [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
+  //  self.window.tintColor = [UIColor redColor];
     return YES;
 }
 							

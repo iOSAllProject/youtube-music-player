@@ -1,4 +1,2 @@
-
-platform :ios, '7.0'
-
-pod 'AFBlurSegue', '~> 1.2'
+pod "XCDYouTubeKit"
+pod 'RESideMenu', '~> 4.0.7'

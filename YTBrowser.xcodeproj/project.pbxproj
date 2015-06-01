@@ -22,11 +22,15 @@
 		30916CEA1AF0A91600327CAA /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CE91AF0A91600327CAA /* MediaManager.m */; };
 		30930A581AEC6F8200B44E58 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30930A571AEC6F8200B44E58 /* ViewController.m */; };
 		30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */; };
+		309383A91B1BA3640062C681 /* DEMOLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */; };
+		309383AC1B1BAA120062C681 /* SearchYoutubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */; };
 		3093C0B71B0953A600EEC6F7 /* JBCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */; };
 		3093C0BD1B095F2400EEC6F7 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0BC1B095F2400EEC6F7 /* Song.m */; };
 		3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */; };
 		3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */; };
 		3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */; };
+		3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3093E2711B1443C100C454CF /* JavaScriptCore.framework */; };
+		3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */; };
 		309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830C1AFF3325005E44B9 /* AHKActionSheet.m */; };
 		309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830E1AFF3325005E44B9 /* AHKActionSheetViewController.m */; };
 		309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 309483101AFF3325005E44B9 /* UIImage+AHKAdditions.m */; };
@@ -46,7 +50,7 @@
 		9C9BB3BF16BAE6AE00C8AB3A /* JSONValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB3B516BAE6AE00C8AB3A /* JSONValueTransformer.m */; };
 		9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA623DC169591AC003F6334 /* UIKit.framework */; };
 		9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA623DE169591AC003F6334 /* Foundation.framework */; };
-		9CA623E7169591AC003F6334 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9CA623E5169591AC003F6334 /* InfoPlist.strings */; };
+		9CA623E7169591AC003F6334 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9CA623E5169591AC003F6334 /* Info.plist */; };
 		9CA623E9169591AC003F6334 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623E8169591AC003F6334 /* main.m */; };
 		9CA623ED169591AC003F6334 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623EC169591AC003F6334 /* AppDelegate.m */; };
 		9CA623F6169591AC003F6334 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA623F4169591AC003F6334 /* MainStoryboard.storyboard */; };
@@ -67,6 +71,7 @@
 		9CBC4F6E1695DABA00FFE7B9 /* tcm-520.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F631695DABA00FFE7B9 /* tcm-520.png */; };
 		9CBC4F701695DAE000FFE7B9 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F6F1695DAE000FFE7B9 /* Icon.png */; };
 		9CBC4F721695DAEA00FFE7B9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */; };
+		A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +106,10 @@
 		30930A571AEC6F8200B44E58 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30930A601AECA6AD00B44E58 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
+		309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOLeftMenuViewController.h; sourceTree = "<group>"; };
+		309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOLeftMenuViewController.m; sourceTree = "<group>"; };
+		309383AA1B1BAA120062C681 /* SearchYoutubeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchYoutubeViewController.h; sourceTree = "<group>"; };
+		309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchYoutubeViewController.m; sourceTree = "<group>"; };
 		3093C0B51B0953A600EEC6F7 /* JBCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBCoreDataStack.h; sourceTree = "<group>"; };
 		3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBCoreDataStack.m; sourceTree = "<group>"; };
 		3093C0BB1B095F2400EEC6F7 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
@@ -112,6 +121,9 @@
 		3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarbonTabSwipeNavigation.m; sourceTree = "<group>"; };
 		3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
+		3093E2711B1443C100C454CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPMoviePlayerController+BackgroundPlayback.h"; path = "XCDYouTubeKit/MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
+		3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPMoviePlayerController+BackgroundPlayback.m"; path = "XCDYouTubeKit/MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
 		309482F91AFF2D04005E44B9 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		309482FB1AFF2D0D005E44B9 /* libPods-AHKActionSheet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AHKActionSheet.a"; path = "Pods/../build/Debug-iphoneos/libPods-AHKActionSheet.a"; sourceTree = "<group>"; };
 		3094830B1AFF3325005E44B9 /* AHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHKActionSheet.h; sourceTree = "<group>"; };
@@ -127,6 +139,7 @@
 		309AE31D1B094D1B004CF1E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		309AE3201B094D61004CF1E2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9BB39E16BAE6AE00C8AB3A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
 		9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
 		9C9BB3A016BAE6AE00C8AB3A /* JSONModelArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModelArray.h; sourceTree = "<group>"; };
@@ -153,7 +166,7 @@
 		9CA623DE169591AC003F6334 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CA623E0169591AC003F6334 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YTBrowser-Info.plist"; sourceTree = "<group>"; };
-		9CA623E6169591AC003F6334 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		9CA623E6169591AC003F6334 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = en; path = en.lproj/Info.plist; sourceTree = "<group>"; };
 		9CA623E8169591AC003F6334 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9CA623EA169591AC003F6334 /* YTBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTBrowser-Prefix.pch"; sourceTree = "<group>"; };
 		9CA623EB169591AC003F6334 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -180,6 +193,8 @@
 		9CBC4F631695DABA00FFE7B9 /* tcm-520.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tcm-520.png"; sourceTree = "<group>"; };
 		9CBC4F6F1695DAE000FFE7B9 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,12 +202,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */,
 				309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */,
 				9CA6243416959278003F6334 /* QuartzCore.framework in Frameworks */,
 				30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */,
 				9CA624361695927C003F6334 /* CoreText.framework in Frameworks */,
 				9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */,
 				9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */,
+				A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,6 +280,15 @@
 			path = AHKActionSheet;
 			sourceTree = "<group>";
 		};
+		6B7F827E2AADC0D2D1F39933 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */,
+				E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		9C9BB39C16BAE6AE00C8AB3A /* JSONModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -326,6 +352,8 @@
 		9CA623CD169591AC003F6334 = {
 			isa = PBXGroup;
 			children = (
+				3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */,
+				3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */,
 				3093C0BE1B09793C00EEC6F7 /* CarbonKit */,
 				3093C0BB1B095F2400EEC6F7 /* Song.h */,
 				3093C0BC1B095F2400EEC6F7 /* Song.m */,
@@ -337,6 +365,7 @@
 				9CA623E2169591AC003F6334 /* YTBrowser */,
 				9CA623DB169591AC003F6334 /* Frameworks */,
 				9CA623D9169591AC003F6334 /* Products */,
+				6B7F827E2AADC0D2D1F39933 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -351,6 +380,7 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3093E2711B1443C100C454CF /* JavaScriptCore.framework */,
 				309AE31D1B094D1B004CF1E2 /* CoreData.framework */,
 				309483191AFF356D005E44B9 /* libPods-AFNetworking.a */,
 				309483171AFF347F005E44B9 /* libPods.a */,
@@ -362,6 +392,7 @@
 				9CA623DC169591AC003F6334 /* UIKit.framework */,
 				9CA623DE169591AC003F6334 /* Foundation.framework */,
 				9CA623E0169591AC003F6334 /* CoreGraphics.framework */,
+				E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -369,6 +400,8 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */,
+				309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */,
 				3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */,
 				3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */,
 				30916CE81AF0A91600327CAA /* MediaManager.h */,
@@ -390,6 +423,8 @@
 				9CA623F7169591AC003F6334 /* SearchViewController.h */,
 				9CA623F8169591AC003F6334 /* SearchViewController.m */,
 				9CA623E3169591AC003F6334 /* Supporting Files */,
+				309383AA1B1BAA120062C681 /* SearchYoutubeViewController.h */,
+				309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */,
 			);
 			path = YTBrowser;
 			sourceTree = "<group>";
@@ -409,7 +444,7 @@
 				9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */,
 				9CBC4F631695DABA00FFE7B9 /* tcm-520.png */,
 				9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */,
-				9CA623E5169591AC003F6334 /* InfoPlist.strings */,
+				9CA623E5169591AC003F6334 /* Info.plist */,
 				9CA623E8169591AC003F6334 /* main.m */,
 				9CA623EA169591AC003F6334 /* YTBrowser-Prefix.pch */,
 			);
@@ -434,9 +469,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9CA623FC169591AC003F6334 /* Build configuration list for PBXNativeTarget "YTBrowser" */;
 			buildPhases = (
+				45DCF80BBB32C9B2DBFFD3F6 /* Check Pods Manifest.lock */,
 				9CA623D4169591AC003F6334 /* Sources */,
 				9CA623D5169591AC003F6334 /* Frameworks */,
 				9CA623D6169591AC003F6334 /* Resources */,
+				EC16E190A591410E24B402E4 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -453,7 +490,7 @@
 		9CA623CF169591AC003F6334 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0450;
+				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Underplot ltd.";
 			};
 			buildConfigurationList = 9CA623D2169591AC003F6334 /* Build configuration list for PBXProject "YTBrowser" */;
@@ -478,7 +515,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CA623E7169591AC003F6334 /* InfoPlist.strings in Resources */,
+				9CA623E7169591AC003F6334 /* Info.plist in Resources */,
 				9CA623F6169591AC003F6334 /* MainStoryboard.storyboard in Resources */,
 				9CBC4F641695DABA00FFE7B9 /* Default-568h@2x.png in Resources */,
 				9CBC4F651695DABA00FFE7B9 /* Default.png in Resources */,
@@ -498,6 +535,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		45DCF80BBB32C9B2DBFFD3F6 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		EC16E190A591410E24B402E4 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		9CA623D4169591AC003F6334 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -510,6 +580,7 @@
 				9CA623ED169591AC003F6334 /* AppDelegate.m in Sources */,
 				9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
+				3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */,
 				3093C0BD1B095F2400EEC6F7 /* Song.m in Sources */,
 				30916CE51AF0928B00327CAA /* MGScrollView.m in Sources */,
@@ -526,6 +597,7 @@
 				30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */,
 				9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */,
 				9C9BB3B816BAE6AE00C8AB3A /* JSONModelClassProperty.m in Sources */,
+				309383AC1B1BAA120062C681 /* SearchYoutubeViewController.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
 				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
@@ -535,6 +607,7 @@
 				3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */,
 				3093C0B71B0953A600EEC6F7 /* JBCoreDataStack.m in Sources */,
 				30916CE41AF0928B00327CAA /* MGLine.m in Sources */,
+				309383A91B1BA3640062C681 /* DEMOLeftMenuViewController.m in Sources */,
 				9C9BB3BC16BAE6AE00C8AB3A /* JSONHTTPClient.m in Sources */,
 				30916CE11AF0928B00327CAA /* MGBox.m in Sources */,
 				9C9BB3BD16BAE6AE00C8AB3A /* JSONModel+networking.m in Sources */,
@@ -548,12 +621,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9CA623E5169591AC003F6334 /* InfoPlist.strings */ = {
+		9CA623E5169591AC003F6334 /* Info.plist */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9CA623E6169591AC003F6334 /* en */,
 			);
-			name = InfoPlist.strings;
+			name = Info.plist;
 			sourceTree = "<group>";
 		};
 		9CA623F4169591AC003F6334 /* MainStoryboard.storyboard */ = {
@@ -590,6 +663,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -618,6 +692,7 @@
 		};
 		9CA623FD169591AC003F6334 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -627,6 +702,10 @@
 				GCC_PREFIX_HEADER = "YTBrowser/YTBrowser-Prefix.pch";
 				INFOPLIST_FILE = "YTBrowser/YTBrowser-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/matanvardi/Downloads/XCDYouTubeKit-master/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -634,6 +713,7 @@
 		};
 		9CA623FE169591AC003F6334 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -643,6 +723,10 @@
 				GCC_PREFIX_HEADER = "YTBrowser/YTBrowser-Prefix.pch";
 				INFOPLIST_FILE = "YTBrowser/YTBrowser-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/matanvardi/Downloads/XCDYouTubeKit-master/build/Debug-iphoneos",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

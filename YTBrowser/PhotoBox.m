@@ -11,8 +11,8 @@
 #pragma mark - Init
 AHKActionSheet *actionSheet;
 UIImage *image;
-static CGFloat imageHeight = 60;
-static CGFloat imageWidth = 107.0;
+static CGFloat imageHeight = 41;
+static CGFloat imageWidth = 73.0;
 
 
 - (void)setup {
@@ -105,25 +105,31 @@ static CGFloat imageWidth = 107.0;
     }];
 
 
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 15, imagePadding,size.width - imageWidth - 50,imageHeight)];
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 5, imagePadding,size.width - imageWidth - 50,imageHeight)];
    // [label setFrame:CGRectIntegral(label.frame)];
    // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     label.backgroundColor = [UIColor clearColor];
     label.text = self.video.title;
     label.numberOfLines = 0;
     
-    label.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
+    label.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
     
     CGFloat buttonSize = 20.0;
     CGFloat buttonPadding = (size.height - buttonSize)/2;
-    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x+label.frame.size.width+5, buttonPadding, buttonSize, buttonSize)];
+    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
+      UIButton *moreOptionsBackground = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width+5, 0.0, self.frame.size.width - (label.frame.origin.x + label.frame.size.width)+5, self.frame.size.height)];
+
     [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
+    [self addSubview:moreOptionsBackground];
     [self addSubview:moreOptions];
     [moreOptions addTarget:self
                  action:@selector(showMore:)
        forControlEvents:UIControlEventTouchUpInside];
+    [moreOptionsBackground addTarget:self
+                                action:@selector(showMore:)
+                      forControlEvents:UIControlEventTouchUpInside];
     if(self.drawLine){
         UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
         border.backgroundColor = [UIColor grayColor];

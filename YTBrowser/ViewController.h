@@ -11,10 +11,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "MediaManager.h"
+#import "AHKActionSheet.h"
 @interface ViewController : UIViewController <YTPlayerViewDelegate>
 - (id)initWithImages:(NSArray *)images andContentView:(UIView*)contentView;
 -(id) initVideoPlayer:(NSString*)videoId title:(NSString*)title ;
-@property (nonatomic, strong) YTPlayerView *player;
+@property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *player;
 
 @property (nonatomic, strong) NSString *title;
 

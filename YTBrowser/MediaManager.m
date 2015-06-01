@@ -1,11 +1,11 @@
-#import "MediaManager.h";
-
+#import "MediaManager.h"
+#import "MPMoviePlayerController+BackgroundPlayback.h"
 
 
 static MediaManager *sharedInstance = nil;
 
 @interface MediaManager (){
-    YTPlayerView *videoPlayer;
+    //YTPlayerView *videoPlayer;
     BOOL isInBackgroundMode;
     NSTimer *timer;
     BOOL isPlaying;
@@ -13,14 +13,16 @@ static MediaManager *sharedInstance = nil;
     /*
      Mini player components
      */
+    BOOL isInitialized;
     UIView *miniPlayer;
     UIImageView *pImage;
     UILabel *pLabel;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
+    MPMoviePlayerController *mPlayer;
     
 }
-
+@property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 @end
 @implementation MediaManager
 
@@ -40,12 +42,18 @@ static MediaManager *sharedInstance = nil;
     return sharedInstance;
 }
 -(void)initializeVideoPlayer:(UIView *) playerView{
-    [self player];
+   // [self player];
     miniPlayer = playerView;
+    /*
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(appIsInBackground:)
                                                  name:UIApplicationDidEnterBackgroundNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(appWillBeInBackground:)
+                                                 name:UIApplicationWillResignActiveNotification
+                                               object:nil];*/
     pImage = [[UIImageView alloc] init];
     pImage.frame = CGRectMake(0.0, 0.0, 70.0, 40.0);
     [miniPlayer addSubview:pImage];
@@ -78,10 +86,47 @@ static MediaManager *sharedInstance = nil;
     | UIViewAutoresizingFlexibleLeftMargin;
     statusSpinner.color = UIColor.lightGrayColor;
     [pAction addSubview:statusSpinner];
+    isInitialized = YES;
+    miniPlayer.hidden = YES;
+    self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
+
+
 }
 
 -(void)playWithVideo:(VideoModel *)video{
     [self updateMiniPlayer: video];
+    miniPlayer.hidden = NO;
+    currentlyPlaying = video;
+    [self.videoPlayerViewController.moviePlayer stop];
+    self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+    
+    
+    mPlayer = self.videoPlayerViewController.moviePlayer;
+    mPlayer.controlStyle = MPMovieControlStyleNone;
+    self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
+    [self.videoPlayerViewController setVideoIdentifier:video.videoId];
+    [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
+    [self.videoPlayerViewController.moviePlayer prepareToPlay];
+    
+    
+    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+    
+    NSError *setCategoryError = nil;
+    BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+    if (!success) { /* handle the error condition */ }
+    
+    NSError *activationError = nil;
+    success = [audioSession setActive:YES error:&activationError];
+    if (!success) { /* handle the error condition */ }
+    
+
+   
+    /*
     currentlyPlaying = video;
     [videoPlayer loadPlayerWithVideoId:video.videoId];
     [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
@@ -95,7 +140,7 @@ static MediaManager *sharedInstance = nil;
     success = [audioSession setActive:YES error:&sessionError];
     if (!success){
         NSLog(@"setActive error %@", sessionError);
-    }
+    }*/
 
 }
 
@@ -127,12 +172,12 @@ static MediaManager *sharedInstance = nil;
     [statusSpinner startAnimating];
     pAction.image = nil;
     if(isPlaying){
-        [videoPlayer pauseVideo];
+        [mPlayer pause];
     } else {
-        [videoPlayer playVideo];
+        [mPlayer play];
     }
 }
-
+/*
 -(YTPlayerView*)player
 {
     if(!videoPlayer)
@@ -152,15 +197,17 @@ static MediaManager *sharedInstance = nil;
     }
     
     return videoPlayer;
-}
+}*/
 
 #pragma mark -
 #pragma mark Notifications
-
+/*
 -(void)appIsInBackground:(NSNotification*)notification{
     if(isPlaying)
         [self.player playVideo];
 }
+
+
 
 -(void)keepPlaying{
     if(isInBackgroundMode){
@@ -177,45 +224,85 @@ static MediaManager *sharedInstance = nil;
 {
     [videoPlayer setPlaybackQuality:kYTPlaybackQualityHD720];
 }
+- (void)appWillBeInBackground:(NSNotification *)notification
+{
 
+}*/
 
 - (void)playerView:(YTPlayerView *)playerView didChangeToState:(YTPlayerState)state{
-    switch(state){
-        case kYTPlayerStatePlaying:
-            if([statusSpinner isAnimating])
-                [statusSpinner stopAnimating];
-            isPlaying = TRUE;
-            pAction.image = [UIImage imageNamed:@"white_pause_128"];
-            break;
-        case kYTPlayerStatePaused:
-            if([statusSpinner isAnimating])
-                [statusSpinner stopAnimating];
-            isPlaying = FALSE;
-            pAction.image = [UIImage imageNamed:@"play_white_128"];
-            break;
-            
-        case kYTPlayerStateEnded:
-            if([statusSpinner isAnimating])
-                [statusSpinner stopAnimating];
-            isPlaying = FALSE;
-            currentlyPlaying = nil;
-            pAction.image = [UIImage imageNamed:@"play_white_128"];
-            break;
-        default:
-            break;
+    [self updateMiniPlayerState:state];
+}
+
+-(void) updateMiniPlayerState:(MPMoviePlaybackState)state {
+    
+    if (state == MPMoviePlaybackStatePlaying) { //playing
+        
+        if([statusSpinner isAnimating])
+            [statusSpinner stopAnimating];
+        isPlaying = TRUE;
+        pAction.image = [UIImage imageNamed:@"white_pause_128"];
+    } if (state== MPMoviePlaybackStateStopped) { //stopped
+
+    } if (state == MPMoviePlaybackStatePaused) { //paused
+        
+        if([statusSpinner isAnimating])
+            [statusSpinner stopAnimating];
+        isPlaying = FALSE;
+        pAction.image = [UIImage imageNamed:@"play_white_128"];
+        
+    }if (state == MPMoviePlaybackStateInterrupted)
+    { //interrupted
+    }if (state == MPMoviePlaybackStateSeekingForward)
+    { //seeking forward
+    }if (state == MPMoviePlaybackStateSeekingBackward)
+    { //seeking backward
     }
     pAction.hidden = FALSE;
 }
 
 
 
-- (YTPlayerView *) getVideoPlayer {
-    return videoPlayer;
+- (XCDYouTubeVideoPlayerViewController *) getVideoPlayer {
+    return self.videoPlayerViewController;
 }
 
 
 -(VideoModel *) getCurrentlyPlaying {
     return currentlyPlaying;
 }
+
+-(void) runInBackground {
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+
+    [self updateMiniPlayerState:mPlayer.playbackState];
+    
+}
+
+- (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
+{
+    [self updateMiniPlayerState:mPlayer.playbackState];
+    
+}
+
+- (void)MPMoviePlayerNowPlayingMovieDidChange:(NSNotification *)notification
+{
+    if((mPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable)
+    {
+        //if load state is ready to play
+        //if(mPlayer.playbackState == MPMoviePlaybackStatePaused)
+          //  [mPlayer play];//play the video
+    }
+    
+}
+
+-(UIView *) getMiniPlayer {
+    return miniPlayer;
+}
+
+
+
 
 @end

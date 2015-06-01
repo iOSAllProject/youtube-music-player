@@ -4,7 +4,7 @@
 
 #import <Availability.h>
 
-#import <XCDYouTubeKit/XCDYouTubeClient.h>
+#import "XCDYouTubeClient.h"
 #import <XCDYouTubeKit/XCDYouTubeError.h>
 #import <XCDYouTubeKit/XCDYouTubeOperation.h>
 #import <XCDYouTubeKit/XCDYouTubeVideo.h>
