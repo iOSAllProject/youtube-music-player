@@ -47,9 +47,7 @@
     
     switch (indexPath.row) {
         case 0:
-            if(!self.homeView){
-                self.homeView = [[SearchViewController alloc] init];
-            }
+            self.homeView = [[SearchViewController alloc] init];
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.homeView]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];

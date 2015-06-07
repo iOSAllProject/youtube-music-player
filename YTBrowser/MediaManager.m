@@ -1,5 +1,6 @@
 #import "MediaManager.h"
 #import "MPMoviePlayerController+BackgroundPlayback.h"
+#import "AppConstant.h"
 
 
 static MediaManager *sharedInstance = nil;
@@ -20,6 +21,11 @@ static MediaManager *sharedInstance = nil;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
     MPMoviePlayerController *mPlayer;
+    
+    NSArray *currentPlaylist;
+    NSMutableSet *songsInLibrary;
+    NSInteger  currentSongIndex;
+    
     
 }
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
@@ -54,10 +60,32 @@ static MediaManager *sharedInstance = nil;
                                              selector:@selector(appWillBeInBackground:)
                                                  name:UIApplicationWillResignActiveNotification
                                                object:nil];*/
+    /*CAGradientLayer *layer = [CAGradientLayer layer];
+    layer.colors = [NSArray arrayWithObjects:
+                    (id)[[UIColor blackColor] CGColor],
+                    (id)[[UIColor grayColor] CGColor],
+                    (id)[[UIColor grayColor] CGColor],
+                    (id)[[UIColor blackColor] CGColor],
+                    nil];
+    layer.locations = [NSArray arrayWithObjects:
+                       [NSNumber numberWithFloat:0],
+                       [NSNumber numberWithFloat:0.4],
+                       [NSNumber numberWithFloat:0.6],
+                       [NSNumber numberWithFloat:1],
+                       nil];
+    layer.startPoint = CGPointMake(0, 0);
+    layer.frame = miniPlayer.bounds;
+    layer.endPoint = CGPointMake(1, 1);
+    layer.contentsGravity = kCAGravityResize;
+    [miniPlayer.layer addSublayer:layer];*/
+    miniPlayer.backgroundColor = RGB(34,34,34);
     pImage = [[UIImageView alloc] init];
     pImage.frame = CGRectMake(0.0, 0.0, 70.0, 40.0);
     [miniPlayer addSubview:pImage];
 
+
+    
+    
     CGFloat TITLE_HEIGHT = 30.0;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
     
@@ -300,6 +328,23 @@ static MediaManager *sharedInstance = nil;
 
 -(UIView *) getMiniPlayer {
     return miniPlayer;
+}
+
+-(void) setPlaylist:(NSArray *) songs andSongIndex:(NSInteger) index {
+    currentPlaylist = songs;
+    currentSongIndex = index;
+}
+
+-(void) setCurrentLibrary:(NSArray *)songs {
+    songsInLibrary = [[NSMutableSet alloc] initWithCapacity:[songs count]];
+    for (VideoModel *song in songs){
+        [songsInLibrary addObject:song];
+    }
+}
+-(BOOL) isInLibrary:(VideoModel *)song {
+    if([songsInLibrary containsObject:song])
+        return YES;
+    return NO;
 }
 
 

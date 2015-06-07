@@ -38,6 +38,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     scroller.sizingMode = MGResizingShrinkWrap;
     scroller.bottomPadding = 8;
     scroller.backgroundColor = [UIColor whiteColor];
+    scroller.delegate = self;
     scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - barHeight );
     [self.view addSubview:scroller];
 
@@ -199,6 +200,10 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 }
 -(void)viewWillDisappear {
     [playerBar removeFromSuperview];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+   [searchBar resignFirstResponder];
 }
 
 @end

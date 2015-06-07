@@ -15,4 +15,8 @@
 -(VideoModel*) getCurrentlyPlaying;
 -(void) runInBackground;
 -(UIView *) getMiniPlayer;
+
+-(void) setPlaylist:(NSArray *)songs andSongIndex:(NSInteger)index ;
+-(void) setCurrentLibrary:(NSArray *) songs;
+-(BOOL) isInLibrary:(VideoModel*) song;
 @end

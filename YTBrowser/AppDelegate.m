@@ -10,6 +10,7 @@
 #import "SearchViewController.h"
 #import "RESideMenu.h"
 #import "DEMOLeftMenuViewController.h"
+#import "AppConstant.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -56,9 +57,9 @@
         // Load resources for iOS 6.1 or earlier
         [[UINavigationBar appearance]setTintColor:[UIColor clearColor]];
     } else {
-        [[UINavigationBar appearance]setTintColor:[UIColor blackColor]]; // it set color of bar button item text
-        [[UINavigationBar appearance]setBarTintColor:[UIColor whiteColor]]; // it set color of navigation
-        [[UINavigationBar appearance] setBarStyle:UIBarStyleDefault]; // it set Style of UINavigationBar
+        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]]; // it set color of bar button item text
+        [[UINavigationBar appearance]setBarTintColor: RGB(253, 166, 53)]; // it set color of navigation
+        [[UINavigationBar appearance] setBarStyle:UIStatusBarStyleLightContent]; // it set Style of UINavigationBar
         [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set title color of Navigation Bar
         // Load resources for iOS 7 or later
         

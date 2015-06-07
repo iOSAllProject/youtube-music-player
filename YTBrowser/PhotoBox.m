@@ -80,18 +80,58 @@ static CGFloat imageWidth = 73.0;
     UIActivityIndicatorView *spinner = self.subviews.lastObject;
     [spinner stopAnimating];
     [spinner removeFromSuperview];
-
+    CGFloat imagePadding = (size.height - imageHeight)/2;
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 5, imagePadding,size.width - imageWidth - 50,imageHeight)];
+      // [label setFrame:CGRectIntegral(label.frame)];
+      // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
+    label.backgroundColor = [UIColor clearColor];
+    label.text = self.video.title;
+    label.numberOfLines = 0;
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.0f];
+    label.textColor = [UIColor blackColor];
+    [self addSubview:label];
+      
+    CGFloat buttonSize = 20.0;
+    CGFloat buttonPadding = (size.height - buttonSize)/2;
+    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
+    UIButton *moreOptionsBackground = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width+5, 0.0, self.frame.size.width - (label.frame.origin.x + label.frame.size.width)+5, self.frame.size.height)];
+      
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
+    [self addSubview:moreOptionsBackground];
+    [self addSubview:moreOptions];
+    [moreOptions addTarget:self
+                      action:@selector(showMore:)
+            forControlEvents:UIControlEventTouchUpInside];
+    [moreOptionsBackground addTarget:self
+                                action:@selector(showMore:)
+                      forControlEvents:UIControlEventTouchUpInside];
+    if(self.drawLine){
+          UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
+          border.backgroundColor = [UIColor grayColor];
+          [self addSubview:border];
+    }
+      
+      
     // failed to get the photo?
     if (!data) {
-    self.alpha = 0.3;
-    return;
+    //self.alpha = 0.3;
+        // got the photo, so lets show it
+        UIImage *image = [UIImage imageNamed:@"album-art-missing"];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+
+        imageView.frame = CGRectMake(imageWidth/4,imagePadding,41, 41);
+        UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0,imagePadding,imageWidth, imageHeight)];
+        emptyView.backgroundColor = [UIColor blackColor];
+        [self addSubview:emptyView];
+        [self addSubview:imageView];
+        return;
     }
 
     // got the photo, so lets show it
     UIImage *image = [UIImage imageWithData:data];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 
-    CGFloat imagePadding = (size.height - imageHeight)/2;
+    
     imageView.frame = CGRectMake(0,imagePadding,imageWidth, imageHeight);
     [self addSubview:imageView];
     
@@ -103,42 +143,6 @@ static CGFloat imageWidth = 73.0;
     [UIView animateWithDuration:0.2 animations:^{
     imageView.alpha = 1;
     }];
-
-
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 5, imagePadding,size.width - imageWidth - 50,imageHeight)];
-   // [label setFrame:CGRectIntegral(label.frame)];
-   // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
-    label.backgroundColor = [UIColor clearColor];
-    label.text = self.video.title;
-    label.numberOfLines = 0;
-    
-    label.font = [UIFont fontWithName:@"HelveticaNeue" size:11.0f];
-    label.textColor = [UIColor blackColor];
-    [self addSubview:label];
-    
-    CGFloat buttonSize = 20.0;
-    CGFloat buttonPadding = (size.height - buttonSize)/2;
-    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
-      UIButton *moreOptionsBackground = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width+5, 0.0, self.frame.size.width - (label.frame.origin.x + label.frame.size.width)+5, self.frame.size.height)];
-
-    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
-    [self addSubview:moreOptionsBackground];
-    [self addSubview:moreOptions];
-    [moreOptions addTarget:self
-                 action:@selector(showMore:)
-       forControlEvents:UIControlEventTouchUpInside];
-    [moreOptionsBackground addTarget:self
-                                action:@selector(showMore:)
-                      forControlEvents:UIControlEventTouchUpInside];
-    if(self.drawLine){
-        UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
-        border.backgroundColor = [UIColor grayColor];
-        [self addSubview:border];
-      }
-
-
-
-
   });
 }
 
@@ -167,12 +171,27 @@ static CGFloat imageWidth = 73.0;
     // do UI stuff back in UI land
     UIImageView *imageView = [[UIImageView alloc] init];
     imageView.frame = CGRectMake(10, 10, 71, 40);
-    [headerView addSubview:imageView];
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         NSURL *url = [NSURL URLWithString:self.video.thumbnail];
         NSData *data = [NSData dataWithContentsOfURL:url];
+        if (!data) {
+            //self.alpha = 0.3;
+            // got the photo, so lets show it
+            UIImage *image = [UIImage imageNamed:@"album-art-missing"];
+            UIImageView *imageViewDefault = [[UIImageView alloc] initWithImage:image];
+            
+            imageViewDefault.frame = CGRectMake(imageWidth/4+10,10,41, 41);
+            UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 71, 40)];
+            emptyView.backgroundColor = [UIColor blackColor];
+            [headerView addSubview:emptyView];
+            [headerView addSubview:imageViewDefault];
+            return;
+        }
+        
         UIImage *image = [UIImage imageWithData:data];
         imageView.image = image;
+        [headerView addSubview:imageView];
     });
     
     UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(91, 20, 200, 20)];
@@ -210,6 +229,8 @@ static CGFloat imageWidth = 73.0;
     [coreDataStack saveContext];
     
 }
+
+
 
 
 @end

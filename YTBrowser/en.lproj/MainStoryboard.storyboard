@@ -61,7 +61,7 @@
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-du-qFP">
                                 <rect key="frame" x="0.0" y="73" width="320" height="269"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.33725491166114807" green="0.35294118523597717" blue="0.36078432202339172" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="269" id="rlP-YX-IHw"/>
                                 </constraints>

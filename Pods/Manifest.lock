@@ -1,13 +1,10 @@
 PODS:
   - RESideMenu (4.0.7)
-  - XCDYouTubeKit (2.1.1)
 
 DEPENDENCIES:
   - RESideMenu (~> 4.0.7)
-  - XCDYouTubeKit
 
 SPEC CHECKSUMS:
   RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
-  XCDYouTubeKit: fd5bb231519645b2fa4f0b3e5f9b847228c3f953
 
 COCOAPODS: 0.37.1

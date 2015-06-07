@@ -18,6 +18,7 @@
 #import "PhotoBox.h"
 #import "CarbonKit.h"
 #import "LibraryViewController.h"
+#import "AppConstant.h"
 static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/search?q=%@&order=relevance&part=snippet&maxResults=50&type=video&videoSyndicated=true&key=AIzaSyBfXPGjGR3V49O30aEMk3VPHVwEQQ_XkN8";
 
 @interface SearchViewController () <UITextFieldDelegate, CarbonTabSwipeDelegate, UISearchBarDelegate>
@@ -41,23 +42,24 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //bottom music player constants
     CGFloat barHeight = 40.0f;
     CGFloat barWidth = self.view.frame.size.width;
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     //Set up Tabs
-    NSArray *names = @[@"SONGS",@"PLAYLISTS"];
+    //NSArray *names = @[@"SONGS",@"PLAYLISTS"];
+    NSArray *names = @[@"SONGS"];
     UIColor *color = [UIColor whiteColor];
     UIFont *tabFont = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
     tabSwipe = [[CarbonTabSwipeNavigation alloc] createWithRootViewController:self tabNames:names tintColor:color delegate:self];
-    
-    [tabSwipe setNormalColor:[UIColor colorWithRed:1.0 green:0 blue:0 alpha:.8] font:tabFont]; // default tintColor with alpha 0.8
-    [tabSwipe setSelectedColor:[UIColor colorWithRed:1.0 green:0 blue:0 alpha:1] font:tabFont]; // default tintColor
+    UIColor *textColor = [[UINavigationBar appearance] barTintColor];
+    [tabSwipe setNormalColor: textColor font:tabFont]; // default tintColor with alpha 0.8
+    [tabSwipe setSelectedColor: textColor font:tabFont]; // default tintColor
     [tabSwipe setIndicatorHeight:3.f]; // default 3.f
     [tabSwipe addShadow];
     
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"YOUR MUSIC";
-    titleLabel.textColor = [UIColor blackColor];
+    titleLabel.textColor = [[UINavigationBar appearance] tintColor];
     
     titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
     self.navigationItem.titleView = titleLabel;

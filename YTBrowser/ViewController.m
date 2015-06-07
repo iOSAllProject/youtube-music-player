@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import <AVFoundation/AVFoundation.h>
+#import "AHKActionSheet.h"
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -32,6 +33,8 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     BOOL isSeeking;
     MPMoviePlayerController *mPlayer;
     UIImageView *backgroundImage;
+    UIButton *playerSpeed;
+    AHKActionSheet *actionSheet;
 }
 @property (nonatomic) int counter;
 
@@ -66,9 +69,9 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     
     // loading multiple videos from url
 
-    CGFloat topPaddingBar = 65.0;
-    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 200)];
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 200)];
+    CGFloat topPaddingBar = 64.0;
+    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 180)];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 180)];
     // adding to subview
     [self.view addSubview:playerContainer];
     [self.view addSubview:topView];
@@ -117,7 +120,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     // sliderAction will respond to the updated slider value
     slider = [[UISlider alloc] initWithFrame:frame];
     [slider setValue:0.00];
-    [slider setTintColor:[UIColor redColor]];
+    [slider setTintColor:[[UINavigationBar appearance] barTintColor]];
     [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
     [slider setThumbImage:[[UIImage alloc] init] forState:UIControlStateNormal];
     [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
@@ -135,24 +138,43 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [self.view addSubview:elapsed];
     [self.view addSubview:duration];
     
+    UIColor *fontColor = [[UINavigationBar appearance] barTintColor];
     
-    CGFloat speed_button_size = 60.0;
-    UIButton *playerSpeed = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-speed_button_size/2, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
-    [playerSpeed setTitle:@"Speed 1x" forState:UIControlStateNormal ];
+    CGFloat speed_button_size = 70.0;
+    playerSpeed = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-speed_button_size/2, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
+    [playerSpeed setTitle:@"Normal Speed" forState:UIControlStateNormal ];
     playerSpeed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.0f];
-    [playerSpeed setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    [playerSpeed setTitleColor:fontColor forState:UIControlStateNormal];
     [playerSpeed addTarget:self
                    action:@selector(playbackSpeedChange:)
          forControlEvents:UIControlEventTouchUpInside];
+    playerSpeed.titleLabel.textAlignment =NSTextAlignmentCenter;
     [self.view addSubview:playerSpeed];
     
-    UIButton *shuffle = [[UIButton alloc] initWithFrame:CGRectMake(10.0, self.view.frame.size.height-30.0, 20, 20.0)];
-    [shuffle setImage:[UIImage imageNamed:@"shuffle"] forState:UIControlStateNormal];
+    UIButton *shuffle = [[UIButton alloc] initWithFrame:CGRectMake(10.0, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
+    [shuffle setTitle:@"Shuffle" forState:UIControlStateNormal];
+    shuffle.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.0f];
+    [shuffle setTitleColor:fontColor forState:UIControlStateNormal];
     [self.view addSubview:shuffle];
     
-    UIButton *loop = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-30, self.view.frame.size.height-30.0, 20, 20.0)];
-    [loop setImage:[UIImage imageNamed:@"loop"] forState:UIControlStateNormal];
+    UIButton *loop = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-speed_button_size, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
+    [loop setTitle:@"Loop" forState:UIControlStateNormal];
+    loop.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:11.0f];
+    [loop setTitleColor:fontColor forState:UIControlStateNormal];
     [self.view addSubview:loop];
+    
+    
+    CGFloat buttonSize = 40.0;
+    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - buttonSize/2, title.frame.origin.y +  ((slider.frame.origin.y/2) - title.frame.origin.y/2), buttonSize, buttonSize)];
+
+    
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
+    [self.view addSubview:moreOptions];
+    [moreOptions addTarget:self
+                    action:@selector(showMore:)
+          forControlEvents:UIControlEventTouchUpInside];
+    
+    
 
 }
 - (void)updateTime:(NSTimer *)timer {
@@ -281,32 +303,40 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
                                                      NSForegroundColorAttributeName : [UIColor redColor] };
     actionSheet.cancelButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
                                                 NSForegroundColorAttributeName : [UIColor whiteColor] };
+    CGFloat playBackspeed = 1.0;
     [actionSheet addButtonWithTitle:NSLocalizedString(@".5x", nil)
                               image:nil
                                type:AHKActionSheetButtonTypeDefault
                             handler:^(AHKActionSheet *as) {
-                                [mPlayer setCurrentPlaybackRate:0.5];
+                                [self updatePlayBackSpeed:0.5];
                             }];
     
     [actionSheet addButtonWithTitle:NSLocalizedString(@".75x", nil)
                               image:nil
                                type:AHKActionSheetButtonTypeDefault
                             handler:^(AHKActionSheet *as) {
-                                [mPlayer setCurrentPlaybackRate:0.75];
+                                [self updatePlayBackSpeed:0.75];
                             }];
     
-    [actionSheet addButtonWithTitle:NSLocalizedString(@"1x", nil)
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Normal Speed", nil)
                               image:nil
                                type:AHKActionSheetButtonTypeDefault
                             handler:^(AHKActionSheet *as) {
-                              [mPlayer setCurrentPlaybackRate:1];
+                              [self updatePlayBackSpeed:1];
+                            }];
+    
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"1.25x", nil)
+                              image:nil
+                               type:AHKActionSheetButtonTypeDefault
+                            handler:^(AHKActionSheet *as) {
+                                [self updatePlayBackSpeed:1.25];
                             }];
     
     [actionSheet addButtonWithTitle:NSLocalizedString(@"1.50x", nil)
                               image:nil
                                type:AHKActionSheetButtonTypeDefault
                             handler:^(AHKActionSheet *as) {
-                                [mPlayer setCurrentPlaybackRate:1.50];
+                                [self updatePlayBackSpeed:1.5];
                             }];
     
     
@@ -314,14 +344,14 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
                               image:nil
                                type:AHKActionSheetButtonTypeDefault
                             handler:^(AHKActionSheet *as) {
-                               [mPlayer setCurrentPlaybackRate:1.75];
+                               [self updatePlayBackSpeed:1.75];
                             }];
     
     [actionSheet addButtonWithTitle:NSLocalizedString(@"2.00x", nil)
                               image:nil
                                type:AHKActionSheetButtonTypeDefault
                             handler:^(AHKActionSheet *as) {
-                                [mPlayer setCurrentPlaybackRate:2.0];
+                                [self updatePlayBackSpeed:2.0];
                             }];
     
                                 
@@ -338,6 +368,15 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     actionSheet.headerView = headerView;
     
     [actionSheet show];
+}
+-(void) updatePlayBackSpeed:(CGFloat)speed {
+    [mPlayer setCurrentPlaybackRate:speed];
+    if(speed == 1.0f){
+        playerSpeed.titleLabel.text = @"Normal Speed";
+    } else {
+        playerSpeed.titleLabel.text = [NSString stringWithFormat:@"%.02fx", speed];
+    }
+     
 }
 
 
@@ -370,5 +409,98 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     }
     
 }
+-(void) showMore:(id) sender{
+    currentVideo =  [[MediaManager sharedInstance] getCurrentlyPlaying];
+    BOOL isInLibrary = [[MediaManager sharedInstance] isInLibrary:currentVideo];
+    actionSheet = [[AHKActionSheet alloc] initWithTitle:nil];
     
+    actionSheet.blurTintColor = [UIColor colorWithWhite:0.0f alpha:0.75f];
+    actionSheet.blurRadius = 8.0f;
+    actionSheet.buttonHeight = 50.0f;
+    actionSheet.cancelButtonHeight = 50.0f;
+    actionSheet.animationDuration = 0.5f;
+    actionSheet.cancelButtonShadowColor = [UIColor colorWithWhite:0.0f alpha:0.1f];
+    actionSheet.separatorColor = [UIColor colorWithWhite:1.0f alpha:0.3f];
+    actionSheet.selectedBackgroundColor = [UIColor colorWithWhite:0.0f alpha:0.5f];
+    UIFont *defaultFont = [UIFont fontWithName:@"Avenir" size:17.0f];
+    actionSheet.buttonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                          NSForegroundColorAttributeName : [UIColor whiteColor] };
+    actionSheet.disabledButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                                  NSForegroundColorAttributeName : [UIColor grayColor] };
+    actionSheet.destructiveButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                                     NSForegroundColorAttributeName : [UIColor redColor] };
+    actionSheet.cancelButtonTextAttributes = @{ NSFontAttributeName : defaultFont,
+                                                NSForegroundColorAttributeName : [UIColor whiteColor] };
+    
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+    // do UI stuff back in UI land
+    UIImageView *imageView = [[UIImageView alloc] init];
+    imageView.frame = CGRectMake(10, 10, 71, 40);
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSURL *url = [NSURL URLWithString:currentVideo.thumbnail];
+        NSData *data = [NSData dataWithContentsOfURL:url];
+        if (!data) {
+            //self.alpha = 0.3;
+            // got the photo, so lets show it
+            UIImage *image = [UIImage imageNamed:@"album-art-missing"];
+            UIImageView *imageViewDefault = [[UIImageView alloc] initWithImage:image];
+            
+            imageViewDefault.frame = CGRectMake(71/4+10,10,41, 41);
+            UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(10, 10, 71, 40)];
+            emptyView.backgroundColor = [UIColor blackColor];
+            [headerView addSubview:emptyView];
+            [headerView addSubview:imageViewDefault];
+            return;
+        }
+        
+        UIImage *image = [UIImage imageWithData:data];
+        imageView.image = image;
+        [headerView addSubview:imageView];
+    });
+    
+    UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(91, 20, 200, 20)];
+    label1.text = currentVideo.title;
+    label1.textColor = [UIColor whiteColor];
+    label1.font = [UIFont fontWithName:@"Avenir" size:17.0f];
+    label1.backgroundColor = [UIColor clearColor];
+    [headerView addSubview:label1];
+    actionSheet.headerView = headerView;
+    
+    if(!isInLibrary){
+    [actionSheet addButtonWithTitle:NSLocalizedString(@"Add to Favorites", nil)
+                              image:[UIImage imageNamed:@"Icon2"]
+                               type:AHKActionSheetButtonTypeDefault
+                            handler:^(AHKActionSheet *as) {
+                                [self insertSongToLibrary:currentVideo];
+                            }];
+    } else {
+        [actionSheet addButtonWithTitle:NSLocalizedString(@"Remove from Library", nil)
+                                  image:[UIImage imageNamed:@"icon4"]
+                                   type:AHKActionSheetButtonTypeDestructive
+                                handler:^(AHKActionSheet *as) {
+                                    NSLog(@"Delete tapped");
+                                }];
+    }
+    
+    [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"Share with Jukebox"]
+                              image:[UIImage imageNamed:@"Icon3"]
+                               type:AHKActionSheetButtonTypeDefault
+                            handler:nil];
+    
+    [actionSheet show];
+    
+}
+
+-(void) insertSongToLibrary:(VideoModel*)video {
+    JBCoreDataStack *coreDataStack = [JBCoreDataStack defaultStack];
+    Song *song = [NSEntityDescription insertNewObjectForEntityForName:@"Song" inManagedObjectContext:coreDataStack.managedObjectContext];
+    song.videoId = video.videoId;
+    song.title = video.title;
+    song.url = video.thumbnail;
+    NSLog(@"Saved %@ %@ %@", song.videoId, song.title, song.url);
+    [coreDataStack saveContext];
+    
+}
+
 @end

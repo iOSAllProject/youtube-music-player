@@ -7,340 +7,192 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		035594F902F5643E4869438F /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E3D01A9D6E5CF23362ECB4D /* RECommonFunctions.m */; };
-		03D84D5334E6EC80AC4EA344 /* XCDYouTubePlayerScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 24ADD22FF444AA1396697B0D /* XCDYouTubePlayerScript.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		16003500A231CC4F6D139D8A /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0320E1782AA8DFBD2FFD0B4C /* UIViewController+RESideMenu.m */; };
-		1A8544AC65A8D676B1FE41D7 /* XCDYouTubeVideo+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 653B76436275DA604E607376 /* XCDYouTubeVideo+Private.h */; };
-		1BB3EE2EBA336E94F22C21B8 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = E1185B0DA58EE811122F5103 /* RESideMenu.m */; };
-		23312F3FC7688A99DE618137 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD7053F113E756BBDF7E71C /* Foundation.framework */; };
-		28C82809303226B5F87D2242 /* XCDYouTubeError.h in Headers */ = {isa = PBXBuildFile; fileRef = 68732484E7D548B7461E6EC8 /* XCDYouTubeError.h */; };
-		2922E078A9DC972DBB296042 /* RECommonFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 904607CA3FB78555086C1E85 /* RECommonFunctions.h */; };
-		2DE8957B2523294337119B44 /* XCDYouTubeClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A27430F5138A6216176BB5 /* XCDYouTubeClient.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		3EB05A02AD0A80A6F274594B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B26777CB96D4E7A6DBBD32DF /* QuartzCore.framework */; };
-		4EB0C32C1720C7CC3C409A1B /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 701113E416C923CE0B765FF8 /* MediaPlayer.framework */; };
-		52075A14A23F1639CFD1C54C /* XCDYouTubeVideoOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 543287028831975931D40959 /* XCDYouTubeVideoOperation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		600CC421C5433B0869E86FE5 /* XCDYouTubeVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 469F22863D7872758CF497F4 /* XCDYouTubeVideo.h */; };
-		6A2505883217B56E8B08B3EF /* RESideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 8770894A99B53EC1ECBED0FF /* RESideMenu.h */; };
-		6D84E69B34A81A8812CC637A /* XCDYouTubeVideoPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F50580ACB5D07D25851D2AD3 /* XCDYouTubeVideoPlayerViewController.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		7598B0AA1EB7E12DCFBFE08A /* Pods-RESideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 313B4C680A7F95449E0B5517 /* Pods-RESideMenu-dummy.m */; };
-		7879BF416DBB467CAC9CD247 /* XCDYouTubeKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 18A023B7E82AC5F406D263AC /* XCDYouTubeKit.h */; };
-		7956E8BBFFF65BB8B04355E2 /* XCDYouTubeVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A215ED20FFE66833D5F43C2 /* XCDYouTubeVideo.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		9281D10E0456A486F71E251E /* XCDYouTubeVideoOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 28A0067512B295C064418943 /* XCDYouTubeVideoOperation.h */; };
-		9797D6169C6722B43053820E /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 95FA0DD778E9D3E9EA72D228 /* Pods-dummy.m */; };
-		998C52CA46F7A70025AF98AE /* XCDYouTubeClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ACF229A421EBFE09DD0EEE89 /* XCDYouTubeClient.h */; };
-		A0A254A3ABCF69A42D553EFB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD7053F113E756BBDF7E71C /* Foundation.framework */; };
-		C849BAAC6B56129F4AA87A6F /* XCDYouTubeOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = EAC0F9C9E623F3631381C278 /* XCDYouTubeOperation.h */; };
-		D5C298585B2D7D7014DFAEDD /* XCDYouTubeVideoPlayerViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A820F3EF6F002D57C7DF3C0 /* XCDYouTubeVideoPlayerViewController.h */; };
-		D702387D090A81F20EA76C2A /* XCDYouTubeVideoWebpage.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A53ADED498AC45920379799 /* XCDYouTubeVideoWebpage.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		DA217107C347F04DE3A42371 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBD7053F113E756BBDF7E71C /* Foundation.framework */; };
-		EB3F2AC8EA6B74C6FB6E8BCE /* XCDYouTubeVideoWebpage.h in Headers */ = {isa = PBXBuildFile; fileRef = A4EE5649FFD951A1614AFD22 /* XCDYouTubeVideoWebpage.h */; };
-		ECD22B6565F91960C950E2BC /* XCDYouTubePlayerScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 66D49136CE59B2496C4DC909 /* XCDYouTubePlayerScript.h */; };
-		F63F546B71287992332A83F5 /* Pods-XCDYouTubeKit-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E199097282AE51E428D3018 /* Pods-XCDYouTubeKit-dummy.m */; };
-		F958B472F2CA05FB12278991 /* UIViewController+RESideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 481C8B7B9A8D6FFC9E12AD16 /* UIViewController+RESideMenu.h */; };
+		3778BC5BC6A51B645A2DA0FE /* Pods-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 821ACD28123BDB1B87401106 /* Pods-dummy.m */; };
+		4665FBFC7423141F80AEE1B2 /* Pods-RESideMenu-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 383F3B0208D29217A56E79C6 /* Pods-RESideMenu-dummy.m */; };
+		79BC816D6453B08A58390555 /* RESideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 244A11CED348F9268D63BB6E /* RESideMenu.h */; };
+		7D66691D729B548AEAB64B2E /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = BF738316975CA97731E1B20F /* RECommonFunctions.m */; };
+		81434950405C5137272487B6 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C819AEC1716B8BECCE794213 /* UIViewController+RESideMenu.m */; };
+		895619010CB7096B7D1E8BEF /* UIViewController+RESideMenu.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D98D6E68172E96C90186F88 /* UIViewController+RESideMenu.h */; };
+		9B98BB29FDE6F32508875259 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = CA02836CD79677D969CEA900 /* RESideMenu.m */; };
+		ADC959A76805950F2B9A7DC3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7DBB87D513D34D6A4591BE0F /* QuartzCore.framework */; };
+		BAE7999E597FFEF6886D0394 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADAABA5ED2C7D1A908BB159 /* Foundation.framework */; };
+		F323FD6A81B97329CE52BE8C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7ADAABA5ED2C7D1A908BB159 /* Foundation.framework */; };
+		FA0746EB0EDBB643DCC3F255 /* RECommonFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = FB2744AF364E5E7294216318 /* RECommonFunctions.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4A0EC99C8D489A0BE4C6A1DC /* PBXContainerItemProxy */ = {
+		BE9E7FECBD1BC6080D47929C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 8F51966379F93690488B4491 /* Project object */;
+			containerPortal = 4CE6BA97F4D17047175721D4 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 3B116F31E9CC74416E80CCEB;
-			remoteInfo = "Pods-XCDYouTubeKit";
-		};
-		9D7436E9AEF56650E5EB5217 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8F51966379F93690488B4491 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = F270431E45349B225E45E28C;
+			remoteGlobalIDString = 01D04C382A843CCA9097CE70;
 			remoteInfo = "Pods-RESideMenu";
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0320E1782AA8DFBD2FFD0B4C /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+RESideMenu.m"; path = "RESideMenu/UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
-		0A820F3EF6F002D57C7DF3C0 /* XCDYouTubeVideoPlayerViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeVideoPlayerViewController.h; path = XCDYouTubeKit/XCDYouTubeVideoPlayerViewController.h; sourceTree = "<group>"; };
-		1646F1FE274D486A2037500E /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
-		18A023B7E82AC5F406D263AC /* XCDYouTubeKit.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeKit.h; path = XCDYouTubeKit/XCDYouTubeKit.h; sourceTree = "<group>"; };
-		19F151D9DC4AB97D090F6138 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
-		1E199097282AE51E428D3018 /* Pods-XCDYouTubeKit-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-XCDYouTubeKit-dummy.m"; sourceTree = "<group>"; };
-		24ADD22FF444AA1396697B0D /* XCDYouTubePlayerScript.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XCDYouTubePlayerScript.m; path = XCDYouTubeKit/XCDYouTubePlayerScript.m; sourceTree = "<group>"; };
-		28A0067512B295C064418943 /* XCDYouTubeVideoOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeVideoOperation.h; path = XCDYouTubeKit/XCDYouTubeVideoOperation.h; sourceTree = "<group>"; };
-		295A8CA341A43E17B7158CF7 /* libPods-XCDYouTubeKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-XCDYouTubeKit.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		313B4C680A7F95449E0B5517 /* Pods-RESideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RESideMenu-dummy.m"; sourceTree = "<group>"; };
-		3DB83EF86247F0619FDA7F04 /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		469F22863D7872758CF497F4 /* XCDYouTubeVideo.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeVideo.h; path = XCDYouTubeKit/XCDYouTubeVideo.h; sourceTree = "<group>"; };
-		481C8B7B9A8D6FFC9E12AD16 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+RESideMenu.h"; path = "RESideMenu/UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
-		4A53ADED498AC45920379799 /* XCDYouTubeVideoWebpage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XCDYouTubeVideoWebpage.m; path = XCDYouTubeKit/XCDYouTubeVideoWebpage.m; sourceTree = "<group>"; };
-		543287028831975931D40959 /* XCDYouTubeVideoOperation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XCDYouTubeVideoOperation.m; path = XCDYouTubeKit/XCDYouTubeVideoOperation.m; sourceTree = "<group>"; };
-		5CC5E866ACD4563C5B82A6DC /* libPods-RESideMenu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RESideMenu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D8C6D1E875B8E31C1C0608E /* Pods-XCDYouTubeKit-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-XCDYouTubeKit-prefix.pch"; sourceTree = "<group>"; };
-		600078F775FF622A301E3E49 /* Pods-RESideMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RESideMenu.xcconfig"; sourceTree = "<group>"; };
-		653B76436275DA604E607376 /* XCDYouTubeVideo+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "XCDYouTubeVideo+Private.h"; path = "XCDYouTubeKit/XCDYouTubeVideo+Private.h"; sourceTree = "<group>"; };
-		66D49136CE59B2496C4DC909 /* XCDYouTubePlayerScript.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubePlayerScript.h; path = XCDYouTubeKit/XCDYouTubePlayerScript.h; sourceTree = "<group>"; };
-		66EA7575EFA026413B56728D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		68732484E7D548B7461E6EC8 /* XCDYouTubeError.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeError.h; path = XCDYouTubeKit/XCDYouTubeError.h; sourceTree = "<group>"; };
-		69CEB79D178CC24DBD2FC8C6 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
-		701113E416C923CE0B765FF8 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/MediaPlayer.framework; sourceTree = DEVELOPER_DIR; };
-		8770894A99B53EC1ECBED0FF /* RESideMenu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RESideMenu.h; path = RESideMenu/RESideMenu.h; sourceTree = "<group>"; };
-		8A215ED20FFE66833D5F43C2 /* XCDYouTubeVideo.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XCDYouTubeVideo.m; path = XCDYouTubeKit/XCDYouTubeVideo.m; sourceTree = "<group>"; };
-		8C59A0159ED29FA261D3C4F3 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
-		904607CA3FB78555086C1E85 /* RECommonFunctions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RECommonFunctions.h; path = RESideMenu/RECommonFunctions.h; sourceTree = "<group>"; };
-		94BF6EE2C150F52A1BB8A243 /* Pods-XCDYouTubeKit-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-XCDYouTubeKit-Private.xcconfig"; sourceTree = "<group>"; };
-		95FA0DD778E9D3E9EA72D228 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
-		9E3D01A9D6E5CF23362ECB4D /* RECommonFunctions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RECommonFunctions.m; path = RESideMenu/RECommonFunctions.m; sourceTree = "<group>"; };
-		A4EE5649FFD951A1614AFD22 /* XCDYouTubeVideoWebpage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeVideoWebpage.h; path = XCDYouTubeKit/XCDYouTubeVideoWebpage.h; sourceTree = "<group>"; };
-		A5B942AB0DF5954B808812C1 /* Pods-RESideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RESideMenu-prefix.pch"; sourceTree = "<group>"; };
-		A8DC8993D969884F785101FB /* Pods-XCDYouTubeKit.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-XCDYouTubeKit.xcconfig"; sourceTree = "<group>"; };
-		ACF229A421EBFE09DD0EEE89 /* XCDYouTubeClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeClient.h; path = XCDYouTubeKit/XCDYouTubeClient.h; sourceTree = "<group>"; };
-		B26777CB96D4E7A6DBBD32DF /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		C6648B4D6514DD15EA9EFDFA /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
-		D7A27430F5138A6216176BB5 /* XCDYouTubeClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XCDYouTubeClient.m; path = XCDYouTubeKit/XCDYouTubeClient.m; sourceTree = "<group>"; };
-		E1185B0DA58EE811122F5103 /* RESideMenu.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RESideMenu.m; path = RESideMenu/RESideMenu.m; sourceTree = "<group>"; };
-		E52C286D75487E7666A68D86 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
-		EAC0F9C9E623F3631381C278 /* XCDYouTubeOperation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = XCDYouTubeOperation.h; path = XCDYouTubeKit/XCDYouTubeOperation.h; sourceTree = "<group>"; };
-		EBD7053F113E756BBDF7E71C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		F50580ACB5D07D25851D2AD3 /* XCDYouTubeVideoPlayerViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = XCDYouTubeVideoPlayerViewController.m; path = XCDYouTubeKit/XCDYouTubeVideoPlayerViewController.m; sourceTree = "<group>"; };
-		F90D988224E69844F03567A2 /* Pods-RESideMenu-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RESideMenu-Private.xcconfig"; sourceTree = "<group>"; };
+		23F66FBBC320551336BDFD1A /* Pods-RESideMenu-Private.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RESideMenu-Private.xcconfig"; sourceTree = "<group>"; };
+		244A11CED348F9268D63BB6E /* RESideMenu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RESideMenu.h; path = RESideMenu/RESideMenu.h; sourceTree = "<group>"; };
+		383F3B0208D29217A56E79C6 /* Pods-RESideMenu-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-RESideMenu-dummy.m"; sourceTree = "<group>"; };
+		52C6891B83AD7DFA06F1668C /* Pods-RESideMenu.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-RESideMenu.xcconfig"; sourceTree = "<group>"; };
+		553CBCBDC961D6DABB51F03E /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		5D98D6E68172E96C90186F88 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+RESideMenu.h"; path = "RESideMenu/UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		7ADAABA5ED2C7D1A908BB159 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		7DBB87D513D34D6A4591BE0F /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.3.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		821ACD28123BDB1B87401106 /* Pods-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-dummy.m"; sourceTree = "<group>"; };
+		8DBF9253C629A35925628404 /* libPods-RESideMenu.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-RESideMenu.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9097DFD977CDC0419FE97B26 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC47F66437A6899B555539A7 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.release.xcconfig; sourceTree = "<group>"; };
+		BF738316975CA97731E1B20F /* RECommonFunctions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RECommonFunctions.m; path = RESideMenu/RECommonFunctions.m; sourceTree = "<group>"; };
+		C819AEC1716B8BECCE794213 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+RESideMenu.m"; path = "RESideMenu/UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		CA02836CD79677D969CEA900 /* RESideMenu.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RESideMenu.m; path = RESideMenu/RESideMenu.m; sourceTree = "<group>"; };
+		CC6FA0009E3490AB419D8E23 /* Pods-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-resources.sh"; sourceTree = "<group>"; };
+		D2FEEA9E4286364AC66230BC /* Pods-RESideMenu-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-RESideMenu-prefix.pch"; sourceTree = "<group>"; };
+		D3F10DBA4DF9460FC61A4CA3 /* Pods-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-acknowledgements.markdown"; sourceTree = "<group>"; };
+		D71181E3F67D5CA7C58F5115 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Pods.debug.xcconfig; sourceTree = "<group>"; };
+		DA51A392E4F0FE3ED08E13CE /* Pods-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-acknowledgements.plist"; sourceTree = "<group>"; };
+		F868E479A611C58ABE9B1174 /* Pods-environment.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-environment.h"; sourceTree = "<group>"; };
+		FB2744AF364E5E7294216318 /* RECommonFunctions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RECommonFunctions.h; path = RESideMenu/RECommonFunctions.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3E1A950A99DC6B33941BD152 /* Frameworks */ = {
+		377E3A9E95C560D5447F9093 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA217107C347F04DE3A42371 /* Foundation.framework in Frameworks */,
-				3EB05A02AD0A80A6F274594B /* QuartzCore.framework in Frameworks */,
+				F323FD6A81B97329CE52BE8C /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		558619B1DD857FD12416C857 /* Frameworks */ = {
+		71FC09110EB51CB760D290A2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0A254A3ABCF69A42D553EFB /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A4B6FC0098D1F46E2E42CFD9 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				23312F3FC7688A99DE618137 /* Foundation.framework in Frameworks */,
-				4EB0C32C1720C7CC3C409A1B /* MediaPlayer.framework in Frameworks */,
+				BAE7999E597FFEF6886D0394 /* Foundation.framework in Frameworks */,
+				ADC959A76805950F2B9A7DC3 /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1B1C8D4925E6BF6F4067BF56 /* Targets Support Files */ = {
+		21BC73D0438BEB664293AD95 /* RESideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				A5D9DC206B22BA058325DF17 /* Pods */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		51131DB1B6E7BAA396B84295 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				A8DC8993D969884F785101FB /* Pods-XCDYouTubeKit.xcconfig */,
-				94BF6EE2C150F52A1BB8A243 /* Pods-XCDYouTubeKit-Private.xcconfig */,
-				1E199097282AE51E428D3018 /* Pods-XCDYouTubeKit-dummy.m */,
-				5D8C6D1E875B8E31C1C0608E /* Pods-XCDYouTubeKit-prefix.pch */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/Pods-XCDYouTubeKit";
-			sourceTree = "<group>";
-		};
-		9A2C4D661BD6EB36376982BB /* XCDYouTubeKit */ = {
-			isa = PBXGroup;
-			children = (
-				ACF229A421EBFE09DD0EEE89 /* XCDYouTubeClient.h */,
-				D7A27430F5138A6216176BB5 /* XCDYouTubeClient.m */,
-				68732484E7D548B7461E6EC8 /* XCDYouTubeError.h */,
-				18A023B7E82AC5F406D263AC /* XCDYouTubeKit.h */,
-				EAC0F9C9E623F3631381C278 /* XCDYouTubeOperation.h */,
-				66D49136CE59B2496C4DC909 /* XCDYouTubePlayerScript.h */,
-				24ADD22FF444AA1396697B0D /* XCDYouTubePlayerScript.m */,
-				469F22863D7872758CF497F4 /* XCDYouTubeVideo.h */,
-				8A215ED20FFE66833D5F43C2 /* XCDYouTubeVideo.m */,
-				653B76436275DA604E607376 /* XCDYouTubeVideo+Private.h */,
-				28A0067512B295C064418943 /* XCDYouTubeVideoOperation.h */,
-				543287028831975931D40959 /* XCDYouTubeVideoOperation.m */,
-				0A820F3EF6F002D57C7DF3C0 /* XCDYouTubeVideoPlayerViewController.h */,
-				F50580ACB5D07D25851D2AD3 /* XCDYouTubeVideoPlayerViewController.m */,
-				A4EE5649FFD951A1614AFD22 /* XCDYouTubeVideoWebpage.h */,
-				4A53ADED498AC45920379799 /* XCDYouTubeVideoWebpage.m */,
-				51131DB1B6E7BAA396B84295 /* Support Files */,
-			);
-			path = XCDYouTubeKit;
-			sourceTree = "<group>";
-		};
-		9ED6B115A74E9965D7656888 /* RESideMenu */ = {
-			isa = PBXGroup;
-			children = (
-				904607CA3FB78555086C1E85 /* RECommonFunctions.h */,
-				9E3D01A9D6E5CF23362ECB4D /* RECommonFunctions.m */,
-				8770894A99B53EC1ECBED0FF /* RESideMenu.h */,
-				E1185B0DA58EE811122F5103 /* RESideMenu.m */,
-				481C8B7B9A8D6FFC9E12AD16 /* UIViewController+RESideMenu.h */,
-				0320E1782AA8DFBD2FFD0B4C /* UIViewController+RESideMenu.m */,
-				C5F47139961D8BAE2A7C9954 /* Support Files */,
+				FB2744AF364E5E7294216318 /* RECommonFunctions.h */,
+				BF738316975CA97731E1B20F /* RECommonFunctions.m */,
+				244A11CED348F9268D63BB6E /* RESideMenu.h */,
+				CA02836CD79677D969CEA900 /* RESideMenu.m */,
+				5D98D6E68172E96C90186F88 /* UIViewController+RESideMenu.h */,
+				C819AEC1716B8BECCE794213 /* UIViewController+RESideMenu.m */,
+				F7C067D10162B73FE3B15933 /* Support Files */,
 			);
 			path = RESideMenu;
 			sourceTree = "<group>";
 		};
-		A5D9DC206B22BA058325DF17 /* Pods */ = {
+		21D818E03100FDFB98B1CE12 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8C59A0159ED29FA261D3C4F3 /* Pods-acknowledgements.markdown */,
-				1646F1FE274D486A2037500E /* Pods-acknowledgements.plist */,
-				95FA0DD778E9D3E9EA72D228 /* Pods-dummy.m */,
-				C6648B4D6514DD15EA9EFDFA /* Pods-environment.h */,
-				69CEB79D178CC24DBD2FC8C6 /* Pods-resources.sh */,
-				E52C286D75487E7666A68D86 /* Pods.debug.xcconfig */,
-				19F151D9DC4AB97D090F6138 /* Pods.release.xcconfig */,
+				3A307C84EF074C276A70CF22 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3A307C84EF074C276A70CF22 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				7ADAABA5ED2C7D1A908BB159 /* Foundation.framework */,
+				7DBB87D513D34D6A4591BE0F /* QuartzCore.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		5EF076B6B9A44988AD3B6F4E /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				A855F1D41881E4211786EAF9 /* Pods */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		787093072A88A1192564F914 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9097DFD977CDC0419FE97B26 /* libPods.a */,
+				8DBF9253C629A35925628404 /* libPods-RESideMenu.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A855F1D41881E4211786EAF9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D3F10DBA4DF9460FC61A4CA3 /* Pods-acknowledgements.markdown */,
+				DA51A392E4F0FE3ED08E13CE /* Pods-acknowledgements.plist */,
+				821ACD28123BDB1B87401106 /* Pods-dummy.m */,
+				F868E479A611C58ABE9B1174 /* Pods-environment.h */,
+				CC6FA0009E3490AB419D8E23 /* Pods-resources.sh */,
+				D71181E3F67D5CA7C58F5115 /* Pods.debug.xcconfig */,
+				BC47F66437A6899B555539A7 /* Pods.release.xcconfig */,
 			);
 			name = Pods;
 			path = "Target Support Files/Pods";
 			sourceTree = "<group>";
 		};
-		BEF2173384511464B3E65F8C /* Frameworks */ = {
+		CD9D7A47DC1AA4AF76595CDA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				D397555FEDC64E0B600AD9FC /* iOS */,
+				21BC73D0438BEB664293AD95 /* RESideMenu */,
 			);
-			name = Frameworks;
+			name = Pods;
 			sourceTree = "<group>";
 		};
-		C5F47139961D8BAE2A7C9954 /* Support Files */ = {
+		EFEEEE0B0C71DF90EA01613C = {
 			isa = PBXGroup;
 			children = (
-				600078F775FF622A301E3E49 /* Pods-RESideMenu.xcconfig */,
-				F90D988224E69844F03567A2 /* Pods-RESideMenu-Private.xcconfig */,
-				313B4C680A7F95449E0B5517 /* Pods-RESideMenu-dummy.m */,
-				A5B942AB0DF5954B808812C1 /* Pods-RESideMenu-prefix.pch */,
+				553CBCBDC961D6DABB51F03E /* Podfile */,
+				21D818E03100FDFB98B1CE12 /* Frameworks */,
+				CD9D7A47DC1AA4AF76595CDA /* Pods */,
+				787093072A88A1192564F914 /* Products */,
+				5EF076B6B9A44988AD3B6F4E /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		F7C067D10162B73FE3B15933 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				52C6891B83AD7DFA06F1668C /* Pods-RESideMenu.xcconfig */,
+				23F66FBBC320551336BDFD1A /* Pods-RESideMenu-Private.xcconfig */,
+				383F3B0208D29217A56E79C6 /* Pods-RESideMenu-dummy.m */,
+				D2FEEA9E4286364AC66230BC /* Pods-RESideMenu-prefix.pch */,
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Pods-RESideMenu";
 			sourceTree = "<group>";
 		};
-		D397555FEDC64E0B600AD9FC /* iOS */ = {
-			isa = PBXGroup;
-			children = (
-				EBD7053F113E756BBDF7E71C /* Foundation.framework */,
-				701113E416C923CE0B765FF8 /* MediaPlayer.framework */,
-				B26777CB96D4E7A6DBBD32DF /* QuartzCore.framework */,
-			);
-			name = iOS;
-			sourceTree = "<group>";
-		};
-		FA32B24DF2A65ECD4AA12862 = {
-			isa = PBXGroup;
-			children = (
-				3DB83EF86247F0619FDA7F04 /* Podfile */,
-				BEF2173384511464B3E65F8C /* Frameworks */,
-				FE08B77A995E91AFB7E07A40 /* Pods */,
-				FD8DAA9C6E22F2409F655A22 /* Products */,
-				1B1C8D4925E6BF6F4067BF56 /* Targets Support Files */,
-			);
-			sourceTree = "<group>";
-		};
-		FD8DAA9C6E22F2409F655A22 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				66EA7575EFA026413B56728D /* libPods.a */,
-				5CC5E866ACD4563C5B82A6DC /* libPods-RESideMenu.a */,
-				295A8CA341A43E17B7158CF7 /* libPods-XCDYouTubeKit.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		FE08B77A995E91AFB7E07A40 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				9ED6B115A74E9965D7656888 /* RESideMenu */,
-				9A2C4D661BD6EB36376982BB /* XCDYouTubeKit */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		02195BD29A8AC09173289BFA /* Headers */ = {
+		7D710888C847A04B3D4D6E6F /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2922E078A9DC972DBB296042 /* RECommonFunctions.h in Headers */,
-				6A2505883217B56E8B08B3EF /* RESideMenu.h in Headers */,
-				F958B472F2CA05FB12278991 /* UIViewController+RESideMenu.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7A95D3FEBC73EBA9A47F48A5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				998C52CA46F7A70025AF98AE /* XCDYouTubeClient.h in Headers */,
-				28C82809303226B5F87D2242 /* XCDYouTubeError.h in Headers */,
-				7879BF416DBB467CAC9CD247 /* XCDYouTubeKit.h in Headers */,
-				C849BAAC6B56129F4AA87A6F /* XCDYouTubeOperation.h in Headers */,
-				ECD22B6565F91960C950E2BC /* XCDYouTubePlayerScript.h in Headers */,
-				1A8544AC65A8D676B1FE41D7 /* XCDYouTubeVideo+Private.h in Headers */,
-				600CC421C5433B0869E86FE5 /* XCDYouTubeVideo.h in Headers */,
-				9281D10E0456A486F71E251E /* XCDYouTubeVideoOperation.h in Headers */,
-				D5C298585B2D7D7014DFAEDD /* XCDYouTubeVideoPlayerViewController.h in Headers */,
-				EB3F2AC8EA6B74C6FB6E8BCE /* XCDYouTubeVideoWebpage.h in Headers */,
+				FA0746EB0EDBB643DCC3F255 /* RECommonFunctions.h in Headers */,
+				79BC816D6453B08A58390555 /* RESideMenu.h in Headers */,
+				895619010CB7096B7D1E8BEF /* UIViewController+RESideMenu.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		3B116F31E9CC74416E80CCEB /* Pods-XCDYouTubeKit */ = {
+		01D04C382A843CCA9097CE70 /* Pods-RESideMenu */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F3202E692EEF34CF61AD58C2 /* Build configuration list for PBXNativeTarget "Pods-XCDYouTubeKit" */;
+			buildConfigurationList = 98B4871515DC0BA9E2768918 /* Build configuration list for PBXNativeTarget "Pods-RESideMenu" */;
 			buildPhases = (
-				85B175665C43CE5452377C44 /* Sources */,
-				A4B6FC0098D1F46E2E42CFD9 /* Frameworks */,
-				7A95D3FEBC73EBA9A47F48A5 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Pods-XCDYouTubeKit";
-			productName = "Pods-XCDYouTubeKit";
-			productReference = 295A8CA341A43E17B7158CF7 /* libPods-XCDYouTubeKit.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		BD40E53683420938CC83257D /* Pods */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C31484CD2C8AC674FB9BF4CE /* Build configuration list for PBXNativeTarget "Pods" */;
-			buildPhases = (
-				57A1B929AC39361EDE393CE6 /* Sources */,
-				558619B1DD857FD12416C857 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				BEC32517F5C5AD1D068DCF5B /* PBXTargetDependency */,
-				4F0075F73AA65EC211FECE46 /* PBXTargetDependency */,
-			);
-			name = Pods;
-			productName = Pods;
-			productReference = 66EA7575EFA026413B56728D /* libPods.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		F270431E45349B225E45E28C /* Pods-RESideMenu */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7463032618F85EFA6C5FE3B9 /* Build configuration list for PBXNativeTarget "Pods-RESideMenu" */;
-			buildPhases = (
-				94D4AB41E7BFE7293920AC81 /* Sources */,
-				3E1A950A99DC6B33941BD152 /* Frameworks */,
-				02195BD29A8AC09173289BFA /* Headers */,
+				D50BAC2A5CDC81DF21F7D845 /* Sources */,
+				71FC09110EB51CB760D290A2 /* Frameworks */,
+				7D710888C847A04B3D4D6E6F /* Headers */,
 			);
 			buildRules = (
 			);
@@ -348,121 +200,85 @@
 			);
 			name = "Pods-RESideMenu";
 			productName = "Pods-RESideMenu";
-			productReference = 5CC5E866ACD4563C5B82A6DC /* libPods-RESideMenu.a */;
+			productReference = 8DBF9253C629A35925628404 /* libPods-RESideMenu.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		7DDC777E1EA8ACA118301099 /* Pods */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 26CA44B11CBC77DE99EE9F4B /* Build configuration list for PBXNativeTarget "Pods" */;
+			buildPhases = (
+				659092AAFE05298FB0D20251 /* Sources */,
+				377E3A9E95C560D5447F9093 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				133DAE1E6C45BFBBCFEF729C /* PBXTargetDependency */,
+			);
+			name = Pods;
+			productName = Pods;
+			productReference = 9097DFD977CDC0419FE97B26 /* libPods.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		8F51966379F93690488B4491 /* Project object */ = {
+		4CE6BA97F4D17047175721D4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0640;
 			};
-			buildConfigurationList = 964D96EB9DB51FF410210271 /* Build configuration list for PBXProject "Pods" */;
+			buildConfigurationList = 8EAAE74D25F9A2F1C952738C /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = FA32B24DF2A65ECD4AA12862;
-			productRefGroup = FD8DAA9C6E22F2409F655A22 /* Products */;
+			mainGroup = EFEEEE0B0C71DF90EA01613C;
+			productRefGroup = 787093072A88A1192564F914 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD40E53683420938CC83257D /* Pods */,
-				F270431E45349B225E45E28C /* Pods-RESideMenu */,
-				3B116F31E9CC74416E80CCEB /* Pods-XCDYouTubeKit */,
+				7DDC777E1EA8ACA118301099 /* Pods */,
+				01D04C382A843CCA9097CE70 /* Pods-RESideMenu */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		57A1B929AC39361EDE393CE6 /* Sources */ = {
+		659092AAFE05298FB0D20251 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9797D6169C6722B43053820E /* Pods-dummy.m in Sources */,
+				3778BC5BC6A51B645A2DA0FE /* Pods-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		85B175665C43CE5452377C44 /* Sources */ = {
+		D50BAC2A5CDC81DF21F7D845 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F63F546B71287992332A83F5 /* Pods-XCDYouTubeKit-dummy.m in Sources */,
-				2DE8957B2523294337119B44 /* XCDYouTubeClient.m in Sources */,
-				03D84D5334E6EC80AC4EA344 /* XCDYouTubePlayerScript.m in Sources */,
-				7956E8BBFFF65BB8B04355E2 /* XCDYouTubeVideo.m in Sources */,
-				52075A14A23F1639CFD1C54C /* XCDYouTubeVideoOperation.m in Sources */,
-				6D84E69B34A81A8812CC637A /* XCDYouTubeVideoPlayerViewController.m in Sources */,
-				D702387D090A81F20EA76C2A /* XCDYouTubeVideoWebpage.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		94D4AB41E7BFE7293920AC81 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7598B0AA1EB7E12DCFBFE08A /* Pods-RESideMenu-dummy.m in Sources */,
-				035594F902F5643E4869438F /* RECommonFunctions.m in Sources */,
-				1BB3EE2EBA336E94F22C21B8 /* RESideMenu.m in Sources */,
-				16003500A231CC4F6D139D8A /* UIViewController+RESideMenu.m in Sources */,
+				4665FBFC7423141F80AEE1B2 /* Pods-RESideMenu-dummy.m in Sources */,
+				7D66691D729B548AEAB64B2E /* RECommonFunctions.m in Sources */,
+				9B98BB29FDE6F32508875259 /* RESideMenu.m in Sources */,
+				81434950405C5137272487B6 /* UIViewController+RESideMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4F0075F73AA65EC211FECE46 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Pods-XCDYouTubeKit";
-			target = 3B116F31E9CC74416E80CCEB /* Pods-XCDYouTubeKit */;
-			targetProxy = 4A0EC99C8D489A0BE4C6A1DC /* PBXContainerItemProxy */;
-		};
-		BEC32517F5C5AD1D068DCF5B /* PBXTargetDependency */ = {
+		133DAE1E6C45BFBBCFEF729C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "Pods-RESideMenu";
-			target = F270431E45349B225E45E28C /* Pods-RESideMenu */;
-			targetProxy = 9D7436E9AEF56650E5EB5217 /* PBXContainerItemProxy */;
+			target = 01D04C382A843CCA9097CE70 /* Pods-RESideMenu */;
+			targetProxy = BE9E7FECBD1BC6080D47929C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		06E8A3BF38837DB9C5209655 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F90D988224E69844F03567A2 /* Pods-RESideMenu-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-RESideMenu/Pods-RESideMenu-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		47C169FB13274D2E5EF0E091 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94BF6EE2C150F52A1BB8A243 /* Pods-XCDYouTubeKit-Private.xcconfig */;
-			buildSettings = {
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-XCDYouTubeKit/Pods-XCDYouTubeKit-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		4E9B281C0F452D16E494D8D4 /* Release */ = {
+		070C3F9C2F9FEB872FD9C7CB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -496,25 +312,25 @@
 			};
 			name = Release;
 		};
-		666A09393716ACCF8643EFF2 /* Release */ = {
+		17ACBB7B33F4DF57D1B8AAF9 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 19F151D9DC4AB97D090F6138 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 23F66FBBC320551336BDFD1A /* Pods-RESideMenu-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/Pods-RESideMenu/Pods-RESideMenu-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
-		6A7AE243B4B329F62AE83336 /* Debug */ = {
+		5C2C830B7D9E7D554CF17F8F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F90D988224E69844F03567A2 /* Pods-RESideMenu-Private.xcconfig */;
+			baseConfigurationReference = 23F66FBBC320551336BDFD1A /* Pods-RESideMenu-Private.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/Pods-RESideMenu/Pods-RESideMenu-prefix.pch";
@@ -528,25 +344,25 @@
 			};
 			name = Debug;
 		};
-		81E00BDD8689295F950D68A8 /* Release */ = {
+		96EEDC06097ABB70291F4DF3 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94BF6EE2C150F52A1BB8A243 /* Pods-XCDYouTubeKit-Private.xcconfig */;
+			baseConfigurationReference = BC47F66437A6899B555539A7 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_PREFIX_HEADER = "Target Support Files/Pods-XCDYouTubeKit/Pods-XCDYouTubeKit-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
-		8C4375C3FB797C802DB8833D /* Debug */ = {
+		B66E7D4B122D7E6FC5D6F21E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E52C286D75487E7666A68D86 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = D71181E3F67D5CA7C58F5115 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -560,7 +376,7 @@
 			};
 			name = Debug;
 		};
-		A51C4C065F7EA8AD3134AAE4 /* Debug */ = {
+		EE3C5E46AF37B0BE5B1AE68D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -602,43 +418,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7463032618F85EFA6C5FE3B9 /* Build configuration list for PBXNativeTarget "Pods-RESideMenu" */ = {
+		26CA44B11CBC77DE99EE9F4B /* Build configuration list for PBXNativeTarget "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				6A7AE243B4B329F62AE83336 /* Debug */,
-				06E8A3BF38837DB9C5209655 /* Release */,
+				B66E7D4B122D7E6FC5D6F21E /* Debug */,
+				96EEDC06097ABB70291F4DF3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		964D96EB9DB51FF410210271 /* Build configuration list for PBXProject "Pods" */ = {
+		8EAAE74D25F9A2F1C952738C /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A51C4C065F7EA8AD3134AAE4 /* Debug */,
-				4E9B281C0F452D16E494D8D4 /* Release */,
+				EE3C5E46AF37B0BE5B1AE68D /* Debug */,
+				070C3F9C2F9FEB872FD9C7CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C31484CD2C8AC674FB9BF4CE /* Build configuration list for PBXNativeTarget "Pods" */ = {
+		98B4871515DC0BA9E2768918 /* Build configuration list for PBXNativeTarget "Pods-RESideMenu" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8C4375C3FB797C802DB8833D /* Debug */,
-				666A09393716ACCF8643EFF2 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		F3202E692EEF34CF61AD58C2 /* Build configuration list for PBXNativeTarget "Pods-XCDYouTubeKit" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				47C169FB13274D2E5EF0E091 /* Debug */,
-				81E00BDD8689295F950D68A8 /* Release */,
+				5C2C830B7D9E7D554CF17F8F /* Debug */,
+				17ACBB7B33F4DF57D1B8AAF9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 8F51966379F93690488B4491 /* Project object */;
+	rootObject = 4CE6BA97F4D17047175721D4 /* Project object */;
 }
