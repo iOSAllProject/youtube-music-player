@@ -475,12 +475,12 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
                                 [self insertSongToLibrary:currentVideo];
                             }];
     } else {
-        [actionSheet addButtonWithTitle:NSLocalizedString(@"Remove from Library", nil)
+    /*    [actionSheet addButtonWithTitle:NSLocalizedString(@"Remove from Library", nil)
                                   image:[UIImage imageNamed:@"icon4"]
                                    type:AHKActionSheetButtonTypeDestructive
                                 handler:^(AHKActionSheet *as) {
                                     NSLog(@"Delete tapped");
-                                }];
+                                }];*/
     }
     
     [actionSheet addButtonWithTitle:[NSString stringWithFormat:@"Share with Jukebox"]

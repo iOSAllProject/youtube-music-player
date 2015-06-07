@@ -58,7 +58,7 @@
         if(counter == [_fetchedResultsController.fetchedObjects count])
             drawLine = NO;
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,55) withLine:drawLine];
+        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];

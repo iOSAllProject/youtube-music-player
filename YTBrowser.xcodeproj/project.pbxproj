@@ -38,6 +38,7 @@
 		309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309AE31D1B094D1B004CF1E2 /* CoreData.framework */; };
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
 		30B44DCD1B2424B5008CBD69 /* libXCDYouTubeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */; };
+		30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */; };
 		30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F663401AECD24A00CF0C12 /* Images.xcassets */; };
 		9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */; };
 		9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB3A116BAE6AE00C8AB3A /* JSONModelArray.m */; };
@@ -61,15 +62,7 @@
 		9CA62439169592FB003F6334 /* PhotoBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62438169592FB003F6334 /* PhotoBox.m */; };
 		9CA6246D169598BC003F6334 /* VideoLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62468169598BC003F6334 /* VideoLink.m */; };
 		9CA6246E169598BC003F6334 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6246A169598BC003F6334 /* VideoModel.m */; };
-		9CBC4F641695DABA00FFE7B9 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F591695DABA00FFE7B9 /* Default-568h@2x.png */; };
-		9CBC4F651695DABA00FFE7B9 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F5A1695DABA00FFE7B9 /* Default.png */; };
-		9CBC4F661695DABA00FFE7B9 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F5B1695DABA00FFE7B9 /* Default@2x.png */; };
-		9CBC4F671695DABA00FFE7B9 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F5C1695DABA00FFE7B9 /* Icon-72.png */; };
-		9CBC4F681695DABA00FFE7B9 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F5D1695DABA00FFE7B9 /* Icon-Small-50.png */; };
-		9CBC4F691695DABA00FFE7B9 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F5E1695DABA00FFE7B9 /* Icon-Small.png */; };
-		9CBC4F6A1695DABA00FFE7B9 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F5F1695DABA00FFE7B9 /* Icon-Small@2x.png */; };
 		9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */; };
-		9CBC4F6E1695DABA00FFE7B9 /* tcm-520.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F631695DABA00FFE7B9 /* tcm-520.png */; };
 		9CBC4F701695DAE000FFE7B9 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F6F1695DAE000FFE7B9 /* Icon.png */; };
 		9CBC4F721695DAEA00FFE7B9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */; };
 		A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */; };
@@ -140,6 +133,7 @@
 		309AE31D1B094D1B004CF1E2 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		309AE3201B094D61004CF1E2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "../../../Downloads/XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
+		30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9BB39E16BAE6AE00C8AB3A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
@@ -184,15 +178,7 @@
 		9CA62468169598BC003F6334 /* VideoLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoLink.m; sourceTree = "<group>"; };
 		9CA62469169598BC003F6334 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
 		9CA6246A169598BC003F6334 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
-		9CBC4F591695DABA00FFE7B9 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		9CBC4F5A1695DABA00FFE7B9 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		9CBC4F5B1695DABA00FFE7B9 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		9CBC4F5C1695DABA00FFE7B9 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
-		9CBC4F5D1695DABA00FFE7B9 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		9CBC4F5E1695DABA00FFE7B9 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		9CBC4F5F1695DABA00FFE7B9 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
-		9CBC4F631695DABA00FFE7B9 /* tcm-520.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tcm-520.png"; sourceTree = "<group>"; };
 		9CBC4F6F1695DAE000FFE7B9 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -404,6 +390,7 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */,
 				309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */,
 				309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */,
 				3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */,
@@ -438,15 +425,7 @@
 			children = (
 				9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */,
 				9CBC4F6F1695DAE000FFE7B9 /* Icon.png */,
-				9CBC4F591695DABA00FFE7B9 /* Default-568h@2x.png */,
-				9CBC4F5A1695DABA00FFE7B9 /* Default.png */,
-				9CBC4F5B1695DABA00FFE7B9 /* Default@2x.png */,
-				9CBC4F5C1695DABA00FFE7B9 /* Icon-72.png */,
-				9CBC4F5D1695DABA00FFE7B9 /* Icon-Small-50.png */,
-				9CBC4F5E1695DABA00FFE7B9 /* Icon-Small.png */,
-				9CBC4F5F1695DABA00FFE7B9 /* Icon-Small@2x.png */,
 				9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */,
-				9CBC4F631695DABA00FFE7B9 /* tcm-520.png */,
 				9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */,
 				9CA623E5169591AC003F6334 /* Info.plist */,
 				9CA623E8169591AC003F6334 /* main.m */,
@@ -521,16 +500,9 @@
 			files = (
 				9CA623E7169591AC003F6334 /* Info.plist in Resources */,
 				9CA623F6169591AC003F6334 /* MainStoryboard.storyboard in Resources */,
-				9CBC4F641695DABA00FFE7B9 /* Default-568h@2x.png in Resources */,
-				9CBC4F651695DABA00FFE7B9 /* Default.png in Resources */,
-				9CBC4F661695DABA00FFE7B9 /* Default@2x.png in Resources */,
-				9CBC4F671695DABA00FFE7B9 /* Icon-72.png in Resources */,
 				30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */,
-				9CBC4F681695DABA00FFE7B9 /* Icon-Small-50.png in Resources */,
-				9CBC4F691695DABA00FFE7B9 /* Icon-Small.png in Resources */,
-				9CBC4F6A1695DABA00FFE7B9 /* Icon-Small@2x.png in Resources */,
 				9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */,
-				9CBC4F6E1695DABA00FFE7B9 /* tcm-520.png in Resources */,
+				30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */,
 				9CBC4F701695DAE000FFE7B9 /* Icon.png in Resources */,
 				9CBC4F721695DAEA00FFE7B9 /* Icon@2x.png in Resources */,
 				30270AD31AF6F386003E23A8 /* YTPlayerView-iframe-player.html in Resources */,
@@ -699,7 +671,6 @@
 			baseConfigurationReference = 99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -720,7 +691,6 @@
 			baseConfigurationReference = E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;

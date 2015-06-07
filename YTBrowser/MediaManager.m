@@ -91,7 +91,7 @@ static MediaManager *sharedInstance = nil;
     
     pLabel = [[UILabel alloc] initWithFrame:CGRectMake(75.0, TITLE_SPACE, miniPlayer.frame.size.width-120, TITLE_HEIGHT)];
     pLabel.textColor = [UIColor whiteColor];
-    pLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:10.0f];
+    pLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:11.0f];
     pLabel.numberOfLines = 0;
     [miniPlayer addSubview:pLabel];
 
