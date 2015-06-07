@@ -46,9 +46,9 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     
     //Setup search bar
     
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 260.0, 44.0)];
+    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
     searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 250.0, 44.0)];
+    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
     [searchBar setBackgroundColor:[UIColor clearColor]];
     [searchBar setBackgroundImage:[UIImage new]];
     [searchBar setTranslucent:YES];

@@ -133,9 +133,11 @@ static MediaManager *sharedInstance = nil;
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
     
-    
+    mPlayer.view.hidden = YES;
     mPlayer = self.videoPlayerViewController.moviePlayer;
-    mPlayer.controlStyle = MPMovieControlStyleNone;
+    [self.videoPlayerViewController.moviePlayer setControlStyle:MPMovieControlStyleNone];
+    
+    
     self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
     [self.videoPlayerViewController setVideoIdentifier:video.videoId];
     [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
@@ -286,6 +288,7 @@ static MediaManager *sharedInstance = nil;
     { //seeking backward
     }
     pAction.hidden = FALSE;
+    self.videoPlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleNone;
 }
 
 
@@ -311,6 +314,8 @@ static MediaManager *sharedInstance = nil;
 
 - (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
 {
+    if([mPlayer.view isHidden])
+       [mPlayer.view setHidden:NO];
     [self updateMiniPlayerState:mPlayer.playbackState];
     
 }
