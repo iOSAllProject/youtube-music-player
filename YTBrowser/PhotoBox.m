@@ -87,7 +87,7 @@ static CGFloat imageWidth = 89.0;
     label.backgroundColor = [UIColor clearColor];
     label.text = self.video.title;
     label.numberOfLines = 0;
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
       

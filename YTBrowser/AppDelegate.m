@@ -38,7 +38,7 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    CGFloat barHeight = 40.0f;
+    CGFloat barHeight = 45.0f;
     CGFloat barWidth = self.window.frame.size.width;
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.window.frame.size.height-barHeight, self.window.frame.size.width, barHeight)];
     self.playerBar.backgroundColor =  [UIColor blackColor];

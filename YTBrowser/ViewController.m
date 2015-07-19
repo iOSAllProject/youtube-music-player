@@ -71,8 +71,8 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     // loading multiple videos from url
 
     CGFloat topPaddingBar = 140.0;
-    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 180)];
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 180)];
+    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 210)];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 210)];
     // adding to subview
     [self.view addSubview:playerContainer];
     [self.view addSubview:topView];
@@ -257,6 +257,8 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
                                              selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
+    
+     [self.player.moviePlayer setControlStyle:MPMovieControlStyleNone];
     
     //backgroundImage.image = [self blurredImageWithImage:[UIImage imageNamed:@"Stars"]];
     
