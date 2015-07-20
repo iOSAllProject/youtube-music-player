@@ -48,6 +48,7 @@
 		30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */; };
 		30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */; };
 		30E201781B5C7B3300D37DA2 /* JukeboxEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */; };
+		30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */; };
 		30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F663401AECD24A00CF0C12 /* Images.xcassets */; };
 		9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */; };
 		9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB3A116BAE6AE00C8AB3A /* JSONModelArray.m */; };
@@ -161,6 +162,8 @@
 		30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GradientMask.m"; sourceTree = "<group>"; };
 		30E201761B5C788F00D37DA2 /* JukeboxEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JukeboxEntry.h; sourceTree = "<group>"; };
 		30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxEntry.m; sourceTree = "<group>"; };
+		30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
+		30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9BB39E16BAE6AE00C8AB3A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
@@ -438,6 +441,8 @@
 			isa = PBXGroup;
 			children = (
 				309453501B5C340A00F5E3CC /* JukeBoxCell.h */,
+				30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */,
+				30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */,
 				309453511B5C340A00F5E3CC /* JukeBoxCell.m */,
 				30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */,
 				309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */,
@@ -617,6 +622,7 @@
 				30916CE51AF0928B00327CAA /* MGScrollView.m in Sources */,
 				30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */,
 				30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */,
+				30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				9CA62439169592FB003F6334 /* PhotoBox.m in Sources */,
 				30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */,
 				309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */,
