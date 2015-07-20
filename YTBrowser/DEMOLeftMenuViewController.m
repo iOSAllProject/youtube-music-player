@@ -50,9 +50,16 @@
     
     switch (indexPath.row) {
         case 0:
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+                
+            } else {
+                [self.sideMenuViewController.navigationController.navigationBar setBarTintColor:RGB(19, 143, 213)]; // it set color of navigation
+                // Load resources for iOS 7 or later
+            }
             self.homeView = [[LibraryViewController alloc] init];
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.homeView]
                                                          animated:YES];
+            [self.sideMenuViewController.navigationController.navigationBar setBarTintColor:RGB(19, 143, 213)];
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 1:
@@ -68,6 +75,13 @@
                self.jukeboxView = [[JukeboxListViewController alloc] init];
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.jukeboxView]
                                                          animated:YES];
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+                
+            } else {
+                //[[UINavigationBar appearance]setBarTintColor: RGB(254, 181, 8)]; // it set color of navigation
+                 [self.sideMenuViewController.navigationController.navigationBar setBarTintColor:RGB(254, 181, 8)];
+                // Load resources for iOS 7 or later
+            }
             [self.sideMenuViewController hideMenuViewController];
         default:
             break;

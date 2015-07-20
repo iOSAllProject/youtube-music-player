@@ -14,7 +14,11 @@
 #import "UIView+GradientMask.h"
 #import "MediaManager.h"
 #import "JukeboxEntry.h"
+#import "MGScrollView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "PhotoBox.h"
+#import "LibraryViewController.h"
+#import "Song.h"
 
 #define HEADER_HEIGHT 320.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
@@ -28,7 +32,7 @@ const CGFloat kTextFadeOutFactor = 0.05f;
 const CGFloat kCommentCellHeight = 50.0f;
 
 @interface RootViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
-
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end
 
 @implementation RootViewController {
@@ -40,6 +44,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     UIView *_commentsViewContainer;
     UITableView *_commentsTableView;
     JukeboxEntry *jukeboxEntry;
+    MGScrollView *_scroller;
     
     // TODO: Implement these
     UIGestureRecognizer *_leftSwipeGestureRecognizer;
@@ -117,15 +122,27 @@ const CGFloat kCommentCellHeight = 50.0f;
  
         _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight )];
         [_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
+        
+        _scroller = [MGScrollView scrollerWithSize:self.view.size];
+        //setup the scroll view
+        _scroller.contentLayoutMode = MGLayoutGridStyle;
+        _scroller.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight );
+        _scroller.sizingMode = MGResizingShrinkWrap;
+        _scroller.bottomPadding = 0;
+        
+        _scroller.backgroundColor = [UIColor whiteColor];
+        [_commentsViewContainer addSubview:_scroller];
+        [self setupLibraryView];
+        /*
         _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight ) style:UITableViewStylePlain];
         _commentsTableView.scrollEnabled = NO;
         _commentsTableView.delegate = self;
         _commentsTableView.dataSource = self;
         _commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
         _commentsTableView.separatorColor = [UIColor clearColor];
-        
+        */
         [_mainScrollView addSubview:_backgroundScrollView];
-        [_commentsViewContainer addSubview:_commentsTableView];
+      //  [_commentsViewContainer addSubview:_commentsTableView];
         [_mainScrollView addSubview:_commentsViewContainer];
         
         // Let's put in some fake data!
@@ -141,6 +158,48 @@ const CGFloat kCommentCellHeight = 50.0f;
     }
     return self;
 }
+
+-(void) setupLibraryView {
+    [self fetchedResultsController];
+    [_fetchedResultsController performFetch:nil];
+    
+    //TODO DEBUGGING
+    NSInteger *numRows = [_fetchedResultsController.fetchedObjects count];
+    
+    [self showLibrary];
+    //re-layout the scroll view
+    
+    
+}
+
+-(void) showLibrary {
+    //clean the old videos
+    if([_scroller.boxes count] > 0)
+        [_scroller.boxes removeObjectsInRange:NSMakeRange(0, _scroller.boxes.count)];
+    self.currentLibrary = [[NSMutableArray alloc] init];
+    int counter = 0;
+    BOOL drawLine = YES;
+    for (Song *song in _fetchedResultsController.fetchedObjects){
+        //get the data
+        VideoModel *video = [LibraryViewController createVideo:song];
+        [self.currentLibrary addObject:video];
+        counter++;
+        //create a box
+        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
+        box.frame = CGRectIntegral(box.frame);
+        box.onTap = ^{
+            [[MediaManager sharedInstance] playWithVideo:video];
+            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter-1];
+        };
+        
+        //add the box
+        [_scroller.boxes addObject:box];
+    }
+    [_scroller layout];
+    [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
+    
+}
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat delta = 0.0f;
@@ -252,6 +311,23 @@ const CGFloat kCommentCellHeight = 50.0f;
 -(void)done{
     [[MediaManager sharedInstance] runInBackground];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma coreData
+
+
+- (NSFetchedResultsController * ) fetchedResultsController {
+    if(_fetchedResultsController != nil){
+        return self.fetchedResultsController;
+    }
+    
+    JBCoreDataStack *coreDataStack = [JBCoreDataStack defaultStack];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Song"];
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"videoId" ascending:true]];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+    return _fetchedResultsController;
 }
 
 @end

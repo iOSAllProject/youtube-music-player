@@ -70,7 +70,7 @@
                             </label>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-du-qFP">
                                 <rect key="frame" x="0.0" y="73" width="320" height="269"/>
-                                <color key="backgroundColor" red="0.24313727021217346" green="0.26666668057441711" blue="0.28235295414924622" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.9960784912109375" green="0.70980393886566162" blue="0.031372550874948502" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="269" id="rlP-YX-IHw"/>
                                 </constraints>

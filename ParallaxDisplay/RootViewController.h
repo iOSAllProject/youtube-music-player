@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "JukeboxEntry.h"
+#import "JBCoreDataStack.h"
 @interface RootViewController : UIViewController
 
 -(id) initWithJukeBox:(JukeboxEntry *) jukeboxEntry;
+@property (nonatomic, strong) NSMutableArray *currentLibrary;
 @end

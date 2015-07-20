@@ -133,14 +133,7 @@
     
     [self.view addSubview:playerBar];
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
 
-    } else {
-              [[UINavigationBar appearance]setBarTintColor: RGB(253, 166, 53)]; // it set color of navigation
-
-        
-    }
-    
 }
 -(void)viewWillDisappear {
     [playerBar removeFromSuperview];

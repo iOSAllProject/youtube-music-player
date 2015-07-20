@@ -12,4 +12,5 @@
 #import "PhotoBox.h"
 @interface LibraryViewController : UIViewController
 @property (nonatomic,strong) ViewController *videoPlayer;
++(VideoModel *) createVideo:(Song*) song;
 @end
