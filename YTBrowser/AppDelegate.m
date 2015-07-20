@@ -7,10 +7,11 @@
 //
 
 #import "AppDelegate.h"
-#import "SearchViewController.h"
+#import "LibraryViewController.h"
 #import "RESideMenu.h"
 #import "DEMOLeftMenuViewController.h"
 #import "AppConstant.h"
+#import "JukeboxListViewController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -19,7 +20,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[SearchViewController alloc] init]];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[JukeboxListViewController alloc] init]];
     DEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
 
     
@@ -38,7 +39,7 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    CGFloat barHeight = 40.0f;
+    CGFloat barHeight = 45.0f;
     CGFloat barWidth = self.window.frame.size.width;
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.window.frame.size.height-barHeight, self.window.frame.size.width, barHeight)];
     self.playerBar.backgroundColor =  [UIColor blackColor];

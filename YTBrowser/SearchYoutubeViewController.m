@@ -148,7 +148,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //clean the old videos
     if([scroller.boxes count] > 0)
         [scroller.boxes removeObjectsInRange:NSMakeRange(0, scroller.boxes.count)];
-    
+    [scroller setContentOffset:CGPointMake(0, -64)];
     
     //add boxes for all videos
     for (int i=0;i<videos.count;i++) {

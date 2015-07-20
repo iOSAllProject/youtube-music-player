@@ -87,11 +87,11 @@ static CGFloat imageWidth = 89.0;
     label.backgroundColor = [UIColor clearColor];
     label.text = self.video.title;
     label.numberOfLines = 0;
-    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
       
-    CGFloat buttonSize = 25.0;
+    CGFloat buttonSize = 21.0;
     CGFloat buttonPadding = (size.height - buttonSize)/2;
     UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
     UIButton *moreOptionsBackground = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width+5, 0.0, self.frame.size.width - (label.frame.origin.x + label.frame.size.width)+5, self.frame.size.height)];

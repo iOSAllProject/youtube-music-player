@@ -80,7 +80,7 @@ static MediaManager *sharedInstance = nil;
     [miniPlayer.layer addSublayer:layer];*/
     miniPlayer.backgroundColor = RGB(34,34,34);
     pImage = [[UIImageView alloc] init];
-    pImage.frame = CGRectMake(0.0, 0.0, 70.0, 40.0);
+    pImage.frame = CGRectMake(0.0, 0.0, 77.0, 45.0);
     [miniPlayer addSubview:pImage];
 
 
@@ -89,9 +89,9 @@ static MediaManager *sharedInstance = nil;
     CGFloat TITLE_HEIGHT = 30.0;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
     
-    pLabel = [[UILabel alloc] initWithFrame:CGRectMake(75.0, TITLE_SPACE, miniPlayer.frame.size.width-120, TITLE_HEIGHT)];
+    pLabel = [[UILabel alloc] initWithFrame:CGRectMake(82.0, TITLE_SPACE, miniPlayer.frame.size.width-120, TITLE_HEIGHT)];
     pLabel.textColor = [UIColor whiteColor];
-    pLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:11.0f];
+    pLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:13.0f];
     pLabel.numberOfLines = 0;
     [miniPlayer addSubview:pLabel];
 
