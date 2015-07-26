@@ -21,7 +21,7 @@ static MediaManager *sharedInstance = nil;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
     MPMoviePlayerController *mPlayer;
-    
+    ViewController *videoPlayer;
     NSArray *currentPlaylist;
     NSMutableSet *songsInLibrary;
     NSInteger  currentSongIndex;
@@ -82,9 +82,10 @@ static MediaManager *sharedInstance = nil;
     pImage = [[UIImageView alloc] init];
     pImage.frame = CGRectMake(0.0, 0.0, 77.0, 45.0);
     [miniPlayer addSubview:pImage];
+    UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
+    [miniPlayer addGestureRecognizer:playerTap];
 
-
-    
+    videoPlayer = [[ViewController alloc] init];
     
     CGFloat TITLE_HEIGHT = 30.0;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
@@ -132,10 +133,13 @@ static MediaManager *sharedInstance = nil;
                                              selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(hideControl)
+                                                 name:MPMoviePlayerLoadStateDidChangeNotification
+                                               object:mPlayer];
+   
     mPlayer.view.hidden = YES;
     mPlayer = self.videoPlayerViewController.moviePlayer;
-    [self.videoPlayerViewController.moviePlayer setControlStyle:MPMovieControlStyleNone];
     
     
     self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
@@ -317,6 +321,7 @@ static MediaManager *sharedInstance = nil;
     if([mPlayer.view isHidden])
        [mPlayer.view setHidden:NO];
     [self updateMiniPlayerState:mPlayer.playbackState];
+    [videoPlayer updatePlayerState:mPlayer.playbackState];
     
 }
 
@@ -327,6 +332,7 @@ static MediaManager *sharedInstance = nil;
         //if load state is ready to play
         //if(mPlayer.playbackState == MPMoviePlaybackStatePaused)
           //  [mPlayer play];//play the video
+        
     }
     
 }
@@ -352,7 +358,13 @@ static MediaManager *sharedInstance = nil;
     return NO;
 }
 
-
-
-
+-(UIViewController *) getVideoPlayerViewController{
+    return videoPlayer;
+    
+    
+}
+- (void) hideControl {
+    NSLog(@"Hidding control");
+    [mPlayer setControlStyle:MPMovieControlStyleNone];
+}
 @end

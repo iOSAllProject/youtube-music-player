@@ -3,6 +3,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "VideoModel.h"
+#import "ViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 @interface MediaManager : NSObject<YTPlayerViewDelegate>{
     
@@ -19,4 +20,5 @@
 -(void) setPlaylist:(NSArray *)songs andSongIndex:(NSInteger)index ;
 -(void) setCurrentLibrary:(NSArray *) songs;
 -(BOOL) isInLibrary:(VideoModel*) song;
+-(UIViewController *) getVideoPlayerViewController;
 @end

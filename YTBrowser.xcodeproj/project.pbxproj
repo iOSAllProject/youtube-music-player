@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		30270AD31AF6F386003E23A8 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */; };
 		30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30270AD21AF6F386003E23A8 /* YTPlayerView.m */; };
+		308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */; };
 		30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */; };
 		30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCB1AF0928B00327CAA /* UIView+MGEasyFrame.m */; };
 		30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCE1AF0928B00327CAA /* MGBlockWrapper.m */; };
@@ -82,6 +83,7 @@
 		30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		30270AD11AF6F386003E23A8 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
 		30270AD21AF6F386003E23A8 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
+		308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		30916CC81AF0928B00327CAA /* NSObject+MGEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MGEvents.h"; sourceTree = "<group>"; };
 		30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MGEvents.m"; sourceTree = "<group>"; };
 		30916CCA1AF0928B00327CAA /* UIView+MGEasyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGEasyFrame.h"; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */,
 				3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */,
 				309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */,
 				30B44DCD1B2424B5008CBD69 /* libXCDYouTubeKit.a in Frameworks */,
@@ -419,6 +422,7 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */,
 				30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */,
 				3093E2711B1443C100C454CF /* JavaScriptCore.framework */,
 				309AE31D1B094D1B004CF1E2 /* CoreData.framework */,

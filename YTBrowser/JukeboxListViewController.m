@@ -263,10 +263,7 @@
 }
 
 -(void) displayDetailedPlayer {
-    if(!self.videoPlayer) {
-        self.videoPlayer = [[ViewController alloc] init];
-    }
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];
     
 }
