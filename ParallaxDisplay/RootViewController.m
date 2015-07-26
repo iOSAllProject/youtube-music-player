@@ -46,7 +46,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     JukeboxEntry *jukeboxEntry;
     MGScrollView *_scroller;
     UIView *playerBar;
-    
+    UILabel *titleLabel;
     // TODO: Implement these
     UIGestureRecognizer *_leftSwipeGestureRecognizer;
     UIGestureRecognizer *_rightSwipeGestureRecognizer;
@@ -79,7 +79,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0f];
         fadeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
-        UILabel *titleLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
+        titleLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
         titleLabel.text = @"Jukebox Title";
         titleLabel.textColor = [UIColor whiteColor];
         titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
@@ -87,8 +87,8 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self.view addSubview:titleLabel];
         
         _textLabel = [[UILabel alloc] initWithFrame:HEADER_INIT_FRAME];
-        [_textLabel setText:@"I love sharing secrets"];
-        [_textLabel setFont:[UIFont secretFontWithSize:22.f]];
+        [_textLabel setText:@"Jukebox Title"];
+        [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f]];
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
         [_textLabel setTextColor:[UIColor whiteColor]];
         _textLabel.backgroundColor = [UIColor clearColor];
@@ -104,7 +104,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         [_backgroundScrollView addSubview:imageView];
         [_backgroundScrollView addSubview:fadeView];
         //[_backgroundScrollView addSubview:_toolBarView];
-       // [_backgroundScrollView addSubview:_textLabel];
+        [_backgroundScrollView addSubview:_textLabel];
         
         // Take a snapshot of the background scroll view and apply a blur to that image
         // Then add the blurred image on top of the regular image and slowly fade it in
@@ -214,6 +214,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _toolBarView.alpha = _textLabel.alpha;
         _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
         [_commentsTableView setContentOffset:(CGPoint){0,0} animated:NO];
+        titleLabel.alpha = 0.0;
     } else {
         delta = _mainScrollView.contentOffset.y;
         _textLabel.alpha = 1.0f;
@@ -229,12 +230,14 @@ const CGFloat kCommentCellHeight = 50.0f;
             _commentsTableView.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
             CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
             [_backgroundScrollView setContentOffset:(CGPoint){0,contentOffsetY} animated:NO];
+            titleLabel.alpha = 1;
         }
         else {
             _backgroundScrollView.frame = rect;
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(rect) + CGRectGetHeight(rect)}, .size = _commentsViewContainer.frame.size };
             [_commentsTableView setContentOffset:(CGPoint){0,0} animated:NO];
             [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
+            titleLabel.alpha = 0.0;
         }
     }
 }
