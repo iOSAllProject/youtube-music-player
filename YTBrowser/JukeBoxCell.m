@@ -4,7 +4,7 @@
 
 #import "JukeBoxCell.h"
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){140, 140}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){185, 185}
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
 @implementation JukeBoxCell
 
@@ -13,7 +13,7 @@
 - (void)setup {
 
   // positioning
-    self.topMargin = 20.0;
+    self.topMargin = 0;
     self.leftMargin = (IPHONE_PORTRAIT_GRID.width - 2*IPHONE_PORTRAIT_PHOTO.width)/3;
 
 
@@ -34,7 +34,6 @@
   JukeBoxCell *box = [JukeBoxCell boxWithSize:size];
   box.jukeBoxEntry = [[JukeboxEntry alloc] init];
   // style and tag
-  box.backgroundColor = [UIColor colorWithRed:0.74 green:0.74 blue:0.75 alpha:1];
   box.tag = -1;
 
   // add the add image
@@ -115,6 +114,8 @@
     // got the photo, so lets show it
     UIImage *image = [UIImage imageWithData:data];
     self.jukeBoxEntry.image = image;
+    self.backgroundColor = [self averageColor:image];
+    
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self addSubview:imageView];
     imageView.size = IPHONE_PORTRAIT_PHOTO;
@@ -126,25 +127,66 @@
     [UIView animateWithDuration:0.2 animations:^{
       imageView.alpha = 1;
     }];
-      
+      BOOL isBgLight =[self isLightColor:self.backgroundColor];
       CGFloat hPadding = 5;
       CGFloat vPadding = 5;
-      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, IPHONE_PORTRAIT_PHOTO.height+vPadding, 140-hPadding*2, 15)];
+      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, IPHONE_PORTRAIT_PHOTO.height+vPadding, self.frame.size.width, 15)];
       title.text =  @"Jukebox Name";
       title.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
-      title.textColor = [UIColor blackColor];
+      title.textAlignment = NSTextAlignmentCenter;
+      if(isBgLight)
+          title.textColor = [UIColor blackColor];
+      else
+          title.textColor = [UIColor whiteColor];
     //  title.backgroundColor = [UIColor redColor];
       [self addSubview:title];
       
-      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(0, title.frame.origin.y + title.frame.size.height +vPadding , 140 - hPadding*2, 10)];
+      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(0, title.frame.origin.y + title.frame.size.height +vPadding , self.frame.size.width, 10)];
       author.text =  @"Username";
+      author.textAlignment = NSTextAlignmentCenter;
       author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
       author.textColor = RGB(62,68,72);
+      if(isBgLight)
+          author.textColor = RGB(62,68,72);
+      else
+          author.textColor = RGB(225,225,225);
      // author.backgroundColor = [UIColor blueColor];
       [self addSubview:author];
   });
 
     
+}
+
+- (UIColor *)averageColor: (UIImage *) image {
+    
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    unsigned char rgba[4];
+    CGContextRef context = CGBitmapContextCreate(rgba, 1, 1, 8, 4, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    
+    CGContextDrawImage(context, CGRectMake(0, 0, 1, 1), image.CGImage);
+    CGColorSpaceRelease(colorSpace);
+    CGContextRelease(context);
+    
+    if(rgba[3] > 0) {
+        CGFloat alpha = ((CGFloat)rgba[3])/255.0;
+        CGFloat multiplier = alpha/255.0;
+        return [UIColor colorWithRed:((CGFloat)rgba[0])*multiplier
+                               green:((CGFloat)rgba[1])*multiplier
+                                blue:((CGFloat)rgba[2])*multiplier
+                               alpha:.6];
+    }
+    else {
+        return [UIColor colorWithRed:((CGFloat)rgba[0])/255.0
+                               green:((CGFloat)rgba[1])/255.0
+                                blue:((CGFloat)rgba[2])/255.0
+                               alpha:.6];
+    }
+}
+
+-(BOOL) isLightColor:(UIColor*)clr {
+    CGFloat white = 0;
+    [clr getWhite:&white alpha:nil];
+    return (white >= 0.5);
 }
 
 @end

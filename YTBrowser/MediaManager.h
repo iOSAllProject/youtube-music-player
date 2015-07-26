@@ -5,6 +5,7 @@
 #import "VideoModel.h"
 #import "ViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
+#import "AppConstant.h"
 @interface MediaManager : NSObject<YTPlayerViewDelegate>{
     
 }
@@ -21,4 +22,5 @@
 -(void) setCurrentLibrary:(NSArray *) songs;
 -(BOOL) isInLibrary:(VideoModel*) song;
 -(UIViewController *) getVideoPlayerViewController;
+- (void)updatePlayerState:(NSString *) state;
 @end

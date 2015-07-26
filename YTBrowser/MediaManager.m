@@ -16,7 +16,7 @@ static MediaManager *sharedInstance = nil;
      */
     BOOL isInitialized;
     UIView *miniPlayer;
-    UIImageView *pImage;
+    //UIImageView *pImage;
     UILabel *pLabel;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
@@ -79,32 +79,45 @@ static MediaManager *sharedInstance = nil;
     layer.contentsGravity = kCAGravityResize;
     [miniPlayer.layer addSublayer:layer];*/
     miniPlayer.backgroundColor = RGB(34,34,34);
-    pImage = [[UIImageView alloc] init];
-    pImage.frame = CGRectMake(0.0, 0.0, 77.0, 45.0);
-    [miniPlayer addSubview:pImage];
+   // pImage = [[UIImageView alloc] init];
+  //  pImage.frame = CGRectMake(0.0, 0.0, 77.0, 45.0);
+  //  [miniPlayer addSubview:pImage];
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [miniPlayer addGestureRecognizer:playerTap];
 
     videoPlayer = [[ViewController alloc] init];
     
     CGFloat TITLE_HEIGHT = 30.0;
+    CGFloat TITLE_WIDTH =  miniPlayer.frame.size.width-120;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
     
-    pLabel = [[UILabel alloc] initWithFrame:CGRectMake(82.0, TITLE_SPACE, miniPlayer.frame.size.width-120, TITLE_HEIGHT)];
+    pLabel = [[UILabel alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width/2 - TITLE_WIDTH/2, TITLE_SPACE, TITLE_WIDTH, TITLE_HEIGHT)];
     pLabel.textColor = [UIColor whiteColor];
     pLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:13.0f];
     pLabel.numberOfLines = 0;
+    pLabel.textAlignment = NSTextAlignmentCenter;
     [miniPlayer addSubview:pLabel];
 
     CGFloat ACTION_LENGTH = 22.0;
-    CGFloat ACTION_PADDING = (playerView.frame.size.height - ACTION_LENGTH)/2;
+    CGFloat ACTION_PADDING = miniPlayer.frame.size.height/2 - ACTION_LENGTH/2;
     
     pAction = [[UIImageView alloc] init];
-    pAction.frame = CGRectMake(miniPlayer.frame.size.width-ACTION_LENGTH-ACTION_PADDING, ACTION_PADDING, ACTION_LENGTH, ACTION_LENGTH);
+    pAction.frame = CGRectMake(ACTION_PADDING, ACTION_PADDING, ACTION_LENGTH, ACTION_LENGTH);
     UITapGestureRecognizer *buttonTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(miniPlayerActionListener)];
     [pAction setUserInteractionEnabled:YES];
     [pAction addGestureRecognizer:buttonTap];
     [miniPlayer addSubview:pAction];
+    
+    CGFloat buttonSize = 18.0;
+    CGFloat buttonPadding = (miniPlayer.frame.size.height - buttonSize)/2;
+    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
+    
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet_white"] forState:UIControlStateNormal];
+    [miniPlayer addSubview:moreOptions];
+    [moreOptions addTarget:self
+                    action:nil
+          forControlEvents:UIControlEventTouchUpInside];
+
     
     statusSpinner = [[UIActivityIndicatorView alloc]
                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -133,10 +146,7 @@ static MediaManager *sharedInstance = nil;
                                              selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(hideControl)
-                                                 name:MPMoviePlayerLoadStateDidChangeNotification
-                                               object:mPlayer];
+    [mPlayer setControlStyle:MPMovieControlStyleNone];
    
     mPlayer.view.hidden = YES;
     mPlayer = self.videoPlayerViewController.moviePlayer;
@@ -180,27 +190,25 @@ static MediaManager *sharedInstance = nil;
 
 -(void) updateMiniPlayer: (VideoModel *) video {
     pLabel.text = video.title;
-    NSURL *url = [NSURL URLWithString:video.thumbnail];
-    [self loadThumbnailImage:url];
+  //  NSURL *url = [NSURL URLWithString:video.thumbnail];
+    //[self loadThumbnailImage:url];
     pAction.image = nil;
     [statusSpinner startAnimating];
 }
-
+/*
 -(void) loadThumbnailImage:(NSURL *)url {
     
     dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
     dispatch_async(q, ^{
-        /* Fetch the image from the server... */
+ 
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [[UIImage alloc] initWithData:data];
         dispatch_async(dispatch_get_main_queue(), ^{
-            /* This is the main thread again, where we set the tableView's image to
-             be what we just fetched. */
-            pImage.image= img;
+                        pImage.image= img;
             
         });
     });
-}
+}*/
 
 -(void)miniPlayerActionListener{
     [statusSpinner startAnimating];
@@ -262,7 +270,13 @@ static MediaManager *sharedInstance = nil;
 {
 
 }*/
-
+- (void)updatePlayerState:(NSString *) state {
+    if([state isEqualToString:PLAY]){
+        [mPlayer play];
+    } else if([state isEqualToString:PAUSE]){
+        [mPlayer pause];
+    }
+}
 - (void)playerView:(YTPlayerView *)playerView didChangeToState:(YTPlayerState)state{
     [self updateMiniPlayerState:state];
 }
@@ -360,11 +374,7 @@ static MediaManager *sharedInstance = nil;
 
 -(UIViewController *) getVideoPlayerViewController{
     return videoPlayer;
-    
-    
+
 }
-- (void) hideControl {
-    NSLog(@"Hidding control");
-    [mPlayer setControlStyle:MPMovieControlStyleNone];
-}
+
 @end

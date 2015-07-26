@@ -45,6 +45,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     UITableView *_commentsTableView;
     JukeboxEntry *jukeboxEntry;
     MGScrollView *_scroller;
+    UIView *playerBar;
     
     // TODO: Implement these
     UIGestureRecognizer *_leftSwipeGestureRecognizer;
@@ -75,7 +76,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         imageView.image = jukeboxEntry.image;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         UIView *fadeView = [[UIView alloc] initWithFrame:imageView.frame];
-        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
+        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0f];
         fadeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
@@ -120,13 +121,13 @@ const CGFloat kCommentCellHeight = 50.0f;
         _blurImageView.backgroundColor = [UIColor clearColor];
         [_backgroundScrollView addSubview:_blurImageView];
  
-        _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight )];
+        _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight -44 )];
         [_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
         
         _scroller = [MGScrollView scrollerWithSize:self.view.size];
         //setup the scroll view
         _scroller.contentLayoutMode = MGLayoutGridStyle;
-        _scroller.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight );
+        _scroller.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight -44 );
         _scroller.sizingMode = MGResizingShrinkWrap;
         _scroller.bottomPadding = 0;
         
@@ -294,10 +295,31 @@ const CGFloat kCommentCellHeight = 50.0f;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
--(void) viewWillAppear:(BOOL)animated {
-    [self.navigationController setNavigationBarHidden:YES];
+
+
+-(void) displayDetailedPlayer {
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    
 }
 
+
+-(void) viewWillAppear:(BOOL)animated {
+    [self.navigationController setNavigationBarHidden:YES];
+    [super viewWillAppear:animated];
+    //setup music player at bottom of screen
+    playerBar = [[MediaManager sharedInstance] getMiniPlayer];
+    
+    UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
+    [playerBar addGestureRecognizer:playerTap];
+    
+    [self.view addSubview:playerBar];
+    
+    
+}
+-(void)viewWillDisappear {
+    [playerBar removeFromSuperview];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

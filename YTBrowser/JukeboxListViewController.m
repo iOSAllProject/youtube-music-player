@@ -15,8 +15,8 @@
 
 #define ROW_SIZE               (CGSize){375, 180}
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){140, 200}
-#define IPHONE_PORTRAIT_CELL  (CGSize){140, 200}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){185, 240}
+#define IPHONE_PORTRAIT_CELL  (CGSize){185, 240}
 #define IPHONE_LANDSCAPE_PHOTO (CGSize){152, 152}
 
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 180}
@@ -163,7 +163,7 @@
     BOOL portrait = UIInterfaceOrientationIsPortrait(self.interfaceOrientation);
     
     // what size plz?
-    return IPHONE_PORTRAIT_CELL;
+    return (CGSize){self.view.frame.size.width/2 - 2, self.view.frame.size.width/2 + 60};
     /*return phone
     ? portrait ? IPHONE_PORTRAIT_CELL : IPHONE_LANDSCAPE_PHOTO
     : portrait ? IPAD_PORTRAIT_PHOTO : IPAD_LANDSCAPE_PHOTO;*/
@@ -279,15 +279,6 @@
     
     [self.view addSubview:playerBar];
     
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
-
-    } else {
-
-        [[UINavigationBar appearance]setBarTintColor: RGB(19, 143, 213)]; // it set color of navigation
-
-        // Load resources for iOS 7 or later
-        
-    }
     
 }
 -(void)viewWillDisappear {

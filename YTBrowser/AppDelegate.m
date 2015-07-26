@@ -59,7 +59,7 @@
         [[UINavigationBar appearance]setTintColor:[UIColor clearColor]];
     } else {
         [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]]; // it set color of bar button item text
-        [[UINavigationBar appearance]setBarTintColor: RGB(253, 166, 53)]; // it set color of navigation
+        [[UINavigationBar appearance]setBarTintColor: RGB(19, 143, 213)]; // it set color of navigation
         [[UINavigationBar appearance] setBarStyle:UIStatusBarStyleLightContent]; // it set Style of UINavigationBar
         [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set title color of Navigation Bar
         // Load resources for iOS 7 or later

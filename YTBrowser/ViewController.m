@@ -73,16 +73,19 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     // loading multiple videos from url
 
     CGFloat topPaddingBar = 140.0;
-    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 211)];
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 211)];
+    UIView *playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
+    [playerBg setBackgroundColor:[UIColor blackColor]];
+    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, playerBg.frame.size.height/2 - 211/2, self.view.frame.size.width, 211)];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar,self.view.frame.size.width, 211)];
     // adding to subview
+    [self.view addSubview:playerBg];
     [self.view addSubview:playerContainer];
     [self.view addSubview:topView];
     
     CGFloat h_padding = 10.0;
     CGFloat time_size = 40.0;
     CGFloat bar_size = self.view.frame.size.width;
-    CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,playerContainer.frame.origin.y + playerContainer.frame.size.height-2, bar_size ,5);
+    CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,topView.frame.origin.y + topView.frame.size.height-2, bar_size ,5);
     // sliderAction will respond to the updated slider value
     slider = [[UISlider alloc] initWithFrame:frame];
   //  slider.backgroundColor = [UIColor redColor];
@@ -277,6 +280,11 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
      [[self navigationController] setNavigationBarHidden:YES animated:NO];
     currentVideo =  [[MediaManager sharedInstance] getCurrentlyPlaying];
     player = [[MediaManager sharedInstance] getVideoPlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+    [mPlayer setControlStyle:MPMovieControlStyleNone];
     mPlayer = player.moviePlayer;
     [player presentInView:playerContainer];
     [self updatePlayerState:mPlayer.playbackState];
@@ -286,7 +294,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
-
+    
     
     //backgroundImage.image = [self blurredImageWithImage:[UIImage imageNamed:@"Stars"]];
     
@@ -538,6 +546,13 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     song.url = video.thumbnail;
     NSLog(@"Saved %@ %@ %@", song.videoId, song.title, song.url);
     [coreDataStack saveContext];
+    
+}
+
+- (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
+{
+
+    [self updatePlayerState:mPlayer.playbackState];
     
 }
 
