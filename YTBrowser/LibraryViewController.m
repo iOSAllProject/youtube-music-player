@@ -18,10 +18,10 @@
     [super viewDidLoad];
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
-    titleLabel.text = @"Your Music";
+    titleLabel.text = @"My Music";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
     
-    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f];
     self.navigationItem.titleView = titleLabel;
     
 
@@ -34,7 +34,7 @@
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutGridStyle;
-    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 45 );
+    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height  );
     scroller.sizingMode = MGResizingShrinkWrap;
     scroller.bottomPadding = 0;
     
@@ -72,7 +72,7 @@
         if(counter == [_fetchedResultsController.fetchedObjects count])
             drawLine = NO;
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
+        SongCell *box = [SongCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];

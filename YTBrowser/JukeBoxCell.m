@@ -4,7 +4,7 @@
 
 #import "JukeBoxCell.h"
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){185, 185}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){186, 186}
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
 @implementation JukeBoxCell
 
@@ -13,9 +13,9 @@
 - (void)setup {
 
   // positioning
-    self.topMargin = 0;
+    
     self.leftMargin = (IPHONE_PORTRAIT_GRID.width - 2*IPHONE_PORTRAIT_PHOTO.width)/3;
-
+    self.topMargin = self.leftMargin;
 
   // background
   self.backgroundColor = [UIColor whiteColor];
@@ -129,11 +129,11 @@
     }];
       BOOL isBgLight =[self isLightColor:self.backgroundColor];
       CGFloat hPadding = 5;
-      CGFloat vPadding = 5;
-      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, IPHONE_PORTRAIT_PHOTO.height+vPadding, self.frame.size.width, 15)];
+      CGFloat vPadding = 10;
+      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(vPadding, IPHONE_PORTRAIT_PHOTO.height+vPadding, self.frame.size.width, 15)];
       title.text =  @"Jukebox Name";
       title.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
-      title.textAlignment = NSTextAlignmentCenter;
+     // title.textAlignment = NSTextAlignmentCenter;
       if(isBgLight)
           title.textColor = [UIColor blackColor];
       else
@@ -141,9 +141,9 @@
     //  title.backgroundColor = [UIColor redColor];
       [self addSubview:title];
       
-      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(0, title.frame.origin.y + title.frame.size.height +vPadding , self.frame.size.width, 10)];
+      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(vPadding, title.frame.origin.y + title.frame.size.height +5 , self.frame.size.width, 10)];
       author.text =  @"Username";
-      author.textAlignment = NSTextAlignmentCenter;
+     // author.textAlignment = NSTextAlignmentCenter;
       author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
       author.textColor = RGB(62,68,72);
       if(isBgLight)
@@ -173,13 +173,13 @@
         return [UIColor colorWithRed:((CGFloat)rgba[0])*multiplier
                                green:((CGFloat)rgba[1])*multiplier
                                 blue:((CGFloat)rgba[2])*multiplier
-                               alpha:.6];
+                               alpha:.9];
     }
     else {
         return [UIColor colorWithRed:((CGFloat)rgba[0])/255.0
                                green:((CGFloat)rgba[1])/255.0
                                 blue:((CGFloat)rgba[2])/255.0
-                               alpha:.6];
+                               alpha:.9];
     }
 }
 

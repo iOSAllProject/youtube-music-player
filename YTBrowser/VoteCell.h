@@ -8,9 +8,9 @@
 #import "JBCoreDataStack.h"
 #import "Song.h"
 #import "VideoModel.h"
-@interface PhotoBox : MGBox
+@interface VoteCell : MGBox
 
-+(PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size withLine: (BOOL) drawLine;
++(VoteCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size withLine: (BOOL) drawLine;
 
 @property (strong, nonatomic) VideoModel *video;
 @property (nonatomic, assign) BOOL drawLine;

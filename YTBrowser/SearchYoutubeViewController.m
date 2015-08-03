@@ -154,7 +154,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         //get the data
         VideoModel* video = videos[i];
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:YES];
+        SongCell *box = [SongCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:YES];
         
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{

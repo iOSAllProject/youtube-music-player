@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3015C0991B65F5F200A82642 /* VoteCell.m */; };
 		30270AD31AF6F386003E23A8 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */; };
 		30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30270AD21AF6F386003E23A8 /* YTPlayerView.m */; };
 		308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */; };
@@ -70,7 +71,7 @@
 		9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623F8169591AC003F6334 /* SearchViewController.m */; };
 		9CA6243416959278003F6334 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA6243316959278003F6334 /* QuartzCore.framework */; };
 		9CA624361695927C003F6334 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA624351695927C003F6334 /* CoreText.framework */; };
-		9CA62439169592FB003F6334 /* PhotoBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62438169592FB003F6334 /* PhotoBox.m */; };
+		9CA62439169592FB003F6334 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62438169592FB003F6334 /* SongCell.m */; };
 		9CA6246D169598BC003F6334 /* VideoLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62468169598BC003F6334 /* VideoLink.m */; };
 		9CA6246E169598BC003F6334 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6246A169598BC003F6334 /* VideoModel.m */; };
 		9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */; };
@@ -80,6 +81,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3015C0981B65F5F200A82642 /* VoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCell.h; sourceTree = "<group>"; };
+		3015C0991B65F5F200A82642 /* VoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCell.m; sourceTree = "<group>"; };
 		30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		30270AD11AF6F386003E23A8 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
 		30270AD21AF6F386003E23A8 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
@@ -204,8 +207,8 @@
 		9CA623F8169591AC003F6334 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		9CA6243316959278003F6334 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CA624351695927C003F6334 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		9CA62437169592FB003F6334 /* PhotoBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBox.h; sourceTree = "<group>"; };
-		9CA62438169592FB003F6334 /* PhotoBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBox.m; sourceTree = "<group>"; };
+		9CA62437169592FB003F6334 /* SongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongCell.h; sourceTree = "<group>"; };
+		9CA62438169592FB003F6334 /* SongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
 		9CA62467169598BC003F6334 /* VideoLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoLink.h; sourceTree = "<group>"; };
 		9CA62468169598BC003F6334 /* VideoLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoLink.m; sourceTree = "<group>"; };
 		9CA62469169598BC003F6334 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
@@ -462,8 +465,10 @@
 				30916CE91AF0A91600327CAA /* MediaManager.m */,
 				30F663401AECD24A00CF0C12 /* Images.xcassets */,
 				30930A601AECA6AD00B44E58 /* AppConstant.h */,
-				9CA62437169592FB003F6334 /* PhotoBox.h */,
-				9CA62438169592FB003F6334 /* PhotoBox.m */,
+				9CA62437169592FB003F6334 /* SongCell.h */,
+				9CA62438169592FB003F6334 /* SongCell.m */,
+				3015C0981B65F5F200A82642 /* VoteCell.h */,
+				3015C0991B65F5F200A82642 /* VoteCell.m */,
 				9CA623EB169591AC003F6334 /* AppDelegate.h */,
 				30930A561AEC6F8100B44E58 /* ViewController.h */,
 				9CA623EC169591AC003F6334 /* AppDelegate.m */,
@@ -619,6 +624,7 @@
 				3094534F1B5C2DBF00F5E3CC /* JukeboxListViewController.m in Sources */,
 				9CA623ED169591AC003F6334 /* AppDelegate.m in Sources */,
 				9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */,
+				3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
 				3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */,
@@ -627,7 +633,7 @@
 				30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */,
 				30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */,
 				30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
-				9CA62439169592FB003F6334 /* PhotoBox.m in Sources */,
+				9CA62439169592FB003F6334 /* SongCell.m in Sources */,
 				30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */,
 				309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */,
 				9CA6246D169598BC003F6334 /* VideoLink.m in Sources */,

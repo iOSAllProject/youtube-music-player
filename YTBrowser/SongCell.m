@@ -2,12 +2,12 @@
 //  Created by matt on 28/09/12.
 //  Additions by Marin Todorov for YouTube JSONModel tutorial
 #import "AppConstant.h"
-#import "PhotoBox.h"
-@interface PhotoBox()
+#import "SongCell.h"
+@interface SongCell()
 
 @end
 
-@implementation PhotoBox
+@implementation SongCell
 #pragma mark - Init
 AHKActionSheet *actionSheet;
 UIImage *image;
@@ -34,10 +34,10 @@ static CGFloat imageWidth = 89.0;
 
 #pragma mark - Factories
 
-+ (PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine
++ (SongCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine
 {
   // box with photo number tag
-  PhotoBox *box = [PhotoBox boxWithSize:size];
+  SongCell *box = [SongCell boxWithSize:size];
   box.drawLine = drawLine;
   box.video = video;
   NSURL *url = [NSURL URLWithString:video.thumbnail];

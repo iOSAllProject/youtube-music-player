@@ -72,7 +72,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     
     // loading multiple videos from url
 
-    CGFloat topPaddingBar = 140.0;
+    CGFloat topPaddingBar = 170.0;
     UIView *playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
     [playerBg setBackgroundColor:[UIColor blackColor]];
     playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, playerBg.frame.size.height/2 - 211/2, self.view.frame.size.width, 211)];
@@ -295,6 +295,8 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
     
+    
+     [player.moviePlayer setControlStyle:MPMovieControlStyleNone];
     
     //backgroundImage.image = [self blurredImageWithImage:[UIImage imageNamed:@"Stars"]];
     

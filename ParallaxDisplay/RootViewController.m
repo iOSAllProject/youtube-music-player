@@ -16,7 +16,7 @@
 #import "JukeboxEntry.h"
 #import "MGScrollView.h"
 #import <QuartzCore/QuartzCore.h>
-#import "PhotoBox.h"
+#import "VoteCell.h"
 #import "LibraryViewController.h"
 #import "Song.h"
 
@@ -76,7 +76,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         imageView.image = jukeboxEntry.image;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         UIView *fadeView = [[UIView alloc] initWithFrame:imageView.frame];
-        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0f];
+        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
         fadeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
         titleLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
@@ -186,7 +186,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self.currentLibrary addObject:video];
         counter++;
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
+        VoteCell *box = [VoteCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,85) withLine:drawLine];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];
@@ -213,7 +213,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
         _toolBarView.alpha = _textLabel.alpha;
         _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
-        [_commentsTableView setContentOffset:(CGPoint){0,0} animated:NO];
+        [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
         titleLabel.alpha = 0.0;
     } else {
         delta = _mainScrollView.contentOffset.y;
@@ -227,7 +227,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         if (delta > backgroundScrollViewLimit) {
             _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame)}, .size = _commentsViewContainer.frame.size };
-            _commentsTableView.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
+            _scroller.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
             CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
             [_backgroundScrollView setContentOffset:(CGPoint){0,contentOffsetY} animated:NO];
             titleLabel.alpha = 1;
@@ -235,7 +235,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         else {
             _backgroundScrollView.frame = rect;
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(rect) + CGRectGetHeight(rect)}, .size = _commentsViewContainer.frame.size };
-            [_commentsTableView setContentOffset:(CGPoint){0,0} animated:NO];
+            [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
             [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
             titleLabel.alpha = 0.0;
         }
@@ -289,7 +289,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 
 
 - (void)viewDidAppear:(BOOL)animated {
-    _mainScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), _commentsTableView.contentSize.height + CGRectGetHeight(_backgroundScrollView.frame));
+    _mainScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), _scroller.contentSize.height + CGRectGetHeight(_backgroundScrollView.frame));
     
 }
 

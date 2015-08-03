@@ -20,7 +20,7 @@
 
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LibraryViewController alloc] init]];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[JukeboxListViewController alloc] init]];
     DEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
 
     
@@ -42,7 +42,6 @@
     CGFloat barHeight = 45.0f;
     CGFloat barWidth = self.window.frame.size.width;
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.window.frame.size.height-barHeight, self.window.frame.size.width, barHeight)];
-    self.playerBar.backgroundColor =  [UIColor blackColor];
     [[MediaManager sharedInstance] initializeVideoPlayer:self.playerBar];
     
     /*
@@ -56,11 +55,11 @@
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
         
         // Load resources for iOS 6.1 or earlier
-        [[UINavigationBar appearance]setTintColor:[UIColor clearColor]];
+        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
     } else {
-        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]]; // it set color of bar button item text
-        [[UINavigationBar appearance]setBarTintColor: RGB(19, 143, 213)]; // it set color of navigation
-        [[UINavigationBar appearance] setBarStyle:UIStatusBarStyleLightContent]; // it set Style of UINavigationBar
+        [[UINavigationBar appearance]setTintColor:RGB(19, 143, 213)]; // it set color of bar button item text
+       // [[UINavigationBar appearance]setBarTintColor: [UIColor clearColor]]; // it set color of navigation
+     //   [[UINavigationBar appearance] setBarStyle:UIStatusBarStyleDefault]; // it set Style of UINavigationBar
         [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set title color of Navigation Bar
         // Load resources for iOS 7 or later
         

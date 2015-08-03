@@ -15,7 +15,7 @@
 #import "VideoModel.h"
 #import "MGLine.h"
 #import "MediaManager.h"
-#import "PhotoBox.h"
+#import "SongCell.h"
 #import "CarbonKit.h"
 #import "LibraryViewController.h"
 #import "AppConstant.h"

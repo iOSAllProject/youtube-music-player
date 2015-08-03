@@ -78,12 +78,20 @@ static MediaManager *sharedInstance = nil;
     layer.endPoint = CGPointMake(1, 1);
     layer.contentsGravity = kCAGravityResize;
     [miniPlayer.layer addSublayer:layer];*/
-    miniPlayer.backgroundColor = RGB(34,34,34);
+    miniPlayer.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.99];
+    UIVisualEffect *blurEffect;
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    
+    UIVisualEffectView *visualEffectView;
+    visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+    visualEffectView.frame = miniPlayer.frame;
+    [miniPlayer addSubview:visualEffectView];
    // pImage = [[UIImageView alloc] init];
   //  pImage.frame = CGRectMake(0.0, 0.0, 77.0, 45.0);
   //  [miniPlayer addSubview:pImage];
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [miniPlayer addGestureRecognizer:playerTap];
+
 
     videoPlayer = [[ViewController alloc] init];
     
@@ -91,6 +99,7 @@ static MediaManager *sharedInstance = nil;
     CGFloat TITLE_WIDTH =  miniPlayer.frame.size.width-120;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
     
+
     pLabel = [[UILabel alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width/2 - TITLE_WIDTH/2, TITLE_SPACE, TITLE_WIDTH, TITLE_HEIGHT)];
     pLabel.textColor = [UIColor whiteColor];
     pLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:13.0f];
@@ -98,8 +107,10 @@ static MediaManager *sharedInstance = nil;
     pLabel.textAlignment = NSTextAlignmentCenter;
     [miniPlayer addSubview:pLabel];
 
+
     CGFloat ACTION_LENGTH = 22.0;
     CGFloat ACTION_PADDING = miniPlayer.frame.size.height/2 - ACTION_LENGTH/2;
+
     
     pAction = [[UIImageView alloc] init];
     pAction.frame = CGRectMake(ACTION_PADDING, ACTION_PADDING, ACTION_LENGTH, ACTION_LENGTH);
@@ -190,12 +201,12 @@ static MediaManager *sharedInstance = nil;
 
 -(void) updateMiniPlayer: (VideoModel *) video {
     pLabel.text = video.title;
-  //  NSURL *url = [NSURL URLWithString:video.thumbnail];
+    //NSURL *url = [NSURL URLWithString:video.thumbnail];
     //[self loadThumbnailImage:url];
     pAction.image = nil;
     [statusSpinner startAnimating];
 }
-/*
+
 -(void) loadThumbnailImage:(NSURL *)url {
     
     dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0ul);
@@ -204,11 +215,19 @@ static MediaManager *sharedInstance = nil;
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [[UIImage alloc] initWithData:data];
         dispatch_async(dispatch_get_main_queue(), ^{
-                        pImage.image= img;
+            [miniPlayer setBackgroundColor:[UIColor colorWithPatternImage:img]];
+            UIVisualEffect *blurEffect;
+            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+            
+            UIVisualEffectView *visualEffectView;
+            visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
+            visualEffectView.frame = miniPlayer.frame;
+            [miniPlayer addSubview:visualEffectView];
+            
             
         });
     });
-}*/
+}
 
 -(void)miniPlayerActionListener{
     [statusSpinner startAnimating];

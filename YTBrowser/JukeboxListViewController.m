@@ -15,8 +15,8 @@
 
 #define ROW_SIZE               (CGSize){375, 180}
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){185, 240}
-#define IPHONE_PORTRAIT_CELL  (CGSize){185, 240}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){186, 255}
+#define IPHONE_PORTRAIT_CELL  (CGSize){186, 255}
 #define IPHONE_LANDSCAPE_PHOTO (CGSize){152, 152}
 
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 180}
