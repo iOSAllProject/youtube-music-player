@@ -6,3 +6,5 @@
 
 
 
+#define PLAY @"play"
+#define PAUSE @"pause"

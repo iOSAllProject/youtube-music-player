@@ -59,9 +59,18 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MYC-k1-hHD">
+                                <rect key="frame" x="139" y="309" width="42" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="ZZx-Xf-3mz"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-du-qFP">
                                 <rect key="frame" x="0.0" y="73" width="320" height="269"/>
-                                <color key="backgroundColor" red="0.33725491166114807" green="0.35294118523597717" blue="0.36078432202339172" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="backgroundColor" red="0.9960784912109375" green="0.70980393886566162" blue="0.031372550874948502" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="269" id="rlP-YX-IHw"/>
                                 </constraints>
@@ -69,6 +78,8 @@
                         </subviews>
                         <color key="backgroundColor" red="0.86274516582489014" green="0.86274516582489014" blue="0.86274516582489014" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
+                            <constraint firstItem="MYC-k1-hHD" firstAttribute="centerX" secondItem="pfn-du-qFP" secondAttribute="centerX" type="default" id="Vgr-PN-APl"/>
+                            <constraint firstAttribute="bottom" secondItem="MYC-k1-hHD" secondAttribute="bottom" constant="174" id="ViF-iS-cFx"/>
                             <constraint firstItem="pfn-du-qFP" firstAttribute="leading" secondItem="8GR-ev-bMr" secondAttribute="leading" type="default" id="XmD-fB-vvk"/>
                             <constraint firstItem="pfn-du-qFP" firstAttribute="trailing" secondItem="8GR-ev-bMr" secondAttribute="trailing" type="default" id="ZPc-Ht-bOv"/>
                             <constraint firstItem="pfn-du-qFP" firstAttribute="top" secondItem="8GR-ev-bMr" secondAttribute="top" constant="73" id="gFK-HF-jE1"/>

@@ -2,12 +2,12 @@
 //  Created by matt on 28/09/12.
 //  Additions by Marin Todorov for YouTube JSONModel tutorial
 #import "AppConstant.h"
-#import "PhotoBox.h"
-@interface PhotoBox()
+#import "SongCell.h"
+@interface SongCell()
 
 @end
 
-@implementation PhotoBox
+@implementation SongCell
 #pragma mark - Init
 AHKActionSheet *actionSheet;
 UIImage *image;
@@ -34,10 +34,10 @@ static CGFloat imageWidth = 89.0;
 
 #pragma mark - Factories
 
-+ (PhotoBox *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine
++ (SongCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine
 {
   // box with photo number tag
-  PhotoBox *box = [PhotoBox boxWithSize:size];
+  SongCell *box = [SongCell boxWithSize:size];
   box.drawLine = drawLine;
   box.video = video;
   NSURL *url = [NSURL URLWithString:video.thumbnail];
@@ -91,7 +91,7 @@ static CGFloat imageWidth = 89.0;
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
       
-    CGFloat buttonSize = 25.0;
+    CGFloat buttonSize = 21.0;
     CGFloat buttonPadding = (size.height - buttonSize)/2;
     UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
     UIButton *moreOptionsBackground = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width+5, 0.0, self.frame.size.width - (label.frame.origin.x + label.frame.size.width)+5, self.frame.size.height)];

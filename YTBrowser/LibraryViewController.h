@@ -9,7 +9,8 @@
 #import "VideoModel.h"
 #import "MGLine.h"
 #import "MediaManager.h"
-#import "PhotoBox.h"
+#import "SongCell.h"
 @interface LibraryViewController : UIViewController
-
+@property (nonatomic,strong) ViewController *videoPlayer;
++(VideoModel *) createVideo:(Song*) song;
 @end

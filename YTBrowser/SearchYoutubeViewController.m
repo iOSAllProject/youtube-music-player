@@ -72,11 +72,9 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 }
 
 -(void) displayDetailedPlayer {
-    if(!self.videoPlayer) {
-        self.videoPlayer = [[ViewController alloc] init];
-    }
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];
+    
 }
 -(BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
     return YES;
@@ -148,7 +146,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //clean the old videos
     if([scroller.boxes count] > 0)
         [scroller.boxes removeObjectsInRange:NSMakeRange(0, scroller.boxes.count)];
-    
+    [scroller setContentOffset:CGPointMake(0, -64)];
     
     //add boxes for all videos
     for (int i=0;i<videos.count;i++) {
@@ -156,7 +154,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         //get the data
         VideoModel* video = videos[i];
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:YES];
+        SongCell *box = [SongCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:YES];
         
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{

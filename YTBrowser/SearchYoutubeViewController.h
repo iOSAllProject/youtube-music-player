@@ -18,7 +18,7 @@
 #import "VideoModel.h"
 #import "MGLine.h"
 #import "MediaManager.h"
-#import "PhotoBox.h"
+#import "SongCell.h"
 @interface SearchYoutubeViewController : UIViewController
 @property (nonatomic,strong) ViewController *videoPlayer;
 @end

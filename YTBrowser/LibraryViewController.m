@@ -1,10 +1,11 @@
 
 #import "LibraryViewController.h"
-
+#import "AppConstant.h"
 @interface LibraryViewController ()
 {
     MGScrollView* scroller;
-    BOOL videoPlayerInitialized;
+    UILabel *titleLabel;
+    UIView *playerBar;
 }
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSMutableArray *currentLibrary;
@@ -15,12 +16,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
+    titleLabel.text = @"My Music";
+    titleLabel.textColor = [[UINavigationBar appearance] tintColor];
+    
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f];
+    self.navigationItem.titleView = titleLabel;
+    
+
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:nil];
+    
     CGFloat navBarPadding = self.navigationController.navigationBar.frame.size.height+20;
     // Do any additional setup after loading the view, typically from a nib.
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutGridStyle;
-    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 100.0 - 40 );
+    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height  );
     scroller.sizingMode = MGResizingShrinkWrap;
     scroller.bottomPadding = 0;
     
@@ -58,7 +72,7 @@
         if(counter == [_fetchedResultsController.fetchedObjects count])
             drawLine = NO;
         //create a box
-        PhotoBox *box = [PhotoBox photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
+        SongCell *box = [SongCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             [[MediaManager sharedInstance] playWithVideo:video];
@@ -81,13 +95,6 @@
     return video;
 }
 
--(void) prepareForMiniVideoPlayer {
-    if(!videoPlayerInitialized){
-        scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 100.0 - 40.0 );
-        videoPlayerInitialized = YES;
-        [scroller layoutIfNeeded];
-    }
-}
 
 #pragma coreData
 
@@ -103,6 +110,33 @@
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     
     return _fetchedResultsController;
+}
+
+
+-(void) displayDetailedPlayer {
+    if(!self.videoPlayer) {
+        self.videoPlayer = [[ViewController alloc] init];
+    }
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+
+-(void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    //setup music player at bottom of screen
+    playerBar = [[MediaManager sharedInstance] getMiniPlayer];
+    
+    UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
+    [playerBar addGestureRecognizer:playerTap];
+    
+    [self.view addSubview:playerBar];
+    
+
+}
+-(void)viewWillDisappear {
+    [playerBar removeFromSuperview];
 }
 
 @end

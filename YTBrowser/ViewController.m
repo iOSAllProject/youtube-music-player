@@ -36,6 +36,8 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     UIImageView *backgroundImage;
     UIButton *playerSpeed;
     AHKActionSheet *actionSheet;
+
+    XCDYouTubeVideoPlayerViewController *player;
 }
 @property (nonatomic) int counter;
 
@@ -54,7 +56,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor =  RGB(34,34,34);
+    self.view.backgroundColor = RGB(34,34,34);
     [[self navigationController] setNavigationBarHidden:YES animated:NO];
     //BACKGROUND IMAGE
 /*    backgroundImage = [[UIImageView alloc] init];
@@ -66,23 +68,54 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [self.view addSubview:filter];*/
     
     // loading a video by URL
-    // [self.player loadPlayerWithVideoURL:@"https://www.youtube.com/watch?v=mIAgmyoAmmc"];
+    // [player loadPlayerWithVideoURL:@"https://www.youtube.com/watch?v=mIAgmyoAmmc"];
     
     // loading multiple videos from url
 
-    CGFloat topPaddingBar = 140.0;
-    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 210)];
-    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar, self.view.bounds.size.width, 210)];
+    CGFloat topPaddingBar = 170.0;
+    UIView *playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
+    [playerBg setBackgroundColor:[UIColor blackColor]];
+    playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, playerBg.frame.size.height/2 - 211/2, self.view.frame.size.width, 211)];
+    UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar,self.view.frame.size.width, 211)];
     // adding to subview
+    [self.view addSubview:playerBg];
     [self.view addSubview:playerContainer];
     [self.view addSubview:topView];
+    
+    CGFloat h_padding = 10.0;
+    CGFloat time_size = 40.0;
+    CGFloat bar_size = self.view.frame.size.width;
+    CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,topView.frame.origin.y + topView.frame.size.height-2, bar_size ,5);
+    // sliderAction will respond to the updated slider value
+    slider = [[UISlider alloc] initWithFrame:frame];
+  //  slider.backgroundColor = [UIColor redColor];
+    [slider setValue:0.00];
+    [slider setTintColor: [UIColor whiteColor]];
+    [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+    [slider setThumbImage:[[UIImage alloc] init] forState:UIControlStateNormal];
+    [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    [slider addTarget:self action:@selector(progressBarChangeEnded:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:slider];
+    
+    elapsed = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.origin.x+10, slider.frame.origin.y+10.0, time_size, 20.0)];
+    elapsed.text = @"0:00";
+    elapsed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
+    elapsed.textAlignment = NSTextAlignmentCenter;
+    elapsed.textColor = [UIColor whiteColor];
+    duration = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.size.width+slider.frame.origin.x-time_size-10, slider.frame.origin.y+10, time_size, 20.0)];
+    duration.text = @"0:00";
+    duration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
+    duration.textAlignment = NSTextAlignmentCenter;
+    duration.textColor = [UIColor whiteColor];
+    [self.view addSubview:elapsed];
+    [self.view addSubview:duration];
     
     //pass song info to video view controller
 
     
-    title = [[UILabel alloc] initWithFrame:CGRectMake(10, playerContainer.frame.origin.y + playerContainer.frame.size.height + 10, self.view.frame.size.width-20, 20)];
+    title = [[UILabel alloc] initWithFrame:CGRectMake(10, slider.frame.origin.y + slider.frame.size.height + 40, self.view.frame.size.width-20, 20)];
     title.textAlignment = NSTextAlignmentCenter;
-    title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+    title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     title.textColor = [UIColor whiteColor];
 
     [self.view addSubview:title];
@@ -96,72 +129,10 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [dismissButton setBackgroundImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
     [self.view addSubview:dismissButton];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"play_queue" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
-    CGFloat topPadding = 100.0;
-    CGFloat play_height = 40.0;
-    CGFloat play_width = 44.0;
+
     
-    CGFloat side_height = 20.0;
-    CGFloat side_width = 30.0;
-    CGFloat button_padding = 50.0;
-    
-    playButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-play_width/2, self.view.frame.size.height-topPadding, play_width, play_height)];
-    [playButton setBackgroundImage:[UIImage imageNamed:@"play_white"] forState:UIControlStateNormal];
-    [playButton setBackgroundImage:[UIImage imageNamed:@"pause_white"] forState:UIControlStateSelected];
-    [playButton setHighlighted:NO];
-    [playButton addTarget:self
-               action:@selector(controlButtonPressed:)
-     forControlEvents:UIControlEventTouchUpInside];
-    playButton.tag = 1;
-    [self.view addSubview:playButton];
-    
-    nextButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)+(play_width/2)+button_padding, self.view.frame.size.height-topPadding+play_height/4, side_width, side_height)];
-    [nextButton setBackgroundImage:[UIImage imageNamed:@"next_white"] forState:UIControlStateNormal];
-    [self.view addSubview:nextButton];
-    
-    prevButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-play_width/2 - side_width - button_padding, self.view.frame.size.height-topPadding+play_height/4, side_width,side_height)];
-    [prevButton setBackgroundImage:[UIImage imageNamed:@"prev_white"] forState:UIControlStateNormal];
-    [self.view addSubview:prevButton];
-    
-    CGFloat h_padding = 10.0;
-    CGFloat time_size = 40.0;
-    CGFloat bar_size = self.view.frame.size.width-2*h_padding;
-    CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,self.view.frame.size.height-topPadding-70, bar_size ,20);
-    // sliderAction will respond to the updated slider value
-    slider = [[UISlider alloc] initWithFrame:frame];
-    [slider setValue:0.00];
-    [slider setTintColor: [UIColor whiteColor]];
-    [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
-    [slider setThumbImage:[[UIImage alloc] init] forState:UIControlStateNormal];
-    [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
-    [slider addTarget:self action:@selector(progressBarChangeEnded:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:slider];
-    
-    elapsed = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.origin.x, slider.frame.origin.y-10.0, time_size, 20.0)];
-    elapsed.text = @"0:00";
-    elapsed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
-    elapsed.textAlignment = NSTextAlignmentCenter;
-    elapsed.textColor = [UIColor whiteColor];
-    duration = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.size.width+slider.frame.origin.x-time_size, slider.frame.origin.y-10, time_size, 20.0)];
-    duration.text = @"0:00";
-    duration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
-    duration.textAlignment = NSTextAlignmentCenter;
-    duration.textColor = [UIColor whiteColor];
-    [self.view addSubview:elapsed];
-    [self.view addSubview:duration];
-    
-    UIColor *fontColor = [[UINavigationBar appearance] barTintColor];
-    
-    CGFloat speed_button_size = 75.0;
-    playerSpeed = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-speed_button_size/2, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
-    [playerSpeed setTitle:@"Normal Speed" forState:UIControlStateNormal ];
-    playerSpeed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    [playerSpeed setTitleColor:fontColor forState:UIControlStateNormal];
-    [playerSpeed addTarget:self
-                   action:@selector(playbackSpeedChange:)
-         forControlEvents:UIControlEventTouchUpInside];
-    playerSpeed.titleLabel.textAlignment =NSTextAlignmentCenter;
-    [self.view addSubview:playerSpeed];
-    
+    [self setupPlayerControls];
+    /*
     UIButton *shuffle = [[UIButton alloc] initWithFrame:CGRectMake(10.0, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
     [shuffle setTitle:@"Shuffle" forState:UIControlStateNormal];
     shuffle.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
@@ -173,10 +144,32 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     loop.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
     [loop setTitleColor:fontColor forState:UIControlStateNormal];
     [self.view addSubview:loop];
+    */
+    
+
     
     
-    CGFloat buttonSize = 40.0;
-    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - buttonSize/2, title.frame.origin.y +  ((slider.frame.origin.y/2) - title.frame.origin.y/2), buttonSize, buttonSize)];
+
+}
+
+- (void) setupPlayerControls {
+    
+    CGFloat bar_size = self.view.frame.size.width-80;
+    
+    CGFloat buttonSize = 20.0;
+    
+    CGFloat speed_button_size = 75.0;
+    playerSpeed = [[UIButton alloc] initWithFrame:CGRectMake(10, self.view.frame.size.height-buttonSize - 10, speed_button_size, buttonSize)];
+    [playerSpeed setTitle:@"Normal Speed" forState:UIControlStateNormal ];
+    playerSpeed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+    [playerSpeed setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [playerSpeed addTarget:self
+                    action:@selector(playbackSpeedChange:)
+          forControlEvents:UIControlEventTouchUpInside];
+    playerSpeed.titleLabel.textAlignment =NSTextAlignmentCenter;
+    [self.view addSubview:playerSpeed];
+    
+    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - buttonSize - 10, self.view.frame.size.height - buttonSize - 10 , buttonSize, buttonSize)];
     [playButton setTintColor:[UIColor whiteColor]];
     
     [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet_white"] forState:UIControlStateNormal];
@@ -185,9 +178,53 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
                     action:@selector(showMore:)
           forControlEvents:UIControlEventTouchUpInside];
     
+    CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,playerSpeed.frame.origin.y - 40, bar_size ,5);
+    // sliderAction will respond to the updated slider value
+   /* vSlider = [[UISlider alloc] initWithFrame:frame];
+    //  slider.backgroundColor = [UIColor redColor];
+    [vSlider setValue:0.00];
+    [vSlider setTintColor: [UIColor whiteColor]];
+    [vSlider addTarget:self action:@selector(vSliderAction:) forControlEvents:UIControlEventValueChanged];
     
+    [vSlider addTarget:self action:nil forControlEvents:UIControlEventTouchUpInside];
+    */
+    MPVolumeView *vSlider =
+    [[MPVolumeView alloc] initWithFrame: frame];
+    [vSlider setTintColor: [UIColor whiteColor]];
+    vSlider.showsVolumeSlider = YES;
+    [self.view addSubview:vSlider];
 
+    
+    CGFloat play_height = 40.0;
+    CGFloat play_width = 44.0;
+    CGFloat play_y = vSlider.frame.origin.y - play_height - 40;
+    
+    CGFloat side_height = 20.0;
+    CGFloat side_width = 30.0;
+    CGFloat side_button_y =play_y + (play_height-side_height)/2 ;
+    CGFloat button_padding = 50.0;
+    
+    playButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-play_width/2,play_y , play_width, play_height)];
+    [playButton setBackgroundImage:[UIImage imageNamed:@"play_white"] forState:UIControlStateNormal];
+    [playButton setBackgroundImage:[UIImage imageNamed:@"pause_white"] forState:UIControlStateSelected];
+    [playButton setHighlighted:NO];
+    [playButton addTarget:self
+                   action:@selector(controlButtonPressed:)
+         forControlEvents:UIControlEventTouchUpInside];
+    playButton.tag = 1;
+    [self.view addSubview:playButton];
+    
+    nextButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)+(play_width/2)+button_padding, side_button_y, side_width, side_height)];
+    [nextButton setBackgroundImage:[UIImage imageNamed:@"next_white"] forState:UIControlStateNormal];
+    [self.view addSubview:nextButton];
+    
+    prevButton = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width/2)-play_width/2 - side_width - button_padding, side_button_y, side_width,side_height)];
+    [prevButton setBackgroundImage:[UIImage imageNamed:@"prev_white"] forState:UIControlStateNormal];
+    [self.view addSubview:prevButton];
+    
+    UIColor *fontColor = [[UINavigationBar appearance] barTintColor];
 }
+
 - (void)updateTime:(NSTimer *)timer {
     NSInteger d = (NSInteger) mPlayer.duration;
     NSInteger c =(NSInteger)  mPlayer.currentPlaybackTime;
@@ -219,7 +256,6 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 }
 
 
-
 - (UIImage *)blurredImageWithImage:(UIImage *)sourceImage{
     
     //  Create our blurred image
@@ -242,23 +278,25 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
      [[self navigationController] setNavigationBarHidden:YES animated:NO];
+    currentVideo =  [[MediaManager sharedInstance] getCurrentlyPlaying];
+    player = [[MediaManager sharedInstance] getVideoPlayer];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
+                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                               object:nil];
+    [mPlayer setControlStyle:MPMovieControlStyleNone];
+    mPlayer = player.moviePlayer;
+    [player presentInView:playerContainer];
+    [self updatePlayerState:mPlayer.playbackState];
+    title.text = currentVideo.title;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     [self becomeFirstResponder];
-    currentVideo =  [[MediaManager sharedInstance] getCurrentlyPlaying];
-    self.player = [[MediaManager sharedInstance] getVideoPlayer];
-    mPlayer = self.player.moviePlayer;
-    [self.player presentInView:playerContainer];
-    [self updatePlayerState:mPlayer.playbackState];
-    title.text = currentVideo.title;
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
-                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
-                                               object:nil];
     
-     [self.player.moviePlayer setControlStyle:MPMovieControlStyleNone];
+    
+     [player.moviePlayer setControlStyle:MPMovieControlStyleNone];
     
     //backgroundImage.image = [self blurredImageWithImage:[UIImage imageNamed:@"Stars"]];
     
@@ -395,12 +433,6 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
      
 }
 
-
-- (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
-{
-    [self updatePlayerState: mPlayer.playbackState];
-}
-
 - (void) updatePlayerState:(MPMoviePlaybackState) playerState {
     if (playerState == MPMoviePlaybackStatePlaying) { //playing
         playButton.selected = YES;
@@ -516,6 +548,13 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     song.url = video.thumbnail;
     NSLog(@"Saved %@ %@ %@", song.videoId, song.title, song.url);
     [coreDataStack saveContext];
+    
+}
+
+- (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
+{
+
+    [self updatePlayerState:mPlayer.playbackState];
     
 }
 

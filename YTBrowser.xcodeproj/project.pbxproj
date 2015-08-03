@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3015C0991B65F5F200A82642 /* VoteCell.m */; };
 		30270AD31AF6F386003E23A8 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */; };
 		30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30270AD21AF6F386003E23A8 /* YTPlayerView.m */; };
+		308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */; };
 		30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */; };
 		30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCB1AF0928B00327CAA /* UIView+MGEasyFrame.m */; };
 		30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCE1AF0928B00327CAA /* MGBlockWrapper.m */; };
@@ -31,6 +33,8 @@
 		3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */; };
 		3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3093E2711B1443C100C454CF /* JavaScriptCore.framework */; };
 		3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */; };
+		3094534F1B5C2DBF00F5E3CC /* JukeboxListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */; };
+		309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 309453511B5C340A00F5E3CC /* JukeBoxCell.m */; };
 		309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830C1AFF3325005E44B9 /* AHKActionSheet.m */; };
 		309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830E1AFF3325005E44B9 /* AHKActionSheetViewController.m */; };
 		309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 309483101AFF3325005E44B9 /* UIImage+AHKAdditions.m */; };
@@ -39,6 +43,14 @@
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
 		30B44DCD1B2424B5008CBD69 /* libXCDYouTubeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */; };
 		30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */; };
+		30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201631B5C6E3300D37DA2 /* CommentCell.m */; };
+		30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201651B5C6E3300D37DA2 /* RootViewController.m */; };
+		30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201671B5C6E3300D37DA2 /* ToolBarView.m */; };
+		30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */; };
+		30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */; };
+		30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */; };
+		30E201781B5C7B3300D37DA2 /* JukeboxEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */; };
+		30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */; };
 		30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F663401AECD24A00CF0C12 /* Images.xcassets */; };
 		9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */; };
 		9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB3A116BAE6AE00C8AB3A /* JSONModelArray.m */; };
@@ -59,7 +71,7 @@
 		9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623F8169591AC003F6334 /* SearchViewController.m */; };
 		9CA6243416959278003F6334 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA6243316959278003F6334 /* QuartzCore.framework */; };
 		9CA624361695927C003F6334 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA624351695927C003F6334 /* CoreText.framework */; };
-		9CA62439169592FB003F6334 /* PhotoBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62438169592FB003F6334 /* PhotoBox.m */; };
+		9CA62439169592FB003F6334 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62438169592FB003F6334 /* SongCell.m */; };
 		9CA6246D169598BC003F6334 /* VideoLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62468169598BC003F6334 /* VideoLink.m */; };
 		9CA6246E169598BC003F6334 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6246A169598BC003F6334 /* VideoModel.m */; };
 		9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */; };
@@ -69,9 +81,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3015C0981B65F5F200A82642 /* VoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCell.h; sourceTree = "<group>"; };
+		3015C0991B65F5F200A82642 /* VoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCell.m; sourceTree = "<group>"; };
 		30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
 		30270AD11AF6F386003E23A8 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
 		30270AD21AF6F386003E23A8 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
+		308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		30916CC81AF0928B00327CAA /* NSObject+MGEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MGEvents.h"; sourceTree = "<group>"; };
 		30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MGEvents.m"; sourceTree = "<group>"; };
 		30916CCA1AF0928B00327CAA /* UIView+MGEasyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGEasyFrame.h"; sourceTree = "<group>"; };
@@ -118,6 +133,10 @@
 		3093E2711B1443C100C454CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPMoviePlayerController+BackgroundPlayback.h"; path = "XCDYouTubeKit/MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
 		3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPMoviePlayerController+BackgroundPlayback.m"; path = "XCDYouTubeKit/MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
+		3094534D1B5C2DBF00F5E3CC /* JukeboxListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxListViewController.h; sourceTree = "<group>"; };
+		3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxListViewController.m; sourceTree = "<group>"; };
+		309453501B5C340A00F5E3CC /* JukeBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeBoxCell.h; sourceTree = "<group>"; };
+		309453511B5C340A00F5E3CC /* JukeBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeBoxCell.m; sourceTree = "<group>"; };
 		309482F91AFF2D04005E44B9 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		309482FB1AFF2D0D005E44B9 /* libPods-AHKActionSheet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AHKActionSheet.a"; path = "Pods/../build/Debug-iphoneos/libPods-AHKActionSheet.a"; sourceTree = "<group>"; };
 		3094830B1AFF3325005E44B9 /* AHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHKActionSheet.h; sourceTree = "<group>"; };
@@ -134,6 +153,22 @@
 		309AE3201B094D61004CF1E2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "../../../Downloads/XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
 		30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		30E201621B5C6E3300D37DA2 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		30E201631B5C6E3300D37DA2 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
+		30E201641B5C6E3300D37DA2 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		30E201651B5C6E3300D37DA2 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
+		30E201661B5C6E3300D37DA2 /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBarView.h; sourceTree = "<group>"; };
+		30E201671B5C6E3300D37DA2 /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBarView.m; sourceTree = "<group>"; };
+		30E201681B5C6E3300D37DA2 /* UIFont+SecretFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SecretFont.h"; sourceTree = "<group>"; };
+		30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SecretFont.m"; sourceTree = "<group>"; };
+		30E2016A1B5C6E3300D37DA2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		30E2016C1B5C6E3300D37DA2 /* UIView+GradientMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GradientMask.h"; sourceTree = "<group>"; };
+		30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GradientMask.m"; sourceTree = "<group>"; };
+		30E201761B5C788F00D37DA2 /* JukeboxEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JukeboxEntry.h; sourceTree = "<group>"; };
+		30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxEntry.m; sourceTree = "<group>"; };
+		30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
+		30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9BB39E16BAE6AE00C8AB3A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
@@ -172,8 +207,8 @@
 		9CA623F8169591AC003F6334 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		9CA6243316959278003F6334 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CA624351695927C003F6334 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		9CA62437169592FB003F6334 /* PhotoBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoBox.h; sourceTree = "<group>"; };
-		9CA62438169592FB003F6334 /* PhotoBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoBox.m; sourceTree = "<group>"; };
+		9CA62437169592FB003F6334 /* SongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongCell.h; sourceTree = "<group>"; };
+		9CA62438169592FB003F6334 /* SongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
 		9CA62467169598BC003F6334 /* VideoLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoLink.h; sourceTree = "<group>"; };
 		9CA62468169598BC003F6334 /* VideoLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoLink.m; sourceTree = "<group>"; };
 		9CA62469169598BC003F6334 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
@@ -190,6 +225,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */,
 				3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */,
 				309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */,
 				30B44DCD1B2424B5008CBD69 /* libXCDYouTubeKit.a in Frameworks */,
@@ -269,6 +305,25 @@
 			path = AHKActionSheet;
 			sourceTree = "<group>";
 		};
+		30E201611B5C6E3300D37DA2 /* ParallaxDisplay */ = {
+			isa = PBXGroup;
+			children = (
+				30E201621B5C6E3300D37DA2 /* CommentCell.h */,
+				30E201631B5C6E3300D37DA2 /* CommentCell.m */,
+				30E201641B5C6E3300D37DA2 /* RootViewController.h */,
+				30E201651B5C6E3300D37DA2 /* RootViewController.m */,
+				30E201661B5C6E3300D37DA2 /* ToolBarView.h */,
+				30E201671B5C6E3300D37DA2 /* ToolBarView.m */,
+				30E201681B5C6E3300D37DA2 /* UIFont+SecretFont.h */,
+				30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */,
+				30E2016A1B5C6E3300D37DA2 /* UIImage+ImageEffects.h */,
+				30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */,
+				30E2016C1B5C6E3300D37DA2 /* UIView+GradientMask.h */,
+				30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */,
+			);
+			path = ParallaxDisplay;
+			sourceTree = "<group>";
+		};
 		6B7F827E2AADC0D2D1F39933 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +396,7 @@
 		9CA623CD169591AC003F6334 = {
 			isa = PBXGroup;
 			children = (
+				30E201611B5C6E3300D37DA2 /* ParallaxDisplay */,
 				3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */,
 				3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */,
 				3093C0BE1B09793C00EEC6F7 /* CarbonKit */,
@@ -369,6 +425,7 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */,
 				30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */,
 				3093E2711B1443C100C454CF /* JavaScriptCore.framework */,
 				309AE31D1B094D1B004CF1E2 /* CoreData.framework */,
@@ -390,6 +447,10 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				309453501B5C340A00F5E3CC /* JukeBoxCell.h */,
+				30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */,
+				30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */,
+				309453511B5C340A00F5E3CC /* JukeBoxCell.m */,
 				30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */,
 				309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */,
 				309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */,
@@ -404,11 +465,13 @@
 				30916CE91AF0A91600327CAA /* MediaManager.m */,
 				30F663401AECD24A00CF0C12 /* Images.xcassets */,
 				30930A601AECA6AD00B44E58 /* AppConstant.h */,
-				9CA62437169592FB003F6334 /* PhotoBox.h */,
-				9CA62438169592FB003F6334 /* PhotoBox.m */,
+				9CA62437169592FB003F6334 /* SongCell.h */,
+				9CA62438169592FB003F6334 /* SongCell.m */,
+				3015C0981B65F5F200A82642 /* VoteCell.h */,
+				3015C0991B65F5F200A82642 /* VoteCell.m */,
 				9CA623EB169591AC003F6334 /* AppDelegate.h */,
-				9CA623EC169591AC003F6334 /* AppDelegate.m */,
 				30930A561AEC6F8100B44E58 /* ViewController.h */,
+				9CA623EC169591AC003F6334 /* AppDelegate.m */,
 				30930A571AEC6F8200B44E58 /* ViewController.m */,
 				9CA623F4169591AC003F6334 /* MainStoryboard.storyboard */,
 				9CA623F7169591AC003F6334 /* SearchViewController.h */,
@@ -416,6 +479,10 @@
 				9CA623E3169591AC003F6334 /* Supporting Files */,
 				309383AA1B1BAA120062C681 /* SearchYoutubeViewController.h */,
 				309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */,
+				3094534D1B5C2DBF00F5E3CC /* JukeboxListViewController.h */,
+				3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */,
+				30E201761B5C788F00D37DA2 /* JukeboxEntry.h */,
+				30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */,
 			);
 			path = YTBrowser;
 			sourceTree = "<group>";
@@ -551,10 +618,13 @@
 			files = (
 				30916CEA1AF0A91600327CAA /* MediaManager.m in Sources */,
 				30930A581AEC6F8200B44E58 /* ViewController.m in Sources */,
+				30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */,
 				9CA623E9169591AC003F6334 /* main.m in Sources */,
 				309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */,
+				3094534F1B5C2DBF00F5E3CC /* JukeboxListViewController.m in Sources */,
 				9CA623ED169591AC003F6334 /* AppDelegate.m in Sources */,
 				9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */,
+				3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
 				3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */,
@@ -562,21 +632,28 @@
 				30916CE51AF0928B00327CAA /* MGScrollView.m in Sources */,
 				30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */,
 				30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */,
-				9CA62439169592FB003F6334 /* PhotoBox.m in Sources */,
+				30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
+				9CA62439169592FB003F6334 /* SongCell.m in Sources */,
 				30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */,
+				309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */,
 				9CA6246D169598BC003F6334 /* VideoLink.m in Sources */,
 				9CA6246E169598BC003F6334 /* VideoModel.m in Sources */,
+				30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */,
 				9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */,
 				309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */,
 				30916CE31AF0928B00327CAA /* MGLayoutManager.m in Sources */,
+				30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */,
 				309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */,
 				30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */,
 				9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */,
 				9C9BB3B816BAE6AE00C8AB3A /* JSONModelClassProperty.m in Sources */,
+				30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */,
 				309383AC1B1BAA120062C681 /* SearchYoutubeViewController.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
+				30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */,
 				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
+				30E201781B5C7B3300D37DA2 /* JukeboxEntry.m in Sources */,
 				309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */,
 				9C9BB3BA16BAE6AE00C8AB3A /* NSArray+JSONModel.m in Sources */,
 				9C9BB3BB16BAE6AE00C8AB3A /* JSONAPI.m in Sources */,
@@ -589,6 +666,7 @@
 				9C9BB3BD16BAE6AE00C8AB3A /* JSONModel+networking.m in Sources */,
 				3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */,
 				30916CE21AF0928B00327CAA /* MGButton.m in Sources */,
+				30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */,
 				9C9BB3BE16BAE6AE00C8AB3A /* JSONKeyMapper.m in Sources */,
 				9C9BB3BF16BAE6AE00C8AB3A /* JSONValueTransformer.m in Sources */,
 			);

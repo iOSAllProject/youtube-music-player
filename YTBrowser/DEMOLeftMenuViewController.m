@@ -9,12 +9,15 @@
 #import "DEMOLeftMenuViewController.h"
 #import "SearchViewController.h"
 #import "SearchYoutubeViewController.h"
+#import "LibraryViewController.h"
+#import "JukeboxListViewController.h"
 
 @interface DEMOLeftMenuViewController ()
 
 @property (strong, readwrite, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *homeView;
-@property (strong, nonatomic) UIView *listingView;
+@property (strong, nonatomic) UIView *searchView;
+@property (strong, nonatomic) UIView *jukeboxView;
 @end
 
 @implementation DEMOLeftMenuViewController
@@ -47,19 +50,39 @@
     
     switch (indexPath.row) {
         case 0:
-            self.homeView = [[SearchViewController alloc] init];
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+                
+            } else {
+                [self.sideMenuViewController.navigationController.navigationBar setBarTintColor:RGB(19, 143, 213)]; // it set color of navigation
+                // Load resources for iOS 7 or later
+            }
+            self.homeView = [[LibraryViewController alloc] init];
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.homeView]
                                                          animated:YES];
+            [self.sideMenuViewController.navigationController.navigationBar setBarTintColor:RGB(19, 143, 213)];
             [self.sideMenuViewController hideMenuViewController];
             break;
         case 1:
-          
-            self.listingView = [[SearchYoutubeViewController alloc] init];
+          if(!self.searchView)
+            self.searchView = [[SearchYoutubeViewController alloc] init];
             
-            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.listingView]
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.searchView]
                                                          animated:YES];
             [self.sideMenuViewController hideMenuViewController];
             break;
+        case 2:
+           if(!self.jukeboxView)
+               self.jukeboxView = [[JukeboxListViewController alloc] init];
+            [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.jukeboxView]
+                                                         animated:YES];
+            if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
+                
+            } else {
+                //[[UINavigationBar appearance]setBarTintColor: RGB(254, 181, 8)]; // it set color of navigation
+                 [self.sideMenuViewController.navigationController.navigationBar setBarTintColor:RGB(254, 181, 8)];
+                // Load resources for iOS 7 or later
+            }
+            [self.sideMenuViewController hideMenuViewController];
         default:
             break;
     }
@@ -80,7 +103,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 2;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -98,8 +121,8 @@
         cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
-    NSArray *titles = @[@"Your Music", @"Search"];
-    NSArray *images = @[@"IconHome", @"IconCalendar"];
+    NSArray *titles = @[@"Your Music", @"Search", @"Jukeboxes"];
+    NSArray *images = @[@"IconHome", @"IconCalendar",@"Jukeboxes"];
     cell.textLabel.text = titles[indexPath.row];
     //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     

@@ -15,7 +15,7 @@
 #import "VideoModel.h"
 #import "MGLine.h"
 #import "MediaManager.h"
-#import "PhotoBox.h"
+#import "SongCell.h"
 #import "CarbonKit.h"
 #import "LibraryViewController.h"
 #import "AppConstant.h"
@@ -40,8 +40,6 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     
     
     //bottom music player constants
-    CGFloat barHeight = 40.0f;
-    CGFloat barWidth = self.view.frame.size.width;
     self.view.backgroundColor = [UIColor whiteColor];
     
     //Set up Tabs
@@ -58,10 +56,10 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
-    titleLabel.text = @"YOUR MUSIC";
+    titleLabel.text = @"Your Music";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
     
-    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
     self.navigationItem.titleView = titleLabel;
 
 
@@ -75,10 +73,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 }
 
 -(void) displayDetailedPlayer {
-    if(!self.videoPlayer) {
-        self.videoPlayer = [[ViewController alloc] init];
-    }
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];
     
 }
