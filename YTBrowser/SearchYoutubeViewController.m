@@ -158,6 +158,11 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
+            if(playerBar.isHidden){
+                scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+                playerBar.hidden =  NO;
+            }
+            
             [[MediaManager sharedInstance] playWithVideo:video];
         };
         
@@ -194,6 +199,11 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     [playerBar addGestureRecognizer:playerTap];
     
     [self.view addSubview:playerBar];
+    if(playerBar.isHidden){
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+    } else {
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+    }
     
 }
 -(void)viewWillDisappear {

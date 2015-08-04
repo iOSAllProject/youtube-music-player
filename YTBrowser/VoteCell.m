@@ -34,7 +34,7 @@ static CGFloat imageWidth = 89.0;
 
 #pragma mark - Factories
 
-+ (VoteCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine
++ (VoteCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize)size withLine:(BOOL)drawLine atIndex:(int)i
 {
   // box with photo number tag
   VoteCell *box = [VoteCell boxWithSize:size];
@@ -57,7 +57,7 @@ static CGFloat imageWidth = 89.0;
   // do the photo loading async, because internets
   __weak id wbox = box;
   box.asyncLayoutOnce = ^{
-      [wbox loadPhotoFromURL:url withCellSize:size];
+      [wbox loadPhotoFromURL:url withCellSize:size atIndex:i];
   };
 
 
@@ -67,7 +67,7 @@ static CGFloat imageWidth = 89.0;
 
 
 #pragma mark - Photo box loading
-- (void)loadPhotoFromURL:(NSURL*)url withCellSize:(CGSize) size
+- (void)loadPhotoFromURL:(NSURL*)url withCellSize:(CGSize) size atIndex:(int) i
 {
 
   // fetch the remote photo
@@ -81,7 +81,10 @@ static CGFloat imageWidth = 89.0;
     [spinner stopAnimating];
     [spinner removeFromSuperview];
     CGFloat imagePadding = (size.height - imageHeight)/2;
-    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(imageWidth + 5, imagePadding,size.width - imageWidth - 50,imageHeight)];
+          CGFloat trackNumSize = 25;
+    CGFloat trackPadding = 5 + trackNumSize;
+    CGFloat labelPadding = imageWidth + 5 + trackPadding;
+    UILabel* label = [[UILabel alloc] initWithFrame:CGRectMake(labelPadding, imagePadding,size.width - imageWidth - 40,imageHeight)];
       // [label setFrame:CGRectIntegral(label.frame)];
       // [label setTranslatesAutoresizingMaskIntoConstraints:NO];
     label.backgroundColor = [UIColor clearColor];
@@ -90,6 +93,14 @@ static CGFloat imageWidth = 89.0;
     label.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
+    UILabel *trackNumber = [[UILabel alloc] initWithFrame:(CGRect){0, imagePadding, trackNumSize,imageHeight}];
+    trackNumber.text = [NSString stringWithFormat:@"%i",i];
+
+    trackNumber.numberOfLines = 0;
+    trackNumber.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+    trackNumber.textColor = [UIColor blackColor];
+      trackNumber.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:trackNumber];
     /*
     CGFloat buttonSize = 21.0;
     CGFloat buttonPadding = (size.height - buttonSize)/2;
@@ -106,6 +117,7 @@ static CGFloat imageWidth = 89.0;
                                 action:@selector(showMore:)
                       forControlEvents:UIControlEventTouchUpInside];
     */
+      /*
       CGFloat buttonSize = 25.0;
       CGFloat buttonTopPadding = 7;
       UIButton *upVote = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonTopPadding, buttonSize, buttonSize)];
@@ -123,6 +135,7 @@ static CGFloat imageWidth = 89.0;
       voteCount.textAlignment = NSTextAlignmentCenter;
       voteCount.textColor = [UIColor blackColor];
       voteCount.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:19.0f];
+       */
      if(self.drawLine){
           UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
           border.backgroundColor = [UIColor grayColor];
@@ -137,7 +150,7 @@ static CGFloat imageWidth = 89.0;
         UIImage *image = [UIImage imageNamed:@"album-art-missing"];
         UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 
-        imageView.frame = CGRectMake(imageWidth/4,imagePadding,41, 41);
+        imageView.frame = CGRectMake(imageWidth/4 + labelPadding,imagePadding,41, 41);
         UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0,imagePadding,imageWidth, imageHeight)];
         emptyView.backgroundColor = [UIColor blackColor];
         [self addSubview:emptyView];
@@ -150,7 +163,7 @@ static CGFloat imageWidth = 89.0;
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
 
     
-    imageView.frame = CGRectMake(0,imagePadding,imageWidth, imageHeight);
+    imageView.frame = CGRectMake(trackPadding,imagePadding,imageWidth, imageHeight);
     [self addSubview:imageView];
     
     imageView.alpha = 0;

@@ -62,22 +62,28 @@
     if([scroller.boxes count] > 0)
         [scroller.boxes removeObjectsInRange:NSMakeRange(0, scroller.boxes.count)];
     self.currentLibrary = [[NSMutableArray alloc] init];
-    int counter = 0;
+    NSInteger counter = 0;
     BOOL drawLine = YES;
     for (Song *song in _fetchedResultsController.fetchedObjects){
         //get the data
         VideoModel *video = [LibraryViewController createVideo:song];
         [self.currentLibrary addObject:video];
-        counter++;
-        if(counter == [_fetchedResultsController.fetchedObjects count])
+        if(counter == [_fetchedResultsController.fetchedObjects count] -1)
             drawLine = NO;
         //create a box
         SongCell *box = [SongCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:drawLine];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
+            if(playerBar.isHidden){
+                scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+                playerBar.hidden= NO;
+            }
+            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
             [[MediaManager sharedInstance] playWithVideo:video];
-            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter-1];
+           
+            
         };
+        counter++;
         
         //add the box
         [scroller.boxes addObject:box];
@@ -114,10 +120,7 @@
 
 
 -(void) displayDetailedPlayer {
-    if(!self.videoPlayer) {
-        self.videoPlayer = [[ViewController alloc] init];
-    }
-    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:self.videoPlayer];
+    UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];
     
 }
@@ -130,7 +133,12 @@
     
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [playerBar addGestureRecognizer:playerTap];
-    
+    if(playerBar.isHidden){
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+    } else {
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+        
+    }
     [self.view addSubview:playerBar];
     
 

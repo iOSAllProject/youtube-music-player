@@ -50,7 +50,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     // TODO: Implement these
     UIGestureRecognizer *_leftSwipeGestureRecognizer;
     UIGestureRecognizer *_rightSwipeGestureRecognizer;
-    
+    CGFloat listViewHeight;
     
     NSMutableArray *comments;
 }
@@ -121,13 +121,15 @@ const CGFloat kCommentCellHeight = 50.0f;
         _blurImageView.backgroundColor = [UIColor clearColor];
         [_backgroundScrollView addSubview:_blurImageView];
  
-        _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight -44 )];
+        
+        listViewHeight = CGRectGetHeight(self.view.frame) - kBarHeight;
+        _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame),listViewHeight )];
         [_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
         
         _scroller = [MGScrollView scrollerWithSize:self.view.size];
         //setup the scroll view
         _scroller.contentLayoutMode = MGLayoutGridStyle;
-        _scroller.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight -44 );
+        _scroller.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.frame),listViewHeight);
         _scroller.sizingMode = MGResizingShrinkWrap;
         _scroller.bottomPadding = 0;
         
@@ -156,6 +158,11 @@ const CGFloat kCommentCellHeight = 50.0f;
                 forControlEvents:UIControlEventTouchUpInside];
         [dismissButton setBackgroundImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
         [self.view addSubview: dismissButton];
+        
+        UIButton *queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-20, 10, 20.0, 20.0)];
+        [queue setBackgroundImage:[UIImage imageNamed:@"queue"] forState:UIControlStateNormal];
+        [self.view addSubview:queue];
+        
     }
     return self;
 }
@@ -180,19 +187,22 @@ const CGFloat kCommentCellHeight = 50.0f;
     self.currentLibrary = [[NSMutableArray alloc] init];
     int counter = 0;
     BOOL drawLine = YES;
+    int i = 1;
     for (Song *song in _fetchedResultsController.fetchedObjects){
         //get the data
         VideoModel *video = [LibraryViewController createVideo:song];
         [self.currentLibrary addObject:video];
-        counter++;
+        if(counter == [_fetchedResultsController.fetchedObjects count] -1)
+            drawLine = NO;
         //create a box
-        VoteCell *box = [VoteCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,85) withLine:drawLine];
+        VoteCell *box = [VoteCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,85) withLine:drawLine atIndex:i++];
+        
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
+            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
             [[MediaManager sharedInstance] playWithVideo:video];
-            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter-1];
         };
-        
+        counter++;
         //add the box
         [_scroller.boxes addObject:box];
     }
@@ -215,8 +225,12 @@ const CGFloat kCommentCellHeight = 50.0f;
         _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
         [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
         titleLabel.alpha = 0.0;
+        if(scrollView.contentOffset.y < -128){
+            [self done];
+        }
     } else {
         delta = _mainScrollView.contentOffset.y;
+        CGFloat playerBarOffset = 0;//playerBar.isHidden ? 0 : 44;
         _textLabel.alpha = 1.0f;
         _toolBarView.alpha = _textLabel.alpha;
         _blurImageView.alpha = MIN(1 , delta * kBlurFadeInFactor);
@@ -225,7 +239,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         // Here I check whether or not the user has scrolled passed the limit where I want to stick the header, if they have then I move the frame with the scroll view
         // to give it the sticky header look
         if (delta > backgroundScrollViewLimit) {
-            _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
+            _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight -playerBarOffset}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame)}, .size = _commentsViewContainer.frame.size };
             _scroller.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
             CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
@@ -239,6 +253,7 @@ const CGFloat kCommentCellHeight = 50.0f;
             [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
             titleLabel.alpha = 0.0;
         }
+        
     }
 }
 

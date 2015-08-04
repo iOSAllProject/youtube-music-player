@@ -10,7 +10,7 @@
 #import "VideoModel.h"
 @interface VoteCell : MGBox
 
-+(VoteCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size withLine: (BOOL) drawLine;
++(VoteCell *)photoBoxForVideo:(VideoModel*)video withSize:(CGSize) size withLine: (BOOL) drawLine atIndex:(int)i;
 
 @property (strong, nonatomic) VideoModel *video;
 @property (nonatomic, assign) BOOL drawLine;

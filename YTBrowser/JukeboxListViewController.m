@@ -206,7 +206,7 @@
     // deal with taps
     __block MGBox *bbox = box;
     box.onTap = ^{
-        
+
         // a new photo number
         int photo = [self randomMissingPhoto];
         
@@ -278,6 +278,12 @@
     [playerBar addGestureRecognizer:playerTap];
     
     [self.view addSubview:playerBar];
+    if(playerBar.isHidden){
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+    } else {
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+        
+    }
     
     
 }

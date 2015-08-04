@@ -23,4 +23,6 @@
 -(BOOL) isInLibrary:(VideoModel*) song;
 -(UIViewController *) getVideoPlayerViewController;
 - (void)updatePlayerState:(NSString *) state;
+-(void) skipToNextSong;
+-(void) skipToPrevSong;
 @end

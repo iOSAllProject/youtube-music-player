@@ -19,7 +19,7 @@
 - (id)initWithImages:(NSArray *)images andContentView:(UIView*)contentView;
 -(id) initVideoPlayer:(NSString*)videoId title:(NSString*)title ;
 - (void) updatePlayerState:(MPMoviePlaybackState) playerState;
-
+-(void) updatePlayerTrack;
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) NSString *videoId;

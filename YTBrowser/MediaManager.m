@@ -27,11 +27,12 @@ static MediaManager *sharedInstance = nil;
     NSInteger  currentSongIndex;
     
     
+    
 }
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
 @end
 @implementation MediaManager
-
+static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 -(id)init{
     if(self = [super init]){
         
@@ -78,7 +79,7 @@ static MediaManager *sharedInstance = nil;
     layer.endPoint = CGPointMake(1, 1);
     layer.contentsGravity = kCAGravityResize;
     [miniPlayer.layer addSublayer:layer];*/
-    miniPlayer.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:.99];
+    miniPlayer.backgroundColor = [UIColor blackColor];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
@@ -93,7 +94,6 @@ static MediaManager *sharedInstance = nil;
     [miniPlayer addGestureRecognizer:playerTap];
 
 
-    videoPlayer = [[ViewController alloc] init];
     
     CGFloat TITLE_HEIGHT = 30.0;
     CGFloat TITLE_WIDTH =  miniPlayer.frame.size.width-120;
@@ -142,29 +142,25 @@ static MediaManager *sharedInstance = nil;
     isInitialized = YES;
     miniPlayer.hidden = YES;
     self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
-
-
-}
-
--(void)playWithVideo:(VideoModel *)video{
-    [self updateMiniPlayer: video];
-    miniPlayer.hidden = NO;
-    currentlyPlaying = video;
-    [self.videoPlayerViewController.moviePlayer stop];
-    self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self.videoPlayerViewController name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
+    [self.videoPlayerViewController addObserver:self forKeyPath:@"moviePlayer.contentURL" options:(NSKeyValueObservingOptions)0 context:MoviePlayerContentURLContext];
+
+    
     [mPlayer setControlStyle:MPMovieControlStyleNone];
-   
-    mPlayer.view.hidden = YES;
+    
+    //mPlayer.view.hidden = YES;
     mPlayer = self.videoPlayerViewController.moviePlayer;
     
+     videoPlayer = [[ViewController alloc] initVideoPlayer:nil title:nil];
     
     self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
-    [self.videoPlayerViewController setVideoIdentifier:video.videoId];
     [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
     [self.videoPlayerViewController.moviePlayer prepareToPlay];
     
@@ -178,24 +174,17 @@ static MediaManager *sharedInstance = nil;
     NSError *activationError = nil;
     success = [audioSession setActive:YES error:&activationError];
     if (!success) { /* handle the error condition */ }
-    
 
-   
-    /*
+}
+
+-(void)playWithVideo:(VideoModel *)video{
+    [self updateMiniPlayer: video];
+    [videoPlayer updatePlayerTrack];
+    miniPlayer.hidden = NO;
     currentlyPlaying = video;
-    [videoPlayer loadPlayerWithVideoId:video.videoId];
-    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    [audioSession setActive:YES error:nil];
-    NSError *sessionError = nil;
-    BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&sessionError];
-    if (!success){
-        NSLog(@"setCategory error %@", sessionError);
-    }
-    success = [audioSession setActive:YES error:&sessionError];
-    if (!success){
-        NSLog(@"setActive error %@", sessionError);
-    }*/
+    //[self.videoPlayerViewController.moviePlayer stop];
+    //self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
+    self.videoPlayerViewController.videoIdentifier = video.videoId;
 
 }
 
@@ -203,7 +192,6 @@ static MediaManager *sharedInstance = nil;
     pLabel.text = video.title;
     //NSURL *url = [NSURL URLWithString:video.thumbnail];
     //[self loadThumbnailImage:url];
-    pAction.image = nil;
     [statusSpinner startAnimating];
 }
 
@@ -309,7 +297,6 @@ static MediaManager *sharedInstance = nil;
         isPlaying = TRUE;
         pAction.image = [UIImage imageNamed:@"white_pause_128"];
     } if (state== MPMoviePlaybackStateStopped) { //stopped
-
     } if (state == MPMoviePlaybackStatePaused) { //paused
         
         if([statusSpinner isAnimating])
@@ -325,10 +312,29 @@ static MediaManager *sharedInstance = nil;
     { //seeking backward
     }
     pAction.hidden = FALSE;
-    self.videoPlayerViewController.moviePlayer.controlStyle = MPMovieControlStyleNone;
 }
 
+- (void) moviePlayerPlaybackDidFinish:(NSNotification *)notification
+{
+    MPMovieFinishReason finishReason = [notification.userInfo[MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] integerValue];
+    if (finishReason == MPMovieFinishReasonPlaybackEnded) {
+        currentSongIndex = (currentSongIndex+1) % [currentPlaylist count];
+        VideoModel *nextSong = [currentPlaylist objectAtIndex:currentSongIndex];
+        self.videoPlayerViewController.videoIdentifier = nextSong.videoId;
+        [videoPlayer updatePlayerTrack];
+        [self updateMiniPlayer:nextSong];
+        NSLog(@"%@", nextSong.title);
+    }
+}
 
+- (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (context == MoviePlayerContentURLContext) {
+        [self.videoPlayerViewController.moviePlayer play];
+    }
+    else
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+}
 
 - (XCDYouTubeVideoPlayerViewController *) getVideoPlayer {
     return self.videoPlayerViewController;
@@ -336,7 +342,7 @@ static MediaManager *sharedInstance = nil;
 
 
 -(VideoModel *) getCurrentlyPlaying {
-    return currentlyPlaying;
+    return [currentPlaylist objectAtIndex:currentSongIndex];
 }
 
 -(void) runInBackground {
@@ -396,4 +402,12 @@ static MediaManager *sharedInstance = nil;
 
 }
 
+-(void) skipToNextSong {
+    currentSongIndex = (currentSongIndex +1)% [currentPlaylist count];
+    [self playWithVideo:[currentPlaylist objectAtIndex:currentSongIndex]];
+}
+-(void) skipToPrevSong {
+    currentSongIndex = (currentSongIndex -1)% [currentPlaylist count];
+    [self playWithVideo:[currentPlaylist objectAtIndex:currentSongIndex]];
+}
 @end
