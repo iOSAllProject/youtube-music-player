@@ -146,7 +146,10 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
                                              selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(MPMoviePlayerLoadStateDidChange:)
+                                                 name:MPMoviePlayerLoadStateDidChangeNotification
+                                               object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self.videoPlayerViewController name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
@@ -155,7 +158,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     
     [mPlayer setControlStyle:MPMovieControlStyleNone];
     
-    //mPlayer.view.hidden = YES;
+    mPlayer.view.hidden = YES;
     mPlayer = self.videoPlayerViewController.moviePlayer;
     
      videoPlayer = [[ViewController alloc] initVideoPlayer:nil title:nil];
@@ -192,7 +195,9 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     pLabel.text = video.title;
     //NSURL *url = [NSURL URLWithString:video.thumbnail];
     //[self loadThumbnailImage:url];
+    pAction.image = nil;
     [statusSpinner startAnimating];
+    
 }
 
 -(void) loadThumbnailImage:(NSURL *)url {
@@ -218,8 +223,6 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 }
 
 -(void)miniPlayerActionListener{
-    [statusSpinner startAnimating];
-    pAction.image = nil;
     if(isPlaying){
         [mPlayer pause];
     } else {
@@ -289,18 +292,12 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 }
 
 -(void) updateMiniPlayerState:(MPMoviePlaybackState)state {
-    
+    [statusSpinner stopAnimating];
     if (state == MPMoviePlaybackStatePlaying) { //playing
-        
-        if([statusSpinner isAnimating])
-            [statusSpinner stopAnimating];
         isPlaying = TRUE;
         pAction.image = [UIImage imageNamed:@"white_pause_128"];
     } if (state== MPMoviePlaybackStateStopped) { //stopped
     } if (state == MPMoviePlaybackStatePaused) { //paused
-        
-        if([statusSpinner isAnimating])
-            [statusSpinner stopAnimating];
         isPlaying = FALSE;
         pAction.image = [UIImage imageNamed:@"play_white_128"];
         
@@ -311,7 +308,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     }if (state == MPMoviePlaybackStateSeekingBackward)
     { //seeking backward
     }
-    pAction.hidden = FALSE;
+
 }
 
 - (void) moviePlayerPlaybackDidFinish:(NSNotification *)notification
@@ -330,6 +327,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (context == MoviePlayerContentURLContext) {
+        [videoPlayer showVideoSpinner];
         [self.videoPlayerViewController.moviePlayer play];
     }
     else
@@ -364,13 +362,19 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     
 }
 
-- (void)MPMoviePlayerNowPlayingMovieDidChange:(NSNotification *)notification
+- (void)MPMoviePlayerLoadStateDidChange:(NSNotification *)notification
 {
     if((mPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable)
     {
-        //if load state is ready to play
-        //if(mPlayer.playbackState == MPMoviePlaybackStatePaused)
-          //  [mPlayer play];//play the video
+        [videoPlayer hideVideoSpinner];
+
+        [statusSpinner stopAnimating];
+        
+    } else {
+        
+        pAction.image = nil;
+        [videoPlayer showVideoSpinner];
+        [statusSpinner startAnimating];
         
     }
     

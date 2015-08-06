@@ -16,6 +16,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     UISearchBar *searchBar;
     UIView *playerBar;
     UIBarButtonItem *searchButton;
+    NSMutableArray *currentLibrary;
 
 }
 @end
@@ -147,6 +148,14 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     if([scroller.boxes count] > 0)
         [scroller.boxes removeObjectsInRange:NSMakeRange(0, scroller.boxes.count)];
     [scroller setContentOffset:CGPointMake(0, -64)];
+    currentLibrary = [[NSMutableArray alloc] init];
+    BOOL drawLine = YES;
+    //create now playing label
+    MGLine *layoutLine = [MGLine lineWithLeft:@"TOP RESULTS" right:nil
+                                         size:(CGSize){self.view.frame.size.width, 44}];
+    layoutLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
+    layoutLine.leftPadding = layoutLine.rightPadding = 16;
+    [scroller.boxes addObject:layoutLine];
     
     //add boxes for all videos
     for (int i=0;i<videos.count;i++) {
@@ -155,14 +164,16 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         VideoModel* video = videos[i];
         //create a box
         SongCell *box = [SongCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,65) withLine:YES];
-        
+        if(i == videos.count - 1)
+            drawLine = NO;
+        [currentLibrary addObject:video];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
             if(playerBar.isHidden){
                 scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
                 playerBar.hidden =  NO;
             }
-            
+            [[MediaManager sharedInstance] setPlaylist:currentLibrary andSongIndex:i];
             [[MediaManager sharedInstance] playWithVideo:video];
         };
         

@@ -27,9 +27,9 @@
 
 
 const CGFloat kBarHeight = 44.0f;
-const CGFloat kBackgroundParallexFactor = 0.95f;
-const CGFloat kBlurFadeInFactor = 0.05f;
-const CGFloat kTextFadeOutFactor = 0.007f;
+const CGFloat kBackgroundParallexFactor = 0.5f;
+const CGFloat kBlurFadeInFactor = 0.5f;
+const CGFloat kTextFadeOutFactor = 0.025f;
 const CGFloat kCommentCellHeight = 50.0f;
 
 @interface RootViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -45,6 +45,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     UIView *_postContainer;
     UIImageView *_thumbImageView;
     ToolBarView *_toolBarView;
+    
     UIView *_commentsViewContainer;
     UITableView *_commentsTableView;
     JukeboxEntry *jukeboxEntry;
@@ -79,12 +80,12 @@ const CGFloat kCommentCellHeight = 50.0f;
         imageView.image = jukeboxEntry.image;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         UIView *fadeView = [[UIView alloc] initWithFrame:imageView.frame];
-        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
+        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0f];
         fadeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
-
         
-        _textLabel = [[UILabel alloc] initWithFrame:(CGRect){0, HEADER_HEIGHT/2 + 20, self.view.frame.size.width, 40.0}];
+        _postContainer = [[UIView alloc] initWithFrame:HEADER_INIT_FRAME];
+        _textLabel = [[UILabel alloc] initWithFrame:(CGRect){0, HEADER_HEIGHT/2, self.view.frame.size.width, 60.0}];
         [_textLabel setText:@"Jukebox Title"];
         [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f]];
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
@@ -94,7 +95,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.layer.shadowRadius = 10.0f;
         _textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        _userLabel = [[UILabel alloc] initWithFrame:(CGRect){0, _textLabel.frame.origin.y + _textLabel.frame.size.height, self.view.frame.size.width, 20.0}];
+        _userLabel = [[UILabel alloc] initWithFrame:(CGRect){0, _textLabel.frame.origin.y + _textLabel.frame.size.height, self.view.frame.size.width, 60.0}];
         [_userLabel setText:@"Username"];
         [_userLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
         [_userLabel setTextAlignment:NSTextAlignmentCenter];
@@ -104,15 +105,15 @@ const CGFloat kCommentCellHeight = 50.0f;
         _userLabel.layer.shadowRadius = 10.0f;
         _userLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        CGFloat image_size = 100;
-        _thumbImageView = [[UIImageView alloc] initWithFrame:(CGRect){self.view.frame.size.width/2 - image_size/2,HEADER_HEIGHT/4, image_size,image_size} ];
-        _thumbImageView.image = jukeboxEntry.image;
-        _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        [_postContainer addSubview:_textLabel];
+        [_postContainer addSubview:_userLabel];
+        
         
         _toolBarView = [[ToolBarView alloc] initWithFrame:TOOLBAR_INIT_FRAME];
         _toolBarView.autoresizingMask =   UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
         [_backgroundScrollView addSubview:imageView];
         [_backgroundScrollView addSubview:fadeView];
+                 [_backgroundScrollView addSubview:_textLabel];
         //[_backgroundScrollView addSubview:_toolBarView];
 
         
@@ -127,12 +128,10 @@ const CGFloat kCommentCellHeight = 50.0f;
         _blurImageView = [[UIImageView alloc] initWithFrame:HEADER_INIT_FRAME];
         _blurImageView.image = [img applyBlurWithRadius:12 tintColor:[UIColor colorWithWhite:0.8 alpha:0.4] saturationDeltaFactor:1.8 maskImage:nil];
         _blurImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _blurImageView.alpha = 0;
+        _blurImageView.alpha = 1;
         _blurImageView.backgroundColor = [UIColor clearColor];
         [_backgroundScrollView addSubview:_blurImageView];
-         [_backgroundScrollView addSubview:_textLabel];
-        [_backgroundScrollView addSubview:_userLabel];
-        [_backgroundScrollView addSubview:_thumbImageView];
+
         
         listViewHeight = CGRectGetHeight(self.view.frame) - kBarHeight;
         _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame),listViewHeight )];
@@ -157,7 +156,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _commentsTableView.separatorColor = [UIColor clearColor];
         */
         [_mainScrollView addSubview:_backgroundScrollView];
-        [_commentsViewContainer addSubview:_commentsTableView];
+      //  [_commentsViewContainer addSubview:_commentsTableView];
         [_mainScrollView addSubview:_commentsViewContainer];
         
         // Let's put in some fake data!
@@ -177,6 +176,72 @@ const CGFloat kCommentCellHeight = 50.0f;
         
     }
     return self;
+}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat delta = 0.0f;
+    CGRect rect = HEADER_INIT_FRAME;
+    CGRect toolbarRect = TOOLBAR_INIT_FRAME;
+    // Here is where I do the "Zooming" image and the quick fade out the text and toolbar
+    if (scrollView.contentOffset.y < 0.0f) {
+        
+        delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
+        _backgroundScrollView.frame = CGRectMake(CGRectGetMinX(rect) - delta / 2.0f, CGRectGetMinY(rect) - delta, CGRectGetWidth(rect) + delta, CGRectGetHeight(rect) + delta);
+        _postContainer.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
+      //  _toolBarView.alpha = _textLabel.alpha;
+        //_toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
+        [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
+        
+        /*
+        delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
+        _postContainer.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
+        _toolBarView.alpha = _textLabel.alpha;
+        _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
+        _backgroundScrollView.frame = CGRectMake(CGRectGetMinX(rect) - delta / 2.0f, CGRectGetMinY(rect) - delta, CGRectGetWidth(rect) + delta, CGRectGetHeight(rect) + delta);
+        
+        _postContainer.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
+
+        _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
+        [_scroller setContentOffset:(CGPoint){0,0} animated:NO];*/
+
+        /*
+         //blurring of image
+         CGFloat bDelta = scrollView.contentOffset.y ;
+         if(bDelta < 0 && bDelta >= -64 ){
+         _blurImageView.alpha = 1;
+         _textLabel.alpha = 1.0f;
+         } else {
+         _blurImageView.alpha = 0;
+         _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
+         _toolBarView.alpha = _textLabel.alpha;
+         }*/
+        
+        
+    } else {
+        delta = _mainScrollView.contentOffset.y;
+        CGFloat playerBarOffset = 0;//playerBar.isHidden ? 0 : 44;
+        _postContainer.alpha = 1.0f;
+        _toolBarView.alpha = _textLabel.alpha;
+        _blurImageView.alpha = MIN(1 , (delta + 0) * kBlurFadeInFactor);
+        _toolBarView.frame = TOOLBAR_INIT_FRAME;
+        CGFloat backgroundScrollViewLimit = _backgroundScrollView.frame.size.height - kBarHeight;
+        // Here I check whether or not the user has scrolled passed the limit where I want to stick the header, if they have then I move the frame with the scroll view
+        // to give it the sticky header look
+        if (delta > backgroundScrollViewLimit) {
+            _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight -playerBarOffset}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
+            _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame)}, .size = _commentsViewContainer.frame.size };
+            _scroller.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
+            CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
+            [_backgroundScrollView setContentOffset:(CGPoint){0,contentOffsetY} animated:NO];
+        }
+        else {
+            _backgroundScrollView.frame = rect;
+            _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(rect) + CGRectGetHeight(rect)}, .size = _commentsViewContainer.frame.size };
+            [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
+            [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
+            
+        }
+        
+    }
 }
 
 -(void) setupLibraryView {
@@ -248,62 +313,6 @@ const CGFloat kCommentCellHeight = 50.0f;
 }
 
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat delta = 0.0f;
-    CGRect rect = HEADER_INIT_FRAME;
-    CGRect toolbarRect = TOOLBAR_INIT_FRAME;
-    // Here is where I do the "Zooming" image and the quick fade out the text and toolbar
-    if (scrollView.contentOffset.y < 0.0f) {
-        delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
-        _backgroundScrollView.frame = CGRectMake(CGRectGetMinX(rect) - delta / 2.0f, CGRectGetMinY(rect) - delta, CGRectGetWidth(rect) + delta, CGRectGetHeight(rect) + delta);
-        _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
-        [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
-      //  _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
-        
-        if(_mainScrollView.contentOffset.y >= -32){
-            _textLabel.alpha = 1.0f;
-            _userLabel.alpha = 1.0f;
-            _thumbImageView.alpha = 1.0f;
-            _blurImageView.alpha = MIN(1 , 64+delta * kBlurFadeInFactor);
-        }else {
-          
-                _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
-                _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/5;
-                _toolBarView.alpha = _textLabel.alpha;
-                _thumbImageView.alpha = _textLabel.alpha;
-                _userLabel.alpha = _textLabel.alpha;
-            
-        }
-    } else {
-        delta = _mainScrollView.contentOffset.y;
-        CGFloat playerBarOffset = 0;//playerBar.isHidden ? 0 : 44;
-        _textLabel.alpha = 1.0f;
-        _userLabel.alpha = 1.0f;
-        _thumbImageView.alpha = 1.0f;
-        _toolBarView.alpha = _textLabel.alpha;
-        _blurImageView.alpha = MIN(1 , 1+delta * kBlurFadeInFactor);
-        _toolBarView.frame = TOOLBAR_INIT_FRAME;
-        CGFloat backgroundScrollViewLimit = _backgroundScrollView.frame.size.height - kBarHeight;
-        // Here I check whether or not the user has scrolled passed the limit where I want to stick the header, if they have then I move the frame with the scroll view
-        // to give it the sticky header look
-        if (delta > backgroundScrollViewLimit) {
-            _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight -playerBarOffset}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
-            _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame)}, .size = _commentsViewContainer.frame.size };
-            _scroller.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
-            CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
-            [_backgroundScrollView setContentOffset:(CGPoint){0,contentOffsetY} animated:NO];
-  
-        }
-        else {
-            _backgroundScrollView.frame = rect;
-            _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(rect) + CGRectGetHeight(rect)}, .size = _commentsViewContainer.frame.size };
-            [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
-            [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
-           
-        }
-        
-    }
-}
 
 #pragma mark
 

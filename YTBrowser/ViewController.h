@@ -20,6 +20,9 @@
 -(id) initVideoPlayer:(NSString*)videoId title:(NSString*)title ;
 - (void) updatePlayerState:(MPMoviePlaybackState) playerState;
 -(void) updatePlayerTrack;
+-(void) showVideoSpinner ;
+-(void) hideVideoSpinner;
+
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) NSString *videoId;

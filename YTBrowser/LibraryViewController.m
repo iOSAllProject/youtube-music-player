@@ -89,7 +89,6 @@
         [scroller.boxes addObject:box];
     }
     [scroller layout];
-    [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
     
 }
 

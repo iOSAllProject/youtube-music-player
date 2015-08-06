@@ -39,6 +39,9 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     UIColor *textColor;
     UIColor *backgroundColor;
     XCDYouTubeVideoPlayerViewController *player;
+    UIActivityIndicatorView *videoSpinner;
+    UIView *playerBg;
+    UIView *topView;
 }
 @property (nonatomic) int counter;
 
@@ -56,10 +59,10 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         textColor = [UIColor blackColor];
         self.view.backgroundColor = backgroundColor;//RGB(34,34,34);
         CGFloat topPaddingBar = 170.0;
-        UIView *playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
+        playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
         [playerBg setBackgroundColor:[UIColor blackColor]];
         playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, playerBg.frame.size.height/2 - 211/2, self.view.frame.size.width, 211)];
-        UIView *topView = [[UIView alloc] initWithFrame:CGRectMake(0, topPaddingBar,self.view.frame.size.width, 211)];
+        UIView *topView = [[UIView alloc] initWithFrame:playerContainer.frame];
         // adding to subview
         [self.view addSubview:playerBg];
         [self.view addSubview:playerContainer];
@@ -68,7 +71,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         CGFloat h_padding = 10.0;
         CGFloat time_size = 40.0;
         CGFloat bar_size = self.view.frame.size.width;
-        CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,topView.frame.origin.y + topView.frame.size.height-2, bar_size ,5);
+        CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,playerBg.frame.origin.y + playerBg.frame.size.height-2, bar_size ,5);
         // sliderAction will respond to the updated slider value
         slider = [[UISlider alloc] initWithFrame:frame];
         //  slider.backgroundColor = [UIColor redColor];
@@ -117,8 +120,23 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         [self.view addSubview:queue];
         player = [[MediaManager sharedInstance] getVideoPlayer];
         [player presentInView:playerContainer];
-
+        player.moviePlayer.controlStyle = MPMovieControlStyleNone;
         [self setupPlayerControls];
+        
+        // add a loading spinner
+        videoSpinner = [[UIActivityIndicatorView alloc]
+                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        videoSpinner.center = CGPointMake(playerContainer.frame.size.width / 2, playerContainer.frame.size.height / 2);
+        videoSpinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+        | UIViewAutoresizingFlexibleRightMargin
+        | UIViewAutoresizingFlexibleBottomMargin
+        | UIViewAutoresizingFlexibleLeftMargin;
+        CGAffineTransform transform = CGAffineTransformMakeScale(2.5f, 2.5f);
+        videoSpinner.transform = transform;
+        
+        videoSpinner.color = UIColor.whiteColor;
+        [playerContainer addSubview:videoSpinner];
+        
     }
     return self;
 }
@@ -244,8 +262,12 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 }
 
 - (void)updateTime:(NSTimer *)timer {
+    
     NSInteger d = (NSInteger) mPlayer.duration;
     NSInteger c =(NSInteger)  mPlayer.currentPlaybackTime;
+    if(d < 0 ){
+        d = 0;
+    }
     NSInteger seconds = d % 60;
     NSInteger minutes = (d / 60) % 60;
     NSInteger hours = (d / 3600);
@@ -254,11 +276,11 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     NSInteger e_minutes = (c / 60) % 60;
     NSInteger e_hours = c/ 3600;
     if(hours > 0){
-        duration.text =  [NSString stringWithFormat:@"%i:%02i:%02i", hours, minutes, seconds];
-        elapsed.text =[NSString stringWithFormat:@"%i:%02i:%02i", e_hours, e_minutes, e_seconds];
+        duration.text =  [NSString stringWithFormat:@"%li:%02li:%02li", (long)hours, (long)minutes, (long)seconds];
+        elapsed.text =[NSString stringWithFormat:@"%li:%02li:%02li", (long)e_hours, (long)e_minutes, (long)e_seconds];
     } else {
-        duration.text =  [NSString stringWithFormat:@"%02i:%02i", minutes, seconds];
-        elapsed.text =[NSString stringWithFormat:@"%02i:%02i", e_minutes, e_seconds];
+        duration.text =  [NSString stringWithFormat:@"%02li:%02li", (long)minutes, (long)seconds];
+        elapsed.text =[NSString stringWithFormat:@"%02li:%02li", (long)e_minutes, (long)e_seconds];
     }
 
     [slider setValue:(CGFloat) c/ d];
@@ -591,5 +613,12 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 
 -(void) prevSong {
     [[MediaManager sharedInstance] skipToPrevSong];
+}
+
+-(void) showVideoSpinner {
+    [videoSpinner startAnimating];
+}
+-(void) hideVideoSpinner {
+    [videoSpinner stopAnimating];
 }
 @end

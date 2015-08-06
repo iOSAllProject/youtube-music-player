@@ -305,6 +305,14 @@
 			path = AHKActionSheet;
 			sourceTree = "<group>";
 		};
+		3096311D1B72DCE000FDD35F /* YoutubeKitExtension */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = YoutubeKitExtension;
+			path = ../../YoutubeKitExtension;
+			sourceTree = "<group>";
+		};
 		30E201611B5C6E3300D37DA2 /* ParallaxDisplay */ = {
 			isa = PBXGroup;
 			children = (
@@ -396,6 +404,7 @@
 		9CA623CD169591AC003F6334 = {
 			isa = PBXGroup;
 			children = (
+				3096311D1B72DCE000FDD35F /* YoutubeKitExtension */,
 				30E201611B5C6E3300D37DA2 /* ParallaxDisplay */,
 				3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */,
 				3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */,
