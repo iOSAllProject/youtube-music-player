@@ -64,7 +64,7 @@
             break;
         case 1:
           if(!self.searchView)
-            self.searchView = [[SearchYoutubeViewController alloc] init];
+            self.searchView = [[SearchYoutubeViewController alloc] initForSongSearch];
             
             [self.sideMenuViewController setContentViewController:[[UINavigationController alloc] initWithRootViewController:self.searchView]
                                                          animated:YES];
@@ -121,10 +121,10 @@
         cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
-    NSArray *titles = @[@"Your Music", @"Search", @"Jukeboxes"];
-    NSArray *images = @[@"IconHome", @"IconCalendar",@"Jukeboxes"];
+    NSArray *titles = @[@"My Music", @"Search", @"Jukeboxes"];
+    NSArray *images = @[@"star", @"find",@"Jukeboxes"];
     cell.textLabel.text = titles[indexPath.row];
-    //cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
+    cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     
     return cell;
 }

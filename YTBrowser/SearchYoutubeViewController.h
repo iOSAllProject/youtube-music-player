@@ -21,4 +21,6 @@
 #import "SongCell.h"
 @interface SearchYoutubeViewController : UIViewController
 @property (nonatomic,strong) ViewController *videoPlayer;
+-(id) initForSongSearch;
+-(id) initForJukeBoxSearch;
 @end

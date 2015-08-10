@@ -19,6 +19,8 @@
 #import "VoteCell.h"
 #import "LibraryViewController.h"
 #import "Song.h"
+#import "RMSaveButton.h"
+#import "SearchYoutubeViewController.h"
 
 #define HEADER_HEIGHT 320.0f
 #define THUMB_SIZE 100.0f
@@ -27,7 +29,9 @@
 #define THUMBNAIL_INIT_FRAME CGRectMake (self.view.frame.size.width/2 - THUMB_SIZE/2,HEADER_HEIGHT/3.5, THUMB_SIZE,THUMB_SIZE)
 #define TITLE_INIT_FRAME CGRectMake(0, THUMBNAIL_INIT_FRAME.origin.y + THUMBNAIL_INIT_FRAME.size.height + 10, self.view.frame.size.width, 40.0)
 #define USERNAME_INIT_FRAME CGRectMake(0, TITLE_INIT_FRAME.origin.y + TITLE_INIT_FRAME.size.height, self.view.frame.size.width, 20.0)
-const CGFloat kBarHeight = 44.0f;
+#define ADD_SONG_BUTTON_SIZE = CGSizeMake(140,50)
+#define ADD_SONG_INIT_FRAME CGRectMake(self.view.frame.size.width/2 - 70,HEADER_HEIGHT-25,140,50)
+const CGFloat kBarHeight = 88.0f;
 const CGFloat kBackgroundParallexFactor = 0.95f;
 const CGFloat kBlurFadeInFactor = 0.05f;
 const CGFloat kTextFadeOutFactor = 0.007f;
@@ -41,6 +45,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     UIScrollView *_mainScrollView;
     UIScrollView *_backgroundScrollView;
     UIImageView *_blurImageView;
+    UILabel *_titleSmallLabel;
     UILabel *_textLabel;
     UILabel *_userLabel;
     UIView *_postContainer;
@@ -57,6 +62,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     UIGestureRecognizer *_leftSwipeGestureRecognizer;
     UIGestureRecognizer *_rightSwipeGestureRecognizer;
     CGFloat listViewHeight;
+    RMSaveButton *_addButton;
     
     NSMutableArray *comments;
 }
@@ -103,6 +109,18 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.layer.shadowRadius = 10.0f;
         _textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
+        CGFloat smallTitleSize = self.view.size.width - 70;
+        _titleSmallLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 15, smallTitleSize, 25)];
+        _titleSmallLabel.text = @"Jukebox Title";
+        [_titleSmallLabel setTextAlignment:NSTextAlignmentCenter];
+        [_titleSmallLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f]];
+        _titleSmallLabel.backgroundColor = [UIColor clearColor];
+        _titleSmallLabel.textColor = [UIColor whiteColor];
+        _titleSmallLabel.layer.shadowColor = [UIColor blackColor].CGColor;
+        _titleSmallLabel.layer.shadowRadius = 10.0f;
+        _titleSmallLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        
+        
         _userLabel = [[UILabel alloc] initWithFrame:USERNAME_INIT_FRAME];
         [_userLabel setText:@"Username"];
         [_userLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
@@ -139,6 +157,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         [_postContainer addSubview:_userLabel];
         [_postContainer addSubview:_thumbImageView];
         
+        
         listViewHeight = CGRectGetHeight(self.view.frame) - kBarHeight;
         _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame),listViewHeight )];
         [_commentsViewContainer addGradientMaskWithStartPoint:CGPointMake(0.5, 0.0) endPoint:CGPointMake(0.5, 0.03)];
@@ -164,10 +183,19 @@ const CGFloat kCommentCellHeight = 50.0f;
         [_mainScrollView addSubview:_backgroundScrollView];
         [_commentsViewContainer addSubview:_commentsTableView];
         [_mainScrollView addSubview:_commentsViewContainer];
-        
+        [self.view addSubview:_titleSmallLabel];
         // Let's put in some fake data!
         comments = [@[@"Oh my god! Me too!", @"No way! I love secrets too!", @"I for some reason really like sharing my deepest darkest secrest to the entire world", @"More comments", @"Go Toronto Blue Jays!", @"I rather use Twitter", @"I don't get Secret", @"I don't have an iPhone", @"How are you using this then?"] mutableCopy];
         [_toolBarView setNumberOfComments:[comments count]];
+        
+        
+        _addButton = [[RMSaveButton alloc] initWithFrame: ADD_SONG_INIT_FRAME];
+        _addButton.label = @"Queue Song";
+        [_mainScrollView addSubview:_addButton];
+        _addButton.startHandler = ^void() { [self searchForSong]; };
+        _addButton.interruptHandler = ^void() {};
+        _addButton.completionHandler = ^void() {};
+        
         
         dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 25.0, 25.0)];
         [dismissButton addTarget:self
@@ -182,6 +210,12 @@ const CGFloat kCommentCellHeight = 50.0f;
         
     }
     return self;
+}
+
+-(void) searchForSong {
+    SearchYoutubeViewController *searchViewController = [[SearchYoutubeViewController alloc] initForJukeBoxSearch];
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
+    [self presentViewController:navController animated:YES completion:nil];
 }
 
 -(void) setupLibraryView {
@@ -260,6 +294,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     CGRect thumbRect = THUMBNAIL_INIT_FRAME;
     CGRect titleRect = TITLE_INIT_FRAME;
     CGRect userRect = USERNAME_INIT_FRAME;
+    _titleSmallLabel.alpha =0;
     // Here is where I do the "Zooming" image and the quick fade out the text and toolbar
     if (scrollView.contentOffset.y < 0.0f) {
         delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
@@ -270,7 +305,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 
       //  _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
         
-        if(_mainScrollView.contentOffset.y >= -32){
+        if(delta < 32){
             _textLabel.alpha = 1.0f;
             _userLabel.alpha = 1.0f;
             queue.alpha = 1.0f;
@@ -281,15 +316,18 @@ const CGFloat kCommentCellHeight = 50.0f;
             _blurImageView.alpha = MIN(1 , 64+delta * kBlurFadeInFactor);
             _userLabel.frame =CGRectMake(CGRectGetMinX(userRect) + delta / 2.0f, CGRectGetMinY(userRect) + delta,CGRectGetWidth(userRect), CGRectGetHeight(userRect));
         } else {
-          
+            NSLog(@"scroll is: %f   delta is: %f ", _mainScrollView.contentOffset.y,delta);
                 _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
                 _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/5;
                 _toolBarView.alpha = _textLabel.alpha;
                 _thumbImageView.alpha = _textLabel.alpha;
                 _userLabel.alpha = _textLabel.alpha;
-                queue.alpha = _textLabel.alpha;
-                dismissButton.alpha = _textLabel.alpha;
+
             
+        }
+        if(delta > 64){
+            queue.alpha = _textLabel.alpha;
+            dismissButton.alpha = _textLabel.alpha;
         }
     } else {
         delta = _mainScrollView.contentOffset.y;
@@ -306,15 +344,21 @@ const CGFloat kCommentCellHeight = 50.0f;
         if (delta > backgroundScrollViewLimit) {
             _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight -playerBarOffset}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame)}, .size = _commentsViewContainer.frame.size };
+            
+            _addButton.frame = (CGRect){.origin = {ADD_SONG_INIT_FRAME.origin.x, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame) - ADD_SONG_INIT_FRAME.size.height/2}, .size = _addButton.frame.size };
+            
             _scroller.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
             CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
             [_backgroundScrollView setContentOffset:(CGPoint){0,contentOffsetY} animated:NO];
+            _titleSmallLabel.alpha = 1;
   
         }
         else {
             _backgroundScrollView.frame = rect;
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(rect) + CGRectGetHeight(rect)}, .size = _commentsViewContainer.frame.size };
             [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
+            _addButton.frame = (CGRect){.origin = {ADD_SONG_INIT_FRAME.origin.x, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame) - ADD_SONG_INIT_FRAME.size.height/2}, .size = _addButton.frame.size };
+
             [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
            
         }
