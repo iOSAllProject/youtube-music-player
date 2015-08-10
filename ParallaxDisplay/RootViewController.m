@@ -21,11 +21,12 @@
 #import "Song.h"
 
 #define HEADER_HEIGHT 320.0f
+#define THUMB_SIZE 100.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
-#define TITLE_INIT_FRAME CGRectMake(self.view.frame.size.width/2 - self.view.frame.size.width/4, 0, self.view.frame.size.width/2, 44.0f)
 #define TOOLBAR_INIT_FRAME CGRectMake (0, 292, 320, 22)
-
-
+#define THUMBNAIL_INIT_FRAME CGRectMake (self.view.frame.size.width/2 - THUMB_SIZE/2,HEADER_HEIGHT/3.5, THUMB_SIZE,THUMB_SIZE)
+#define TITLE_INIT_FRAME CGRectMake(0, THUMBNAIL_INIT_FRAME.origin.y + THUMBNAIL_INIT_FRAME.size.height + 10, self.view.frame.size.width, 40.0)
+#define USERNAME_INIT_FRAME CGRectMake(0, TITLE_INIT_FRAME.origin.y + TITLE_INIT_FRAME.size.height, self.view.frame.size.width, 20.0)
 const CGFloat kBarHeight = 44.0f;
 const CGFloat kBackgroundParallexFactor = 0.95f;
 const CGFloat kBlurFadeInFactor = 0.05f;
@@ -50,6 +51,8 @@ const CGFloat kCommentCellHeight = 50.0f;
     JukeboxEntry *jukeboxEntry;
     MGScrollView *_scroller;
     UIView *playerBar;
+    UIButton *dismissButton;
+    UIButton *queue;
     // TODO: Implement these
     UIGestureRecognizer *_leftSwipeGestureRecognizer;
     UIGestureRecognizer *_rightSwipeGestureRecognizer;
@@ -83,8 +86,14 @@ const CGFloat kCommentCellHeight = 50.0f;
         fadeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
 
+        _postContainer = [[UIView alloc] initWithFrame:HEADER_INIT_FRAME];
+        _postContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
+        _thumbImageView = [[UIImageView alloc] initWithFrame:THUMBNAIL_INIT_FRAME];
+        _thumbImageView.image = jukeboxEntry.image;
+        _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        _textLabel = [[UILabel alloc] initWithFrame:(CGRect){0, HEADER_HEIGHT/2 + 20, self.view.frame.size.width, 40.0}];
+        _textLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
         [_textLabel setText:@"Jukebox Title"];
         [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f]];
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
@@ -94,7 +103,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.layer.shadowRadius = 10.0f;
         _textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        _userLabel = [[UILabel alloc] initWithFrame:(CGRect){0, _textLabel.frame.origin.y + _textLabel.frame.size.height, self.view.frame.size.width, 20.0}];
+        _userLabel = [[UILabel alloc] initWithFrame:USERNAME_INIT_FRAME];
         [_userLabel setText:@"Username"];
         [_userLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
         [_userLabel setTextAlignment:NSTextAlignmentCenter];
@@ -103,11 +112,6 @@ const CGFloat kCommentCellHeight = 50.0f;
         _userLabel.layer.shadowColor = [UIColor blackColor].CGColor;
         _userLabel.layer.shadowRadius = 10.0f;
         _userLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
-        CGFloat image_size = 100;
-        _thumbImageView = [[UIImageView alloc] initWithFrame:(CGRect){self.view.frame.size.width/2 - image_size/2,HEADER_HEIGHT/4, image_size,image_size} ];
-        _thumbImageView.image = jukeboxEntry.image;
-        _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
         _toolBarView = [[ToolBarView alloc] initWithFrame:TOOLBAR_INIT_FRAME];
         _toolBarView.autoresizingMask =   UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
@@ -129,10 +133,11 @@ const CGFloat kCommentCellHeight = 50.0f;
         _blurImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _blurImageView.alpha = 0;
         _blurImageView.backgroundColor = [UIColor clearColor];
-        [_backgroundScrollView addSubview:_blurImageView];
-         [_backgroundScrollView addSubview:_textLabel];
-        [_backgroundScrollView addSubview:_userLabel];
-        [_backgroundScrollView addSubview:_thumbImageView];
+        [_backgroundScrollView addSubview:_postContainer];
+        [_postContainer addSubview:_blurImageView];
+         [_postContainer addSubview:_textLabel];
+        [_postContainer addSubview:_userLabel];
+        [_postContainer addSubview:_thumbImageView];
         
         listViewHeight = CGRectGetHeight(self.view.frame) - kBarHeight;
         _commentsViewContainer = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(_backgroundScrollView.frame), CGRectGetWidth(self.view.frame),listViewHeight )];
@@ -164,15 +169,15 @@ const CGFloat kCommentCellHeight = 50.0f;
         comments = [@[@"Oh my god! Me too!", @"No way! I love secrets too!", @"I for some reason really like sharing my deepest darkest secrest to the entire world", @"More comments", @"Go Toronto Blue Jays!", @"I rather use Twitter", @"I don't get Secret", @"I don't have an iPhone", @"How are you using this then?"] mutableCopy];
         [_toolBarView setNumberOfComments:[comments count]];
         
-        UIButton *dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 25.0, 25.0)];
+        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 25.0, 25.0)];
         [dismissButton addTarget:self
                           action:@selector(done)
                 forControlEvents:UIControlEventTouchUpInside];
-        [dismissButton setBackgroundImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
+        [dismissButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [self.view addSubview: dismissButton];
         
-        UIButton *queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-20, 10, 20.0, 20.0)];
-        [queue setBackgroundImage:[UIImage imageNamed:@"queue"] forState:UIControlStateNormal];
+        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 10, 25.0, 25.0)];
+        [queue setBackgroundImage:[UIImage imageNamed:@"more_juke"] forState:UIControlStateNormal];
         [self.view addSubview:queue];
         
     }
@@ -252,26 +257,38 @@ const CGFloat kCommentCellHeight = 50.0f;
     CGFloat delta = 0.0f;
     CGRect rect = HEADER_INIT_FRAME;
     CGRect toolbarRect = TOOLBAR_INIT_FRAME;
+    CGRect thumbRect = THUMBNAIL_INIT_FRAME;
+    CGRect titleRect = TITLE_INIT_FRAME;
+    CGRect userRect = USERNAME_INIT_FRAME;
     // Here is where I do the "Zooming" image and the quick fade out the text and toolbar
     if (scrollView.contentOffset.y < 0.0f) {
         delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
         _backgroundScrollView.frame = CGRectMake(CGRectGetMinX(rect) - delta / 2.0f, CGRectGetMinY(rect) - delta, CGRectGetWidth(rect) + delta, CGRectGetHeight(rect) + delta);
         _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
+
         [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
+
       //  _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
         
         if(_mainScrollView.contentOffset.y >= -32){
             _textLabel.alpha = 1.0f;
             _userLabel.alpha = 1.0f;
+            queue.alpha = 1.0f;
+            dismissButton.alpha = 1.0;
             _thumbImageView.alpha = 1.0f;
+            _thumbImageView.frame = CGRectMake(CGRectGetMinX(thumbRect) + delta / 2.0f, CGRectGetMinY(thumbRect) + delta,CGRectGetWidth(thumbRect), CGRectGetHeight(thumbRect));
+            _textLabel.frame = CGRectMake(CGRectGetMinX(titleRect) + delta / 2.0f, CGRectGetMinY(titleRect) + delta,CGRectGetWidth(titleRect), CGRectGetHeight(titleRect));
             _blurImageView.alpha = MIN(1 , 64+delta * kBlurFadeInFactor);
-        }else {
+            _userLabel.frame =CGRectMake(CGRectGetMinX(userRect) + delta / 2.0f, CGRectGetMinY(userRect) + delta,CGRectGetWidth(userRect), CGRectGetHeight(userRect));
+        } else {
           
                 _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
                 _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/5;
                 _toolBarView.alpha = _textLabel.alpha;
                 _thumbImageView.alpha = _textLabel.alpha;
                 _userLabel.alpha = _textLabel.alpha;
+                queue.alpha = _textLabel.alpha;
+                dismissButton.alpha = _textLabel.alpha;
             
         }
     } else {
