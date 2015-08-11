@@ -10,7 +10,7 @@
 #import "AppConstant.h"
 
 #define TOTAL_IMAGES           28
-#define IPHONE_INITIAL_IMAGES  6
+#define IPHONE_INITIAL_IMAGES  28
 #define IPAD_INITIAL_IMAGES    11
 
 #define ROW_SIZE               (CGSize){375, 180}

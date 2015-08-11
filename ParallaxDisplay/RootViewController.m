@@ -86,7 +86,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         
         _textLabel = [[UILabel alloc] initWithFrame:(CGRect){0, HEADER_HEIGHT/2 + 20, self.view.frame.size.width, 40.0}];
         [_textLabel setText:@"Jukebox Title"];
-        [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f]];
+        [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22.0f]];
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
         [_textLabel setTextColor:[UIColor whiteColor]];
         _textLabel.backgroundColor = [UIColor clearColor];
@@ -105,7 +105,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _userLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
         CGFloat image_size = 100;
-        _thumbImageView = [[UIImageView alloc] initWithFrame:(CGRect){self.view.frame.size.width/2 - image_size/2,HEADER_HEIGHT/4, image_size,image_size} ];
+        _thumbImageView = [[UIImageView alloc] initWithFrame:(CGRect){self.view.frame.size.width/2 - image_size/2,HEADER_HEIGHT/4-10, image_size,image_size} ];
         _thumbImageView.image = jukeboxEntry.image;
         _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
@@ -268,7 +268,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         }else {
           
                 _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
-                _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/5;
+                _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/8;
                 _toolBarView.alpha = _textLabel.alpha;
                 _thumbImageView.alpha = _textLabel.alpha;
                 _userLabel.alpha = _textLabel.alpha;
