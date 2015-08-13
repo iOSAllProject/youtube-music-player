@@ -15,8 +15,8 @@
 
 #define ROW_SIZE               (CGSize){375, 180}
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){186, 255}
-#define IPHONE_PORTRAIT_CELL  (CGSize){186, 255}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width, 100}
+#define IPHONE_PORTRAIT_CELL  (CGSize){self.view.frame.size.width, 100}
 #define IPHONE_LANDSCAPE_PHOTO (CGSize){152, 152}
 
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 180}
@@ -46,16 +46,16 @@
     
     
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
-    titleLabel.text = @"Jukeboxes";
+    titleLabel.text = @"JUKEBOXES";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
     
-    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:16.0f];
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     self.navigationItem.titleView = titleLabel;
 
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
     
     // Do any additional setup after loading the view, typically from a nib.
     scroller = [MGScrollView scrollerWithSize:self.view.size];

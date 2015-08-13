@@ -469,10 +469,8 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				309453501B5C340A00F5E3CC /* JukeBoxCell.h */,
 				30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */,
 				30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */,
-				309453511B5C340A00F5E3CC /* JukeBoxCell.m */,
 				30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */,
 				309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */,
 				309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */,
@@ -501,6 +499,8 @@
 				9CA623E3169591AC003F6334 /* Supporting Files */,
 				309383AA1B1BAA120062C681 /* SearchYoutubeViewController.h */,
 				309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */,
+				309453501B5C340A00F5E3CC /* JukeBoxCell.h */,
+				309453511B5C340A00F5E3CC /* JukeBoxCell.m */,
 				3094534D1B5C2DBF00F5E3CC /* JukeboxListViewController.h */,
 				3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */,
 				30E201761B5C788F00D37DA2 /* JukeboxEntry.h */,

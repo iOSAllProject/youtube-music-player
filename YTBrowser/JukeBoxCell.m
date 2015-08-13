@@ -4,17 +4,20 @@
 
 #import "JukeBoxCell.h"
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){186, 186}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){80, 80}
+#define ROW_HEIGHT 100
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
 @implementation JukeBoxCell
-
+{
+    CGSize _size;
+}
 #pragma mark - Init
 
 - (void)setup {
 
   // positioning
     
-    self.leftMargin = (IPHONE_PORTRAIT_GRID.width - 2*IPHONE_PORTRAIT_PHOTO.width)/3;
+    //self.leftMargin = (IPHONE_PORTRAIT_GRID.width - 2*IPHONE_PORTRAIT_PHOTO.width)/3;
     self.topMargin = self.leftMargin;
 
   // background
@@ -114,11 +117,12 @@
     // got the photo, so lets show it
     UIImage *image = [UIImage imageWithData:data];
     self.jukeBoxEntry.image = image;
-    self.backgroundColor = [self averageColor:image];
+//    self.backgroundColor = [self averageColor:image];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self addSubview:imageView];
-    imageView.size = IPHONE_PORTRAIT_PHOTO;
+      imageView.frame = (CGRect) {(ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height};
+    //imageView.size = IPHONE_PORTRAIT_PHOTO;
     imageView.alpha = 0;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
         | UIViewAutoresizingFlexibleHeight;
@@ -127,31 +131,40 @@
     [UIView animateWithDuration:0.2 animations:^{
       imageView.alpha = 1;
     }];
-      BOOL isBgLight =[self isLightColor:self.backgroundColor];
-      CGFloat hPadding = 5;
+     // BOOL isBgLight =[self isLightColor:self.backgroundColor];
+      CGFloat hPadding = 10;
       CGFloat vPadding = 10;
-      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(vPadding, IPHONE_PORTRAIT_PHOTO.height+vPadding, self.frame.size.width, 15)];
+      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.size.width + imageView.frame.origin.x + 10, ROW_HEIGHT/2 - (25+vPadding)/2, self.frame.size.width - imageView.frame.size.width-25 - vPadding, 15)];
       title.text =  @"Jukebox Name";
-      title.font = [UIFont fontWithName:@"HelveticaNeue" size:14.0f];
+      title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
      // title.textAlignment = NSTextAlignmentCenter;
-      if(isBgLight)
+     // if(isBgLight)
           title.textColor = [UIColor blackColor];
-      else
-          title.textColor = [UIColor whiteColor];
+      //else
+        //  title.textColor = [UIColor whiteColor];
     //  title.backgroundColor = [UIColor redColor];
       [self addSubview:title];
       
-      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(vPadding, title.frame.origin.y + title.frame.size.height +5 , self.frame.size.width, 10)];
+      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  self.frame.size.width - imageView.frame.size.width-40, 10)];
       author.text =  @"Username";
      // author.textAlignment = NSTextAlignmentCenter;
-      author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
+      author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
       author.textColor = RGB(62,68,72);
-      if(isBgLight)
-          author.textColor = RGB(62,68,72);
-      else
-          author.textColor = RGB(225,225,225);
+  //    if(isBgLight)
+         author.textColor = RGB(62,68,72);
+    //else
+      //    author.textColor = RGB(225,225,225);
      // author.backgroundColor = [UIColor blueColor];
       [self addSubview:author];
+      
+      CGFloat moreSize = 20;
+      UIImageView *more = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width -moreSize-10, self.frame.size.height/2-moreSize/2, moreSize, moreSize)];
+      more.image = [UIImage imageNamed:@"right_arrow"];
+      [self addSubview:more];
+      
+      UIView *border = [[UIView alloc] initWithFrame:CGRectMake(10, ROW_HEIGHT-1, self.frame.size.width-20, 0.3)];
+      border.backgroundColor = RGB(236, 238, 241);
+      [self addSubview:border];
   });
 
     

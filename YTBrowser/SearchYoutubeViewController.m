@@ -96,7 +96,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutTableStyle;
     scroller.sizingMode = MGResizingShrinkWrap;
-    scroller.bottomPadding = 8;
+    scroller.bottomPadding = 0;
     scroller.backgroundColor = [UIColor whiteColor];
     scroller.delegate = self;
     scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - barHeight );

@@ -110,7 +110,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
         CGFloat smallTitleSize = self.view.size.width - 70;
-        _titleSmallLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 15, smallTitleSize, 25)];
+        _titleSmallLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 25, smallTitleSize, 25)];
         _titleSmallLabel.text = @"Jukebox Title";
         [_titleSmallLabel setTextAlignment:NSTextAlignmentCenter];
         [_titleSmallLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f]];
@@ -147,7 +147,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         UIGraphicsEndImageContext();
         
         _blurImageView = [[UIImageView alloc] initWithFrame:HEADER_INIT_FRAME];
-        _blurImageView.image = [img applyBlurWithRadius:12 tintColor:[UIColor colorWithWhite:0.8 alpha:0.4] saturationDeltaFactor:1.8 maskImage:nil];
+        _blurImageView.image = [img applyBlurWithRadius:12 tintColor:[UIColor colorWithWhite:0.8 alpha:0.0] saturationDeltaFactor:1.8 maskImage:nil];
         _blurImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _blurImageView.alpha = 0;
         _blurImageView.backgroundColor = [UIColor clearColor];
@@ -197,14 +197,14 @@ const CGFloat kCommentCellHeight = 50.0f;
         _addButton.completionHandler = ^void() {};
         
         
-        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 10, 25.0, 25.0)];
+        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 25.0, 25.0)];
         [dismissButton addTarget:self
                           action:@selector(done)
                 forControlEvents:UIControlEventTouchUpInside];
         [dismissButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [self.view addSubview: dismissButton];
         
-        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 10, 25.0, 25.0)];
+        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 20, 25.0, 25.0)];
         [queue setBackgroundImage:[UIImage imageNamed:@"more_juke"] forState:UIControlStateNormal];
         [self.view addSubview:queue];
         
@@ -455,8 +455,14 @@ const CGFloat kCommentCellHeight = 50.0f;
 
 #pragma mark
 - (BOOL)prefersStatusBarHidden {
-    return YES;
+    return NO;
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 -(void)done{
     [[MediaManager sharedInstance] runInBackground];
     [self dismissViewControllerAnimated:YES completion:nil];

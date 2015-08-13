@@ -106,8 +106,8 @@ static CGFloat imageWidth = 89.0;
                                 action:@selector(showMore:)
                       forControlEvents:UIControlEventTouchUpInside];
     if(self.drawLine){
-          UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
-          border.backgroundColor = [UIColor grayColor];
+          UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.3)];
+          border.backgroundColor = RGB(236, 238, 241);
           [self addSubview:border];
     }
       
