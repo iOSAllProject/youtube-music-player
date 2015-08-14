@@ -17,54 +17,113 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     UIView *playerBar;
     UIBarButtonItem *searchButton;
     NSMutableArray *currentLibrary;
-
+    UIImageView *searchIcon;
+    UILabel *searchLabel;
 }
 @end
 
 @implementation SearchYoutubeViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (id) initForJukeBoxSearch {
+    self = [super init];
+    if(self){
+
+        [self basicSetup];
+        
+        
+        //Setup search bar
+        
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0.0, 295.0, 44.0)];
+        searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 305.0, 44.0)];
+        [searchBar setBackgroundColor:[UIColor clearColor]];
+        [searchBar setBackgroundImage:[UIImage new]];
+        [searchBar setTranslucent:YES];
+        searchBarView.autoresizingMask = 0;
+        searchBar.delegate = self;
+        searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        searchBar.placeholder = @"Search for songs, artists, and albums";
+        [searchBarView addSubview:searchBar];
+        self.navigationItem.titleView = searchBarView;
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(popViewController:)];
+            
+    }
+    return self;
+}
+
+-(id) initForSongSearch {
+    self = [super init];
+    if (self) {
+
+
+                                   ///[UIImage imageNamed:@"search"]];
+        //Setup search bar
+        [self basicSetup];
+        
+        searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
+        searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
+        [searchBar setBackgroundColor:[UIColor clearColor]];
+        [searchBar setBackgroundImage:[UIImage new]];
+        [searchBar setTranslucent:YES];
+        searchBarView.autoresizingMask = 0;
+        searchBar.delegate = self;
+        searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
+        searchBar.placeholder = @"Search";
+        [searchBarView addSubview:searchBar];
+        self.navigationItem.titleView = searchBarView;
+            self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
+    }
+    return self;
+    
+    
+
+}
+
+-(void) basicSetup {
     
     //bottom music player constants
     CGFloat barHeight = 40.0f;
     CGFloat barWidth = self.view.frame.size.width;
     
-    //Add search scrollview
+    
+    CGFloat imageSize = 100.0f;
+    searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - imageSize/2, self.view.frame.size.height/2 - imageSize, imageSize, imageSize)];
+    searchIcon.image = [UIImage imageNamed:@"search"];
+    
+    CGFloat labelSize = 200;
+    
+    searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchIcon.frame.origin.x - labelSize/2 + imageSize/2, searchIcon.frame.origin.y + searchIcon.frame.size.height, labelSize,40.0)];
+    searchLabel.text = @"Find your favorite music";
+    searchLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
+    searchLabel.textColor = [UIColor blackColor];
+    searchLabel.textAlignment = NSTextAlignmentCenter;
 
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutTableStyle;
     scroller.sizingMode = MGResizingShrinkWrap;
-    scroller.bottomPadding = 8;
+    scroller.bottomPadding = 0;
     scroller.backgroundColor = [UIColor whiteColor];
     scroller.delegate = self;
     scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - barHeight );
     [self.view addSubview:scroller];
+    
 
     
+    [self.view addSubview:searchIcon];
+    [self.view addSubview:searchLabel];
+}
+- (void)viewDidLoad {
+    [super viewDidLoad];
     
-    //Setup search bar
-    
-    searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-5.0, 0.0, 320.0, 44.0)];
-    searchBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    UIView *searchBarView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, 310.0, 44.0)];
-    [searchBar setBackgroundColor:[UIColor clearColor]];
-    [searchBar setBackgroundImage:[UIImage new]];
-    [searchBar setTranslucent:YES];
-    searchBarView.autoresizingMask = 0;
-    searchBar.delegate = self;
-    searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-    searchBar.placeholder = @"Search";
-    searchBar.text = @"Maroon 5 Live";
-    [searchBarView addSubview:searchBar];
-    self.navigationItem.titleView = searchBarView;
 
 
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
+}
 
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -183,10 +242,26 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     
     //re-layout the scroll view
     [scroller layout];
+    
+    for(int i = 0; i <[scroller.boxes count]; i++){
+        CGFloat tableHeight = scroller.frame.size.height;
+        MGBox *box =[scroller.boxes objectAtIndex:i];
+        box.transform = CGAffineTransformMakeTranslation(0, tableHeight);
+    }
+    
+    for (int i = 0; i < [scroller.boxes count]; i++){
+        // fade the image in
+        [UIView animateWithDuration:1.5 delay:(0.02 * i) usingSpringWithDamping:.8 initialSpringVelocity:0 options:nil animations:^{
+            MGBox *box = [scroller.boxes objectAtIndex:i];
+            box.transform = CGAffineTransformMakeTranslation(0, 0);
+        } completion:nil];
+    }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    searchIcon.alpha = 0.0;
+    searchLabel.alpha = 0.0;
     [searchBar resignFirstResponder];
     [self searchYoutubeVideosForTerm:searchBar.text];
 }
@@ -223,6 +298,10 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
    [searchBar resignFirstResponder];
+}
+
+-(void) popViewController:(id) sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

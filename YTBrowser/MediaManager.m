@@ -79,7 +79,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     layer.endPoint = CGPointMake(1, 1);
     layer.contentsGravity = kCAGravityResize;
     [miniPlayer.layer addSublayer:layer];*/
-    miniPlayer.backgroundColor = [UIColor blackColor];
+    miniPlayer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
@@ -108,7 +108,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [miniPlayer addSubview:pLabel];
 
 
-    CGFloat ACTION_LENGTH = 22.0;
+    CGFloat ACTION_LENGTH = 26.0;
     CGFloat ACTION_PADDING = miniPlayer.frame.size.height/2 - ACTION_LENGTH/2;
 
     
@@ -295,7 +295,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [statusSpinner stopAnimating];
     if (state == MPMoviePlaybackStatePlaying) { //playing
         isPlaying = TRUE;
-        pAction.image = [UIImage imageNamed:@"white_pause_128"];
+        pAction.image = [UIImage imageNamed:@"pause_white_128"];
     } if (state== MPMoviePlaybackStateStopped) { //stopped
     } if (state == MPMoviePlaybackStatePaused) { //paused
         isPlaying = FALSE;
@@ -372,7 +372,6 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         
     } else {
         
-        pAction.image = nil;
         [videoPlayer showVideoSpinner];
         [statusSpinner startAnimating];
         

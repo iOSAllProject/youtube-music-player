@@ -138,7 +138,7 @@ static CGFloat imageWidth = 89.0;
        */
      if(self.drawLine){
           UIView *border = [[UIView alloc] initWithFrame:CGRectMake(0.0, size.height-1, size.width, 0.5)];
-          border.backgroundColor = [UIColor grayColor];
+          border.backgroundColor = RGB(236, 238, 241);
           [self addSubview:border];
     }
       

@@ -18,10 +18,10 @@
     [super viewDidLoad];
     
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
-    titleLabel.text = @"My Music";
+    titleLabel.text = @"MY MUSIC";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
     
-    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue" size:17.0f];
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     self.navigationItem.titleView = titleLabel;
     
 
