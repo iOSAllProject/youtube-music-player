@@ -295,11 +295,11 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [statusSpinner stopAnimating];
     if (state == MPMoviePlaybackStatePlaying) { //playing
         isPlaying = TRUE;
-        pAction.image = [UIImage imageNamed:@"pause_white_48"];
+        pAction.image = [UIImage imageNamed:@"pause_white_128"];
     } if (state== MPMoviePlaybackStateStopped) { //stopped
     } if (state == MPMoviePlaybackStatePaused) { //paused
         isPlaying = FALSE;
-        pAction.image = [UIImage imageNamed:@"play_white_48"];
+        pAction.image = [UIImage imageNamed:@"play_white_128"];
         
     }if (state == MPMoviePlaybackStateInterrupted)
     { //interrupted

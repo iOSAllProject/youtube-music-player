@@ -86,12 +86,16 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     CGFloat barWidth = self.view.frame.size.width;
     
     
-    CGFloat imageSize = 150.0f;
+    CGFloat imageSize = 100.0f;
     searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - imageSize/2, self.view.frame.size.height/2 - imageSize, imageSize, imageSize)];
     searchIcon.image = [UIImage imageNamed:@"search"];
     
-    
-    
+    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchIcon.frame.origin.x, searchIcon.frame.origin.y + searchIcon.frame.size.height, searchIcon.frame.size.width,120.0)];
+    searchLabel.text = @"Search for songs, artists, and albums.";
+    searchLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
+    searchLabel.textColor = [UIColor blackColor];
+   // searchLabel.textAlignment = NSTextAlignmentCenter;
+
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutTableStyle;
@@ -105,12 +109,18 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
     
     [self.view addSubview:searchIcon];
+    [self.view addSubview:searchLabel];
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
     
 
 
+}
+
+
+-(void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -229,6 +239,20 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     
     //re-layout the scroll view
     [scroller layout];
+    
+    for(int i = 0; i <[scroller.boxes count]; i++){
+        CGFloat tableHeight = scroller.frame.size.height;
+        MGBox *box =[scroller.boxes objectAtIndex:i];
+        box.transform = CGAffineTransformMakeTranslation(0, tableHeight);
+    }
+    
+    for (int i = 0; i < [scroller.boxes count]; i++){
+        // fade the image in
+        [UIView animateWithDuration:1.5 delay:(0.02 * i) usingSpringWithDamping:.8 initialSpringVelocity:0 options:nil animations:^{
+            MGBox *box = [scroller.boxes objectAtIndex:i];
+            box.transform = CGAffineTransformMakeTranslation(0, 0);
+        } completion:nil];
+    }
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar

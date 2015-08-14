@@ -7,6 +7,9 @@
 #define IPHONE_PORTRAIT_PHOTO  (CGSize){80, 80}
 #define ROW_HEIGHT 100
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
+#define IV_FRAME CGRectMake((ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height)
+
+
 @implementation JukeBoxCell
 {
     CGSize _size;
@@ -38,7 +41,6 @@
   box.jukeBoxEntry = [[JukeboxEntry alloc] init];
   // style and tag
   box.tag = -1;
-
   // add the add image
   UIImage *add = [UIImage imageNamed:@"add"];
   UIImageView *addView = [[UIImageView alloc] initWithImage:add];
@@ -53,12 +55,14 @@
   return box;
 }
 
-+ (JukeBoxCell *)photoBoxFor:(int)i size:(CGSize)size {
++ (JukeBoxCell *)photoBoxFor:(int)i size:(CGSize)size atIndex:(NSInteger)index withScrollSize:(CGFloat) scrollSize {
 
   // box with photo number tag
   JukeBoxCell *box = [JukeBoxCell boxWithSize:size];
   box.tag = i;
   box.jukeBoxEntry = [[JukeboxEntry alloc] init];
+  box.scrollSize = scrollSize;
+  box.index = i;
   // add a loading spinner
   UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -99,7 +103,6 @@
   NSURL *url = [NSURL URLWithString:fullPath];
   // fetch the remote photo
   NSData *data = [NSData dataWithContentsOfURL:url];
-
   // do UI stuff back in UI land
   dispatch_async(dispatch_get_main_queue(), ^{
 
@@ -117,44 +120,42 @@
     // got the photo, so lets show it
     UIImage *image = [UIImage imageWithData:data];
     self.jukeBoxEntry.image = image;
+    
 //    self.backgroundColor = [self averageColor:image];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self addSubview:imageView];
       imageView.frame = (CGRect) {(ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height};
     //imageView.size = IPHONE_PORTRAIT_PHOTO;
-    imageView.alpha = 0;
+    imageView.alpha = 1;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
         | UIViewAutoresizingFlexibleHeight;
-
-    // fade the image in
-    [UIView animateWithDuration:0.2 animations:^{
-      imageView.alpha = 1;
-    }];
-     // BOOL isBgLight =[self isLightColor:self.backgroundColor];
+      imageView.backgroundColor = [UIColor blackColor];
+      
+      // BOOL isBgLight =[self isLightColor:self.backgroundColor];
       CGFloat hPadding = 10;
       CGFloat vPadding = 10;
-      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(imageView.frame.size.width + imageView.frame.origin.x + 10, ROW_HEIGHT/2 - (25+vPadding)/2, self.frame.size.width - imageView.frame.size.width-25 - vPadding, 15)];
+      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(IV_FRAME.size.width + IV_FRAME.origin.x + 10, ROW_HEIGHT/2 - (25+vPadding)/2, self.frame.size.width - IV_FRAME.size.width-25 - vPadding, 15)];
       title.text =  @"Jukebox Name";
       title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
-     // title.textAlignment = NSTextAlignmentCenter;
-     // if(isBgLight)
-          title.textColor = [UIColor blackColor];
+      // title.textAlignment = NSTextAlignmentCenter;
+      // if(isBgLight)
+      title.textColor = [UIColor blackColor];
       //else
-        //  title.textColor = [UIColor whiteColor];
-    //  title.backgroundColor = [UIColor redColor];
+      //  title.textColor = [UIColor whiteColor];
+      //  title.backgroundColor = [UIColor redColor];
       [self addSubview:title];
       
-      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  self.frame.size.width - imageView.frame.size.width-40, 10)];
+      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  self.frame.size.width - IV_FRAME.size.width-40, 10)];
       author.text =  @"Username";
-     // author.textAlignment = NSTextAlignmentCenter;
+      // author.textAlignment = NSTextAlignmentCenter;
       author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
       author.textColor = RGB(62,68,72);
-  //    if(isBgLight)
-         author.textColor = RGB(62,68,72);
-    //else
+      //    if(isBgLight)
+      author.textColor = RGB(62,68,72);
+      //else
       //    author.textColor = RGB(225,225,225);
-     // author.backgroundColor = [UIColor blueColor];
+      // author.backgroundColor = [UIColor blueColor];
       [self addSubview:author];
       
       CGFloat moreSize = 20;
@@ -165,9 +166,10 @@
       UIView *border = [[UIView alloc] initWithFrame:CGRectMake(10, ROW_HEIGHT-1, self.frame.size.width-20, 0.3)];
       border.backgroundColor = RGB(236, 238, 241);
       [self addSubview:border];
+
   });
 
-    
+
 }
 
 - (UIColor *)averageColor: (UIImage *) image {

@@ -39,6 +39,7 @@
     MGScrollView *scroller;
     UILabel *titleLabel;
     UIView *playerBar;
+    BOOL animateOnce;
 }
 
 - (void)viewDidLoad {
@@ -101,12 +102,14 @@
         int photo = [self randomMissingPhoto];
         [photosGrid.boxes addObject:[self photoBoxFor:photo]];
     }
+    animateOnce = YES;
     
     // add a blank "add photo" box
     [photosGrid.boxes addObject:self.photoAddBox];
-    
-    
     [tablesGrid layout];
+
+    
+
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -114,6 +117,24 @@
     [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation
                                            duration:1];
     [self didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
+    if(animateOnce){
+        for(int i = 0; i <[photosGrid.boxes count]; i++){
+            CGFloat tableHeight = scroller.frame.size.height;
+            MGBox *box =[photosGrid.boxes objectAtIndex:i];
+            box.transform = CGAffineTransformMakeTranslation(0, tableHeight);
+        }
+
+        for (int i = 0; i < [photosGrid.boxes count]; i++){
+            // fade the image in
+            [UIView animateWithDuration:1.5 delay:(0.05 * i) usingSpringWithDamping:.8 initialSpringVelocity:0 options:nil animations:^{
+                MGBox *box = [photosGrid.boxes objectAtIndex:i];
+                box.transform = CGAffineTransformMakeTranslation(0, 0);
+            } completion:nil];
+        }
+
+        animateOnce = NO;
+    }
+
 }
 
 #pragma mark - Rotation and resizing
@@ -172,7 +193,7 @@
 - (MGBox *)photoBoxFor:(int)i {
     
     // make the photo box
-    JukeBoxCell *box = [JukeBoxCell photoBoxFor:i size:IPHONE_PORTRAIT_CELL];
+    JukeBoxCell *box = [JukeBoxCell photoBoxFor:i size:IPHONE_PORTRAIT_CELL atIndex:i withScrollSize:scroller.frame.size.height];
     
     // remove the box when tapped
     __block id bbox = box;
@@ -194,6 +215,9 @@
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:jukeboxPost];
         [self presentViewController:navigationController animated:YES completion:nil];
     };
+    
+    
+    
     
     return box;
 }
@@ -285,8 +309,10 @@
         
     }
     
+
     
 }
+
 -(void)viewWillDisappear {
     [playerBar removeFromSuperview];
 }
