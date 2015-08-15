@@ -63,18 +63,67 @@
   box.jukeBoxEntry = [[JukeboxEntry alloc] init];
   box.scrollSize = scrollSize;
   box.index = i;
-  // add a loading spinner
-  UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
-      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-  spinner.center = CGPointMake(box.width / 2, box.height / 2);
-  spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
-      | UIViewAutoresizingFlexibleRightMargin
-      | UIViewAutoresizingFlexibleBottomMargin
-      | UIViewAutoresizingFlexibleLeftMargin;
-  spinner.color = UIColor.lightGrayColor;
-  [box addSubview:spinner];
-  [spinner startAnimating];
 
+    // BOOL isBgLight =[self isLightColor:self.backgroundColor];
+    CGFloat hPadding = 10;
+    CGFloat vPadding = 5;
+    CGFloat titleSize = 20;
+    CGFloat authorSize = 17;
+    CGFloat songSize = 17;
+    CGFloat allTextSize = titleSize + authorSize + songSize + 2*vPadding;
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(IV_FRAME.size.width + IV_FRAME.origin.x + 10, ROW_HEIGHT/2 - (allTextSize+vPadding)/2, box.frame.size.width - IV_FRAME.size.width-25 - vPadding, titleSize)];
+    title.text =  @"Jukebox Name";
+    title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
+    // title.textAlignment = NSTextAlignmentCenter;
+    // if(isBgLight)
+    title.textColor = [UIColor blackColor];
+    //else
+    //  title.textColor = [UIColor whiteColor];
+    //  title.backgroundColor = [UIColor redColor];
+    [box addSubview:title];
+    
+    UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, authorSize)];
+    author.text =  @"Username";
+    // author.textAlignment = NSTextAlignmentCenter;
+    author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
+    author.textColor = RGB(62,68,72);
+    //    if(isBgLight)
+    author.textColor = RGB(62,68,72);
+    //else
+    //    author.textColor = RGB(225,225,225);
+    // author.backgroundColor = [UIColor blueColor];
+    [box addSubview:author];
+    
+    UIImageView *playingIcon = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x, author.frame.origin.y + author.frame.size.height + vPadding , 17, 17)];
+    playingIcon.image = [UIImage imageNamed:@"currently_playing"];
+    [box addSubview:playingIcon];
+    UILabel *currentlyPlaying = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x+ 24, author.frame.origin.y + author.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, songSize)];
+    currentlyPlaying.text = @"Chillstep Remix";
+    currentlyPlaying.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
+    currentlyPlaying.textColor = RGB(19, 143, 213);
+    
+    [box addSubview:currentlyPlaying];
+    
+    CGFloat moreSize = 25;
+    UIImageView *more = [[UIImageView alloc] initWithFrame:CGRectMake(box.frame.size.width -moreSize-10, box.frame.size.height/2-moreSize/2, moreSize, moreSize)];
+    more.image = [UIImage imageNamed:@"right_arrow"];
+    [box addSubview:more];
+    
+    UIView *border = [[UIView alloc] initWithFrame:CGRectMake(10, ROW_HEIGHT-1, box.frame.size.width-20, 0.3)];
+    border.backgroundColor = RGB(236, 238, 241);
+    [box addSubview:border];
+    
+    // add a loading spinner
+    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    spinner.frame = IV_FRAME;
+    spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+    | UIViewAutoresizingFlexibleRightMargin
+    | UIViewAutoresizingFlexibleBottomMargin
+    | UIViewAutoresizingFlexibleLeftMargin;
+    spinner.color = UIColor.lightGrayColor;
+    [box addSubview:spinner];
+    [spinner startAnimating];
   // do the photo loading async, because internets
   __block id bbox = box;
   box.asyncLayoutOnce = ^{
@@ -132,43 +181,8 @@
         | UIViewAutoresizingFlexibleHeight;
       imageView.backgroundColor = [UIColor blackColor];
       
-      // BOOL isBgLight =[self isLightColor:self.backgroundColor];
-      CGFloat hPadding = 10;
-      CGFloat vPadding = 10;
-      UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(IV_FRAME.size.width + IV_FRAME.origin.x + 10, ROW_HEIGHT/2 - (25+vPadding)/2, self.frame.size.width - IV_FRAME.size.width-25 - vPadding, 15)];
-      title.text =  @"Jukebox Name";
-      title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
-      // title.textAlignment = NSTextAlignmentCenter;
-      // if(isBgLight)
-      title.textColor = [UIColor blackColor];
-      //else
-      //  title.textColor = [UIColor whiteColor];
-      //  title.backgroundColor = [UIColor redColor];
-      [self addSubview:title];
-      
-      UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  self.frame.size.width - IV_FRAME.size.width-40, 10)];
-      author.text =  @"Username";
-      // author.textAlignment = NSTextAlignmentCenter;
-      author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
-      author.textColor = RGB(62,68,72);
-      //    if(isBgLight)
-      author.textColor = RGB(62,68,72);
-      //else
-      //    author.textColor = RGB(225,225,225);
-      // author.backgroundColor = [UIColor blueColor];
-      [self addSubview:author];
-      
-      CGFloat moreSize = 20;
-      UIImageView *more = [[UIImageView alloc] initWithFrame:CGRectMake(self.frame.size.width -moreSize-10, self.frame.size.height/2-moreSize/2, moreSize, moreSize)];
-      more.image = [UIImage imageNamed:@"right_arrow"];
-      [self addSubview:more];
-      
-      UIView *border = [[UIView alloc] initWithFrame:CGRectMake(10, ROW_HEIGHT-1, self.frame.size.width-20, 0.3)];
-      border.backgroundColor = RGB(236, 238, 241);
-      [self addSubview:border];
 
   });
-
 
 }
 

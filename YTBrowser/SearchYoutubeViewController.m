@@ -304,4 +304,17 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (void)viewWillLayoutSubviews {
+    // Your adjustments accd to
+    // viewController.bounds
+    playerBar.frame = CGRectMake(0.0, self.view.frame.size.height-44, self.view.frame.size.width, 44);
+    if(playerBar.isHidden){
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+    } else {
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+        
+    }
+    [super viewWillLayoutSubviews];
+}
+
 @end

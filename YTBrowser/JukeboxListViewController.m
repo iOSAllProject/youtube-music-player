@@ -56,7 +56,9 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"location" ] style:UIBarButtonItemStylePlain target:self action:nil];
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
     
     // Do any additional setup after loading the view, typically from a nib.
     scroller = [MGScrollView scrollerWithSize:self.view.size];
@@ -311,6 +313,19 @@
     
 
     
+}
+
+- (void)viewWillLayoutSubviews {
+    // Your adjustments accd to
+    // viewController.bounds
+    playerBar.frame = CGRectMake(0.0, self.view.frame.size.height-44, self.view.frame.size.width, 44);
+    if(playerBar.isHidden){
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+    } else {
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+        
+    }
+    [super viewWillLayoutSubviews];
 }
 
 -(void)viewWillDisappear {
