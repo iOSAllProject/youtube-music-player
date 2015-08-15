@@ -1,13 +1,12 @@
 #import <UIKit/UIKit.h>
-#import "YTPlayerView.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 #import "VideoModel.h"
-#import "ViewController.h"
+#import "MediaPlayerViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import "AppConstant.h"
 
-@interface MediaManager : NSObject<YTPlayerViewDelegate>{
+@interface MediaManager : NSObject{
     
 }
 

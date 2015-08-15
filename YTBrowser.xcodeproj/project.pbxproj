@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3015C0991B65F5F200A82642 /* VoteCell.m */; };
-		30270AD31AF6F386003E23A8 /* YTPlayerView-iframe-player.html in Resources */ = {isa = PBXBuildFile; fileRef = 30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */; };
-		30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30270AD21AF6F386003E23A8 /* YTPlayerView.m */; };
 		308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */; };
 		30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */; };
 		30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCB1AF0928B00327CAA /* UIView+MGEasyFrame.m */; };
@@ -22,18 +19,11 @@
 		30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CDB1AF0928B00327CAA /* MGTableBox.m */; };
 		30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CDD1AF0928B00327CAA /* MGTableBoxStyled.m */; };
 		30916CEA1AF0A91600327CAA /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CE91AF0A91600327CAA /* MediaManager.m */; };
-		30930A581AEC6F8200B44E58 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30930A571AEC6F8200B44E58 /* ViewController.m */; };
 		30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */; };
-		309383A91B1BA3640062C681 /* DEMOLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */; };
-		309383AC1B1BAA120062C681 /* SearchYoutubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */; };
 		3093C0B71B0953A600EEC6F7 /* JBCoreDataStack.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */; };
-		3093C0BD1B095F2400EEC6F7 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0BC1B095F2400EEC6F7 /* Song.m */; };
 		3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */; };
 		3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */; };
-		3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */; };
 		3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3093E2711B1443C100C454CF /* JavaScriptCore.framework */; };
-		3094534F1B5C2DBF00F5E3CC /* JukeboxListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */; };
-		309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 309453511B5C340A00F5E3CC /* JukeBoxCell.m */; };
 		309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830C1AFF3325005E44B9 /* AHKActionSheet.m */; };
 		309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830E1AFF3325005E44B9 /* AHKActionSheetViewController.m */; };
 		309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 309483101AFF3325005E44B9 /* UIImage+AHKAdditions.m */; };
@@ -43,13 +33,22 @@
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
 		30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */; };
 		30DC87DF1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */; };
+		30DC87E91B7FD45800A7ABD8 /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */; };
+		30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E61B7FD45800A7ABD8 /* SongCell.m */; };
+		30DC87EC1B7FD45800A7ABD8 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E81B7FD45800A7ABD8 /* VoteCell.m */; };
+		30DC87F81B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */; };
+		30DC87F91B7FD4D900A7ABD8 /* JukeboxListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F11B7FD4D900A7ABD8 /* JukeboxListViewController.m */; };
+		30DC87FA1B7FD4D900A7ABD8 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F31B7FD4D900A7ABD8 /* LibraryViewController.m */; };
+		30DC87FB1B7FD4D900A7ABD8 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F51B7FD4D900A7ABD8 /* MediaPlayerViewController.m */; };
+		30DC87FC1B7FD4D900A7ABD8 /* SearchYoutubeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F71B7FD4D900A7ABD8 /* SearchYoutubeViewController.m */; };
+		30DC88021B7FD60A00A7ABD8 /* JukeboxEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87FF1B7FD60A00A7ABD8 /* JukeboxEntry.m */; };
+		30DC88031B7FD60A00A7ABD8 /* Song.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88011B7FD60A00A7ABD8 /* Song.m */; };
 		30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201631B5C6E3300D37DA2 /* CommentCell.m */; };
 		30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201651B5C6E3300D37DA2 /* RootViewController.m */; };
 		30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201671B5C6E3300D37DA2 /* ToolBarView.m */; };
 		30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */; };
 		30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */; };
 		30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */; };
-		30E201781B5C7B3300D37DA2 /* JukeboxEntry.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */; };
 		30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */; };
 		30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30F663401AECD24A00CF0C12 /* Images.xcassets */; };
 		9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */; };
@@ -68,10 +67,8 @@
 		9CA623E9169591AC003F6334 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623E8169591AC003F6334 /* main.m */; };
 		9CA623ED169591AC003F6334 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623EC169591AC003F6334 /* AppDelegate.m */; };
 		9CA623F6169591AC003F6334 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9CA623F4169591AC003F6334 /* MainStoryboard.storyboard */; };
-		9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA623F8169591AC003F6334 /* SearchViewController.m */; };
 		9CA6243416959278003F6334 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA6243316959278003F6334 /* QuartzCore.framework */; };
 		9CA624361695927C003F6334 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA624351695927C003F6334 /* CoreText.framework */; };
-		9CA62439169592FB003F6334 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62438169592FB003F6334 /* SongCell.m */; };
 		9CA6246D169598BC003F6334 /* VideoLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA62468169598BC003F6334 /* VideoLink.m */; };
 		9CA6246E169598BC003F6334 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA6246A169598BC003F6334 /* VideoModel.m */; };
 		9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */; };
@@ -81,11 +78,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3015C0981B65F5F200A82642 /* VoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCell.h; sourceTree = "<group>"; };
-		3015C0991B65F5F200A82642 /* VoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCell.m; sourceTree = "<group>"; };
-		30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = "YTPlayerView-iframe-player.html"; sourceTree = "<group>"; };
-		30270AD11AF6F386003E23A8 /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
-		30270AD21AF6F386003E23A8 /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
 		308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		30916CC81AF0928B00327CAA /* NSObject+MGEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MGEvents.h"; sourceTree = "<group>"; };
 		30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MGEvents.m"; sourceTree = "<group>"; };
@@ -111,30 +103,16 @@
 		30916CDD1AF0928B00327CAA /* MGTableBoxStyled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTableBoxStyled.m; sourceTree = "<group>"; };
 		30916CE81AF0A91600327CAA /* MediaManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaManager.h; sourceTree = "<group>"; };
 		30916CE91AF0A91600327CAA /* MediaManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaManager.m; sourceTree = "<group>"; };
-		30930A561AEC6F8100B44E58 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		30930A571AEC6F8200B44E58 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		30930A601AECA6AD00B44E58 /* AppConstant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppConstant.h; sourceTree = "<group>"; };
-		309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOLeftMenuViewController.h; sourceTree = "<group>"; };
-		309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOLeftMenuViewController.m; sourceTree = "<group>"; };
-		309383AA1B1BAA120062C681 /* SearchYoutubeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchYoutubeViewController.h; sourceTree = "<group>"; };
-		309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchYoutubeViewController.m; sourceTree = "<group>"; };
 		3093C0B51B0953A600EEC6F7 /* JBCoreDataStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JBCoreDataStack.h; sourceTree = "<group>"; };
 		3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JBCoreDataStack.m; sourceTree = "<group>"; };
-		3093C0BB1B095F2400EEC6F7 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
-		3093C0BC1B095F2400EEC6F7 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
 		3093C0BF1B09793C00EEC6F7 /* CarbonKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonKit.h; sourceTree = "<group>"; };
 		3093C0C01B09793C00EEC6F7 /* CarbonSwipeRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonSwipeRefresh.h; sourceTree = "<group>"; };
 		3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarbonSwipeRefresh.m; sourceTree = "<group>"; };
 		3093C0C21B09793C00EEC6F7 /* CarbonTabSwipeNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonTabSwipeNavigation.h; sourceTree = "<group>"; };
 		3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CarbonTabSwipeNavigation.m; sourceTree = "<group>"; };
-		3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
-		3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		3093E2711B1443C100C454CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		3094534D1B5C2DBF00F5E3CC /* JukeboxListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxListViewController.h; sourceTree = "<group>"; };
-		3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxListViewController.m; sourceTree = "<group>"; };
-		309453501B5C340A00F5E3CC /* JukeBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeBoxCell.h; sourceTree = "<group>"; };
-		309453511B5C340A00F5E3CC /* JukeBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeBoxCell.m; sourceTree = "<group>"; };
 		309482F91AFF2D04005E44B9 /* libPods.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libPods.a; path = "Pods/../build/Debug-iphoneos/libPods.a"; sourceTree = "<group>"; };
 		309482FB1AFF2D0D005E44B9 /* libPods-AHKActionSheet.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libPods-AHKActionSheet.a"; path = "Pods/../build/Debug-iphoneos/libPods-AHKActionSheet.a"; sourceTree = "<group>"; };
 		3094830B1AFF3325005E44B9 /* AHKActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AHKActionSheet.h; sourceTree = "<group>"; };
@@ -154,6 +132,26 @@
 		30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "../../../Downloads/XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
 		30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
+		30DC87E11B7FD45800A7ABD8 /* JukeBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeBoxCell.h; sourceTree = "<group>"; };
+		30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeBoxCell.m; sourceTree = "<group>"; };
+		30DC87E51B7FD45800A7ABD8 /* SongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongCell.h; sourceTree = "<group>"; };
+		30DC87E61B7FD45800A7ABD8 /* SongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
+		30DC87E71B7FD45800A7ABD8 /* VoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCell.h; sourceTree = "<group>"; };
+		30DC87E81B7FD45800A7ABD8 /* VoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCell.m; sourceTree = "<group>"; };
+		30DC87EE1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOLeftMenuViewController.h; sourceTree = "<group>"; };
+		30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOLeftMenuViewController.m; sourceTree = "<group>"; };
+		30DC87F01B7FD4D900A7ABD8 /* JukeboxListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxListViewController.h; sourceTree = "<group>"; };
+		30DC87F11B7FD4D900A7ABD8 /* JukeboxListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxListViewController.m; sourceTree = "<group>"; };
+		30DC87F21B7FD4D900A7ABD8 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
+		30DC87F31B7FD4D900A7ABD8 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
+		30DC87F41B7FD4D900A7ABD8 /* MediaPlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MediaPlayerViewController.h; sourceTree = "<group>"; };
+		30DC87F51B7FD4D900A7ABD8 /* MediaPlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MediaPlayerViewController.m; sourceTree = "<group>"; };
+		30DC87F61B7FD4D900A7ABD8 /* SearchYoutubeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchYoutubeViewController.h; sourceTree = "<group>"; };
+		30DC87F71B7FD4D900A7ABD8 /* SearchYoutubeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchYoutubeViewController.m; sourceTree = "<group>"; };
+		30DC87FE1B7FD60A00A7ABD8 /* JukeboxEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxEntry.h; sourceTree = "<group>"; };
+		30DC87FF1B7FD60A00A7ABD8 /* JukeboxEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxEntry.m; sourceTree = "<group>"; };
+		30DC88001B7FD60A00A7ABD8 /* Song.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Song.h; sourceTree = "<group>"; };
+		30DC88011B7FD60A00A7ABD8 /* Song.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Song.m; sourceTree = "<group>"; };
 		30E201621B5C6E3300D37DA2 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		30E201631B5C6E3300D37DA2 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		30E201641B5C6E3300D37DA2 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -166,8 +164,6 @@
 		30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		30E2016C1B5C6E3300D37DA2 /* UIView+GradientMask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GradientMask.h"; sourceTree = "<group>"; };
 		30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GradientMask.m"; sourceTree = "<group>"; };
-		30E201761B5C788F00D37DA2 /* JukeboxEntry.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JukeboxEntry.h; sourceTree = "<group>"; };
-		30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxEntry.m; sourceTree = "<group>"; };
 		30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
 		30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -204,12 +200,8 @@
 		9CA623EB169591AC003F6334 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9CA623EC169591AC003F6334 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9CA623F5169591AC003F6334 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		9CA623F7169591AC003F6334 /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
-		9CA623F8169591AC003F6334 /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		9CA6243316959278003F6334 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CA624351695927C003F6334 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		9CA62437169592FB003F6334 /* SongCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SongCell.h; sourceTree = "<group>"; };
-		9CA62438169592FB003F6334 /* SongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
 		9CA62467169598BC003F6334 /* VideoLink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoLink.h; sourceTree = "<group>"; };
 		9CA62468169598BC003F6334 /* VideoLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoLink.m; sourceTree = "<group>"; };
 		9CA62469169598BC003F6334 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
@@ -315,6 +307,47 @@
 			path = Buttons;
 			sourceTree = "<group>";
 		};
+		30DC87E01B7FD45800A7ABD8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				30DC87E11B7FD45800A7ABD8 /* JukeBoxCell.h */,
+				30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */,
+				30DC87E51B7FD45800A7ABD8 /* SongCell.h */,
+				30DC87E61B7FD45800A7ABD8 /* SongCell.m */,
+				30DC87E71B7FD45800A7ABD8 /* VoteCell.h */,
+				30DC87E81B7FD45800A7ABD8 /* VoteCell.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		30DC87ED1B7FD4D900A7ABD8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				30DC87EE1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.h */,
+				30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */,
+				30DC87F01B7FD4D900A7ABD8 /* JukeboxListViewController.h */,
+				30DC87F11B7FD4D900A7ABD8 /* JukeboxListViewController.m */,
+				30DC87F21B7FD4D900A7ABD8 /* LibraryViewController.h */,
+				30DC87F31B7FD4D900A7ABD8 /* LibraryViewController.m */,
+				30DC87F41B7FD4D900A7ABD8 /* MediaPlayerViewController.h */,
+				30DC87F51B7FD4D900A7ABD8 /* MediaPlayerViewController.m */,
+				30DC87F61B7FD4D900A7ABD8 /* SearchYoutubeViewController.h */,
+				30DC87F71B7FD4D900A7ABD8 /* SearchYoutubeViewController.m */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		30DC87FD1B7FD60A00A7ABD8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				30DC87FE1B7FD60A00A7ABD8 /* JukeboxEntry.h */,
+				30DC87FF1B7FD60A00A7ABD8 /* JukeboxEntry.m */,
+				30DC88001B7FD60A00A7ABD8 /* Song.h */,
+				30DC88011B7FD60A00A7ABD8 /* Song.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		30E201611B5C6E3300D37DA2 /* ParallaxDisplay */ = {
 			isa = PBXGroup;
 			children = (
@@ -409,8 +442,6 @@
 				3096DF8C1B78459800031465 /* Buttons */,
 				30E201611B5C6E3300D37DA2 /* ParallaxDisplay */,
 				3093C0BE1B09793C00EEC6F7 /* CarbonKit */,
-				3093C0BB1B095F2400EEC6F7 /* Song.h */,
-				3093C0BC1B095F2400EEC6F7 /* Song.m */,
 				309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */,
 				3094830A1AFF3325005E44B9 /* AHKActionSheet */,
 				30916CC61AF0928B00327CAA /* MGBox */,
@@ -457,42 +488,22 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				30DC87FD1B7FD60A00A7ABD8 /* Models */,
+				30DC87ED1B7FD4D900A7ABD8 /* ViewControllers */,
+				30DC87E01B7FD45800A7ABD8 /* Views */,
 				30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */,
 				30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */,
 				30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */,
-				309383A71B1BA3640062C681 /* DEMOLeftMenuViewController.h */,
-				309383A81B1BA3640062C681 /* DEMOLeftMenuViewController.m */,
-				3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */,
-				3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */,
 				30916CE81AF0A91600327CAA /* MediaManager.h */,
 				3093C0B51B0953A600EEC6F7 /* JBCoreDataStack.h */,
 				3093C0B61B0953A600EEC6F7 /* JBCoreDataStack.m */,
-				30270AD01AF6F386003E23A8 /* YTPlayerView-iframe-player.html */,
-				30270AD11AF6F386003E23A8 /* YTPlayerView.h */,
-				30270AD21AF6F386003E23A8 /* YTPlayerView.m */,
 				30916CE91AF0A91600327CAA /* MediaManager.m */,
 				30F663401AECD24A00CF0C12 /* Images.xcassets */,
 				30930A601AECA6AD00B44E58 /* AppConstant.h */,
-				9CA62437169592FB003F6334 /* SongCell.h */,
-				9CA62438169592FB003F6334 /* SongCell.m */,
-				3015C0981B65F5F200A82642 /* VoteCell.h */,
-				3015C0991B65F5F200A82642 /* VoteCell.m */,
 				9CA623EB169591AC003F6334 /* AppDelegate.h */,
-				30930A561AEC6F8100B44E58 /* ViewController.h */,
 				9CA623EC169591AC003F6334 /* AppDelegate.m */,
-				30930A571AEC6F8200B44E58 /* ViewController.m */,
 				9CA623F4169591AC003F6334 /* MainStoryboard.storyboard */,
-				9CA623F7169591AC003F6334 /* SearchViewController.h */,
-				9CA623F8169591AC003F6334 /* SearchViewController.m */,
 				9CA623E3169591AC003F6334 /* Supporting Files */,
-				309383AA1B1BAA120062C681 /* SearchYoutubeViewController.h */,
-				309383AB1B1BAA120062C681 /* SearchYoutubeViewController.m */,
-				309453501B5C340A00F5E3CC /* JukeBoxCell.h */,
-				309453511B5C340A00F5E3CC /* JukeBoxCell.m */,
-				3094534D1B5C2DBF00F5E3CC /* JukeboxListViewController.h */,
-				3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */,
-				30E201761B5C788F00D37DA2 /* JukeboxEntry.h */,
-				30E201771B5C7B3300D37DA2 /* JukeboxEntry.m */,
 			);
 			path = YTBrowser;
 			sourceTree = "<group>";
@@ -582,7 +593,6 @@
 				30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */,
 				9CBC4F701695DAE000FFE7B9 /* Icon.png in Resources */,
 				9CBC4F721695DAEA00FFE7B9 /* Icon@2x.png in Resources */,
-				30270AD31AF6F386003E23A8 /* YTPlayerView-iframe-player.html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -627,24 +637,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				30916CEA1AF0A91600327CAA /* MediaManager.m in Sources */,
-				30930A581AEC6F8200B44E58 /* ViewController.m in Sources */,
+				30DC87FA1B7FD4D900A7ABD8 /* LibraryViewController.m in Sources */,
 				30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */,
 				9CA623E9169591AC003F6334 /* main.m in Sources */,
 				309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */,
-				3094534F1B5C2DBF00F5E3CC /* JukeboxListViewController.m in Sources */,
 				9CA623ED169591AC003F6334 /* AppDelegate.m in Sources */,
-				9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */,
-				3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
 				30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */,
-				3093C0BD1B095F2400EEC6F7 /* Song.m in Sources */,
 				30916CE51AF0928B00327CAA /* MGScrollView.m in Sources */,
-				30270AD41AF6F386003E23A8 /* YTPlayerView.m in Sources */,
+				30DC87F91B7FD4D900A7ABD8 /* JukeboxListViewController.m in Sources */,
+				30DC87E91B7FD45800A7ABD8 /* JukeBoxCell.m in Sources */,
+				30DC88021B7FD60A00A7ABD8 /* JukeboxEntry.m in Sources */,
 				30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */,
 				30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
-				9CA62439169592FB003F6334 /* SongCell.m in Sources */,
+				30DC87F81B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m in Sources */,
+				30DC88031B7FD60A00A7ABD8 /* Song.m in Sources */,
 				30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */,
-				309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */,
 				9CA6246D169598BC003F6334 /* VideoLink.m in Sources */,
 				9CA6246E169598BC003F6334 /* VideoModel.m in Sources */,
 				30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */,
@@ -655,28 +663,28 @@
 				309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */,
 				30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */,
 				9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */,
+				30DC87EC1B7FD45800A7ABD8 /* VoteCell.m in Sources */,
 				9C9BB3B816BAE6AE00C8AB3A /* JSONModelClassProperty.m in Sources */,
 				3096DF8F1B78459800031465 /* RMSaveButton.m in Sources */,
 				30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */,
-				309383AC1B1BAA120062C681 /* SearchYoutubeViewController.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
 				30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */,
 				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
-				30E201781B5C7B3300D37DA2 /* JukeboxEntry.m in Sources */,
 				309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */,
 				9C9BB3BA16BAE6AE00C8AB3A /* NSArray+JSONModel.m in Sources */,
 				9C9BB3BB16BAE6AE00C8AB3A /* JSONAPI.m in Sources */,
-				3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */,
+				30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */,
 				3093C0B71B0953A600EEC6F7 /* JBCoreDataStack.m in Sources */,
 				30916CE41AF0928B00327CAA /* MGLine.m in Sources */,
-				309383A91B1BA3640062C681 /* DEMOLeftMenuViewController.m in Sources */,
 				9C9BB3BC16BAE6AE00C8AB3A /* JSONHTTPClient.m in Sources */,
 				30916CE11AF0928B00327CAA /* MGBox.m in Sources */,
 				9C9BB3BD16BAE6AE00C8AB3A /* JSONModel+networking.m in Sources */,
+				30DC87FB1B7FD4D900A7ABD8 /* MediaPlayerViewController.m in Sources */,
 				3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */,
 				30916CE21AF0928B00327CAA /* MGButton.m in Sources */,
 				30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */,
+				30DC87FC1B7FD4D900A7ABD8 /* SearchYoutubeViewController.m in Sources */,
 				9C9BB3BE16BAE6AE00C8AB3A /* JSONKeyMapper.m in Sources */,
 				9C9BB3BF16BAE6AE00C8AB3A /* JSONValueTransformer.m in Sources */,
 			);

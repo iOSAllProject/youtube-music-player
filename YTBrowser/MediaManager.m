@@ -21,7 +21,7 @@ static MediaManager *sharedInstance = nil;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
     MPMoviePlayerController *mPlayer;
-    ViewController *videoPlayer;
+    MediaPlayerViewController *videoPlayer;
     NSArray *currentPlaylist;
     NSMutableSet *songsInLibrary;
     NSInteger  currentSongIndex;
@@ -53,35 +53,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 -(void)initializeVideoPlayer:(UIView *) playerView{
    // [self player];
     miniPlayer = playerView;
-    /*
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appIsInBackground:)
-                                                 name:UIApplicationDidEnterBackgroundNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(appWillBeInBackground:)
-                                                 name:UIApplicationWillResignActiveNotification
-                                               object:nil];*/
-    /*CAGradientLayer *layer = [CAGradientLayer layer];
-    layer.colors = [NSArray arrayWithObjects:
-                    (id)[[UIColor blackColor] CGColor],
-                    (id)[[UIColor grayColor] CGColor],
-                    (id)[[UIColor grayColor] CGColor],
-                    (id)[[UIColor blackColor] CGColor],
-                    nil];
-    layer.locations = [NSArray arrayWithObjects:
-                       [NSNumber numberWithFloat:0],
-                       [NSNumber numberWithFloat:0.4],
-                       [NSNumber numberWithFloat:0.6],
-                       [NSNumber numberWithFloat:1],
-                       nil];
-    layer.startPoint = CGPointMake(0, 0);
-    layer.frame = miniPlayer.bounds;
-    layer.endPoint = CGPointMake(1, 1);
-    layer.contentsGravity = kCAGravityResize;
-    [miniPlayer.layer addSublayer:layer];*/
-    AUDIO_ENABLED = YES;
+
+    AUDIO_ENABLED = NO;
     miniPlayer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -90,9 +63,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
     visualEffectView.frame = miniPlayer.frame;
     [miniPlayer addSubview:visualEffectView];
-   // pImage = [[UIImageView alloc] init];
-  //  pImage.frame = CGRectMake(0.0, 0.0, 77.0, 45.0);
-  //  [miniPlayer addSubview:pImage];
+
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [miniPlayer addGestureRecognizer:playerTap];
 
@@ -164,7 +135,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     mPlayer.view.hidden = YES;
     mPlayer = self.videoPlayerViewController.moviePlayer;
     
-     videoPlayer = [[ViewController alloc] initVideoPlayer:nil title:nil];
+     videoPlayer = [[MediaPlayerViewController alloc] initVideoPlayer:nil title:nil];
     
     self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
     [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
@@ -190,8 +161,6 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [videoPlayer updatePlayerTrack];
     miniPlayer.hidden = NO;
     currentlyPlaying = video;
-    //[self.videoPlayerViewController.moviePlayer stop];
-    //self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
     if(!AUDIO_ENABLED){
         
         self.videoPlayerViewController.videoIdentifier = video.videoId;
@@ -247,28 +216,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     }];
 }
 
-/*
 
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    
-    if (object == audioStremarPlayer && [keyPath isEqualToString:@"status"]) {
-        if (audioStremarPlayer.status == AVPlayerStatusFailed)
-        {
-            //  //NSLog(@"AVPlayer Failed");
-        }
-        else if (audioStremarPlayer.status == AVPlayerStatusReadyToPlay)
-        {
-            [audioStremarPlayer play];
-        }
-        else if (audioStremarPlayer.status == AVPlayerItemStatusUnknown)
-        {
-            //  //NSLog(@"AVPlayer Unknown");
-            
-        }
-    }
-}*/
 -(void) updateMiniPlayer: (VideoModel *) video {
     pLabel.text = video.title;
     //NSURL *url = [NSURL URLWithString:video.thumbnail];
@@ -307,66 +255,13 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         [mPlayer play];
     }
 }
-/*
--(YTPlayerView*)player
-{
-    if(!videoPlayer)
-    {
-        videoPlayer = [[YTPlayerView alloc] initWithFrame:CGRectMake(0, 0, 0, 0)];
-        videoPlayer.delegate = self;
-        videoPlayer.autoplay = YES;
-        videoPlayer.modestbranding = YES;
-        videoPlayer.showinfo = YES;
-        videoPlayer.controls = YES;
-        videoPlayer.allowLandscapeMode = NO;
-        videoPlayer.forceBackToPortraitMode = YES;
-        videoPlayer.allowAutoResizingPlayerFrame = NO;
-        videoPlayer.playsinline = NO;
-        videoPlayer.fullscreen = NO;
-        videoPlayer.playsinline = YES;
-    }
-    
-    return videoPlayer;
-}*/
 
-#pragma mark -
-#pragma mark Notifications
-/*
--(void)appIsInBackground:(NSNotification*)notification{
-    if(isPlaying)
-        [self.player playVideo];
-}
-
-
-
--(void)keepPlaying{
-    if(isInBackgroundMode){
-        [videoPlayer playVideo];
-        isInBackgroundMode = NO;
-    }
-    else{
-        [timer invalidate];
-        timer = nil;
-    }
-}
-
-- (void)playerView:(YTPlayerView *)playerView didChangeToQuality:(YTPlaybackQuality)quality
-{
-    [videoPlayer setPlaybackQuality:kYTPlaybackQualityHD720];
-}
-- (void)appWillBeInBackground:(NSNotification *)notification
-{
-
-}*/
 - (void)updatePlayerState:(NSString *) state {
     if([state isEqualToString:PLAY]){
         [mPlayer play];
     } else if([state isEqualToString:PAUSE]){
         [mPlayer pause];
     }
-}
-- (void)playerView:(YTPlayerView *)playerView didChangeToState:(YTPlayerState)state{
-    [self updateMiniPlayerState:state];
 }
 
 -(void) updateMiniPlayerState:(MPMoviePlaybackState)state {
