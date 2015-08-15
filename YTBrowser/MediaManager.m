@@ -26,7 +26,9 @@ static MediaManager *sharedInstance = nil;
     NSMutableSet *songsInLibrary;
     NSInteger  currentSongIndex;
     
+    AVQueuePlayer *audioStremarPlayer;
     
+    BOOL AUDIO_ENABLED;
     
 }
 @property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
@@ -79,6 +81,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     layer.endPoint = CGPointMake(1, 1);
     layer.contentsGravity = kCAGravityResize;
     [miniPlayer.layer addSublayer:layer];*/
+    AUDIO_ENABLED = YES;
     miniPlayer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -178,6 +181,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     success = [audioSession setActive:YES error:&activationError];
     if (!success) { /* handle the error condition */ }
 
+    audioStremarPlayer= [[AVQueuePlayer alloc] init];
+    [audioStremarPlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
 }
 
 -(void)playWithVideo:(VideoModel *)video{
@@ -187,10 +192,83 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     currentlyPlaying = video;
     //[self.videoPlayerViewController.moviePlayer stop];
     //self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
-    self.videoPlayerViewController.videoIdentifier = video.videoId;
+    if(!AUDIO_ENABLED){
+        
+        self.videoPlayerViewController.videoIdentifier = video.videoId;
+    }
+    else{
+        [[XCDYouTubeClient defaultClient] getVideoWithIdentifier:video.videoId completionHandler:^(XCDYouTubeVideo *video, NSError *error) {
+            if (video)
+            {
+                // Do something with the `video` object, in this case the audio url
+                
+                NSString *XCDYouTubeVideoQualityAudioString = [NSString    stringWithFormat:@"%@",video.streamURLs[@(XCDYouTubeVideoQualityAudio)]];
+                 NSURL *url = [[NSURL alloc] initWithString:XCDYouTubeVideoQualityAudioString];
+                AVPlayerItem *thePlayerItem = [AVPlayerItem playerItemWithURL:url];
+
+                // stremar player
+                [audioStremarPlayer removeAllItems];
+                [audioStremarPlayer insertItem:thePlayerItem afterItem:nil];
+
+                [audioStremarPlayer play];
+            }
+            else
+            {
+                // Handle error
+            }
+        }];
+    }
 
 }
+-(void)playerItemDidReachEnd:(NSNotification *)notification
+{
+    
+    currentSongIndex = (currentSongIndex+1) % [currentPlaylist count];
+    VideoModel *nextSong = [currentPlaylist objectAtIndex:currentSongIndex];
+    [[XCDYouTubeClient defaultClient] getVideoWithIdentifier:nextSong.videoId completionHandler:^(XCDYouTubeVideo *video, NSError *error) {
+        if (video)
+        {
+            // Do something with the `video` object, in this case the audio url
+            
+            NSString *XCDYouTubeVideoQualityAudioString = [NSString    stringWithFormat:@"%@",video.streamURLs[@(XCDYouTubeVideoQualityAudio)]];
+            NSURL *url = [[NSURL alloc] initWithString:XCDYouTubeVideoQualityAudioString];
+            AVPlayerItem *thePlayerItem = [AVPlayerItem playerItemWithURL:url];
+            
+            // stremar player
+            [audioStremarPlayer insertItem:thePlayerItem afterItem:nil];
+            
+            
+            
+        }
+        else
+        {
+            // Handle error
+        }
+    }];
+}
 
+/*
+
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    
+    if (object == audioStremarPlayer && [keyPath isEqualToString:@"status"]) {
+        if (audioStremarPlayer.status == AVPlayerStatusFailed)
+        {
+            //  //NSLog(@"AVPlayer Failed");
+        }
+        else if (audioStremarPlayer.status == AVPlayerStatusReadyToPlay)
+        {
+            [audioStremarPlayer play];
+        }
+        else if (audioStremarPlayer.status == AVPlayerItemStatusUnknown)
+        {
+            //  //NSLog(@"AVPlayer Unknown");
+            
+        }
+    }
+}*/
 -(void) updateMiniPlayer: (VideoModel *) video {
     pLabel.text = video.title;
     //NSURL *url = [NSURL URLWithString:video.thumbnail];
@@ -326,12 +404,32 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    
+    if(AUDIO_ENABLED){
+        if (object == audioStremarPlayer && [keyPath isEqualToString:@"status"]) {
+            if (audioStremarPlayer.status == AVPlayerStatusFailed)
+            {
+                //  //NSLog(@"AVPlayer Failed");
+            }
+            else if (audioStremarPlayer.status == AVPlayerStatusReadyToPlay)
+            {
+                [audioStremarPlayer play];
+            }
+            else if (audioStremarPlayer.status == AVPlayerItemStatusUnknown)
+            {
+                //  //NSLog(@"AVPlayer Unknown");
+                
+            }
+        }
+    }
+    else{
     if (context == MoviePlayerContentURLContext) {
         [videoPlayer showVideoSpinner];
         [self.videoPlayerViewController.moviePlayer play];
     }
     else
         [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+    }
 }
 
 - (XCDYouTubeVideoPlayerViewController *) getVideoPlayer {

@@ -32,7 +32,6 @@
 		3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */; };
 		3093C0C81B097A0A00EEC6F7 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */; };
 		3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3093E2711B1443C100C454CF /* JavaScriptCore.framework */; };
-		3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */; };
 		3094534F1B5C2DBF00F5E3CC /* JukeboxListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */; };
 		309453521B5C340A00F5E3CC /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 309453511B5C340A00F5E3CC /* JukeBoxCell.m */; };
 		309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3094830C1AFF3325005E44B9 /* AHKActionSheet.m */; };
@@ -42,8 +41,8 @@
 		3096DF8F1B78459800031465 /* RMSaveButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3096DF8E1B78459800031465 /* RMSaveButton.m */; };
 		309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309AE31D1B094D1B004CF1E2 /* CoreData.framework */; };
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
-		30B44DCD1B2424B5008CBD69 /* libXCDYouTubeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */; };
 		30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */; };
+		30DC87DF1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */; };
 		30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201631B5C6E3300D37DA2 /* CommentCell.m */; };
 		30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201651B5C6E3300D37DA2 /* RootViewController.m */; };
 		30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201671B5C6E3300D37DA2 /* ToolBarView.m */; };
@@ -132,8 +131,6 @@
 		3093C0C61B097A0A00EEC6F7 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
 		3093C0C71B097A0A00EEC6F7 /* LibraryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryViewController.m; sourceTree = "<group>"; };
 		3093E2711B1443C100C454CF /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "MPMoviePlayerController+BackgroundPlayback.h"; path = "XCDYouTubeKit/MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
-		3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "MPMoviePlayerController+BackgroundPlayback.m"; path = "XCDYouTubeKit/MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
 		3094534D1B5C2DBF00F5E3CC /* JukeboxListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxListViewController.h; sourceTree = "<group>"; };
 		3094534E1B5C2DBF00F5E3CC /* JukeboxListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxListViewController.m; sourceTree = "<group>"; };
 		309453501B5C340A00F5E3CC /* JukeBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeBoxCell.h; sourceTree = "<group>"; };
@@ -156,6 +153,7 @@
 		309AE3201B094D61004CF1E2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "../../../Downloads/XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
 		30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
 		30E201621B5C6E3300D37DA2 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
 		30E201631B5C6E3300D37DA2 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		30E201641B5C6E3300D37DA2 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
@@ -231,12 +229,12 @@
 				308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */,
 				3093E2721B1443C100C454CF /* JavaScriptCore.framework in Frameworks */,
 				309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */,
-				30B44DCD1B2424B5008CBD69 /* libXCDYouTubeKit.a in Frameworks */,
 				9CA6243416959278003F6334 /* QuartzCore.framework in Frameworks */,
 				30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */,
 				9CA624361695927C003F6334 /* CoreText.framework in Frameworks */,
 				9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */,
 				9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */,
+				30DC87DF1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a in Frameworks */,
 				A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,14 +304,6 @@
 				309483121AFF3325005E44B9 /* UIWindow+AHKAdditions.m */,
 			);
 			path = AHKActionSheet;
-			sourceTree = "<group>";
-		};
-		3096311D1B72DCE000FDD35F /* YoutubeKitExtension */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = YoutubeKitExtension;
-			path = ../../YoutubeKitExtension;
 			sourceTree = "<group>";
 		};
 		3096DF8C1B78459800031465 /* Buttons */ = {
@@ -417,10 +407,7 @@
 			isa = PBXGroup;
 			children = (
 				3096DF8C1B78459800031465 /* Buttons */,
-				3096311D1B72DCE000FDD35F /* YoutubeKitExtension */,
 				30E201611B5C6E3300D37DA2 /* ParallaxDisplay */,
-				3093E2731B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.h */,
-				3093E2741B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m */,
 				3093C0BE1B09793C00EEC6F7 /* CarbonKit */,
 				3093C0BB1B095F2400EEC6F7 /* Song.h */,
 				3093C0BC1B095F2400EEC6F7 /* Song.m */,
@@ -447,6 +434,7 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */,
 				308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */,
 				30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */,
 				3093E2711B1443C100C454CF /* JavaScriptCore.framework */,
@@ -648,7 +636,6 @@
 				9CA623F9169591AC003F6334 /* SearchViewController.m in Sources */,
 				3015C09A1B65F5F200A82642 /* VoteCell.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
-				3093E2751B1445BE00C454CF /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */,
 				3093C0BD1B095F2400EEC6F7 /* Song.m in Sources */,
 				30916CE51AF0928B00327CAA /* MGScrollView.m in Sources */,
@@ -781,6 +768,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/matanvardi/Downloads/XCDYouTubeKit-master/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/XCDYouTubeKit-master/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -801,6 +789,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/matanvardi/Downloads/XCDYouTubeKit-master/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/XCDYouTubeKit-master/build/Debug-iphoneos",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

@@ -6,6 +6,7 @@
 #import "ViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import "AppConstant.h"
+
 @interface MediaManager : NSObject<YTPlayerViewDelegate>{
     
 }
