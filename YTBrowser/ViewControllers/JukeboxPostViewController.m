@@ -6,11 +6,8 @@
 //  Copyright (c) 2014 Aaron Pang. All rights reserved.
 //
 
-#import "RootViewController.h"
+#import "JukeboxPostViewController.h"
 #import "UIImage+ImageEffects.h"
-#import "ToolBarView.h"
-#import "UIFont+SecretFont.h"
-#import "CommentCell.h"
 #import "UIView+GradientMask.h"
 #import "MediaManager.h"
 #import "JukeboxEntry.h"
@@ -38,11 +35,11 @@ const CGFloat kBlurFadeInFactor = 0.05f;
 const CGFloat kTextFadeOutFactor = 0.007f;
 const CGFloat kCommentCellHeight = 50.0f;
 
-@interface RootViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface JukeboxPostViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @end
 
-@implementation RootViewController {
+@implementation JukeboxPostViewController {
     UIScrollView *_mainScrollView;
     UIScrollView *_backgroundScrollView;
     UIImageView *_blurImageView;
@@ -51,7 +48,6 @@ const CGFloat kCommentCellHeight = 50.0f;
     UILabel *_userLabel;
     UIView *_postContainer;
     UIImageView *_thumbImageView;
-    ToolBarView *_toolBarView;
     UIView *_commentsViewContainer;
     UITableView *_commentsTableView;
     JukeboxEntry *jukeboxEntry;
@@ -132,8 +128,6 @@ const CGFloat kCommentCellHeight = 50.0f;
         _userLabel.layer.shadowRadius = 10.0f;
         _userLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 
-        _toolBarView = [[ToolBarView alloc] initWithFrame:TOOLBAR_INIT_FRAME];
-        _toolBarView.autoresizingMask =   UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
         [_backgroundScrollView addSubview:imageView];
         [_backgroundScrollView addSubview:fadeView];
         //[_backgroundScrollView addSubview:_toolBarView];
@@ -289,7 +283,6 @@ const CGFloat kCommentCellHeight = 50.0f;
     if (scrollView.contentOffset.y < 0.0f) {
         delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
         _backgroundScrollView.frame = CGRectMake(CGRectGetMinX(rect) - delta / 2.0f, CGRectGetMinY(rect) - delta, CGRectGetWidth(rect) + delta, CGRectGetHeight(rect) + delta);
-        _toolBarView.frame = CGRectMake(CGRectGetMinX(toolbarRect) + delta / 2.0f, CGRectGetMinY(toolbarRect) + delta, CGRectGetWidth(toolbarRect), CGRectGetHeight(toolbarRect));
 
         [_scroller setContentOffset:(CGPoint){0,0} animated:NO];
 
@@ -309,7 +302,6 @@ const CGFloat kCommentCellHeight = 50.0f;
             NSLog(@"scroll is: %f   delta is: %f ", _mainScrollView.contentOffset.y,delta);
                 _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
                 _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/8;
-                _toolBarView.alpha = _textLabel.alpha;
                 _thumbImageView.alpha = _textLabel.alpha;
                 _userLabel.alpha = _textLabel.alpha;
 
@@ -325,9 +317,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.alpha = 1.0f;
         _userLabel.alpha = 1.0f;
         _thumbImageView.alpha = 1.0f;
-        _toolBarView.alpha = _textLabel.alpha;
         _blurImageView.alpha = MIN(1 , 1+delta * kBlurFadeInFactor);
-        _toolBarView.frame = TOOLBAR_INIT_FRAME;
         CGFloat backgroundScrollViewLimit = _backgroundScrollView.frame.size.height - kBarHeight;
         // Here I check whether or not the user has scrolled passed the limit where I want to stick the header, if they have then I move the frame with the scroll view
         // to give it the sticky header look

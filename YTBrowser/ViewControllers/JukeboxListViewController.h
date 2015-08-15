@@ -12,7 +12,7 @@
 #import "JukeBoxCell.h"
 #import "MediaManager.h"
 #import "MediaPlayerViewController.h"
-#import "RootViewController.h"
+#import "JukeboxPostViewController.h"
 @interface JukeboxListViewController : UIViewController
 @property (nonatomic,strong) MediaPlayerViewController *videoPlayer;
 @end

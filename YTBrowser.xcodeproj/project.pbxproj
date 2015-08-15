@@ -46,9 +46,7 @@
 		30DC880E1B7FD79800A7ABD8 /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC880B1B7FD79800A7ABD8 /* MediaManager.m */; };
 		30DC88141B7FD87100A7ABD8 /* VideoLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88111B7FD87100A7ABD8 /* VideoLink.m */; };
 		30DC88151B7FD87100A7ABD8 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88131B7FD87100A7ABD8 /* VideoModel.m */; };
-		30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201631B5C6E3300D37DA2 /* CommentCell.m */; };
-		30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201651B5C6E3300D37DA2 /* RootViewController.m */; };
-		30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201671B5C6E3300D37DA2 /* ToolBarView.m */; };
+		30DC88181B7FD9F000A7ABD8 /* JukeboxPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88171B7FD9F000A7ABD8 /* JukeboxPostViewController.m */; };
 		30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */; };
 		30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016B1B5C6E3300D37DA2 /* UIImage+ImageEffects.m */; };
 		30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E2016D1B5C6E3300D37DA2 /* UIView+GradientMask.m */; };
@@ -158,12 +156,8 @@
 		30DC88111B7FD87100A7ABD8 /* VideoLink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoLink.m; sourceTree = "<group>"; };
 		30DC88121B7FD87100A7ABD8 /* VideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
 		30DC88131B7FD87100A7ABD8 /* VideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
-		30E201621B5C6E3300D37DA2 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
-		30E201631B5C6E3300D37DA2 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
-		30E201641B5C6E3300D37DA2 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
-		30E201651B5C6E3300D37DA2 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
-		30E201661B5C6E3300D37DA2 /* ToolBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToolBarView.h; sourceTree = "<group>"; };
-		30E201671B5C6E3300D37DA2 /* ToolBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToolBarView.m; sourceTree = "<group>"; };
+		30DC88161B7FD9F000A7ABD8 /* JukeboxPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxPostViewController.h; sourceTree = "<group>"; };
+		30DC88171B7FD9F000A7ABD8 /* JukeboxPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxPostViewController.m; sourceTree = "<group>"; };
 		30E201681B5C6E3300D37DA2 /* UIFont+SecretFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SecretFont.h"; sourceTree = "<group>"; };
 		30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SecretFont.m"; sourceTree = "<group>"; };
 		30E2016A1B5C6E3300D37DA2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -323,6 +317,8 @@
 		30DC87ED1B7FD4D900A7ABD8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				30DC88161B7FD9F000A7ABD8 /* JukeboxPostViewController.h */,
+				30DC88171B7FD9F000A7ABD8 /* JukeboxPostViewController.m */,
 				30DC87EE1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.h */,
 				30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */,
 				30DC87F01B7FD4D900A7ABD8 /* JukeboxListViewController.h */,
@@ -376,12 +372,6 @@
 		30E201611B5C6E3300D37DA2 /* ParallaxDisplay */ = {
 			isa = PBXGroup;
 			children = (
-				30E201621B5C6E3300D37DA2 /* CommentCell.h */,
-				30E201631B5C6E3300D37DA2 /* CommentCell.m */,
-				30E201641B5C6E3300D37DA2 /* RootViewController.h */,
-				30E201651B5C6E3300D37DA2 /* RootViewController.m */,
-				30E201661B5C6E3300D37DA2 /* ToolBarView.h */,
-				30E201671B5C6E3300D37DA2 /* ToolBarView.m */,
 				30E201681B5C6E3300D37DA2 /* UIFont+SecretFont.h */,
 				30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */,
 				30E2016A1B5C6E3300D37DA2 /* UIImage+ImageEffects.h */,
@@ -645,7 +635,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				30DC87FA1B7FD4D900A7ABD8 /* LibraryViewController.m in Sources */,
-				30E2016F1B5C6E3300D37DA2 /* RootViewController.m in Sources */,
 				9CA623E9169591AC003F6334 /* main.m in Sources */,
 				309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
@@ -674,7 +663,6 @@
 				3096DF8F1B78459800031465 /* RMSaveButton.m in Sources */,
 				30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
-				30E2016E1B5C6E3300D37DA2 /* CommentCell.m in Sources */,
 				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
 				309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */,
@@ -685,13 +673,13 @@
 				30DC88141B7FD87100A7ABD8 /* VideoLink.m in Sources */,
 				30916CE41AF0928B00327CAA /* MGLine.m in Sources */,
 				9C9BB3BC16BAE6AE00C8AB3A /* JSONHTTPClient.m in Sources */,
+				30DC88181B7FD9F000A7ABD8 /* JukeboxPostViewController.m in Sources */,
 				30916CE11AF0928B00327CAA /* MGBox.m in Sources */,
 				30DC880E1B7FD79800A7ABD8 /* MediaManager.m in Sources */,
 				9C9BB3BD16BAE6AE00C8AB3A /* JSONModel+networking.m in Sources */,
 				30DC87FB1B7FD4D900A7ABD8 /* MediaPlayerViewController.m in Sources */,
 				3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */,
 				30916CE21AF0928B00327CAA /* MGButton.m in Sources */,
-				30E201701B5C6E3300D37DA2 /* ToolBarView.m in Sources */,
 				30DC87FC1B7FD4D900A7ABD8 /* SearchYoutubeViewController.m in Sources */,
 				9C9BB3BE16BAE6AE00C8AB3A /* JSONKeyMapper.m in Sources */,
 				9C9BB3BF16BAE6AE00C8AB3A /* JSONValueTransformer.m in Sources */,

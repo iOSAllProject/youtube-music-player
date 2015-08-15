@@ -213,7 +213,7 @@
         // animate
         [section layoutWithSpeed:0.3 completion:nil];
         [scroller layoutWithSpeed:0.3 completion:nil];*/
-        RootViewController *jukeboxPost = [[RootViewController alloc] initWithJukeBox:box.jukeBoxEntry];
+        JukeboxPostViewController *jukeboxPost = [[JukeboxPostViewController alloc] initWithJukeBox:box.jukeBoxEntry];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:jukeboxPost];
         [self presentViewController:navigationController animated:YES completion:nil];
     };
