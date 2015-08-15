@@ -18,6 +18,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     UIBarButtonItem *searchButton;
     NSMutableArray *currentLibrary;
     UIImageView *searchIcon;
+    UILabel *searchLabel;
 }
 @end
 
@@ -68,7 +69,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         searchBarView.autoresizingMask = 0;
         searchBar.delegate = self;
         searchBar.autocapitalizationType = UITextAutocapitalizationTypeNone;
-        searchBar.placeholder = @"Search for songs, artists, and albums";
+        searchBar.placeholder = @"Search";
         [searchBarView addSubview:searchBar];
         self.navigationItem.titleView = searchBarView;
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
@@ -90,11 +91,13 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - imageSize/2, self.view.frame.size.height/2 - imageSize, imageSize, imageSize)];
     searchIcon.image = [UIImage imageNamed:@"search"];
     
-    UILabel *searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchIcon.frame.origin.x, searchIcon.frame.origin.y + searchIcon.frame.size.height, searchIcon.frame.size.width,120.0)];
-    searchLabel.text = @"Search for songs, artists, and albums.";
+    CGFloat labelSize = 200;
+    
+    searchLabel = [[UILabel alloc] initWithFrame:CGRectMake(searchIcon.frame.origin.x - labelSize/2 + imageSize/2, searchIcon.frame.origin.y + searchIcon.frame.size.height, labelSize,40.0)];
+    searchLabel.text = @"Find your favorite music";
     searchLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:16.0f];
     searchLabel.textColor = [UIColor blackColor];
-   // searchLabel.textAlignment = NSTextAlignmentCenter;
+    searchLabel.textAlignment = NSTextAlignmentCenter;
 
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
@@ -258,6 +261,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     searchIcon.alpha = 0.0;
+    searchLabel.alpha = 0.0;
     [searchBar resignFirstResponder];
     [self searchYoutubeVideosForTerm:searchBar.text];
 }
@@ -298,6 +302,19 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
 -(void) popViewController:(id) sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewWillLayoutSubviews {
+    // Your adjustments accd to
+    // viewController.bounds
+    playerBar.frame = CGRectMake(0.0, self.view.frame.size.height-44, self.view.frame.size.width, 44);
+    if(playerBar.isHidden){
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+    } else {
+        scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+        
+    }
+    [super viewWillLayoutSubviews];
 }
 
 @end

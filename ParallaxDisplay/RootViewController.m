@@ -31,6 +31,7 @@
 #define USERNAME_INIT_FRAME CGRectMake(0, TITLE_INIT_FRAME.origin.y + TITLE_INIT_FRAME.size.height, self.view.frame.size.width, 20.0)
 #define ADD_SONG_BUTTON_SIZE = CGSizeMake(140,50)
 #define ADD_SONG_INIT_FRAME CGRectMake(self.view.frame.size.width/2 - 70,HEADER_HEIGHT-25,140,50)
+#define SMALL_TITLE_SIZE  self.view.size.width - 110
 const CGFloat kBarHeight = 88.0f;
 const CGFloat kBackgroundParallexFactor = 0.95f;
 const CGFloat kBlurFadeInFactor = 0.05f;
@@ -101,7 +102,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         
         _textLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
         [_textLabel setText:@"Jukebox Title"];
-        [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:22.0f]];
+        [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22.0f]];
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
         [_textLabel setTextColor:[UIColor whiteColor]];
         _textLabel.backgroundColor = [UIColor clearColor];
@@ -109,8 +110,8 @@ const CGFloat kCommentCellHeight = 50.0f;
         _textLabel.layer.shadowRadius = 10.0f;
         _textLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
-        CGFloat smallTitleSize = self.view.size.width - 70;
-        _titleSmallLabel = [[UILabel alloc] initWithFrame:CGRectMake(35, 25, smallTitleSize, 25)];
+        CGFloat smallTitleSize = SMALL_TITLE_SIZE;
+        _titleSmallLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 30, smallTitleSize, 25)];
         _titleSmallLabel.text = @"Jukebox Title";
         [_titleSmallLabel setTextAlignment:NSTextAlignmentCenter];
         [_titleSmallLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f]];
@@ -130,7 +131,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _userLabel.layer.shadowColor = [UIColor blackColor].CGColor;
         _userLabel.layer.shadowRadius = 10.0f;
         _userLabel.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
+
         _toolBarView = [[ToolBarView alloc] initWithFrame:TOOLBAR_INIT_FRAME];
         _toolBarView.autoresizingMask =   UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
         [_backgroundScrollView addSubview:imageView];
@@ -172,23 +173,12 @@ const CGFloat kCommentCellHeight = 50.0f;
         _scroller.backgroundColor = [UIColor whiteColor];
         [_commentsViewContainer addSubview:_scroller];
         [self setupLibraryView];
-        /*
-        _commentsTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame) - kBarHeight ) style:UITableViewStylePlain];
-        _commentsTableView.scrollEnabled = NO;
-        _commentsTableView.delegate = self;
-        _commentsTableView.dataSource = self;
-        _commentsTableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-        _commentsTableView.separatorColor = [UIColor clearColor];
-        */
+
         [_mainScrollView addSubview:_backgroundScrollView];
         [_commentsViewContainer addSubview:_commentsTableView];
         [_mainScrollView addSubview:_commentsViewContainer];
         [self.view addSubview:_titleSmallLabel];
-        // Let's put in some fake data!
-        comments = [@[@"Oh my god! Me too!", @"No way! I love secrets too!", @"I for some reason really like sharing my deepest darkest secrest to the entire world", @"More comments", @"Go Toronto Blue Jays!", @"I rather use Twitter", @"I don't get Secret", @"I don't have an iPhone", @"How are you using this then?"] mutableCopy];
-        [_toolBarView setNumberOfComments:[comments count]];
-        
-        
+
         _addButton = [[RMSaveButton alloc] initWithFrame: ADD_SONG_INIT_FRAME];
         _addButton.label = @"Queue Song";
         [_mainScrollView addSubview:_addButton];
@@ -197,14 +187,14 @@ const CGFloat kCommentCellHeight = 50.0f;
         _addButton.completionHandler = ^void() {};
         
         
-        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 25.0, 25.0)];
+        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 25.0, 25.0)];
         [dismissButton addTarget:self
                           action:@selector(done)
                 forControlEvents:UIControlEventTouchUpInside];
         [dismissButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [self.view addSubview: dismissButton];
         
-        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 20, 25.0, 25.0)];
+        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 30, 25.0, 25.0)];
         [queue setBackgroundImage:[UIImage imageNamed:@"more_juke"] forState:UIControlStateNormal];
         [self.view addSubview:queue];
         
@@ -276,6 +266,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         box.onTap = ^{
             [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
             [[MediaManager sharedInstance] playWithVideo:video];
+            [self adjustScrollViewToPlayer];
         };
         counter++;
         //add the box
@@ -294,7 +285,6 @@ const CGFloat kCommentCellHeight = 50.0f;
     CGRect thumbRect = THUMBNAIL_INIT_FRAME;
     CGRect titleRect = TITLE_INIT_FRAME;
     CGRect userRect = USERNAME_INIT_FRAME;
-    _titleSmallLabel.alpha =0;
     // Here is where I do the "Zooming" image and the quick fade out the text and toolbar
     if (scrollView.contentOffset.y < 0.0f) {
         delta = fabs(MIN(0.0f, _mainScrollView.contentOffset.y));
@@ -318,7 +308,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         } else {
             NSLog(@"scroll is: %f   delta is: %f ", _mainScrollView.contentOffset.y,delta);
                 _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
-                _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/5;
+                _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/8;
                 _toolBarView.alpha = _textLabel.alpha;
                 _thumbImageView.alpha = _textLabel.alpha;
                 _userLabel.alpha = _textLabel.alpha;
@@ -341,7 +331,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         CGFloat backgroundScrollViewLimit = _backgroundScrollView.frame.size.height - kBarHeight;
         // Here I check whether or not the user has scrolled passed the limit where I want to stick the header, if they have then I move the frame with the scroll view
         // to give it the sticky header look
-        if (delta > backgroundScrollViewLimit) {
+        if (delta >= backgroundScrollViewLimit) {
             _backgroundScrollView.frame = (CGRect) {.origin = {0, delta - _backgroundScrollView.frame.size.height + kBarHeight -playerBarOffset}, .size = {self.view.frame.size.width, HEADER_HEIGHT}};
             _commentsViewContainer.frame = (CGRect){.origin = {0, CGRectGetMinY(_backgroundScrollView.frame) + CGRectGetHeight(_backgroundScrollView.frame)}, .size = _commentsViewContainer.frame.size };
             
@@ -350,7 +340,10 @@ const CGFloat kCommentCellHeight = 50.0f;
             _scroller.contentOffset = CGPointMake (0, delta - backgroundScrollViewLimit);
             CGFloat contentOffsetY = -backgroundScrollViewLimit * kBackgroundParallexFactor;
             [_backgroundScrollView setContentOffset:(CGPoint){0,contentOffsetY} animated:NO];
-            _titleSmallLabel.alpha = 1;
+            _titleSmallLabel.alpha =1;
+            _thumbImageView.alpha = 0;
+            _textLabel.alpha = 0;
+            _userLabel.alpha = 0;
   
         }
         else {
@@ -361,56 +354,14 @@ const CGFloat kCommentCellHeight = 50.0f;
 
             [_backgroundScrollView setContentOffset:CGPointMake(0, -delta * kBackgroundParallexFactor)animated:NO];
            
+            _titleSmallLabel.alpha =0;
+            _thumbImageView.alpha = 1;
+            _textLabel.alpha = 1;
+            _userLabel.alpha = 1;
         }
         
     }
 }
-
-#pragma mark
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [comments count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *text = [comments objectAtIndex:[indexPath row]];
-    CGSize requiredSize;
-    if ([text respondsToSelector:@selector(boundingRectWithSize:options:attributes:context:)]) {
-        CGRect rect = [text boundingRectWithSize:(CGSize){225, MAXFLOAT}
-                                                   options:NSStringDrawingUsesLineFragmentOrigin
-                                                    attributes:@{NSFontAttributeName:[UIFont secretFontLightWithSize:16.f]}
-                                                   context:nil];
-        requiredSize = rect.size;
-    } else {
-        requiredSize = [text sizeWithFont:[UIFont secretFontLightWithSize:16.f] constrainedToSize:(CGSize){225, MAXFLOAT} lineBreakMode:NSLineBreakByWordWrapping];
-    }
-    return kCommentCellHeight + requiredSize.height;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CommentCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"Cell %d", indexPath.row]];
-    if (!cell) {
-        cell = [[CommentCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"Cell %d", indexPath.row]];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.commentLabel.frame = (CGRect) {.origin = cell.commentLabel.frame.origin, .size = {CGRectGetMinX(cell.likeButton.frame) - CGRectGetMaxY(cell.iconView.frame) - kCommentPaddingFromLeft - kCommentPaddingFromRight,[self tableView:tableView heightForRowAtIndexPath:indexPath] - kCommentCellHeight}};
-        cell.commentLabel.text = comments[indexPath.row];
-        cell.timeLabel.frame = (CGRect) {.origin = {CGRectGetMinX(cell.commentLabel.frame), CGRectGetMaxY(cell.commentLabel.frame)}};
-        cell.timeLabel.text = @"1d ago";
-        [cell.timeLabel sizeToFit];
-        
-        // Don't judge my magic numbers or my crappy assets!!!
-        cell.likeCountImageView.frame = CGRectMake(CGRectGetMaxX(cell.timeLabel.frame) + 7, CGRectGetMinY(cell.timeLabel.frame) + 3, 10, 10);
-        cell.likeCountImageView.image = [UIImage imageNamed:@"like_greyIcon.png"];
-        cell.likeCountLabel.frame = CGRectMake(CGRectGetMaxX(cell.likeCountImageView.frame) + 3, CGRectGetMinY(cell.timeLabel.frame), 0, CGRectGetHeight(cell.timeLabel.frame));
-    }
-
-    return cell;
-}
-
 
 - (void)viewDidAppear:(BOOL)animated {
     _mainScrollView.contentSize = CGSizeMake(CGRectGetWidth(self.view.frame), _scroller.contentSize.height + CGRectGetHeight(_backgroundScrollView.frame));
@@ -439,11 +390,28 @@ const CGFloat kCommentCellHeight = 50.0f;
     
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [playerBar addGestureRecognizer:playerTap];
-    
+    [self adjustScrollViewToPlayer];
     [self.view addSubview:playerBar];
     
     
 }
+-(void) adjustScrollViewToPlayer{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    if(playerBar.isHidden){
+        _scroller.frame = (CGRect){_scroller.frame.origin.x,_scroller.origin.y,self.view.frame.size.width, listViewHeight};
+        _commentsViewContainer.frame = (CGRect){_commentsViewContainer.frame.origin.x,_commentsViewContainer.origin.y,self.view.frame.size.width, listViewHeight};
+
+        _mainScrollView.frame = window.frame;
+    } else {
+        _scroller.frame = (CGRect){_scroller.frame.origin.x,_scroller.origin.y,self.view.frame.size.width, listViewHeight-44};
+        _commentsViewContainer.frame = (CGRect){_commentsViewContainer.frame.origin.x,_commentsViewContainer.origin.y,self.view.frame.size.width, listViewHeight-44};
+        _mainScrollView.frame = CGRectMake(window.frame.origin.x, window.frame.origin.y, window.frame.size.width, window.frame.size.height-44);
+        
+        
+    }
+    [_scroller layout];
+}
+
 -(void)viewWillDisappear {
     [playerBar removeFromSuperview];
 }
@@ -483,6 +451,15 @@ const CGFloat kCommentCellHeight = 50.0f;
     _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
     
     return _fetchedResultsController;
+}
+
+- (void)viewWillLayoutSubviews {
+    // Your adjustments accd to
+    // viewController.bounds
+    playerBar.frame = CGRectMake(0.0, self.view.frame.size.height-44, self.view.frame.size.width, 44);
+    _titleSmallLabel.frame = CGRectMake(50, 30, SMALL_TITLE_SIZE, 25);
+    
+    [super viewWillLayoutSubviews];
 }
 
 @end
