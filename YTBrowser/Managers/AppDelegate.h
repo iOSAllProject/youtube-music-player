@@ -9,10 +9,13 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-
+#import <RESideMenu/RESideMenu.h>
+#import "DEMOLeftMenuViewController.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic) BOOL videoIsInFullscreen;
 @property (nonatomic, strong) UIView *playerBar;
+@property (nonatomic, strong) RESideMenu *sideMenuViewController;
+@property (nonatomic, strong) DEMOLeftMenuViewController *leftMenuViewController;
 @end

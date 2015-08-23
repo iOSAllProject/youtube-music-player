@@ -1,10 +1,28 @@
 PODS:
+  - Bolts (1.1.4)
+  - EstimoteSDK (2.4.0)
+  - Facebook-iOS-SDK (3.23.1):
+    - Bolts (~> 1.0)
+  - Parse (1.6.4):
+    - Bolts (~> 1.1)
+  - ParseFacebookUtils (1.6.4):
+    - Facebook-iOS-SDK (~> 3.20)
+    - Parse (~> 1.6.4)
   - RESideMenu (4.0.7)
 
 DEPENDENCIES:
+  - EstimoteSDK
+  - Facebook-iOS-SDK (~> 3.19)
+  - Parse (~> 1.4)
+  - ParseFacebookUtils (~> 1.4)
   - RESideMenu (~> 4.0.7)
 
 SPEC CHECKSUMS:
-  RESideMenu: f24c508404b49c667344c54aba7e590883533958
+  Bolts: dd9fb8433d67f5acc3b6b4d1379bbc5513d716c1
+  EstimoteSDK: 6abcf32ed821e6669cf75d62457dded2c0951e7f
+  Facebook-iOS-SDK: 89dae50e975ebab95a01b0962d27277fc9cf08fd
+  Parse: c2610f7a12ad0defc974803b819c4efe7746e6db
+  ParseFacebookUtils: 00833ccf6fec7d6429e2403fe457496a5089358b
+  RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
 
-COCOAPODS: 0.35.0
+COCOAPODS: 0.37.1

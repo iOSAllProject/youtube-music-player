@@ -10,7 +10,7 @@
 #import "SearchYoutubeViewController.h"
 #import "LibraryViewController.h"
 #import "JukeboxListViewController.h"
-
+#import "LoginViewController.h"
 @interface DEMOLeftMenuViewController ()
 
 @property (strong, readwrite, nonatomic) UITableView *tableView;
@@ -82,6 +82,16 @@
                 // Load resources for iOS 7 or later
             }
             [self.sideMenuViewController hideMenuViewController];
+            break;
+        case 3:
+            if([PFUser currentUser]){
+                [PFUser logOut];
+                UINavigationController *navCont = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+                [self.sideMenuViewController hideMenuViewController];
+                [self presentViewController:navCont animated:NO completion:nil];
+                //∂ [self.sideMenuViewController.navigationController pushViewController:[[LoginViewController alloc] init] animated:YES];
+                
+            }
         default:
             break;
     }
@@ -102,7 +112,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectionIndex
 {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,8 +130,8 @@
         cell.selectedBackgroundView = [[UIView alloc] init];
     }
     
-    NSArray *titles = @[@"My Music", @"Search", @"Jukeboxes"];
-    NSArray *images = @[@"star", @"find",@"Jukeboxes"];
+    NSArray *titles = @[@"My Music", @"Search", @"Jukeboxes", @"Logout"];
+    NSArray *images = @[@"star", @"find",@"Jukeboxes",@"Logout"];
     cell.textLabel.text = titles[indexPath.row];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     

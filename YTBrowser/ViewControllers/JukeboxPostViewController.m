@@ -85,7 +85,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         imageView.image = jukeboxEntry.image;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         UIView *fadeView = [[UIView alloc] initWithFrame:imageView.frame];
-        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.3f];
+        fadeView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.1f];
         fadeView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         
 
@@ -97,7 +97,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         
         _textLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
-        [_textLabel setText:@"Jukebox Title"];
+        [_textLabel setText:entry.title];
         [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22.0f]];
         [_textLabel setTextAlignment:NSTextAlignmentCenter];
         [_textLabel setTextColor:[UIColor whiteColor]];
@@ -108,7 +108,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         
         CGFloat smallTitleSize = SMALL_TITLE_SIZE;
         _titleSmallLabel = [[UILabel alloc] initWithFrame:CGRectMake(50, 30, smallTitleSize, 25)];
-        _titleSmallLabel.text = @"Jukebox Title";
+        _titleSmallLabel.text = entry.title;
         [_titleSmallLabel setTextAlignment:NSTextAlignmentCenter];
         [_titleSmallLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f]];
         _titleSmallLabel.backgroundColor = [UIColor clearColor];
@@ -119,7 +119,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         
         
         _userLabel = [[UILabel alloc] initWithFrame:USERNAME_INIT_FRAME];
-        [_userLabel setText:@"Username"];
+        [_userLabel setText:entry.author];
         [_userLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f]];
         [_userLabel setTextAlignment:NSTextAlignmentCenter];
         [_userLabel setTextColor:[UIColor whiteColor]];

@@ -11,8 +11,8 @@
 + (JukeBoxCell *)photoAddBoxWithSize:(CGSize)size;
 @property (nonatomic) CGFloat scrollSize;
 @property (nonatomic) NSInteger index;
-+ (JukeBoxCell *)photoBoxFor:(int)i size:(CGSize)size atIndex:(NSInteger) index withScrollSize:(CGFloat) scrollSize;
-
+//+ (JukeBoxCell *)photoBoxFor:(int)i size:(CGSize)size atIndex:(NSInteger) index withScrollSize:(CGFloat) scrollSize;
++(JukeBoxCell *)photoBoxFor:(JukeboxEntry*)jukeboxEntry size:(CGSize)size;
 - (void)loadPhoto;
 
 @end

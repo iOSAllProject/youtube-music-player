@@ -5,7 +5,7 @@
 #import "MediaPlayerViewController.h"
 #import <XCDYouTubeKit/XCDYouTubeKit.h>
 #import "AppConstant.h"
-
+#import <QuartzCore/QuartzCore.h>
 @interface MediaManager : NSObject{
     
 }

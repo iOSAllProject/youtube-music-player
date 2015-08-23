@@ -76,9 +76,13 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
     pLabel = [[UILabel alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width/2 - TITLE_WIDTH/2, TITLE_SPACE, TITLE_WIDTH, TITLE_HEIGHT)];
     pLabel.textColor = [UIColor whiteColor];
-    pLabel.font = [UIFont fontWithName:@"Helvetica-Light" size:13.0f];
+    pLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
     pLabel.numberOfLines = 0;
     pLabel.textAlignment = NSTextAlignmentCenter;
+    pLabel.layer.shadowColor = [pLabel.textColor CGColor];
+    pLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
+    pLabel.layer.shadowRadius = 3.0;
+    pLabel.layer.shadowOpacity = 0.5;
     [miniPlayer addSubview:pLabel];
 
 

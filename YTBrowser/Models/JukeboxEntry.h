@@ -11,5 +11,7 @@
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) NSString *imageURL;
 @property (nonatomic, strong) NSArray *songs;
+@property (nonatomic, strong) NSString *currentlyPlaying;
 @end

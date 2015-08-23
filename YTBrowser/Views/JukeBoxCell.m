@@ -55,14 +55,13 @@
   return box;
 }
 
-+ (JukeBoxCell *)photoBoxFor:(int)i size:(CGSize)size atIndex:(NSInteger)index withScrollSize:(CGFloat) scrollSize {
++ (JukeBoxCell *)photoBoxFor:(JukeboxEntry*)jukeboxEntry size:(CGSize)size  {
 
   // box with photo number tag
-  JukeBoxCell *box = [JukeBoxCell boxWithSize:size];
-  box.tag = i;
-  box.jukeBoxEntry = [[JukeboxEntry alloc] init];
-  box.scrollSize = scrollSize;
-  box.index = i;
+    JukeBoxCell *box = [JukeBoxCell boxWithSize:size];
+
+    box.jukeBoxEntry = jukeboxEntry;
+
 
     // BOOL isBgLight =[self isLightColor:self.backgroundColor];
     CGFloat hPadding = 10;
@@ -72,7 +71,7 @@
     CGFloat songSize = 17;
     CGFloat allTextSize = titleSize + authorSize + songSize + 2*vPadding;
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(IV_FRAME.size.width + IV_FRAME.origin.x + 10, ROW_HEIGHT/2 - (allTextSize+vPadding)/2, box.frame.size.width - IV_FRAME.size.width-25 - vPadding, titleSize)];
-    title.text =  @"Jukebox Name";
+    title.text = jukeboxEntry.title;
     title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     // title.textAlignment = NSTextAlignmentCenter;
     // if(isBgLight)
@@ -83,7 +82,7 @@
     [box addSubview:title];
     
     UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, authorSize)];
-    author.text =  @"Username";
+    author.text =  jukeboxEntry.author;
     // author.textAlignment = NSTextAlignmentCenter;
     author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
     author.textColor = RGB(62,68,72);
@@ -98,7 +97,7 @@
     playingIcon.image = [UIImage imageNamed:@"currently_playing"];
     [box addSubview:playingIcon];
     UILabel *currentlyPlaying = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x+ 24, author.frame.origin.y + author.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, songSize)];
-    currentlyPlaying.text = @"Chillstep Remix";
+    currentlyPlaying.text = jukeboxEntry.currentlyPlaying;
     currentlyPlaying.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
     currentlyPlaying.textColor = RGB(19, 143, 213);
     
@@ -124,7 +123,7 @@
     spinner.color = UIColor.lightGrayColor;
     [box addSubview:spinner];
     [spinner startAnimating];
-  // do the photo loading async, because internets
+  // do the photo loading async, because internet
   __block id bbox = box;
   box.asyncLayoutOnce = ^{
     [bbox loadPhoto];
@@ -147,8 +146,7 @@
 - (void)loadPhoto {
 
   // photo url
-  id photosDir = @"http://bigpaua.com/images/MGBox";
-  id fullPath = [NSString stringWithFormat:@"%@/%d.jpg", photosDir, self.tag];
+  NSString *fullPath = self.jukeBoxEntry.imageURL;
   NSURL *url = [NSURL URLWithString:fullPath];
   // fetch the remote photo
   NSData *data = [NSData dataWithContentsOfURL:url];

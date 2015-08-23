@@ -8,6 +8,8 @@
 
 #import "JukeboxListViewController.h"
 #import "AppConstant.h"
+#import "LoginViewController.h"
+#import <Parse/Parse.h>
 
 #define TOTAL_IMAGES           28
 #define IPHONE_INITIAL_IMAGES  28
@@ -98,6 +100,19 @@
     tablesGrid.contentLayoutMode = MGLayoutGridStyle;
     [scroller.boxes addObject:tablesGrid];
     
+    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %d scores.", objects.count);
+            // Do something with the found objects
+            [self createJukeboxListView:objects];
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+/*
     // add photo boxes to the grid
     int initialImages = phone ? IPHONE_INITIAL_IMAGES : IPAD_INITIAL_IMAGES;
     for (int i = 1; i <= initialImages; i++) {
@@ -105,27 +120,33 @@
         [photosGrid.boxes addObject:[self photoBoxFor:photo]];
     }
     animateOnce = YES;
-    
-    // add a blank "add photo" box
-    [photosGrid.boxes addObject:self.photoAddBox];
-    [tablesGrid layout];
 
+    [tablesGrid layout];*/
+    
     
 
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation
-                                           duration:1];
-    [self didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
+-(void) createJukeboxListView: (NSArray *) jukeboxes {
+    for (PFObject *j in jukeboxes){
+        JukeboxEntry *entry = [[JukeboxEntry alloc] init];
+        [entry setTitle:j[@"name"]];
+        [entry setAuthor:j[@"username"]];
+        [entry setImageURL:j[@"image"]];
+        [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
+        [photosGrid.boxes addObject:[self photoBoxFor:entry]];
+    }
+    animateOnce = YES;
+    [photosGrid layout];
+    [tablesGrid layout];
+    
+    //Animate table view rows
     if(animateOnce){
         for(int i = 0; i <[photosGrid.boxes count]; i++){
             CGFloat tableHeight = scroller.frame.size.height;
             MGBox *box =[photosGrid.boxes objectAtIndex:i];
             box.transform = CGAffineTransformMakeTranslation(0, tableHeight);
         }
-
+        
         for (int i = 0; i < [photosGrid.boxes count]; i++){
             // fade the image in
             [UIView animateWithDuration:1.5 delay:(0.05 * i) usingSpringWithDamping:.8 initialSpringVelocity:0 options:nil animations:^{
@@ -133,9 +154,17 @@
                 box.transform = CGAffineTransformMakeTranslation(0, 0);
             } completion:nil];
         }
-
+        
         animateOnce = NO;
     }
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation
+                                           duration:1];
+    [self didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
 
 }
 
@@ -192,11 +221,11 @@
     : portrait ? IPAD_PORTRAIT_PHOTO : IPAD_LANDSCAPE_PHOTO;*/
 }
 
-- (MGBox *)photoBoxFor:(int)i {
+- (MGBox *)photoBoxFor:(JukeboxEntry *) entry {
     
     // make the photo box
-    JukeBoxCell *box = [JukeBoxCell photoBoxFor:i size:IPHONE_PORTRAIT_CELL atIndex:i withScrollSize:scroller.frame.size.height];
-    
+    JukeBoxCell *box = [JukeBoxCell photoBoxFor:entry size:IPHONE_PORTRAIT_CELL];
+       
     // remove the box when tapped
     __block id bbox = box;
     box.onTap = ^{
@@ -224,39 +253,6 @@
     return box;
 }
 
-- (MGBox *)photoAddBox {
-    
-    // make the box
-    JukeBoxCell *box = [JukeBoxCell photoAddBoxWithSize:IPHONE_PORTRAIT_CELL];
-    
-    // deal with taps
-    __block MGBox *bbox = box;
-    box.onTap = ^{
-
-        // a new photo number
-        int photo = [self randomMissingPhoto];
-        
-        // replace the add box with a photo loading box
-        int idx = [photosGrid.boxes indexOfObject:bbox];
-        [photosGrid.boxes removeObject:bbox];
-        [photosGrid.boxes insertObject:[self photoBoxFor:photo] atIndex:idx];
-        [photosGrid layout];
-        
-        // all photos are in now?
-        if (![self randomMissingPhoto]) {
-            return;
-        }
-        
-        // add another add box
-        [photosGrid.boxes addObject:self.photoAddBox];
-        
-        // animate the section and the scroller
-        [photosGrid layoutWithSpeed:0.3 completion:nil];
-        [scroller layoutWithSpeed:0.3 completion:nil];
-    };
-    
-    return box;
-}
 
 #pragma mark - Photo Box helpers
 
@@ -299,6 +295,11 @@
     [super viewWillAppear:animated];
     //setup music player at bottom of screen
     playerBar = [[MediaManager sharedInstance] getMiniPlayer];
+    if(![PFUser currentUser]){
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        [self presentViewController:navController animated:NO completion:nil];
+        
+    }
     
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [playerBar addGestureRecognizer:playerTap];
@@ -331,5 +332,6 @@
 -(void)viewWillDisappear {
     [playerBar removeFromSuperview];
 }
+
 
 @end

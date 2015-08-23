@@ -12,31 +12,37 @@
 #import "DEMOLeftMenuViewController.h"
 #import "AppConstant.h"
 #import "JukeboxListViewController.h"
+#import <Parse/Parse.h>
+#import <ParseFacebookUtils/PFFacebookUtils.h>
+#import "LoginViewController.h"
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-
+    [Parse setApplicationId:@"1FhBCD3ASayJxj5YL9xkIBJPFm6WXIPcFtmh77ab"
+                  clientKey:@"nbeYYYVWWCKjpvZKZbIunQpF606bllZWahJTY5UX"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    [PFFacebookUtils initializeFacebook];
+
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[JukeboxListViewController alloc] init]];
-    DEMOLeftMenuViewController *leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
-
+    self.leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
     
-    RESideMenu *sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
-                                                                    leftMenuViewController:leftMenuViewController
+    
+    self.sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
+                                                                    leftMenuViewController:self.leftMenuViewController
                                                                    rightMenuViewController:nil];
-    sideMenuViewController.backgroundImage = [UIImage imageNamed:@"background_blue"];
-    sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
-    sideMenuViewController.delegate = self;
-    sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
-    sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
-    sideMenuViewController.contentViewShadowOpacity = 0.6;
-    sideMenuViewController.contentViewShadowRadius = 12;
-    sideMenuViewController.contentViewShadowEnabled = YES;
-    self.window.rootViewController = sideMenuViewController;
+    self.sideMenuViewController.backgroundImage = [UIImage imageNamed:@"background_blue"];
+    self.sideMenuViewController.menuPreferredStatusBarStyle = 1; // UIStatusBarStyleLightContent
+    self.sideMenuViewController.delegate = self;
+    self.sideMenuViewController.contentViewShadowColor = [UIColor blackColor];
+    self.sideMenuViewController.contentViewShadowOffset = CGSizeMake(0, 0);
+    self.sideMenuViewController.contentViewShadowOpacity = 0.6;
+    self.sideMenuViewController.contentViewShadowRadius = 12;
+    self.sideMenuViewController.contentViewShadowEnabled = YES;
+    self.window.rootViewController =  self.sideMenuViewController;
+    
     
     self.window.backgroundColor = [UIColor whiteColor];
     
@@ -45,12 +51,6 @@
     self.playerBar = [[UIView alloc] initWithFrame:CGRectMake(0.0f, self.window.frame.size.height-barHeight, self.window.frame.size.width, barHeight)];
     [[MediaManager sharedInstance] initializeVideoPlayer:self.playerBar];
     
-    /*
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.backgroundColor = [UIColor whiteColor];
-    SearchViewController *home = [[SearchViewController alloc] init];
-    UINavigationController *navController=[[UINavigationController alloc]initWithRootViewController:home];
-    [self.window setRootViewController:navController];*/
     [self.window makeKeyAndVisible];
     
     if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_6_1) {
@@ -59,18 +59,13 @@
         [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
     } else {
         [[UINavigationBar appearance]setTintColor:RGB(19, 143, 213)]; // it set color of bar button item text
-       // [[UINavigationBar appearance]setBarTintColor: [UIColor clearColor]]; // it set color of navigation
-     //   [[UINavigationBar appearance] setBarStyle:UIStatusBarStyleDefault]; // it set Style of UINavigationBar
         [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set title color of Navigation Bar
         // Load resources for iOS 7 or later
         
     }
-    
- //   [[UINavigationBar appearance] setBarTintColor:[UIColor clearColor]];
-  //  self.window.tintColor = [UIColor redColor];
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -88,14 +83,30 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+// ****************************************************************************
+// App switching methods to support Facebook Single Sign-On.
+// ****************************************************************************
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [FBAppCall handleOpenURL:url
+                  sourceApplication:sourceApplication
+                        withSession:[PFFacebookUtils session]];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application
-{
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+    /*
+     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+     */
+    [FBAppCall handleDidBecomeActiveWithSession:[PFFacebookUtils session]];
 }
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    /*
+     Called when the application is about to terminate.
+     Save data if appropriate.
+     See also applicationDidEnterBackground:.
+     */
+    [[PFFacebookUtils session] close];
+}
+
 
 @end
