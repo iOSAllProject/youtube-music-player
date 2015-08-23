@@ -18,6 +18,7 @@
 		30916CE51AF0928B00327CAA /* MGScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CD91AF0928B00327CAA /* MGScrollView.m */; };
 		30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CDB1AF0928B00327CAA /* MGTableBox.m */; };
 		30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CDD1AF0928B00327CAA /* MGTableBoxStyled.m */; };
+		3092A3051B89480D00347BE5 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3092A3041B89480D00347BE5 /* MapKit.framework */; };
 		30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */; };
 		3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C11B09793C00EEC6F7 /* CarbonSwipeRefresh.m */; };
 		3093C0C51B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3093C0C31B09793C00EEC6F7 /* CarbonTabSwipeNavigation.m */; };
@@ -112,6 +113,7 @@
 		30916CDB1AF0928B00327CAA /* MGTableBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTableBox.m; sourceTree = "<group>"; };
 		30916CDC1AF0928B00327CAA /* MGTableBoxStyled.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGTableBoxStyled.h; sourceTree = "<group>"; };
 		30916CDD1AF0928B00327CAA /* MGTableBoxStyled.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGTableBoxStyled.m; sourceTree = "<group>"; };
+		3092A3041B89480D00347BE5 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		30930A5E1AEC77CB00B44E58 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3093C0BF1B09793C00EEC6F7 /* CarbonKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonKit.h; sourceTree = "<group>"; };
 		3093C0C01B09793C00EEC6F7 /* CarbonSwipeRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CarbonSwipeRefresh.h; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3092A3051B89480D00347BE5 /* MapKit.framework in Frameworks */,
 				30DC88581B81684200A7ABD8 /* MobileCoreServices.framework in Frameworks */,
 				30DC88311B812ED400A7ABD8 /* Social.framework in Frameworks */,
 				30DC882F1B812ECF00A7ABD8 /* Accounts.framework in Frameworks */,
@@ -520,6 +523,7 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3092A3041B89480D00347BE5 /* MapKit.framework */,
 				30DC88571B81684200A7ABD8 /* MobileCoreServices.framework */,
 				30DC88301B812ED400A7ABD8 /* Social.framework */,
 				30DC882E1B812ECF00A7ABD8 /* Accounts.framework */,

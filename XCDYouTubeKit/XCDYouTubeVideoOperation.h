@@ -4,8 +4,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import <XCDYouTubeKit/XCDYouTubeOperation.h>
-#import <XCDYouTubeKit/XCDYouTubeVideo.h>
+#import "XCDYouTubeOperation.h"
+#import "XCDYouTubeVideo.h"
 
 /**
  *  XCDYouTubeVideoOperation is a subclass of `NSOperation` that connects to the YouTube API and parse the response.

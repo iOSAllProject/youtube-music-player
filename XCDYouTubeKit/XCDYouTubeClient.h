@@ -4,9 +4,10 @@
 
 #import <Foundation/Foundation.h>
 
-#import <XCDYouTubeKit/XCDYouTubeOperation.h>
-#import <XCDYouTubeKit/XCDYouTubeVideo.h>
-#import <XCDYouTubeKit/XCDYouTubeError.h>
+//#import "XCDYouTubeKit/XCDYouTubeOperation.h"
+#import "XCDYouTubeOperation.h"
+#import "XCDYouTubeVideo.h"
+#import "XCDYouTubeError.h"
 
 /**
  *  The `XCDYouTubeClient` class is responsible for interacting with the YouTube API. Given a YouTube video identifier, you will get video information with the `-getVideoWithIdentifier:completionHandler:` method.

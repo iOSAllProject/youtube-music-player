@@ -10,6 +10,8 @@
 #import "AppConstant.h"
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
+#import <MapKit/MapKit.h>
+
 
 #define TOTAL_IMAGES           28
 #define IPHONE_INITIAL_IMAGES  28
@@ -39,15 +41,17 @@
     UIImage *arrow;
     BOOL phone;
     MGScrollView *scroller;
+    MKMapView *map;
     UILabel *titleLabel;
     UIView *playerBar;
     BOOL animateOnce;
+    BOOL list;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
+    list = true;
+    map = [[MKMapView alloc] initWithFrame:self.view.frame];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"JUKEBOXES";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
@@ -58,9 +62,11 @@
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"location" ] style:UIBarButtonItemStylePlain target:self action:nil];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"location" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentMapView)];
     
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
+    
+    
     
     // Do any additional setup after loading the view, typically from a nib.
     scroller = [MGScrollView scrollerWithSize:self.view.size];
@@ -72,6 +78,27 @@
     
     scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
+    //[scroller setHidden:YES];
+    //CLLocationCoordinate2D center =
+    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(-41.162114, 172.836914);
+    MKCoordinateSpan span = MKCoordinateSpanMake(0.002401f, 0.003433f);
+    
+    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
+    //MKCoordinateRegion region = MKCoordinateSpanMake(0.002401f, 0.003433f);//MKCoordinateRegionMakeWithDistance( 800, 800);
+    [map setRegion:[map regionThatFits:region] animated:YES];
+    
+    // Add an annotation
+    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
+    point.coordinate =  center;
+    point.title = @"Where am I?";
+    point.subtitle = @"I'm here!!!";
+    
+    [map addAnnotation:point];
+    
+    [self.view addSubview: map];
+    [map setHidden:YES];
+    
+    
     
     // iPhone or iPad?
     UIDevice *device = UIDevice.currentDevice;
@@ -126,6 +153,7 @@
     
 
 }
+
 -(void) createJukeboxListView: (NSArray *) jukeboxes {
     for (PFObject *j in jukeboxes){
         JukeboxEntry *entry = [[JukeboxEntry alloc] init];
@@ -287,6 +315,19 @@
 -(void) displayDetailedPlayer {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
     [self presentViewController:navigationController animated:YES completion:nil];
+    
+}
+
+-(void) presentMapView{
+    if(list == true){
+        [scroller setHidden: YES];
+        [map setHidden: NO];
+        list = false;
+    }else{
+        [scroller setHidden: NO];
+        [map setHidden: YES];
+        list = true;
+    }
     
 }
 
