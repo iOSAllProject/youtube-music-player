@@ -3,7 +3,7 @@
 //
 
 #import "JukeBoxCell.h"
-
+#import <QuartzCore/QuartzCore.h>
 #define IPHONE_PORTRAIT_PHOTO  (CGSize){80, 80}
 #define ROW_HEIGHT 100
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
@@ -80,7 +80,7 @@
     //  title.textColor = [UIColor whiteColor];
     //  title.backgroundColor = [UIColor redColor];
     [box addSubview:title];
-    
+
     UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, authorSize)];
     author.text =  jukeboxEntry.author;
     // author.textAlignment = NSTextAlignmentCenter;
@@ -178,6 +178,8 @@
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
         | UIViewAutoresizingFlexibleHeight;
       imageView.backgroundColor = [UIColor blackColor];
+      imageView.layer.cornerRadius = 10;
+      imageView.layer.masksToBounds = YES;
       
 
   });

@@ -95,7 +95,8 @@ const CGFloat kCommentCellHeight = 50.0f;
         _thumbImageView = [[UIImageView alloc] initWithFrame:THUMBNAIL_INIT_FRAME];
         _thumbImageView.image = jukeboxEntry.image;
         _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        
+        _thumbImageView.layer.cornerRadius = 10;
+        _thumbImageView.layer.masksToBounds = YES;
         _textLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
         [_textLabel setText:entry.title];
         [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22.0f]];
