@@ -3,7 +3,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "VideoModel.h"
 #import "MediaPlayerViewController.h"
-#import <XCDYouTubeKit/XCDYouTubeKit.h>
+#import "XCDYouTubeKit.h"
 #import "AppConstant.h"
 #import <QuartzCore/QuartzCore.h>
 @interface MediaManager : NSObject{

@@ -37,7 +37,7 @@
     [super viewDidLoad];
     [[self navigationController] setNavigationBarHidden:YES animated:NO];
     self.view.backgroundColor = [UIColor whiteColor];
-    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(50,150,20,20)];
+    UIButton *loginButton = [[UIButton alloc] initWithFrame:CGRectMake(50,250,40,40)];
     [loginButton setTitle:@"FB" forState:UIControlStateNormal];
     loginButton.backgroundColor = [UIColor blueColor];
     [self.view addSubview:loginButton];

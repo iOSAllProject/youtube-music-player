@@ -53,7 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    list = true;
+    list = false;
 
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"JUKEBOXES";
@@ -83,7 +83,7 @@
     
     scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
-    //[scroller setHidden:YES];
+    [scroller setHidden:YES];
     
     
     //CLLocationCoordinate2D center =
@@ -103,7 +103,7 @@
     [mapView addAnnotation:point];
     
     [self.view addSubview: mapView];
-    [mapView setHidden:YES];
+    //[mapView setHidden:YES];
     
     
     
@@ -364,14 +364,29 @@
                                                  // currentLocation contains the device's current location.
                                                  MKCoordinateRegion region;
                                                  MKCoordinateSpan span;
-                                                 span.latitudeDelta = 0.05;
-                                                 span.longitudeDelta = 0.05;
+                                                 
+                                                 
+                                                 span.latitudeDelta = 0.25;
+                                                 span.longitudeDelta = 0.25;
                                                  CLLocationCoordinate2D location;
                                                  location.latitude = currentLocation.coordinate.latitude;
                                                  location.longitude = currentLocation.coordinate.longitude;
                                                  region.span = span;
                                                  region.center = location;
-                                                 [mapView setRegion:region animated:YES];
+                                                 
+
+                                                 
+                                                // [mapView setRegion:region animated:YES];
+                                                 
+                                                 mapView.mapType = MKMapTypeStandard;
+                                                 MKMapCamera *mapCamera = [[MKMapCamera alloc] init];
+                                                 mapCamera.centerCoordinate = location;
+                                                 mapCamera.pitch = 45;
+                                                 mapCamera.altitude = 40000;
+                                                 mapCamera.heading = 45;
+                                                 mapView.region = region;
+                                                 mapView.camera = mapCamera;
+                                                 
                                                  [self addJukeboxesToMap];
                                              }
                                              else if (status == INTULocationStatusTimedOut) {
@@ -411,7 +426,7 @@
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 1000, 1000);
     [mapView setRegion:[mapView regionThatFits:region] animated:YES];
 }
 -(void) presentMapView{
