@@ -7,7 +7,7 @@
 //
 #import <Foundation/Foundation.h>
 @interface JukeboxEntry : NSObject
-
+@property (nonatomic,strong) NSString *objectId;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic, strong) NSString *author;
 @property (nonatomic, strong) UIImage *image;

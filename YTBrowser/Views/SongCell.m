@@ -10,7 +10,7 @@
 @implementation SongCell
 #pragma mark - Init
 AHKActionSheet *actionSheet;
-UIImage *image;
+
 static CGFloat imageHeight = 50;
 static CGFloat imageWidth = 89.0;
 
@@ -130,7 +130,7 @@ static CGFloat imageWidth = 89.0;
     // got the photo, so lets show it
     UIImage *image = [UIImage imageWithData:data];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-
+    self.image = image;
     
     imageView.frame = CGRectMake(0,imagePadding,imageWidth, imageHeight);
     [self addSubview:imageView];

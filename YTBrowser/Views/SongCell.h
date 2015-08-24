@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) VideoModel *video;
 @property (nonatomic, assign) BOOL drawLine;
+@property (nonatomic, assign) UIImage *image;
 
 
 @end

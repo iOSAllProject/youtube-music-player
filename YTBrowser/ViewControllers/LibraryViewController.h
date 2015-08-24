@@ -13,4 +13,5 @@
 @interface LibraryViewController : UIViewController
 @property (nonatomic,strong) MediaPlayerViewController *videoPlayer;
 +(VideoModel *) createVideo:(Song*) song;
++(VideoModel *) createVideoForParse:(PFObject *) song;
 @end

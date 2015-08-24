@@ -19,8 +19,9 @@
 #import "MGLine.h"
 #import "MediaManager.h"
 #import "SongCell.h"
+#import "JukeboxEntry.h"
 @interface SearchYoutubeViewController : UIViewController
 @property (nonatomic,strong) MediaPlayerViewController *videoPlayer;
 -(id) initForSongSearch;
--(id) initForJukeBoxSearch;
+-(id) initForJukeBoxSearch:(JukeboxEntry*) jukeboxEntry;
 @end

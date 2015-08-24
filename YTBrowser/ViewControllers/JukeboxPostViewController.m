@@ -16,6 +16,7 @@
 #import "VoteCell.h"
 #import "LibraryViewController.h"
 #import "Song.h"
+#import <Parse/Parse.h>
 #import "RMSaveButton.h"
 #import "SearchYoutubeViewController.h"
 
@@ -36,7 +37,7 @@ const CGFloat kTextFadeOutFactor = 0.007f;
 const CGFloat kCommentCellHeight = 50.0f;
 
 @interface JukeboxPostViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+
 @end
 
 @implementation JukeboxPostViewController {
@@ -167,7 +168,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         
         _scroller.backgroundColor = [UIColor whiteColor];
         [_commentsViewContainer addSubview:_scroller];
-        [self setupLibraryView];
+ 
 
         [_mainScrollView addSubview:_backgroundScrollView];
         [_commentsViewContainer addSubview:_commentsTableView];
@@ -198,77 +199,75 @@ const CGFloat kCommentCellHeight = 50.0f;
 }
 
 -(void) searchForSong {
-    SearchYoutubeViewController *searchViewController = [[SearchYoutubeViewController alloc] initForJukeBoxSearch];
+    SearchYoutubeViewController *searchViewController = [[SearchYoutubeViewController alloc] initForJukeBoxSearch: jukeboxEntry];
     UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:searchViewController];
     [self presentViewController:navController animated:YES completion:nil];
 }
 
--(void) setupLibraryView {
-    [self fetchedResultsController];
-    [_fetchedResultsController performFetch:nil];
-    
-    //TODO DEBUGGING
-    NSInteger *numRows = [_fetchedResultsController.fetchedObjects count];
-    
-    [self showLibrary];
-    //re-layout the scroll view
-    
-    
-}
 
--(void) showLibrary {
+-(void) showPlaylist {
     //clean the old videos
     if([_scroller.boxes count] > 0)
         [_scroller.boxes removeObjectsInRange:NSMakeRange(0, _scroller.boxes.count)];
-    self.currentLibrary = [[NSMutableArray alloc] init];
-    int counter = 0;
-    BOOL drawLine = NO;
-    int i = 1;
-    //create now playing label
-    MGLine *layoutLine = [MGLine lineWithLeft:@"NOW PLAYING" right:nil
-                                         size:(CGSize){self.view.frame.size.width, 44}];
-    layoutLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
-    layoutLine.leftPadding = layoutLine.rightPadding = 16;
-    [_scroller.boxes addObject:layoutLine];
-    
-    for (Song *song in _fetchedResultsController.fetchedObjects){
-        if(counter == 0){
-            drawLine = NO;
-        }
-        else if(counter == 1){
-            MGLine *emptyLine = [MGLine lineWithSize:(CGSize){self.view.frame.size.width, 1}];
-            [_scroller.boxes addObject:emptyLine];
-            MGLine *layoutLine = [MGLine lineWithLeft:@"PLAY QUEUE" right:nil
-                                                 size:(CGSize){self.view.frame.size.width, 44}];
-            layoutLine.leftPadding = layoutLine.rightPadding = 16;
-            layoutLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
-            [_scroller.boxes addObject:layoutLine];
-            drawLine = YES;
-        }else if(counter == [_fetchedResultsController.fetchedObjects count] -1){
-            drawLine = NO;
-        } else {
-            drawLine= YES;
-        }
 
-        //get the data
-        VideoModel *video = [LibraryViewController createVideo:song];
-        [self.currentLibrary addObject:video];
-
-        //create a box
-        VoteCell *box = [VoteCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,85) withLine:drawLine atIndex:i++];
+    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+    [query includeKey:@"playQueue"];
+    [query getObjectInBackgroundWithId:jukeboxEntry.objectId block:^(PFObject *jukebox, NSError *error) {
+        NSLog(@"%@", jukebox);
+        self.currentLibrary = [[NSMutableArray alloc] init];
+        int counter = 0;
+        BOOL drawLine = NO;
+        int i = 1;
+        //create now playing label
+        MGLine *layoutLine = [MGLine lineWithLeft:@"NOW PLAYING" right:nil
+                                             size:(CGSize){self.view.frame.size.width, 44}];
+        layoutLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
+        layoutLine.leftPadding = layoutLine.rightPadding = 16;
+        [_scroller.boxes addObject:layoutLine];
+        NSArray *songs = jukebox[@"playQueue"];
+        for (PFObject *s in songs){
+            if(counter == 0){
+                drawLine = NO;
+            }
+            else if(counter == 1){
+                MGLine *emptyLine = [MGLine lineWithSize:(CGSize){self.view.frame.size.width, 1}];
+                [_scroller.boxes addObject:emptyLine];
+                MGLine *layoutLine = [MGLine lineWithLeft:@"PLAY QUEUE" right:nil
+                                                     size:(CGSize){self.view.frame.size.width, 44}];
+                layoutLine.leftPadding = layoutLine.rightPadding = 16;
+                layoutLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
+                [_scroller.boxes addObject:layoutLine];
+                drawLine = YES;
+            }else if(counter == [songs count] -1){
+                drawLine = NO;
+            } else {
+                drawLine= YES;
+            }
+            
+            //get the data
+            VideoModel *video = [LibraryViewController createVideoForParse:s];
+            [self.currentLibrary addObject:video];
+            
+            //create a box
+            VoteCell *box = [VoteCell photoBoxForVideo:video withSize:CGSizeMake(self.view.frame.size.width-20,85) withLine:drawLine atIndex:i++];
+            
+            box.frame = CGRectIntegral(box.frame);
+            box.onTap = ^{
+                [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
+                [[MediaManager sharedInstance] playWithVideo:video];
+                [self adjustScrollViewToPlayer];
+            };
+            counter++;
+            //add the box
+            [_scroller.boxes addObject:box];
+        }
         
-        box.frame = CGRectIntegral(box.frame);
-        box.onTap = ^{
-            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
-            [[MediaManager sharedInstance] playWithVideo:video];
-            [self adjustScrollViewToPlayer];
-        };
-        counter++;
-        //add the box
-        [_scroller.boxes addObject:box];
-    }
-    [_scroller layout];
-    [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
+        [_scroller layout];
+        [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
+
+    }];
+    
+
     
 }
 
@@ -383,7 +382,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     [playerBar addGestureRecognizer:playerTap];
     [self adjustScrollViewToPlayer];
     [self.view addSubview:playerBar];
-    
+    [self showPlaylist];
     
 }
 -(void) adjustScrollViewToPlayer{
@@ -427,22 +426,6 @@ const CGFloat kCommentCellHeight = 50.0f;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
-#pragma coreData
-
-
-- (NSFetchedResultsController * ) fetchedResultsController {
-    if(_fetchedResultsController != nil){
-        return self.fetchedResultsController;
-    }
-    
-    JBCoreDataStack *coreDataStack = [JBCoreDataStack defaultStack];
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Song"];
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"videoId" ascending:true]];
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:coreDataStack.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-    
-    return _fetchedResultsController;
-}
 
 - (void)viewWillLayoutSubviews {
     // Your adjustments accd to

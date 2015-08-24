@@ -10,9 +10,9 @@
 #import "AppConstant.h"
 #import "LoginViewController.h"
 #import <Parse/Parse.h>
-#import <MapKit/MapKit.h>
-
-
+#import <INTULocationManager/INTULocationManager.h>
+#import "MapPin.h"
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define TOTAL_IMAGES           28
 #define IPHONE_INITIAL_IMAGES  28
 #define IPAD_INITIAL_IMAGES    11
@@ -41,17 +41,20 @@
     UIImage *arrow;
     BOOL phone;
     MGScrollView *scroller;
-    MKMapView *map;
+    MKMapView *mapView;
     UILabel *titleLabel;
     UIView *playerBar;
     BOOL animateOnce;
     BOOL list;
+    CLLocationManager *locationManager;
+    NSMutableArray *_jukeboxes;
+    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     list = true;
-    map = [[MKMapView alloc] initWithFrame:self.view.frame];
+
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"JUKEBOXES";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
@@ -64,8 +67,10 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"location" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentMapView)];
     
-//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:nil];
-    
+    //setup mapview
+    mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
+    mapView.delegate = self;
+    [self.view addSubview:mapView];
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -79,13 +84,15 @@
     scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
     //[scroller setHidden:YES];
+    
+    
     //CLLocationCoordinate2D center =
     CLLocationCoordinate2D center = CLLocationCoordinate2DMake(-41.162114, 172.836914);
     MKCoordinateSpan span = MKCoordinateSpanMake(0.002401f, 0.003433f);
     
     MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
     //MKCoordinateRegion region = MKCoordinateSpanMake(0.002401f, 0.003433f);//MKCoordinateRegionMakeWithDistance( 800, 800);
-    [map setRegion:[map regionThatFits:region] animated:YES];
+    [mapView setRegion:[mapView regionThatFits:region] animated:YES];
     
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
@@ -93,10 +100,10 @@
     point.title = @"Where am I?";
     point.subtitle = @"I'm here!!!";
     
-    [map addAnnotation:point];
+    [mapView addAnnotation:point];
     
-    [self.view addSubview: map];
-    [map setHidden:YES];
+    [self.view addSubview: mapView];
+    [mapView setHidden:YES];
     
     
     
@@ -131,7 +138,7 @@
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
-            NSLog(@"Successfully retrieved %d scores.", objects.count);
+            NSLog(@"Successfully retrieved %d jukeboxes.", objects.count);
             // Do something with the found objects
             [self createJukeboxListView:objects];
         } else {
@@ -139,28 +146,21 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
-/*
-    // add photo boxes to the grid
-    int initialImages = phone ? IPHONE_INITIAL_IMAGES : IPAD_INITIAL_IMAGES;
-    for (int i = 1; i <= initialImages; i++) {
-        int photo = [self randomMissingPhoto];
-        [photosGrid.boxes addObject:[self photoBoxFor:photo]];
-    }
-    animateOnce = YES;
 
-    [tablesGrid layout];*/
     
     
 
 }
 
 -(void) createJukeboxListView: (NSArray *) jukeboxes {
+    _jukeboxes = jukeboxes;
     for (PFObject *j in jukeboxes){
         JukeboxEntry *entry = [[JukeboxEntry alloc] init];
         [entry setTitle:j[@"name"]];
         [entry setAuthor:j[@"username"]];
         [entry setImageURL:j[@"image"]];
         [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
+        [entry setObjectId:j.objectId];
         [photosGrid.boxes addObject:[self photoBoxFor:entry]];
     }
     animateOnce = YES;
@@ -185,6 +185,9 @@
         
         animateOnce = NO;
     }
+    
+    //Create map view with jukeboxes
+    [self setupLocationManager];
 }
 
 
@@ -193,6 +196,7 @@
     [self willAnimateRotationToInterfaceOrientation:self.interfaceOrientation
                                            duration:1];
     [self didRotateFromInterfaceOrientation:UIInterfaceOrientationPortrait];
+
 
 }
 
@@ -257,19 +261,6 @@
     // remove the box when tapped
     __block id bbox = box;
     box.onTap = ^{
-        /*MGBox *section = (id)box.parentBox;
-        
-        // remove
-        [section.boxes removeObject:bbox];
-        
-        // if we don't have an add box, and there's photos left, add one
-        if (![self photoBoxWithTag:-1] && [self randomMissingPhoto]) {
-            [section.boxes addObject:self.photoAddBox];
-        }
-        
-        // animate
-        [section layoutWithSpeed:0.3 completion:nil];
-        [scroller layoutWithSpeed:0.3 completion:nil];*/
         JukeboxPostViewController *jukeboxPost = [[JukeboxPostViewController alloc] initWithJukeBox:box.jukeBoxEntry];
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:jukeboxPost];
         [self presentViewController:navigationController animated:YES completion:nil];
@@ -318,19 +309,6 @@
     
 }
 
--(void) presentMapView{
-    if(list == true){
-        [scroller setHidden: YES];
-        [map setHidden: NO];
-        list = false;
-    }else{
-        [scroller setHidden: NO];
-        [map setHidden: YES];
-        list = true;
-    }
-    
-}
-
 
 -(void) viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -375,4 +353,77 @@
 }
 
 
+-(void) setupLocationManager {
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyCity
+                                       timeout:10.0
+                          delayUntilAuthorized:YES  // This parameter is optional, defaults to NO if omitted
+                                         block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+                                             if (status == INTULocationStatusSuccess) {
+                                                 // Request succeeded, meaning achievedAccuracy is at least the requested accuracy, and
+                                                 // currentLocation contains the device's current location.
+                                                 MKCoordinateRegion region;
+                                                 MKCoordinateSpan span;
+                                                 span.latitudeDelta = 0.05;
+                                                 span.longitudeDelta = 0.05;
+                                                 CLLocationCoordinate2D location;
+                                                 location.latitude = currentLocation.coordinate.latitude;
+                                                 location.longitude = currentLocation.coordinate.longitude;
+                                                 region.span = span;
+                                                 region.center = location;
+                                                 [mapView setRegion:region animated:YES];
+                                                 [self addJukeboxesToMap];
+                                             }
+                                             else if (status == INTULocationStatusTimedOut) {
+                                                 // Wasn't able to locate the user with the requested accuracy within the timeout interval.
+                                                 // However, currentLocation contains the best location available (if any) as of right now,
+                                                 // and achievedAccuracy has info on the accuracy/recency of the location in currentLocation.
+                                             }
+                                             else {
+                                                 // An error occurred, more info is available by looking at the specific status returned.
+                                             }
+                                         }];
+
+    
+}
+
+-(void) addJukeboxesToMap {
+    NSMutableArray *locations = [[NSMutableArray alloc] init];
+    for (PFObject* o in _jukeboxes){
+        CLLocationCoordinate2D centralParkLoc;
+        PFGeoPoint *gp = o[@"location"];
+        if(gp){
+            centralParkLoc.latitude = gp.latitude;
+            centralParkLoc.longitude = gp.longitude;
+        }
+        //create a location pin for central park
+        MapPin *centralParkPin = [[MapPin alloc] init];
+        centralParkPin.coordinate = centralParkLoc;
+        centralParkPin.title = o[@"name"];
+        centralParkPin.subtitle = o[@"username"];
+        [locations addObject:centralParkPin];
+    }
+
+    [mapView addAnnotations:locations];
+    
+}
+
+
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(userLocation.coordinate, 800, 800);
+    [mapView setRegion:[mapView regionThatFits:region] animated:YES];
+}
+-(void) presentMapView{
+    if(list == true){
+        [scroller setHidden: YES];
+        [mapView setHidden: NO];
+        list = false;
+    }else{
+        [scroller setHidden: NO];
+        [mapView setHidden: YES];
+        list = true;
+    }
+    
+}
 @end

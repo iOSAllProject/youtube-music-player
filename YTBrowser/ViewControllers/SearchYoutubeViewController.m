@@ -5,11 +5,15 @@
 //  Created by Matan Vardi on 5/31/15.
 //  Copyright (c) 2015 Underplot ltd. All rights reserved.
 //
-
+#import "UIViewController+ScrollingNavbar.h"
+#import "PXAlertView+Customization.h"
 #import "SearchYoutubeViewController.h"
+#import <SVProgressHUD/SVProgressHUD.h>
+#import <Parse/Parse.h>
 static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/search?q=%@&order=relevance&part=snippet&maxResults=50&type=video&key=AIzaSyBfXPGjGR3V49O30aEMk3VPHVwEQQ_XkN8";
 
-@interface SearchYoutubeViewController ()
+
+@interface SearchYoutubeViewController () <AMScrollingNavbarDelegate>
 {
     MGScrollView* scroller;
     NSArray* videos;
@@ -19,17 +23,22 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     NSMutableArray *currentLibrary;
     UIImageView *searchIcon;
     UILabel *searchLabel;
+    
+    JukeboxEntry *_jukeboxEntry;
+    //Flag for whether music should be played when a result is clicked on
+    BOOL playMusic;
+    
 }
 @end
 
 @implementation SearchYoutubeViewController
 
-- (id) initForJukeBoxSearch {
+- (id) initForJukeBoxSearch: (JukeboxEntry*) jukeboxEntry {
     self = [super init];
     if(self){
 
         [self basicSetup];
-        
+        _jukeboxEntry = jukeboxEntry;
         
         //Setup search bar
         
@@ -46,6 +55,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         [searchBarView addSubview:searchBar];
         self.navigationItem.titleView = searchBarView;
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(popViewController:)];
+        playMusic = NO;
             
     }
     return self;
@@ -73,6 +83,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         [searchBarView addSubview:searchBar];
         self.navigationItem.titleView = searchBarView;
             self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage: [UIImage imageNamed: @"menu" ] style:UIBarButtonItemStylePlain target:self action:@selector(presentLeftMenuViewController:)];
+        playMusic = YES;
     }
     return self;
     
@@ -108,11 +119,24 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     scroller.delegate = self;
     scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - barHeight );
     [self.view addSubview:scroller];
-    
 
     
     [self.view addSubview:searchIcon];
     [self.view addSubview:searchLabel];
+    
+    // Just call this line to enable the scrolling navbar
+    [self followScrollView:scroller withDelay:100];
+    
+    // Set it to YES if the scrollview being watched is contained in the main view
+    // Set it to NO if the scrollview IS the main view (e.g.: subclasses of UITableViewController)
+    [self setUseSuperview:NO];
+    
+    // Enable the autolayout-friendly handling of the view
+    //[self setScrollableViewConstraint:self.headerConstraint withOffset:60];
+    
+    // Stops the scrolling if the content fits inside the frame
+    [self setShouldScrollWhenContentFits:NO];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -228,12 +252,17 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         [currentLibrary addObject:video];
         box.frame = CGRectIntegral(box.frame);
         box.onTap = ^{
-            if(playerBar.isHidden){
-                scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
-                playerBar.hidden =  NO;
+            if(playMusic) {
+                if(playerBar.isHidden){
+                    scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+                    playerBar.hidden =  NO;
+                }
+                [[MediaManager sharedInstance] setPlaylist:currentLibrary andSongIndex:i];
+                [[MediaManager sharedInstance] playWithVideo:video];
+            } else {
+                
+                [self showSongAlertView:video andThumb:box.image];
             }
-            [[MediaManager sharedInstance] setPlaylist:currentLibrary andSongIndex:i];
-            [[MediaManager sharedInstance] playWithVideo:video];
         };
         
         //add the box
@@ -315,6 +344,93 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         
     }
     [super viewWillLayoutSubviews];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self showNavBarAnimated:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self showNavBarAnimated:NO];
+}
+
+
+# pragma jukebox functionality
+-(void) showSongAlertView:(VideoModel *) song andThumb:(UIImage *) thumb
+{
+    PXAlertView *alert =  [PXAlertView showAlertWithTitle:@"Add Song to Jukebox"
+                            message:[NSString stringWithFormat:@"%@", song.title]
+                        cancelTitle:@"Cancel"
+                         otherTitle:@"Yes!"
+                        contentView:[[UIImageView alloc] initWithImage:thumb]
+                         completion:^(BOOL cancelled, NSInteger buttonIndex) {
+                             if(!cancelled){
+                                 [self submitSongToJukebox:song];
+                             }
+                         }];
+    
+   [alert setBackgroundColor:[UIColor whiteColor]];
+    [alert setMessageColor:[UIColor blackColor]];
+    [alert setTitleColor:[UIColor blackColor]];
+
+    
+    
+    UIColor *cNormal = [UIColor colorWithRed:43/255.0 green:189/255.0 blue:224/255.0 alpha:1.0];
+    UIColor *cSelected =  [UIColor colorWithRed:108/255.0 green:164/255.0 blue:176/255.0 alpha:1.0];
+    UIColor *oNormal = [UIColor whiteColor];
+    UIColor *oSelected = [UIColor whiteColor];
+    
+    [alert setCancelButtonNonSelectedBackgroundColor:oNormal];
+    [alert setCancelButtonBackgroundColor:oSelected];
+
+    [alert setOtherButtonNonSelectedBackgroundColor:cNormal];
+    [alert setOtherButtonBackgroundColor:cSelected];
+    [alert setTitleFont:[UIFont fontWithName:@"HelveticaNeue" size:16.0f]];
+    [alert setMessageFont:[UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f]];
+    [alert setCancelButtonTextColor:[UIColor blackColor]];
+    [alert setOtherButtonTextColor:[UIColor whiteColor]];
+    
+}
+
+-(void) submitSongToJukebox:(VideoModel *) song {
+    //save pictures
+    UIColor *color = [UIColor grayColor];
+    [SVProgressHUD setBackgroundColor:[color colorWithAlphaComponent:0.7f]];
+    [SVProgressHUD show];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self updateJukebox:song];
+    });
+}
+         
+-(void) updateJukebox:(VideoModel*) song {
+    // time-consuming task
+    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+    [query getObjectInBackgroundWithId:_jukeboxEntry.objectId block:^(PFObject *jukebox, NSError *error) {
+        NSLog(@"%@", jukebox);
+
+        PFObject *mySong = [PFObject objectWithClassName:@"Songs"];
+        mySong[@"title"] = song.title;
+        mySong[@"thumbnail"] = song.thumbnail;
+        mySong[@"vid"] = song.videoId;
+        [jukebox addObject:mySong forKey:@"playQueue"];
+        [jukebox saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [SVProgressHUD dismiss];
+            });
+            if(succeeded){
+                [self popViewController:nil];
+            }
+            else{
+                //  [self displayAlertView:[error localizedDescription] withTitle: @"Something went wrong."];
+            }
+            
+        }];
+    
+    }];
 }
 
 @end

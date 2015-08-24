@@ -16,6 +16,10 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <FacebookSDK/FacebookSDK.h>
-@interface JukeboxListViewController : UIViewController
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+#import <MapKit/MKAnnotation.h>
+
+@interface JukeboxListViewController : UIViewController  <CLLocationManagerDelegate, MKMapViewDelegate>
 @property (nonatomic,strong) MediaPlayerViewController *videoPlayer;
 @end

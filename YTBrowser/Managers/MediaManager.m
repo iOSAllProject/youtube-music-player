@@ -25,7 +25,7 @@ static MediaManager *sharedInstance = nil;
     NSArray *currentPlaylist;
     NSMutableSet *songsInLibrary;
     NSInteger  currentSongIndex;
-    
+    UISlider *slider;
     AVQueuePlayer *audioStremarPlayer;
     
     BOOL AUDIO_ENABLED;
@@ -54,7 +54,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
    // [self player];
     miniPlayer = playerView;
 
-    AUDIO_ENABLED = NO;
+    AUDIO_ENABLED = YES;
     miniPlayer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -117,35 +117,52 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     | UIViewAutoresizingFlexibleLeftMargin;
     statusSpinner.color = UIColor.lightGrayColor;
     [pAction addSubview:statusSpinner];
+    
+    CGRect frame = CGRectMake(-2,-2, miniPlayer.frame.size.width+10 ,5);
+    // sliderAction will respond to the updated slider value
+    slider = [[UISlider alloc] initWithFrame:frame];
+    [slider setValue:0.00];
+    [slider setMaximumTrackTintColor:[UIColor clearColor]];
+    [slider setTintColor: [UIColor whiteColor]];
+    [slider setThumbImage:[[UIImage alloc] init] forState:UIControlStateNormal];
+    [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
+    [miniPlayer addSubview:slider];
     isInitialized = YES;
     miniPlayer.hidden = YES;
-    self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
-                                                 name:MPMoviePlayerPlaybackStateDidChangeNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(MPMoviePlayerLoadStateDidChange:)
-                                                 name:MPMoviePlayerLoadStateDidChangeNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self.videoPlayerViewController name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
-    [self.videoPlayerViewController addObserver:self forKeyPath:@"moviePlayer.contentURL" options:(NSKeyValueObservingOptions)0 context:MoviePlayerContentURLContext];
 
     
-    [mPlayer setControlStyle:MPMovieControlStyleNone];
-    
-    mPlayer.view.hidden = YES;
-    mPlayer = self.videoPlayerViewController.moviePlayer;
     
      videoPlayer = [[MediaPlayerViewController alloc] initVideoPlayer:nil title:nil];
+    if(AUDIO_ENABLED){
+        
+        audioStremarPlayer= [[AVQueuePlayer alloc] init];
+        [audioStremarPlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
+
+    } else {
+        self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
+                                                     name:MPMoviePlayerPlaybackStateDidChangeNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(MPMoviePlayerLoadStateDidChange:)
+                                                     name:MPMoviePlayerLoadStateDidChangeNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] removeObserver:self.videoPlayerViewController name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayerPlaybackDidFinish:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.videoPlayerViewController.moviePlayer];
+        [self.videoPlayerViewController addObserver:self forKeyPath:@"moviePlayer.contentURL" options:(NSKeyValueObservingOptions)0 context:MoviePlayerContentURLContext];
+        
+        
+        [mPlayer setControlStyle:MPMovieControlStyleNone];
+        
+        mPlayer.view.hidden = YES;
+        mPlayer = self.videoPlayerViewController.moviePlayer;
+        self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
+        [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
+        [self.videoPlayerViewController.moviePlayer prepareToPlay];
     
-    self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
-    [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
-    [self.videoPlayerViewController.moviePlayer prepareToPlay];
-    
-    
+    }
     AVAudioSession *audioSession = [AVAudioSession sharedInstance];
     
     NSError *setCategoryError = nil;
@@ -156,8 +173,6 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     success = [audioSession setActive:YES error:&activationError];
     if (!success) { /* handle the error condition */ }
 
-    audioStremarPlayer= [[AVQueuePlayer alloc] init];
-    [audioStremarPlayer addObserver:self forKeyPath:@"status" options:0 context:nil];
 }
 
 -(void)playWithVideo:(VideoModel *)video{
@@ -184,6 +199,11 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
                 [audioStremarPlayer insertItem:thePlayerItem afterItem:nil];
 
                 [audioStremarPlayer play];
+                NSString * const kStatusKey         = @"status";
+                [thePlayerItem addObserver:self
+                               forKeyPath:kStatusKey
+                                  options:NSKeyValueObservingOptionInitial | NSKeyValueObservingOptionNew
+                                  context:@"AVPlayerStatus"];
             }
             else
             {
@@ -193,6 +213,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     }
 
 }
+
+
 -(void)playerItemDidReachEnd:(NSNotification *)notification
 {
     
@@ -320,6 +342,26 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
                 
             }
         }
+        
+        if (context == @"AVPlayerStatus") {
+            
+            AVPlayerStatus status = [[change objectForKey:NSKeyValueChangeNewKey] integerValue];
+            switch (status) {
+                case AVPlayerStatusUnknown: {
+                    
+                }
+                    break;
+                    
+                case AVPlayerStatusReadyToPlay: {
+                    
+                    [statusSpinner stopAnimating];
+                    
+                    
+                }
+                    break;
+            }
+        }
+        
     }
     else{
     if (context == MoviePlayerContentURLContext) {
@@ -410,4 +452,24 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     currentSongIndex = (currentSongIndex -1)% [currentPlaylist count];
     [self playWithVideo:[currentPlaylist objectAtIndex:currentSongIndex]];
 }
+
+- (void)updateTime:(NSTimer *)timer {
+    NSInteger d;
+    NSInteger c;
+    if(AUDIO_ENABLED){
+        d = (NSInteger) CMTimeGetSeconds(audioStremarPlayer.currentItem.duration);
+        c = (NSInteger) CMTimeGetSeconds(audioStremarPlayer.currentItem.currentTime);
+    } else {
+        d = (NSInteger) mPlayer.duration;
+        c =(NSInteger)  mPlayer.currentPlaybackTime;
+    }
+
+    if(d < 0 ){
+        d = 0;
+    }
+    
+    [slider setValue:(CGFloat) c/ d];
+    
+}
+
 @end

@@ -1,6 +1,7 @@
 
 #import "LibraryViewController.h"
 #import "AppConstant.h"
+#import <Parse/Parse.h>
 @interface LibraryViewController ()
 {
     MGScrollView* scroller;
@@ -97,6 +98,15 @@
     video.title = song.title;
     video.videoId = song.videoId;
     video.thumbnail = song.url;
+    return video;
+}
++(VideoModel *) createVideoForParse:(PFObject *) song {
+    
+    VideoModel *video = [[VideoModel alloc] init];
+    video.title = song[@"title"];
+    video.videoId = song[@"vid"];
+    video.thumbnail = song[@"thumbnail"];
+
     return video;
 }
 

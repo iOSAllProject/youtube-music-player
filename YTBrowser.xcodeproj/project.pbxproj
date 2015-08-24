@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		30788D4A1B8A6049002A598C /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D451B8A6049002A598C /* PXAlertView+Customization.m */; };
+		30788D4B1B8A6049002A598C /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D471B8A6049002A598C /* PXAlertView.m */; };
+		30788D4C1B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D491B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m */; };
 		308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */; };
 		30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */; };
 		30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCB1AF0928B00327CAA /* UIView+MGEasyFrame.m */; };
@@ -59,7 +62,6 @@
 		30DC882D1B812EAE00A7ABD8 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC882C1B812EAE00A7ABD8 /* libsqlite3.dylib */; };
 		30DC882F1B812ECF00A7ABD8 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC882E1B812ECF00A7ABD8 /* Accounts.framework */; };
 		30DC88311B812ED400A7ABD8 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC88301B812ED400A7ABD8 /* Social.framework */; };
-		30DC88351B81516600A7ABD8 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30DC88341B81516600A7ABD8 /* Info.plist */; };
 		30DC883E1B815D2500A7ABD8 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC883D1B815D2500A7ABD8 /* LoginViewController.m */; };
 		30DC88581B81684200A7ABD8 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC88571B81684200A7ABD8 /* MobileCoreServices.framework */; };
 		30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */; };
@@ -90,7 +92,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		30788D441B8A6049002A598C /* PXAlertView+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXAlertView+Customization.h"; sourceTree = "<group>"; };
+		30788D451B8A6049002A598C /* PXAlertView+Customization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXAlertView+Customization.m"; sourceTree = "<group>"; };
+		30788D461B8A6049002A598C /* PXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAlertView.h; sourceTree = "<group>"; };
+		30788D471B8A6049002A598C /* PXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAlertView.m; sourceTree = "<group>"; };
+		30788D481B8A6049002A598C /* UIAlertView+PXAlertViewOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PXAlertViewOverride.h"; sourceTree = "<group>"; };
+		30788D491B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PXAlertViewOverride.m"; sourceTree = "<group>"; };
 		308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		308E8B291B8AAA0300DE9472 /* MapPin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapPin.h; sourceTree = "<group>"; };
 		30916CC81AF0928B00327CAA /* NSObject+MGEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MGEvents.h"; sourceTree = "<group>"; };
 		30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MGEvents.m"; sourceTree = "<group>"; };
 		30916CCA1AF0928B00327CAA /* UIView+MGEasyFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MGEasyFrame.h"; sourceTree = "<group>"; };
@@ -183,7 +192,6 @@
 		30DC882C1B812EAE00A7ABD8 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		30DC882E1B812ECF00A7ABD8 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		30DC88301B812ED400A7ABD8 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
-		30DC88341B81516600A7ABD8 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30DC883C1B815D2500A7ABD8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		30DC883D1B815D2500A7ABD8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		30DC88571B81684200A7ABD8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -269,6 +277,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30788D431B8A6049002A598C /* PXAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				30788D441B8A6049002A598C /* PXAlertView+Customization.h */,
+				30788D451B8A6049002A598C /* PXAlertView+Customization.m */,
+				30788D461B8A6049002A598C /* PXAlertView.h */,
+				30788D471B8A6049002A598C /* PXAlertView.m */,
+				30788D481B8A6049002A598C /* UIAlertView+PXAlertViewOverride.h */,
+				30788D491B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m */,
+			);
+			path = PXAlertView;
+			sourceTree = "<group>";
+		};
 		30916CC61AF0928B00327CAA /* MGBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -351,6 +372,7 @@
 				30DC87E61B7FD45800A7ABD8 /* SongCell.m */,
 				30DC87E71B7FD45800A7ABD8 /* VoteCell.h */,
 				30DC87E81B7FD45800A7ABD8 /* VoteCell.m */,
+				308E8B291B8AAA0300DE9472 /* MapPin.h */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -497,6 +519,7 @@
 		9CA623CD169591AC003F6334 = {
 			isa = PBXGroup;
 			children = (
+				30788D431B8A6049002A598C /* PXAlertView */,
 				30DC880F1B7FD87100A7ABD8 /* YouTubeModels */,
 				3096DF8C1B78459800031465 /* Buttons */,
 				30E201611B5C6E3300D37DA2 /* ParallaxDisplay */,
@@ -575,11 +598,10 @@
 		9CA623E3169591AC003F6334 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				30DC88341B81516600A7ABD8 /* Info.plist */,
+				9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */,
 				9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */,
 				9CBC4F6F1695DAE000FFE7B9 /* Icon.png */,
 				9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */,
-				9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */,
 				9CA623E8169591AC003F6334 /* main.m */,
 				9CA623EA169591AC003F6334 /* YTBrowser-Prefix.pch */,
 			);
@@ -639,7 +661,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30DC88351B81516600A7ABD8 /* Info.plist in Resources */,
 				9CA623F6169591AC003F6334 /* MainStoryboard.storyboard in Resources */,
 				30F663411AECD24A00CF0C12 /* Images.xcassets in Resources */,
 				9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */,
@@ -691,6 +712,7 @@
 			files = (
 				30DC87FA1B7FD4D900A7ABD8 /* LibraryViewController.m in Sources */,
 				9CA623E9169591AC003F6334 /* main.m in Sources */,
+				30788D4C1B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m in Sources */,
 				309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
 				30DC883E1B815D2500A7ABD8 /* LoginViewController.m in Sources */,
@@ -720,9 +742,11 @@
 				30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
 				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
+				30788D4A1B8A6049002A598C /* PXAlertView+Customization.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
 				309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */,
 				9C9BB3BA16BAE6AE00C8AB3A /* NSArray+JSONModel.m in Sources */,
+				30788D4B1B8A6049002A598C /* PXAlertView.m in Sources */,
 				30DC88151B7FD87100A7ABD8 /* VideoModel.m in Sources */,
 				9C9BB3BB16BAE6AE00C8AB3A /* JSONAPI.m in Sources */,
 				30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */,
