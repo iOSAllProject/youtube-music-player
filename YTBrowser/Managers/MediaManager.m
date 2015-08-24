@@ -54,8 +54,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
    // [self player];
     miniPlayer = playerView;
 
-    AUDIO_ENABLED = YES;
-    miniPlayer.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
+    AUDIO_ENABLED = NO;
+    miniPlayer.backgroundColor = [UIColor blackColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
     UIVisualEffect *blurEffect;
     blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     
@@ -67,7 +67,12 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [miniPlayer addGestureRecognizer:playerTap];
 
-
+    UIBezierPath *shadowPath = [UIBezierPath bezierPathWithRect:miniPlayer.bounds];
+    miniPlayer.layer.masksToBounds = NO;
+    miniPlayer.layer.shadowColor = [UIColor blackColor].CGColor;
+    miniPlayer.layer.shadowOffset = CGSizeMake(3, -1);
+    miniPlayer.layer.shadowOpacity = 0.5f;
+    miniPlayer.layer.shadowPath = shadowPath.CGPath;
     
     CGFloat TITLE_HEIGHT = 30.0;
     CGFloat TITLE_WIDTH =  miniPlayer.frame.size.width-120;
@@ -96,7 +101,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [pAction setUserInteractionEnabled:YES];
     [pAction addGestureRecognizer:buttonTap];
     [miniPlayer addSubview:pAction];
-    
+    /*
     CGFloat buttonSize = 18.0;
     CGFloat buttonPadding = (miniPlayer.frame.size.height - buttonSize)/2;
     UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
@@ -107,7 +112,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
                     action:nil
           forControlEvents:UIControlEventTouchUpInside];
 
-    
+    */
     statusSpinner = [[UIActivityIndicatorView alloc]
                      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     statusSpinner.center = CGPointMake(pAction.frame.size.width / 2, pAction.frame.size.height / 2);
@@ -128,7 +133,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     [miniPlayer addSubview:slider];
     isInitialized = YES;
-    miniPlayer.hidden = YES;
+   // miniPlayer.hidden = YES;
 
     
     

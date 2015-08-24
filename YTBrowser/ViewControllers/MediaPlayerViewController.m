@@ -10,6 +10,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "AHKActionSheet.h"
 #import "AppConstant.h"
+#import <VBFPopFlatButton/VBFPopFlatButton.h>
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -199,10 +200,16 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     playerSpeed.titleLabel.textAlignment =NSTextAlignmentCenter;
     [self.view addSubview:playerSpeed];
     
-    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - buttonSize - 10, self.view.frame.size.height - buttonSize - 10 , buttonSize, buttonSize)];
+   /* UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - buttonSize - 10, self.view.frame.size.height - buttonSize - 10 , buttonSize, buttonSize)];
     [playButton setTintColor:textColor];
     
-    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];*/
+    VBFPopFlatButton *moreOptions = [[VBFPopFlatButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - buttonSize - 10, self.view.frame.size.height - buttonSize - 10 , buttonSize, buttonSize)   buttonType:buttonSquareType
+                                                                buttonStyle:buttonRoundedStyle
+                                                      animateToInitialState:YES];
+    moreOptions.tintColor = [UIColor blackColor];
+    moreOptions.lineThickness = 2;
+    moreOptions.roundBackgroundColor = [UIColor whiteColor];
     [self.view addSubview:moreOptions];
     [moreOptions addTarget:self
                     action:@selector(showMore:)

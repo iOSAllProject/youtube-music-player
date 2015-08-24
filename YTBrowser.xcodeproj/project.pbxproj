@@ -34,6 +34,9 @@
 		309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309AE31D1B094D1B004CF1E2 /* CoreData.framework */; };
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
 		30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */; };
+		30C7B7A71B8ADB8800A4AA24 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C7B7A31B8ADB8800A4AA24 /* FacebookSDK.framework */; };
+		30C7B7A81B8ADB8800A4AA24 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C7B7A41B8ADB8800A4AA24 /* Parse.framework */; };
+		30C7B7A91B8ADB8800A4AA24 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30C7B7A51B8ADB8800A4AA24 /* ParseFacebookUtils.framework */; };
 		30DC87DF1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */; };
 		30DC87E91B7FD45800A7ABD8 /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */; };
 		30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E61B7FD45800A7ABD8 /* SongCell.m */; };
@@ -148,6 +151,9 @@
 		309AE3201B094D61004CF1E2 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		30B44DCC1B2424B5008CBD69 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "../../../Downloads/XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
 		30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
+		30C7B7A31B8ADB8800A4AA24 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
+		30C7B7A41B8ADB8800A4AA24 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
+		30C7B7A51B8ADB8800A4AA24 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		30DC87DE1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libXCDYouTubeKit.a; path = "XCDYouTubeKit-master/build/Debug-iphoneos/libXCDYouTubeKit.a"; sourceTree = "<group>"; };
 		30DC87E11B7FD45800A7ABD8 /* JukeBoxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeBoxCell.h; sourceTree = "<group>"; };
 		30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeBoxCell.m; sourceTree = "<group>"; };
@@ -250,10 +256,12 @@
 			files = (
 				3092A3051B89480D00347BE5 /* MapKit.framework in Frameworks */,
 				30DC88581B81684200A7ABD8 /* MobileCoreServices.framework in Frameworks */,
+				30C7B7A91B8ADB8800A4AA24 /* ParseFacebookUtils.framework in Frameworks */,
 				30DC88311B812ED400A7ABD8 /* Social.framework in Frameworks */,
 				30DC882F1B812ECF00A7ABD8 /* Accounts.framework in Frameworks */,
 				30DC882D1B812EAE00A7ABD8 /* libsqlite3.dylib in Frameworks */,
 				30DC882B1B812EA200A7ABD8 /* libz.dylib in Frameworks */,
+				30C7B7A81B8ADB8800A4AA24 /* Parse.framework in Frameworks */,
 				30DC88291B812E9700A7ABD8 /* SystemConfiguration.framework in Frameworks */,
 				30DC88271B812E8C00A7ABD8 /* StoreKit.framework in Frameworks */,
 				30DC88251B812E8400A7ABD8 /* Security.framework in Frameworks */,
@@ -268,6 +276,7 @@
 				30930A5F1AEC77CB00B44E58 /* AVFoundation.framework in Frameworks */,
 				9CA624361695927C003F6334 /* CoreText.framework in Frameworks */,
 				9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */,
+				30C7B7A71B8ADB8800A4AA24 /* FacebookSDK.framework in Frameworks */,
 				9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */,
 				30DC87DF1B7FD1B300A7ABD8 /* libXCDYouTubeKit.a in Frameworks */,
 				A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */,
@@ -546,6 +555,9 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				30C7B7A31B8ADB8800A4AA24 /* FacebookSDK.framework */,
+				30C7B7A41B8ADB8800A4AA24 /* Parse.framework */,
+				30C7B7A51B8ADB8800A4AA24 /* ParseFacebookUtils.framework */,
 				3092A3041B89480D00347BE5 /* MapKit.framework */,
 				30DC88571B81684200A7ABD8 /* MobileCoreServices.framework */,
 				30DC88301B812ED400A7ABD8 /* Social.framework */,

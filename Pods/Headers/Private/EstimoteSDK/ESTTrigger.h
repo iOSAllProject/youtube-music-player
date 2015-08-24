@@ -1,1 +1,0 @@
-../../../EstimoteSDK/EstimoteSDK/Headers/ESTTrigger.h

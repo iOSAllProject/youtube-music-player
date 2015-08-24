@@ -3,6 +3,7 @@
 //  Additions by Marin Todorov for YouTube JSONModel tutorial
 #import "AppConstant.h"
 #import "SongCell.h"
+#import <VBFPopFlatButton/VBFPopFlatButton.h>
 @interface SongCell()
 
 @end
@@ -91,12 +92,18 @@ static CGFloat imageWidth = 89.0;
     label.textColor = [UIColor blackColor];
     [self addSubview:label];
       
-    CGFloat buttonSize = 21.0;
+    CGFloat buttonSize = 20.0;
     CGFloat buttonPadding = (size.height - buttonSize)/2;
-    UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
+      VBFPopFlatButton *moreOptions = [[VBFPopFlatButton alloc] initWithFrame:CGRectMake(self.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)   buttonType:buttonSquareType
+                                                  buttonStyle:buttonRoundedStyle
+                                        animateToInitialState:YES];
+      moreOptions.tintColor = [[UINavigationBar appearance] tintColor];
+      moreOptions.lineThickness = 2;
+      moreOptions.roundBackgroundColor = [UIColor whiteColor];
     UIButton *moreOptionsBackground = [[UIButton alloc] initWithFrame:CGRectMake(label.frame.origin.x + label.frame.size.width+5, 0.0, self.frame.size.width - (label.frame.origin.x + label.frame.size.width)+5, self.frame.size.height)];
-      
-    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];
+
+
+    
     [self addSubview:moreOptionsBackground];
     [self addSubview:moreOptions];
     [moreOptions addTarget:self
