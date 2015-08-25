@@ -340,6 +340,7 @@
     // viewController.bounds
     playerBar.frame = CGRectMake(0.0, self.view.frame.size.height-44, self.view.frame.size.width, 44);
     if(playerBar.isHidden){
+        
         scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
     } else {
         scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
@@ -366,18 +367,15 @@
                                                  MKCoordinateSpan span;
                                                  
                                                  
-                                                 span.latitudeDelta = 0.25;
-                                                 span.longitudeDelta = 0.25;
+
                                                  CLLocationCoordinate2D location;
                                                  location.latitude = currentLocation.coordinate.latitude;
                                                  location.longitude = currentLocation.coordinate.longitude;
-                                                 region.span = span;
-                                                 region.center = location;
+                                                 region = MKCoordinateRegionMakeWithDistance(location, 1000, 1000);
                                                  
-
                                                  
                                                 // [mapView setRegion:region animated:YES];
-                                                 
+                                                 mapView.showsBuildings = true;
                                                  mapView.mapType = MKMapTypeStandard;
                                                  MKMapCamera *mapCamera = [[MKMapCamera alloc] init];
                                                  mapCamera.centerCoordinate = location;
@@ -410,17 +408,57 @@
         if(gp){
             centralParkLoc.latitude = gp.latitude;
             centralParkLoc.longitude = gp.longitude;
+            
         }
         //create a location pin for central park
         MapPin *centralParkPin = [[MapPin alloc] init];
+        
         centralParkPin.coordinate = centralParkLoc;
         centralParkPin.title = o[@"name"];
         centralParkPin.subtitle = o[@"username"];
+        centralParkPin.objectId = o.objectId;
+        //[centralParkPin setObjectId:o.objectId];
+        
+
+        
         [locations addObject:centralParkPin];
     }
 
     [mapView addAnnotations:locations];
     
+}
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    MKAnnotationView *annotationView = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:@"loc"];
+    annotationView.canShowCallout = YES;
+    annotationView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    
+    return annotationView;
+}
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    JukeboxEntry *entry = [[JukeboxEntry alloc] init];
+    JukeBoxCell *box = [JukeBoxCell photoBoxFor:entry size:IPHONE_PORTRAIT_CELL];
+    
+    MapPin *a = ((MapPin *)view.annotation);
+    NSString *id = a.objectId;
+    for (PFObject *j in _jukeboxes){
+        if(j.objectId == id){
+            [entry setTitle:j[@"name"]];
+            [entry setAuthor:j[@"username"]];
+            [entry setImageURL:j[@"image"]];
+            [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
+            [entry setObjectId:j.objectId];
+            
+            JukeboxPostViewController *jukeboxPost = [[JukeboxPostViewController alloc] initWithJukeBox:box.jukeBoxEntry];
+            UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:jukeboxPost];
+            [self presentViewController:navigationController animated:YES completion:nil];
+        }
+    }
+    
+    //[self performSegueWithIdentifier:@"DetailsIphone" sender:view];
 }
 
 
