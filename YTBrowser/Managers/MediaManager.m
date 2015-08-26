@@ -197,7 +197,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
             {
                 // Do something with the `video` object, in this case the audio url
                 
-                NSString *XCDYouTubeVideoQualityAudioString = [NSString    stringWithFormat:@"%@",video.streamURLs[@(XCDYouTubeVideoQualityAudio)]];
+                NSString *XCDYouTubeVideoQualityAudioString = [NSString    stringWithFormat:@"%@",video.streamURLs[@(XCDYouTubeVideoQualityHD720)]];
                  NSURL *url = [[NSURL alloc] initWithString:XCDYouTubeVideoQualityAudioString];
                 AVPlayerItem *thePlayerItem = [AVPlayerItem playerItemWithURL:url];
 
@@ -232,7 +232,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         {
             // Do something with the `video` object, in this case the audio url
             
-            NSString *XCDYouTubeVideoQualityAudioString = [NSString    stringWithFormat:@"%@",video.streamURLs[@(XCDYouTubeVideoQualityAudio)]];
+            NSString *XCDYouTubeVideoQualityAudioString = [NSString    stringWithFormat:@"%@",video.streamURLs[@(XCDYouTubeVideoQualityHD720)]];
             NSURL *url = [[NSURL alloc] initWithString:XCDYouTubeVideoQualityAudioString];
             AVPlayerItem *thePlayerItem = [AVPlayerItem playerItemWithURL:url];
             
