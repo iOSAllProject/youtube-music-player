@@ -17,7 +17,7 @@
 -(VideoModel*) getCurrentlyPlaying;
 -(void) runInBackground;
 -(UIView *) getMiniPlayer;
-
+//@property(nonatomic,strong) JukeboxEntry *jukeBox;
 -(void) setPlaylist:(NSArray *)songs andSongIndex:(NSInteger)index ;
 -(void) setCurrentLibrary:(NSArray *) songs;
 -(BOOL) isInLibrary:(VideoModel*) song;
@@ -25,4 +25,5 @@
 - (void)updatePlayerState:(NSString *) state;
 -(void) skipToNextSong;
 -(void) skipToPrevSong;
+
 @end

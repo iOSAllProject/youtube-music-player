@@ -337,11 +337,13 @@
     [self.view addSubview:playerBar];
     if(playerBar.isHidden){
         scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height};
+        [mapCell setY:mapView.frame.size.height-100];
     } else {
         scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
+        [mapCell setY:mapView.frame.size.height-100-44];
         
     }
-    
+
 
     
 }
@@ -490,10 +492,17 @@
     if(list == true){
         [scroller setHidden: YES];
         [mapView setHidden: NO];
+        [mapCell setHidden:NO];
         list = false;
     }else{
         [scroller setHidden: NO];
         [mapView setHidden: YES];
+        [mapCell setHidden:YES];
+        if([playerBar isHidden]){
+            [mapCell setY:mapView.frame.size.height-100];
+        } else{
+            [mapCell setY:mapView.frame.size.height-100-44];
+        }
         list = true;
     }
     

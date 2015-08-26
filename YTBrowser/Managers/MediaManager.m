@@ -28,6 +28,8 @@ static MediaManager *sharedInstance = nil;
     UISlider *slider;
     AVQueuePlayer *audioStremarPlayer;
     
+    
+    
     BOOL AUDIO_ENABLED;
     
 }
@@ -435,10 +437,9 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 }
 
 -(void) setCurrentLibrary:(NSArray *)songs {
-    songsInLibrary = [[NSMutableSet alloc] initWithCapacity:[songs count]];
-    for (VideoModel *song in songs){
-        [songsInLibrary addObject:song];
-    }
+    songsInLibrary = [[NSMutableSet alloc] initWithArray:songs];
+    currentPlaylist = songs;
+
 }
 -(BOOL) isInLibrary:(VideoModel *)song {
     if([songsInLibrary containsObject:song])

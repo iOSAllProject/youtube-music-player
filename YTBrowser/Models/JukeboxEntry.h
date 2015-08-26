@@ -11,6 +11,7 @@
 @property (nonatomic,strong) NSString *objectId;
 @property (nonatomic,strong) NSString *title;
 @property (nonatomic, strong) NSString *author;
+@property (nonatomic, strong) NSString *authorId;
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSString *imageURL;
 @property (nonatomic, strong) NSArray *songs;

@@ -20,6 +20,8 @@
 #import "RMSaveButton.h"
 #import "SearchYoutubeViewController.h"
 
+#define kScreenWidth [[UIScreen mainScreen] bounds].size.width
+#define kScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define HEADER_HEIGHT 320.0f
 #define THUMB_SIZE 100.0f
 #define HEADER_INIT_FRAME CGRectMake(0, 0, self.view.frame.size.width, HEADER_HEIGHT)
@@ -205,7 +207,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 }
 
 
--(void) showPlaylist {
+-(void) loadSongs {
     //clean the old videos
     if([_scroller.boxes count] > 0)
         [_scroller.boxes removeObjectsInRange:NSMakeRange(0, _scroller.boxes.count)];
@@ -253,9 +255,18 @@ const CGFloat kCommentCellHeight = 50.0f;
             
             box.frame = CGRectIntegral(box.frame);
             box.onTap = ^{
+                
+                [self addHeart];
+                JukeboxEntry *entry = [self createJukeBoxEntry:jukebox];
+                if(entry.authorId == [[PFUser currentUser] objectId]){
                 [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
-                [[MediaManager sharedInstance] playWithVideo:video];
-                [self adjustScrollViewToPlayer];
+               // [[MediaManager sharedInstance] setJukeBox:jukeboxEntry];
+                    [[MediaManager sharedInstance] playWithVideo:video];
+                    [self adjustScrollViewToPlayer];
+                }
+                else {
+                     [self addHeart];
+                }
             };
             counter++;
             //add the box
@@ -271,6 +282,18 @@ const CGFloat kCommentCellHeight = 50.0f;
     
 }
 
+
+-(JukeboxEntry*) createJukeBoxEntry: (PFObject *) pf{
+    JukeboxEntry *jbe = [[JukeboxEntry alloc] init];
+    jbe.title = pf[@"name"];
+    jbe.author = pf[@"username"];
+    jbe.objectId = pf.objectId;
+    jbe.imageURL = pf[@"image"];
+    jbe.authorId = pf[@"userId"];
+    
+    return jbe;
+    
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat delta = 0.0f;
@@ -382,7 +405,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     [playerBar addGestureRecognizer:playerTap];
     [self adjustScrollViewToPlayer];
     [self.view addSubview:playerBar];
-    [self showPlaylist];
+    [self loadSongs];
     
 }
 -(void) adjustScrollViewToPlayer{
@@ -436,4 +459,57 @@ const CGFloat kCommentCellHeight = 50.0f;
     [super viewWillLayoutSubviews];
 }
 
+
+- (void)addHeart {
+    UIImageView *heartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth / 2.0 - 14, kScreenHeight - 100, 28, 26)];
+    
+    heartImageView.image = [UIImage imageNamed:@"heart"];
+    heartImageView.transform = CGAffineTransformMakeScale(0, 0);
+    [self.view addSubview:heartImageView];
+    
+    CGFloat duration = 5 + (arc4random() % 5 - 2);
+    [UIView animateWithDuration:0.3 animations:^{
+        heartImageView.transform = CGAffineTransformMakeScale(1, 1);
+        heartImageView.transform = CGAffineTransformMakeRotation(-0.01 * (arc4random() % 20));
+    }];
+    [UIView animateWithDuration:duration animations:^{
+        heartImageView.alpha = 0;
+    }];
+    CAKeyframeAnimation *animation = [self createAnimation:heartImageView.frame];
+    animation.duration = duration;
+    [heartImageView.layer addAnimation:animation forKey:@"position"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)((duration + 0.5) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [heartImageView removeFromSuperview];
+    });
+}
+
+- (CAKeyframeAnimation *)createAnimation:(CGRect)frame {
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
+    CGMutablePathRef path = CGPathCreateMutable();
+    
+    int height = -100 + arc4random() % 40 - 20;
+    int xOffset = frame.origin.x;
+    int yOffset = frame.origin.y;
+    int waveWidth = 50;
+    CGPoint p1 = CGPointMake(xOffset, height * 0 + yOffset);
+    CGPoint p2 = CGPointMake(xOffset, height * 1 + yOffset);
+    CGPoint p3 = CGPointMake(xOffset, height * 2 + yOffset);
+    CGPoint p4 = CGPointMake(xOffset, height * 2 + yOffset);
+    
+    CGPathMoveToPoint(path, NULL, p1.x,p1.y);
+    
+    if (arc4random() % 2) {
+        CGPathAddQuadCurveToPoint(path, NULL, p1.x - arc4random() % waveWidth, p1.y + height / 2.0, p2.x, p2.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p2.x + arc4random() % waveWidth, p2.y + height / 2.0, p3.x, p3.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p3.x - arc4random() % waveWidth, p3.y + height / 2.0, p4.x, p4.y);
+    } else {
+        CGPathAddQuadCurveToPoint(path, NULL, p1.x + arc4random() % waveWidth, p1.y + height / 2.0, p2.x, p2.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p2.x - arc4random() % waveWidth, p2.y + height / 2.0, p3.x, p3.y);
+        CGPathAddQuadCurveToPoint(path, NULL, p3.x + arc4random() % waveWidth, p3.y + height / 2.0, p4.x, p4.y);
+    }
+    animation.path = path;
+    animation.calculationMode = kCAAnimationCubicPaced;
+    CGPathRelease(path);
+    return animation;
+}
 @end
