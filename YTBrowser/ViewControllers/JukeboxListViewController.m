@@ -133,19 +133,20 @@
     
     tablesGrid.contentLayoutMode = MGLayoutGridStyle;
     [scroller.boxes addObject:tablesGrid];
+
+        PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+            if (!error) {
+                // The find succeeded.
+                NSLog(@"Successfully retrieved %d jukeboxes.", objects.count);
+                // Do something with the found objects
+                [self createJukeboxListView:objects];
+            } else {
+                // Log details of the failure
+                NSLog(@"Error: %@ %@", error, [error userInfo]);
+            }
+        }];
     
-    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
-    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-        if (!error) {
-            // The find succeeded.
-            NSLog(@"Successfully retrieved %d jukeboxes.", objects.count);
-            // Do something with the found objects
-            [self createJukeboxListView:objects];
-        } else {
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    }];
 
     
     

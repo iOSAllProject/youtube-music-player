@@ -133,11 +133,11 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     [NSTimer scheduledTimerWithTimeInterval:1.0/60.0 target:self selector:@selector(updateTime:) userInfo:nil repeats:YES];
     [miniPlayer addSubview:slider];
     isInitialized = YES;
-   // miniPlayer.hidden = YES;
+    miniPlayer.hidden = YES;
 
     
     
-     videoPlayer = [[MediaPlayerViewController alloc] initVideoPlayer:nil title:nil];
+    
     if(AUDIO_ENABLED){
         
         audioStremarPlayer= [[AVQueuePlayer alloc] init];
@@ -145,6 +145,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
     } else {
         self.videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] init];
+        videoPlayer = [[MediaPlayerViewController alloc] initVideoPlayer:nil title:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                      name:MPMoviePlayerPlaybackStateDidChangeNotification
@@ -166,17 +167,18 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
         [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
         [self.videoPlayerViewController.moviePlayer prepareToPlay];
+        AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+        
+        NSError *setCategoryError = nil;
+        BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
+        if (!success) { /* handle the error condition */ }
+        
+        NSError *activationError = nil;
+        success = [audioSession setActive:YES error:&activationError];
+        if (!success) { /* handle the error condition */ }
     
     }
-    AVAudioSession *audioSession = [AVAudioSession sharedInstance];
-    
-    NSError *setCategoryError = nil;
-    BOOL success = [audioSession setCategory:AVAudioSessionCategoryPlayback error:&setCategoryError];
-    if (!success) { /* handle the error condition */ }
-    
-    NSError *activationError = nil;
-    success = [audioSession setActive:YES error:&activationError];
-    if (!success) { /* handle the error condition */ }
+
 
 }
 
