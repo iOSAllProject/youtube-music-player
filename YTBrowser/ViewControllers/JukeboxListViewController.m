@@ -48,6 +48,8 @@
     BOOL list;
     CLLocationManager *locationManager;
     NSMutableArray *_jukeboxes;
+    NSMutableArray *_jukeboxCells;
+    JukeBoxCell *mapCell;
     
 }
 
@@ -154,7 +156,8 @@
 }
 
 -(void) createJukeboxListView: (NSArray *) jukeboxes {
-    _jukeboxes = jukeboxes;
+    _jukeboxes = [[NSMutableArray alloc] init];
+    _jukeboxCells = [[NSMutableArray alloc] init];
     for (PFObject *j in jukeboxes){
         JukeboxEntry *entry = [[JukeboxEntry alloc] init];
         [entry setTitle:j[@"name"]];
@@ -162,7 +165,14 @@
         [entry setImageURL:j[@"image"]];
         [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
         [entry setObjectId:j.objectId];
-        [photosGrid.boxes addObject:[self photoBoxFor:entry]];
+        PFGeoPoint *gp = j[@"location"];
+        if(gp){
+            entry.location = CLLocationCoordinate2DMake(gp.latitude, gp.longitude);
+        }
+        JukeBoxCell *cell = [self photoBoxFor:entry];
+        [photosGrid.boxes addObject:cell];
+        [_jukeboxes addObject:entry];
+        [_jukeboxCells addObject: cell];
     }
     animateOnce = YES;
     [photosGrid layout];
@@ -254,7 +264,7 @@
     : portrait ? IPAD_PORTRAIT_PHOTO : IPAD_LANDSCAPE_PHOTO;*/
 }
 
-- (MGBox *)photoBoxFor:(JukeboxEntry *) entry {
+- (JukeBoxCell *)photoBoxFor:(JukeboxEntry *) entry {
     
     // make the photo box
     JukeBoxCell *box = [JukeBoxCell photoBoxFor:entry size:IPHONE_PORTRAIT_CELL];
@@ -403,26 +413,20 @@
 
 -(void) addJukeboxesToMap {
     NSMutableArray *locations = [[NSMutableArray alloc] init];
-    for (PFObject* o in _jukeboxes){
+    for (JukeboxEntry* j in _jukeboxes){
         CLLocationCoordinate2D centralParkLoc;
-        PFGeoPoint *gp = o[@"location"];
-        if(gp){
-            centralParkLoc.latitude = gp.latitude;
-            centralParkLoc.longitude = gp.longitude;
-            
-        }
+
         //create a location pin for central park
-        MapPin *centralParkPin = [[MapPin alloc] init];
+        MapPin *locationPin = [[MapPin alloc] init];
         
-        centralParkPin.coordinate = centralParkLoc;
-        centralParkPin.title = o[@"name"];
-        centralParkPin.subtitle = o[@"username"];
-        centralParkPin.objectId = o.objectId;
-        //[centralParkPin setObjectId:o.objectId];
+        locationPin.coordinate = j.location;
+        locationPin.title = j.title;
+        locationPin.subtitle = j.author;
+        locationPin.objectId = j.objectId;
         
 
         
-        [locations addObject:centralParkPin];
+        [locations addObject:locationPin];
     }
 
     [mapView addAnnotations:locations];
@@ -440,24 +444,38 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
-    JukeboxEntry *entry = [[JukeboxEntry alloc] init];
-    JukeBoxCell *box = [JukeBoxCell photoBoxFor:entry size:IPHONE_PORTRAIT_CELL];
-    
     MapPin *a = ((MapPin *)view.annotation);
     NSString *id = a.objectId;
-    for (PFObject *j in _jukeboxes){
-        if(j.objectId == id){
-            [entry setTitle:j[@"name"]];
-            [entry setAuthor:j[@"username"]];
-            [entry setImageURL:j[@"image"]];
-            [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
-            [entry setObjectId:j.objectId];
+    /*for (JukeBoxCell *jc in _jukeboxCells){
+        if(jc.jukeBoxEntry.objectId == id){
+            //insert the jukebox cell at bottom of screen
+            CGFloat *bottomOffset = 0;
+            if(![playerBar isHidden])
+                bottomOffset = 44;
             
-            JukeboxPostViewController *jukeboxPost = [[JukeboxPostViewController alloc] initWithJukeBox:box.jukeBoxEntry];
+            
+        }
+    }*/
+    for (JukeboxEntry *j in _jukeboxes){
+        
+        
+        if(j.objectId == id){
+            CGFloat bottomOffset = 0.00;
+            if(![playerBar isHidden])
+                bottomOffset = 44.0;
+            if(mapCell){
+                [mapCell removeFromSuperview ];
+            }
+            mapCell = [self photoBoxFor:j];
+            mapCell.frame = CGRectMake(0,mapView.frame.size.height - 100 -bottomOffset, mapCell.frame.size.width, mapCell.frame.size.height);
+            [self.view addSubview: mapCell];
+            /*JukeboxPostViewController *jukeboxPost = [[JukeboxPostViewController alloc] initWithJukeBox:j];
             UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:jukeboxPost];
-            [self presentViewController:navigationController animated:YES completion:nil];
+            [self presentViewController:navigationController animated:YES completion:nil];*/
         }
     }
+    
+    
     
     //[self performSegueWithIdentifier:@"DetailsIphone" sender:view];
 }

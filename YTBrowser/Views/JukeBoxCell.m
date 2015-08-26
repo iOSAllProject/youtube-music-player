@@ -113,22 +113,23 @@
     [box addSubview:border];
     
     // add a loading spinner
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
-                                        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    spinner.frame = IV_FRAME;
-    spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
-    | UIViewAutoresizingFlexibleRightMargin
-    | UIViewAutoresizingFlexibleBottomMargin
-    | UIViewAutoresizingFlexibleLeftMargin;
-    spinner.color = UIColor.lightGrayColor;
-    [box addSubview:spinner];
-    [spinner startAnimating];
-  // do the photo loading async, because internet
-  __block id bbox = box;
-  box.asyncLayoutOnce = ^{
-    [bbox loadPhoto];
-  };
-
+        UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
+                                            initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+        spinner.frame = IV_FRAME;
+        spinner.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+        | UIViewAutoresizingFlexibleRightMargin
+        | UIViewAutoresizingFlexibleBottomMargin
+        | UIViewAutoresizingFlexibleLeftMargin;
+        spinner.color = UIColor.lightGrayColor;
+        [box addSubview:spinner];
+        [spinner startAnimating];
+      // do the photo loading async, because internet
+        
+      __block id bbox = box;
+      box.asyncLayoutOnce = ^{
+        [bbox loadPhoto];
+      };
+    
   return box;
 }
 
@@ -167,7 +168,7 @@
     // got the photo, so lets show it
     UIImage *image = [UIImage imageWithData:data];
     self.jukeBoxEntry.image = image;
-    
+      NSLog(@"Finished loading image %@", self.jukeBoxEntry.imageURL);
 //    self.backgroundColor = [self averageColor:image];
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
