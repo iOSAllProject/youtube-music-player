@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Roman Efimov. All rights reserved.
 //
 
-#import "DEMOLeftMenuViewController.h"
+#import "LeftMenuViewController.h"
 #import "SearchYoutubeViewController.h"
 #import "LibraryViewController.h"
 #import "JukeboxListViewController.h"
 #import "LoginViewController.h"
-@interface DEMOLeftMenuViewController ()
+@interface LeftMenuViewController ()
 
 @property (strong, readwrite, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) UIView *homeView;
@@ -19,7 +19,7 @@
 @property (strong, nonatomic) UIView *jukeboxView;
 @end
 
-@implementation DEMOLeftMenuViewController
+@implementation LeftMenuViewController
 
 - (void)viewDidLoad
 {
@@ -131,7 +131,7 @@
     }
     
     NSArray *titles = @[@"My Music", @"Search", @"Jukeboxes", @"Logout"];
-    NSArray *images = @[@"star", @"find",@"Jukeboxes",@"Logout"];
+    NSArray *images = @[@"music", @"find",@"headphone",@"settings"];
     cell.textLabel.text = titles[indexPath.row];
     cell.imageView.image = [UIImage imageNamed:images[indexPath.row]];
     

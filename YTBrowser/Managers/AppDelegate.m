@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "LibraryViewController.h"
 #import "RESideMenu.h"
-#import "DEMOLeftMenuViewController.h"
+#import "LeftMenuViewController.h"
 #import "AppConstant.h"
 #import "JukeboxListViewController.h"
 #import <Parse/Parse.h>
@@ -27,7 +27,7 @@
 
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[JukeboxListViewController alloc] init]];
-    self.leftMenuViewController = [[DEMOLeftMenuViewController alloc] init];
+    self.leftMenuViewController = [[LeftMenuViewController alloc] init];
     
     
     self.sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController

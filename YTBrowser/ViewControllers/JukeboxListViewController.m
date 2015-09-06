@@ -55,7 +55,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    list = false;
+    list = true;
 
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"JUKEBOXES";
@@ -72,7 +72,7 @@
     //setup mapview
     mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
     mapView.delegate = self;
-    [self.view addSubview:mapView];
+    
     
     
     // Do any additional setup after loading the view, typically from a nib.
@@ -85,30 +85,8 @@
     
     scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
-    [scroller setHidden:YES];
-    
-    
-    //CLLocationCoordinate2D center =
-    CLLocationCoordinate2D center = CLLocationCoordinate2DMake(-41.162114, 172.836914);
-    MKCoordinateSpan span = MKCoordinateSpanMake(0.002401f, 0.003433f);
-    
-    MKCoordinateRegion region = MKCoordinateRegionMake(center, span);
-    //MKCoordinateRegion region = MKCoordinateSpanMake(0.002401f, 0.003433f);//MKCoordinateRegionMakeWithDistance( 800, 800);
-    [mapView setRegion:[mapView regionThatFits:region] animated:YES];
-    
-    // Add an annotation
-    MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
-    point.coordinate =  center;
-    point.title = @"Where am I?";
-    point.subtitle = @"I'm here!!!";
-    
-    [mapView addAnnotation:point];
-    
-    [self.view addSubview: mapView];
-    //[mapView setHidden:YES];
-    
-    
-    
+    [self.view addSubview:mapView];
+    [mapView setHidden:YES];
     // iPhone or iPad?
     UIDevice *device = UIDevice.currentDevice;
     phone = device.userInterfaceIdiom == UIUserInterfaceIdiomPhone;

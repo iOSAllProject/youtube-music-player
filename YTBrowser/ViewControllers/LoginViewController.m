@@ -24,7 +24,7 @@
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import <RESideMenu/RESideMenu.h>
-#import "DEMOLeftMenuViewController.h"
+#import "LeftMenuViewController.h"
 #import "AppDelegate.h"
 @implementation LoginViewController
 

@@ -113,15 +113,14 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         [dismissButton addTarget:self
                           action:@selector(done)
                 forControlEvents:UIControlEventTouchUpInside];
-        [dismissButton setBackgroundImage:[UIImage imageNamed:@"arrow_down"] forState:UIControlStateNormal];
+        [dismissButton setBackgroundImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
         [self.view addSubview:dismissButton];
 
         UIButton *queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 25, 25.0, 25.0)];
-        [queue setBackgroundImage:[UIImage imageNamed:@"play_queue"] forState:UIControlStateNormal];
+        [queue setBackgroundImage:[UIImage imageNamed:@"minus"] forState:UIControlStateNormal];
         [self.view addSubview:queue];
         player = [[MediaManager sharedInstance] getVideoPlayer];
         [player presentInView:playerContainer];
-        player.moviePlayer.controlStyle = MPMovieControlStyleNone;
         [self setupPlayerControls];
         
         // add a loading spinner
@@ -149,37 +148,6 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [super viewDidLoad];
     
     [[self navigationController] setNavigationBarHidden:YES animated:NO];
-    //BACKGROUND IMAGE
-/*    backgroundImage = [[UIImageView alloc] init];
-    backgroundImage.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height);
-    [self.view addSubview:backgroundImage];
-    UIView *filter = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height)];
-    filter.backgroundColor = [UIColor blackColor];
-    filter.alpha = .9;
-    [self.view addSubview:filter];*/
-    
-    // loading a video by URL
-    // [player loadPlayerWithVideoURL:@"https://www.youtube.com/watch?v=mIAgmyoAmmc"];
-    
-    // loading multiple videos from url
-
-    /*
-    UIButton *shuffle = [[UIButton alloc] initWithFrame:CGRectMake(10.0, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
-    [shuffle setTitle:@"Shuffle" forState:UIControlStateNormal];
-    shuffle.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    [shuffle setTitleColor:fontColor forState:UIControlStateNormal];
-    [self.view addSubview:shuffle];
-    
-    UIButton *loop = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-speed_button_size, self.view.frame.size.height-30.0, speed_button_size, 20.0)];
-    [loop setTitle:@"Loop" forState:UIControlStateNormal];
-    loop.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
-    [loop setTitleColor:fontColor forState:UIControlStateNormal];
-    [self.view addSubview:loop];
-    */
-    
-
-    
-    
 
 }
 
