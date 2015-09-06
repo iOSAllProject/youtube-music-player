@@ -14,6 +14,7 @@
 #import "Song.h"
 #import "JBCoreDataStack.h"
 #import <MediaPlayer/MediaPlayer.h>
+
 @interface MediaPlayerViewController : UIViewController
 - (id)initWithImages:(NSArray *)images andContentView:(UIView*)contentView;
 -(id) initVideoPlayer:(NSString*)videoId title:(NSString*)title ;

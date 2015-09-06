@@ -11,6 +11,7 @@
 		30788D4B1B8A6049002A598C /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D471B8A6049002A598C /* PXAlertView.m */; };
 		30788D4C1B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D491B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m */; };
 		308E0D9C1B6463EC0007DFCE /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */; };
+		308E2C381B9AC6F50010ACF3 /* LNPopupController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 308E2C371B9AC6F50010ACF3 /* LNPopupController.framework */; };
 		30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */; };
 		30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCB1AF0928B00327CAA /* UIView+MGEasyFrame.m */; };
 		30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 30916CCE1AF0928B00327CAA /* MGBlockWrapper.m */; };
@@ -37,7 +38,7 @@
 		30DC87E91B7FD45800A7ABD8 /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */; };
 		30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E61B7FD45800A7ABD8 /* SongCell.m */; };
 		30DC87EC1B7FD45800A7ABD8 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E81B7FD45800A7ABD8 /* VoteCell.m */; };
-		30DC87F81B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */; };
+		30DC87F81B7FD4D900A7ABD8 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87EF1B7FD4D900A7ABD8 /* LeftMenuViewController.m */; };
 		30DC87F91B7FD4D900A7ABD8 /* JukeboxListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F11B7FD4D900A7ABD8 /* JukeboxListViewController.m */; };
 		30DC87FA1B7FD4D900A7ABD8 /* LibraryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F31B7FD4D900A7ABD8 /* LibraryViewController.m */; };
 		30DC87FB1B7FD4D900A7ABD8 /* MediaPlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87F51B7FD4D900A7ABD8 /* MediaPlayerViewController.m */; };
@@ -110,6 +111,7 @@
 		30788D481B8A6049002A598C /* UIAlertView+PXAlertViewOverride.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+PXAlertViewOverride.h"; sourceTree = "<group>"; };
 		30788D491B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+PXAlertViewOverride.m"; sourceTree = "<group>"; };
 		308E0D9B1B6463EC0007DFCE /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		308E2C371B9AC6F50010ACF3 /* LNPopupController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LNPopupController.framework; path = "LNPopupController/build/Debug-iphoneos/LNPopupController.framework"; sourceTree = "<group>"; };
 		308E8B291B8AAA0300DE9472 /* MapPin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MapPin.h; sourceTree = "<group>"; };
 		30916CC81AF0928B00327CAA /* NSObject+MGEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MGEvents.h"; sourceTree = "<group>"; };
 		30916CC91AF0928B00327CAA /* NSObject+MGEvents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MGEvents.m"; sourceTree = "<group>"; };
@@ -164,8 +166,8 @@
 		30DC87E61B7FD45800A7ABD8 /* SongCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SongCell.m; sourceTree = "<group>"; };
 		30DC87E71B7FD45800A7ABD8 /* VoteCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VoteCell.h; sourceTree = "<group>"; };
 		30DC87E81B7FD45800A7ABD8 /* VoteCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VoteCell.m; sourceTree = "<group>"; };
-		30DC87EE1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DEMOLeftMenuViewController.h; sourceTree = "<group>"; };
-		30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DEMOLeftMenuViewController.m; sourceTree = "<group>"; };
+		30DC87EE1B7FD4D900A7ABD8 /* LeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuViewController.h; sourceTree = "<group>"; };
+		30DC87EF1B7FD4D900A7ABD8 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuViewController.m; sourceTree = "<group>"; };
 		30DC87F01B7FD4D900A7ABD8 /* JukeboxListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JukeboxListViewController.h; sourceTree = "<group>"; };
 		30DC87F11B7FD4D900A7ABD8 /* JukeboxListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JukeboxListViewController.m; sourceTree = "<group>"; };
 		30DC87F21B7FD4D900A7ABD8 /* LibraryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryViewController.h; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				30DC88311B812ED400A7ABD8 /* Social.framework in Frameworks */,
 				30DC882F1B812ECF00A7ABD8 /* Accounts.framework in Frameworks */,
 				30DC882D1B812EAE00A7ABD8 /* libsqlite3.dylib in Frameworks */,
+				308E2C381B9AC6F50010ACF3 /* LNPopupController.framework in Frameworks */,
 				30DC882B1B812EA200A7ABD8 /* libz.dylib in Frameworks */,
 				30DC88291B812E9700A7ABD8 /* SystemConfiguration.framework in Frameworks */,
 				30DC88271B812E8C00A7ABD8 /* StoreKit.framework in Frameworks */,
@@ -419,8 +422,8 @@
 				30DC883D1B815D2500A7ABD8 /* LoginViewController.m */,
 				30DC88161B7FD9F000A7ABD8 /* JukeboxPostViewController.h */,
 				30DC88171B7FD9F000A7ABD8 /* JukeboxPostViewController.m */,
-				30DC87EE1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.h */,
-				30DC87EF1B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m */,
+				30DC87EE1B7FD4D900A7ABD8 /* LeftMenuViewController.h */,
+				30DC87EF1B7FD4D900A7ABD8 /* LeftMenuViewController.m */,
 				30DC87F01B7FD4D900A7ABD8 /* JukeboxListViewController.h */,
 				30DC87F11B7FD4D900A7ABD8 /* JukeboxListViewController.m */,
 				30DC87F21B7FD4D900A7ABD8 /* LibraryViewController.h */,
@@ -582,6 +585,7 @@
 		9CA623DB169591AC003F6334 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				308E2C371B9AC6F50010ACF3 /* LNPopupController.framework */,
 				B713451B1B8BBBAA000BBEB0 /* Bolts.framework */,
 				B71345191B8BBBA3000BBEB0 /* ParseFacebookUtils.framework */,
 				B71345171B8BBB94000BBEB0 /* FacebookSDK.framework */,
@@ -791,7 +795,7 @@
 				30DC88021B7FD60A00A7ABD8 /* JukeboxEntry.m in Sources */,
 				30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */,
 				30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
-				30DC87F81B7FD4D900A7ABD8 /* DEMOLeftMenuViewController.m in Sources */,
+				30DC87F81B7FD4D900A7ABD8 /* LeftMenuViewController.m in Sources */,
 				30DC880D1B7FD79800A7ABD8 /* JBCoreDataStack.m in Sources */,
 				B7133C8D1B8BB761000BBEB0 /* XCDYouTubeClient.m in Sources */,
 				30DC88031B7FD60A00A7ABD8 /* Song.m in Sources */,
@@ -915,6 +919,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LNPopupController/build/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YTBrowser/YTBrowser-Prefix.pch";
@@ -938,6 +943,7 @@
 					"/Users/matanvardi/Downloads/parse-library-1.8.0",
 					2,
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/LNPopupController/build/Debug-iphoneos",
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
