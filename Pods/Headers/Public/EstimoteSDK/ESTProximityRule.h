@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/Headers/ESTProximityRule.h
+../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTProximityRule.h

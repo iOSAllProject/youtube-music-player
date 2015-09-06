@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/Headers/ESTDefinitions.h
+../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTDefinitions.h

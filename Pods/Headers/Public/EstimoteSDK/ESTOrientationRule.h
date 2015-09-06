@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/Headers/ESTOrientationRule.h
+../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTOrientationRule.h

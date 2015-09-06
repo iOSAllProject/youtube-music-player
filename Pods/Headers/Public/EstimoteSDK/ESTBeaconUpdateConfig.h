@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/Headers/ESTBeaconUpdateConfig.h
+../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTBeaconUpdateConfig.h

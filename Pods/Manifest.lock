@@ -1,10 +1,10 @@
 PODS:
-  - AMScrollingNavbar (1.3.4)
-  - EstimoteSDK (2.4.0)
-  - INTULocationManager (2.0.2)
+  - AMScrollingNavbar (1.5.1)
+  - EstimoteSDK (3.4.1)
+  - INTULocationManager (4.0.0)
   - pop (1.0.7)
   - RESideMenu (4.0.7)
-  - SVProgressHUD (1.1.2)
+  - SVProgressHUD (1.1.3)
   - VBFPopFlatButton (0.0.6):
     - pop
 
@@ -17,12 +17,12 @@ DEPENDENCIES:
   - VBFPopFlatButton
 
 SPEC CHECKSUMS:
-  AMScrollingNavbar: 3318f0cc0fd24c972d5e8c84112edcfe61529506
-  EstimoteSDK: 6abcf32ed821e6669cf75d62457dded2c0951e7f
-  INTULocationManager: 83bec34472a706e178face50a4e5e21ca986b7d2
-  pop: 2f14a1ea61339767af9e66741b418c831b3844df
-  RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
-  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
-  VBFPopFlatButton: 79ca72185b76c2dff8861263118a8c47ef1c1043
+  AMScrollingNavbar: 767ed2db60d927a809bddff5d01b739b7020b12b
+  EstimoteSDK: 4d829b33fb5418d6576e23ec78accc615adff3f8
+  INTULocationManager: 754f2800415378b7bb2c07be103449e1f6a2cc70
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
+  SVProgressHUD: 748080e4f36e603f6c02aec292664239df5279c1
+  VBFPopFlatButton: 782344da63f104c279a857d806e065117a7e1196
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.35.0
