@@ -236,13 +236,13 @@
 		9C9BB3B316BAE6AE00C8AB3A /* JSONKeyMapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKeyMapper.m; sourceTree = "<group>"; };
 		9C9BB3B416BAE6AE00C8AB3A /* JSONValueTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONValueTransformer.h; sourceTree = "<group>"; };
 		9C9BB3B516BAE6AE00C8AB3A /* JSONValueTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONValueTransformer.m; sourceTree = "<group>"; };
-		9CA623D8169591AC003F6334 /* YTBrowser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YTBrowser.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		9CA623D8169591AC003F6334 /* MusicApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9CA623DC169591AC003F6334 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		9CA623DE169591AC003F6334 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9CA623E0169591AC003F6334 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YTBrowser-Info.plist"; sourceTree = "<group>"; };
+		9CA623E4169591AC003F6334 /* MusicApp-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MusicApp-Info.plist"; sourceTree = "<group>"; };
 		9CA623E8169591AC003F6334 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9CA623EA169591AC003F6334 /* YTBrowser-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YTBrowser-Prefix.pch"; sourceTree = "<group>"; };
+		9CA623EA169591AC003F6334 /* MusicApp-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicApp-Prefix.pch"; sourceTree = "<group>"; };
 		9CA623F5169591AC003F6334 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		9CA6243316959278003F6334 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CA624351695927C003F6334 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -575,7 +575,7 @@
 		9CA623D9169591AC003F6334 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9CA623D8169591AC003F6334 /* YTBrowser.app */,
+				9CA623D8169591AC003F6334 /* MusicApp.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -638,12 +638,12 @@
 		9CA623E3169591AC003F6334 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9CA623E4169591AC003F6334 /* YTBrowser-Info.plist */,
+				9CA623E4169591AC003F6334 /* MusicApp-Info.plist */,
 				9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */,
 				9CBC4F6F1695DAE000FFE7B9 /* Icon.png */,
 				9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */,
 				9CA623E8169591AC003F6334 /* main.m */,
-				9CA623EA169591AC003F6334 /* YTBrowser-Prefix.pch */,
+				9CA623EA169591AC003F6334 /* MusicApp-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -678,9 +678,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		9CA623D7169591AC003F6334 /* YTBrowser */ = {
+		9CA623D7169591AC003F6334 /* MusicApp */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9CA623FC169591AC003F6334 /* Build configuration list for PBXNativeTarget "YTBrowser" */;
+			buildConfigurationList = 9CA623FC169591AC003F6334 /* Build configuration list for PBXNativeTarget "MusicApp" */;
 			buildPhases = (
 				45DCF80BBB32C9B2DBFFD3F6 /* Check Pods Manifest.lock */,
 				9CA623D4169591AC003F6334 /* Sources */,
@@ -692,9 +692,9 @@
 			);
 			dependencies = (
 			);
-			name = YTBrowser;
+			name = MusicApp;
 			productName = YTBrowser;
-			productReference = 9CA623D8169591AC003F6334 /* YTBrowser.app */;
+			productReference = 9CA623D8169591AC003F6334 /* MusicApp.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -705,8 +705,13 @@
 			attributes = {
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Underplot ltd.";
+				TargetAttributes = {
+					9CA623D7169591AC003F6334 = {
+						DevelopmentTeam = YHY7MCLZTE;
+					};
+				};
 			};
-			buildConfigurationList = 9CA623D2169591AC003F6334 /* Build configuration list for PBXProject "YTBrowser" */;
+			buildConfigurationList = 9CA623D2169591AC003F6334 /* Build configuration list for PBXProject "MusicApp" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -718,7 +723,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				9CA623D7169591AC003F6334 /* YTBrowser */,
+				9CA623D7169591AC003F6334 /* MusicApp */,
 			);
 		};
 /* End PBXProject section */
@@ -913,6 +918,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -920,10 +927,11 @@
 					"$(PROJECT_DIR)/LNPopupController/build/Debug-iphoneos",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YTBrowser/YTBrowser-Prefix.pch";
-				INFOPLIST_FILE = "YTBrowser/YTBrowser-Info.plist";
+				GCC_PREFIX_HEADER = "YTBrowser/MusicApp-Prefix.pch";
+				INFOPLIST_FILE = "YTBrowser/MusicApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MusicApp;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -935,6 +943,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = YES;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -945,10 +955,11 @@
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "YTBrowser/YTBrowser-Prefix.pch";
-				INFOPLIST_FILE = "YTBrowser/YTBrowser-Info.plist";
+				GCC_PREFIX_HEADER = "YTBrowser/MusicApp-Prefix.pch";
+				INFOPLIST_FILE = "YTBrowser/MusicApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MusicApp;
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -956,7 +967,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		9CA623D2169591AC003F6334 /* Build configuration list for PBXProject "YTBrowser" */ = {
+		9CA623D2169591AC003F6334 /* Build configuration list for PBXProject "MusicApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CA623FA169591AC003F6334 /* Debug */,
@@ -965,7 +976,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9CA623FC169591AC003F6334 /* Build configuration list for PBXNativeTarget "YTBrowser" */ = {
+		9CA623FC169591AC003F6334 /* Build configuration list for PBXNativeTarget "MusicApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				9CA623FD169591AC003F6334 /* Debug */,
