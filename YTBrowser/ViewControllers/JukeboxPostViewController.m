@@ -63,8 +63,10 @@ const CGFloat kCommentCellHeight = 50.0f;
     UIGestureRecognizer *_rightSwipeGestureRecognizer;
     CGFloat listViewHeight;
     RMSaveButton *_addButton;
-    BOOL *isLoading;
+    BOOL isLoading;
     NSMutableArray *comments;
+    NSTimer *timer;
+    NSInteger lastUpdated;
 }
 
 - (id)initWithJukeBox: (JukeboxEntry*) entry {
@@ -195,6 +197,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 30, 25.0, 25.0)];
         [queue setBackgroundImage:[UIImage imageNamed:@"more_juke"] forState:UIControlStateNormal];
         [self.view addSubview:queue];
+        [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
         
     }
     return self;
@@ -209,19 +212,40 @@ const CGFloat kCommentCellHeight = 50.0f;
 
 -(void) loadSongs {
     
-    if(isLoading) return;
+    //if(isLoading) return;
+    JukeboxEntry *playJukebox = [[MediaManager sharedInstance] currentJukebox];
     
+    if(playJukebox != nil && ![jukeboxEntry.objectId isEqualToString:playJukebox.objectId]){
+        [timer invalidate];
+        return;
+    }
     
     @synchronized(self) {
-        isLoading = true;
+        isLoading = YES;
     //clean the old videos
-    if([_scroller.boxes count] > 0)
-        [_scroller.boxes removeObjectsInRange:NSMakeRange(0, _scroller.boxes.count)];
+
 
     PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
     [query includeKey:@"playQueue"];
+    //if (lastUpdated != nil)
+     //   [query whereKey:@"updatedAt" greaterThan:lastUpdated];
     [query getObjectInBackgroundWithId:jukeboxEntry.objectId block:^(PFObject *jukebox, NSError *error) {
         NSLog(@"%@", jukebox);
+        NSInteger parseUpdatedTime = [jukebox.updatedAt timeIntervalSince1970];
+        if([_scroller.boxes count] == 0){
+            //bla
+        }
+        else if([jukebox[@"playQueue"] count] == [self.currentLibrary count]){
+            NSString *objectId = [[jukebox[@"playQueue"] objectAtIndex:0] objectId];
+            NSString *libraryObjectId =[[self.currentLibrary objectAtIndex:0] objectId];
+            if([objectId isEqualToString:libraryObjectId])
+                return;
+            
+        }
+        
+        
+        if([_scroller.boxes count] > 0)
+            [_scroller.boxes removeObjectsInRange:NSMakeRange(0, _scroller.boxes.count)];
         self.currentLibrary = [[NSMutableArray alloc] init];
         int counter = 0;
         BOOL drawLine = NO;
@@ -240,7 +264,7 @@ const CGFloat kCommentCellHeight = 50.0f;
             else if(counter == 1){
                 MGLine *emptyLine = [MGLine lineWithSize:(CGSize){self.view.frame.size.width, 1}];
                 [_scroller.boxes addObject:emptyLine];
-                MGLine *layoutLine = [MGLine lineWithLeft:@"PLAY QUEUE" right:nil
+                MGLine *layoutLine = [MGLine lineWithLeft:@"UP NEXT" right:nil
                                                      size:(CGSize){self.view.frame.size.width, 44}];
                 layoutLine.leftPadding = layoutLine.rightPadding = 16;
                 layoutLine.font = [UIFont fontWithName:@"HelveticaNeue" size:12.0f];
@@ -285,7 +309,8 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self updateCurrentPlayBack];
         [_scroller layout];
         [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
-        isLoading = false;
+        lastUpdated = parseUpdatedTime;
+        isLoading = NO;
     }];
         
     }
@@ -297,10 +322,9 @@ const CGFloat kCommentCellHeight = 50.0f;
     VideoModel *video = [self.currentLibrary objectAtIndex:0];
     VideoModel *currentSong = [[MediaManager sharedInstance] getCurrentlyPlaying];
     JukeboxEntry *currentJukeBox = [[MediaManager sharedInstance] currentJukebox];
-    if([currentSong.videoId isEqualToString:video.videoId] != true || currentJukeBox == nil){
+    if(![currentSong.videoId isEqualToString:video.videoId] && [jukeboxEntry.authorId isEqualToString:currentJukeBox.authorId]){
         [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:0];
         [[MediaManager sharedInstance] playWithVideo:video];
-        [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
         [self adjustScrollViewToPlayer];
     }
 }
@@ -333,7 +357,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 
       //  _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
         
-        if(delta < 32){
+        if(delta < 64){
             _textLabel.alpha = 1.0f;
             _userLabel.alpha = 1.0f;
             queue.alpha = 1.0f;
@@ -352,7 +376,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 
             
         }
-        if(delta > 64){
+        if(delta > 128){
             queue.alpha = _textLabel.alpha;
             dismissButton.alpha = _textLabel.alpha;
         }
@@ -396,6 +420,9 @@ const CGFloat kCommentCellHeight = 50.0f;
         }
         
     }
+
+
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -408,6 +435,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 {
     [super viewDidLoad];
     [self loadSongs];
+    timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
 	// Do any additional setup after loading the view.
 }
 
@@ -429,13 +457,6 @@ const CGFloat kCommentCellHeight = 50.0f;
     [playerBar addGestureRecognizer:playerTap];
     [self adjustScrollViewToPlayer];
     [self.view addSubview:playerBar];
-    
-    //[self loadSongs];
-    NSString *currentUser = [[PFUser currentUser] objectId];
-    NSString *jukeUser = jukeboxEntry.authorId;
-    if(![currentUser isEqualToString: jukeUser]){
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
-    }
     
 }
 -(void) adjustScrollViewToPlayer{

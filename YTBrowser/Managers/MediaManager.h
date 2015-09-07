@@ -28,6 +28,6 @@
 -(void) skipToPrevSong;
 
 
-
+@property(nonatomic, strong) NSTimer *jukeboxTimer;
 @property(nonatomic, strong) JukeboxEntry* currentJukebox;
 @end
