@@ -1,9 +1,8 @@
 CLANG_CXX_LANGUAGE_STANDARD = c++11
 CLANG_CXX_LIBRARY = libc++
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AMScrollingNavbar" "${PODS_ROOT}/Headers/Public/EstimoteSDK" "${PODS_ROOT}/Headers/Public/INTULocationManager" "${PODS_ROOT}/Headers/Public/RESideMenu" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/VBFPopFlatButton" "${PODS_ROOT}/Headers/Public/pop" "${PODS_ROOT}/Headers/EstimoteSDK"
-LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/EstimoteSDK" "$(PODS_ROOT)/EstimoteSDK/EstimoteSDK"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/EstimoteSDK" $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/AMScrollingNavbar" "${PODS_ROOT}/Headers/Public/EstimoteSDK" "${PODS_ROOT}/Headers/Public/INTULocationManager" "${PODS_ROOT}/Headers/Public/RESideMenu" "${PODS_ROOT}/Headers/Public/SVProgressHUD" "${PODS_ROOT}/Headers/Public/VBFPopFlatButton" "${PODS_ROOT}/Headers/Public/pop" "${PODS_ROOT}/Headers/EstimoteSDK"
+LIBRARY_SEARCH_PATHS = "$(PODS_ROOT)/EstimoteSDK" "$(PODS_ROOT)/EstimoteSDK" "$(PODS_ROOT)/EstimoteSDK/EstimoteSDK"
 OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/AMScrollingNavbar" -isystem "${PODS_ROOT}/Headers/Public/EstimoteSDK" -isystem "${PODS_ROOT}/Headers/Public/INTULocationManager" -isystem "${PODS_ROOT}/Headers/Public/RESideMenu" -isystem "${PODS_ROOT}/Headers/Public/SVProgressHUD" -isystem "${PODS_ROOT}/Headers/Public/VBFPopFlatButton" -isystem "${PODS_ROOT}/Headers/Public/pop"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"EstimoteSDK" -l"Pods-AMScrollingNavbar" -l"Pods-INTULocationManager" -l"Pods-RESideMenu" -l"Pods-SVProgressHUD" -l"Pods-VBFPopFlatButton" -l"Pods-pop" -l"c++" -framework "CoreLocation" -framework "Foundation" -framework "MobileCoreServices" -framework "QuartzCore" -framework "SystemConfiguration" -framework "UIKit"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+OTHER_LDFLAGS = $(inherited) -ObjC -l"AMScrollingNavbar" -l"EstimoteSDK" -l"INTULocationManager" -l"RESideMenu" -l"SVProgressHUD" -l"VBFPopFlatButton" -l"c++" -l"pop" -framework "CoreLocation" -framework "Foundation" -framework "MobileCoreServices" -framework "QuartzCore" -framework "SystemConfiguration" -framework "UIKit"
 PODS_ROOT = ${SRCROOT}/Pods
