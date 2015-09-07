@@ -143,6 +143,7 @@
         [entry setImageURL:j[@"image"]];
         [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
         [entry setObjectId:j.objectId];
+        [entry setAuthorId: j[@"userId"]];
         PFGeoPoint *gp = j[@"location"];
         if(gp){
             entry.location = CLLocationCoordinate2DMake(gp.latitude, gp.longitude);

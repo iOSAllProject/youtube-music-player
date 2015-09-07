@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTTemperatureRule.h
+../../../EstimoteSDK/EstimoteSDK/Headers/ESTTemperatureRule.h

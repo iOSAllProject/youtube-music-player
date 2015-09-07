@@ -28,8 +28,6 @@ static MediaManager *sharedInstance = nil;
     UISlider *slider;
     AVQueuePlayer *audioStremarPlayer;
     
-    
-    
     BOOL AUDIO_ENABLED;
     
 }
@@ -328,8 +326,36 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         self.videoPlayerViewController.videoIdentifier = nextSong.videoId;
         [videoPlayer updatePlayerTrack];
         [self updateMiniPlayer:nextSong];
+        NSString *currentUser = [[PFUser currentUser] objectId];
+        if([self.currentJukebox.authorId isEqualToString:currentUser])
+            [self updateJukebox];
         NSLog(@"%@", nextSong.title);
     }
+}
+
+-(void) updateJukebox {
+    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+    [query getObjectInBackgroundWithId:self.currentJukebox.objectId block:^(PFObject *jukebox, NSError *error) {
+        NSLog(@"%@", jukebox);
+        
+        PFObject *lastPlayed = jukebox[@"playQueue"][0];
+        if(lastPlayed != nil){
+            [jukebox addObject:lastPlayed forKey:@"playedSongs"];
+            [jukebox removeObject:lastPlayed forKey:@"playQueue"];
+        }
+        [jukebox saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+
+            if(succeeded){
+                
+            }
+            else{
+                
+            }
+            
+        }];
+        
+    }];
+
 }
 
 - (void) observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

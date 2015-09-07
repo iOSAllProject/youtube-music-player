@@ -6,6 +6,7 @@
 #import "XCDYouTubeKit.h"
 #import "AppConstant.h"
 #import <QuartzCore/QuartzCore.h>
+#import "JukeboxEntry.h"
 @interface MediaManager : NSObject{
     
 }
@@ -26,4 +27,7 @@
 -(void) skipToNextSong;
 -(void) skipToPrevSong;
 
+
+
+@property(nonatomic, strong) JukeboxEntry* currentJukebox;
 @end

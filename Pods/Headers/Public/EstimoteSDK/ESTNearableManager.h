@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTNearableManager.h
+../../../EstimoteSDK/EstimoteSDK/Headers/ESTNearableManager.h

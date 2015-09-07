@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTDateRule.h
+../../../EstimoteSDK/EstimoteSDK/Headers/ESTDateRule.h

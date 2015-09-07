@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTTrigger.h
+../../../EstimoteSDK/EstimoteSDK/Headers/ESTTrigger.h

@@ -258,9 +258,10 @@ const CGFloat kCommentCellHeight = 50.0f;
                 
                 [self addHeart];
                 JukeboxEntry *entry = [self createJukeBoxEntry:jukebox];
-                if(entry.authorId == [[PFUser currentUser] objectId]){
-                [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
-               // [[MediaManager sharedInstance] setJukeBox:jukeboxEntry];
+                NSString *authorId = entry.authorId;
+                NSString *currentUser =[[PFUser currentUser] objectId];
+                if([authorId isEqualToString:currentUser]){
+                    [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
                     [[MediaManager sharedInstance] playWithVideo:video];
                     [self adjustScrollViewToPlayer];
                 }
@@ -272,7 +273,8 @@ const CGFloat kCommentCellHeight = 50.0f;
             //add the box
             [_scroller.boxes addObject:box];
         }
-        
+        //update the current song
+        [self updateCurrentPlayBack];
         [_scroller layout];
         [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
 
@@ -281,7 +283,13 @@ const CGFloat kCommentCellHeight = 50.0f;
 
     
 }
-
+-(void) updateCurrentPlayBack {
+    VideoModel *video = [self.currentLibrary objectAtIndex:0];
+    [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:0];
+    [[MediaManager sharedInstance] playWithVideo:video];
+    [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
+    [self adjustScrollViewToPlayer];
+}
 
 -(JukeboxEntry*) createJukeBoxEntry: (PFObject *) pf{
     JukeboxEntry *jbe = [[JukeboxEntry alloc] init];

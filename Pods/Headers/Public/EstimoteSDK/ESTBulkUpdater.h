@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTBulkUpdater.h
+../../../EstimoteSDK/EstimoteSDK/Headers/ESTBulkUpdater.h

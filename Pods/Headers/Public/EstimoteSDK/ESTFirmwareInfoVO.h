@@ -1,1 +1,1 @@
-../../../EstimoteSDK/EstimoteSDK/EstimoteSDK.framework/Versions/A/Headers/ESTFirmwareInfoVO.h
+../../../EstimoteSDK/EstimoteSDK/Headers/ESTFirmwareInfoVO.h
