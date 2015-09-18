@@ -55,20 +55,28 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     if (self) {
         self.videoId = videoId;
         self.title = title;
-
+        
         backgroundColor = [UIColor whiteColor];
         textColor = [UIColor blackColor];
         self.view.backgroundColor = backgroundColor;//RGB(34,34,34);
+        
+        UIView *blurView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)];
+        blurView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7f];
+        [self.view addSubview:blurView];
         CGFloat topPaddingBar = 170.0;
         playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
         [playerBg setBackgroundColor:[UIColor blackColor]];
         playerContainer = [[UIView alloc] initWithFrame:CGRectMake(0, playerBg.frame.size.height/2 - 211/2, self.view.frame.size.width, 211)];
         UIView *topView = [[UIView alloc] initWithFrame:playerContainer.frame];
         // adding to subview
+        
+        
         [self.view addSubview:playerBg];
         [self.view addSubview:playerContainer];
         [self.view addSubview:topView];
 
+        
+        
         CGFloat h_padding = 10.0;
         CGFloat time_size = 40.0;
         CGFloat bar_size = self.view.frame.size.width;
@@ -322,7 +330,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     
     //[player.moviePlayer setControlStyle:MPMovieControlStyleNone];
 
-    //backgroundImage.image = [self blurredImageWithImage:[UIImage imageNamed:@"Stars"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[self blurredImageWithImage:[UIImage imageNamed:@"Stars"]]];
     
 }
 

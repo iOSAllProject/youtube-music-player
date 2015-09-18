@@ -26,8 +26,10 @@
 - (void)updatePlayerState:(NSString *) state;
 -(void) skipToNextSong;
 -(void) skipToPrevSong;
-
+-(void) updateJukeboxPlayState;
 
 @property(nonatomic, strong) NSTimer *jukeboxTimer;
 @property(nonatomic, strong) JukeboxEntry* currentJukebox;
+@property(nonatomic,strong)     MPMoviePlayerController *mPlayer;
+@property BOOL userPaused;
 @end

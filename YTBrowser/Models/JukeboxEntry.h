@@ -16,5 +16,7 @@
 @property (nonatomic, strong) NSString *imageURL;
 @property (nonatomic, strong) NSArray *songs;
 @property (nonatomic, strong) NSString *currentlyPlaying;
+@property  NSInteger elapsedTime;
+@property  BOOL isPlaying;
 @property  (nonatomic, readwrite) CLLocationCoordinate2D location;
 @end

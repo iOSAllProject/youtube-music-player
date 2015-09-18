@@ -96,7 +96,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     //bottom music player constants
     CGFloat barHeight = 40.0f;
     CGFloat barWidth = self.view.frame.size.width;
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     CGFloat imageSize = 100.0f;
     searchIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width/2 - imageSize/2, self.view.frame.size.height/2 - imageSize, imageSize, imageSize)];
@@ -257,6 +257,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
                     scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
                     playerBar.hidden =  NO;
                 }
+                [[MediaManager sharedInstance] setCurrentJukebox: nil];
                 [[MediaManager sharedInstance] setPlaylist:currentLibrary andSongIndex:i];
                 [[MediaManager sharedInstance] playWithVideo:video];
             } else {
@@ -422,7 +423,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
                 [SVProgressHUD dismiss];
             });
             if(succeeded){
-                [self popViewController:nil];
+           //     [self popViewController:nil];
             }
             else{
                 //  [self displayAlertView:[error localizedDescription] withTitle: @"Something went wrong."];

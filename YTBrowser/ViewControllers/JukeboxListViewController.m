@@ -56,7 +56,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     list = true;
-
+    self.view.backgroundColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"JUKEBOXES";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];

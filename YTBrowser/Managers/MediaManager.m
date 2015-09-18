@@ -1,7 +1,8 @@
 #import "MediaManager.h"
 #import "MPMoviePlayerController+BackgroundPlayback.h"
 #import "AppConstant.h"
-
+#import "UIImage+ImageEffects.h"
+#import "UIView+GradientMask.h"
 
 static MediaManager *sharedInstance = nil;
 
@@ -20,7 +21,7 @@ static MediaManager *sharedInstance = nil;
     UILabel *pLabel;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
-    MPMoviePlayerController *mPlayer;
+
     MediaPlayerViewController *videoPlayer;
     NSArray *currentPlaylist;
     NSMutableSet *songsInLibrary;
@@ -53,11 +54,11 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 -(void)initializeVideoPlayer:(UIView *) playerView{
    // [self player];
     miniPlayer = playerView;
-
+    self.userPaused = NO;
     AUDIO_ENABLED = NO;
     miniPlayer.backgroundColor = [UIColor blackColor];//[UIColor colorWithPatternImage:[UIImage imageNamed:@"player_bar"]];
     UIVisualEffect *blurEffect;
-    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
     
     UIVisualEffectView *visualEffectView;
     visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
@@ -73,7 +74,14 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     miniPlayer.layer.shadowOffset = CGSizeMake(3, -1);
     miniPlayer.layer.shadowOpacity = 0.5f;
     miniPlayer.layer.shadowPath = shadowPath.CGPath;
+    UIView *playerBlackFilter = [[UIView alloc] initWithFrame: CGRectMake(0, 0, miniPlayer.frame.size.width, miniPlayer.frame.size.height)];
+    playerBlackFilter.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+    [miniPlayer addSubview:playerBlackFilter];
     
+    
+    
+    CGFloat ACTION_LENGTH = 26.0;
+    CGFloat ACTION_PADDING = miniPlayer.frame.size.height/2 - ACTION_LENGTH/2;
     CGFloat TITLE_HEIGHT = 30.0;
     CGFloat TITLE_WIDTH =  miniPlayer.frame.size.width-120;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
@@ -84,15 +92,16 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     pLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
     pLabel.numberOfLines = 0;
     pLabel.textAlignment = NSTextAlignmentCenter;
-    pLabel.layer.shadowColor = [pLabel.textColor CGColor];
+    pLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
     pLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
     pLabel.layer.shadowRadius = 3.0;
     pLabel.layer.shadowOpacity = 0.5;
+    
+    
+    
+    
     [miniPlayer addSubview:pLabel];
-
-
-    CGFloat ACTION_LENGTH = 26.0;
-    CGFloat ACTION_PADDING = miniPlayer.frame.size.height/2 - ACTION_LENGTH/2;
+    
 
     
     pAction = [[UIImageView alloc] init];
@@ -160,10 +169,10 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         [self.videoPlayerViewController addObserver:self forKeyPath:@"moviePlayer.contentURL" options:(NSKeyValueObservingOptions)0 context:MoviePlayerContentURLContext];
         
         
-        [mPlayer setControlStyle:MPMovieControlStyleNone];
+        [self.mPlayer setControlStyle:MPMovieControlStyleNone];
         
-        mPlayer.view.hidden = YES;
-        mPlayer = self.videoPlayerViewController.moviePlayer;
+        self.mPlayer.view.hidden = YES;
+        self.mPlayer = self.videoPlayerViewController.moviePlayer;
         self.videoPlayerViewController.moviePlayer.backgroundPlaybackEnabled = YES;
         [self.videoPlayerViewController.moviePlayer setShouldAutoplay:YES];
         [self.videoPlayerViewController.moviePlayer prepareToPlay];
@@ -252,8 +261,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
 -(void) updateMiniPlayer: (VideoModel *) video {
     pLabel.text = video.title;
-    //NSURL *url = [NSURL URLWithString:video.thumbnail];
-    //[self loadThumbnailImage:url];
+    NSURL *url = [NSURL URLWithString:video.thumbnail];
+    [self loadThumbnailImage:url];
     pAction.image = nil;
     [statusSpinner startAnimating];
     
@@ -267,33 +276,52 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         NSData *data = [NSData dataWithContentsOfURL:url];
         UIImage *img = [[UIImage alloc] initWithData:data];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [miniPlayer setBackgroundColor:[UIColor colorWithPatternImage:img]];
-            UIVisualEffect *blurEffect;
-            blurEffect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
-            
-            UIVisualEffectView *visualEffectView;
-            visualEffectView = [[UIVisualEffectView alloc] initWithEffect:blurEffect];
-            visualEffectView.frame = miniPlayer.frame;
-            [miniPlayer addSubview:visualEffectView];
+
+            UIImage *imgBlur = [self croppIngimageByImageName:img toRect:CGRectMake(0,180,miniPlayer.frame.size.width, miniPlayer.frame.size.height)];
+            UIImage *blurredImg = [imgBlur applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0.0 alpha:0.0] saturationDeltaFactor:1.8 maskImage:nil];
+            miniPlayer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+            miniPlayer.backgroundColor = [UIColor colorWithPatternImage:blurredImg];
             
             
         });
     });
 }
+- (UIImage *)croppIngimageByImageName:(UIImage *)imageToCrop toRect:(CGRect)rect
+{
+    //CGRect CropRect = CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height+15);
+    
+    CGImageRef imageRef = CGImageCreateWithImageInRect([imageToCrop CGImage], rect);
+    UIImage *cropped = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    
+    return cropped;
+}
 
 -(void)miniPlayerActionListener{
+    
     if(isPlaying){
-        [mPlayer pause];
+        self.currentJukebox.isPlaying = NO;
+        self.userPaused = YES;
+        [self.mPlayer pause];
     } else {
-        [mPlayer play];
+        self.currentJukebox.isPlaying = YES;
+        self.userPaused = NO;
+        [self.mPlayer play];
     }
+    if(self.currentJukebox){
+        
+        NSString *currentUser =[[PFUser currentUser] objectId];
+        if([currentUser isEqualToString:self.currentJukebox.authorId])
+            [self updateJukeboxPlayState];
+    }
+    
 }
 
 - (void)updatePlayerState:(NSString *) state {
     if([state isEqualToString:PLAY]){
-        [mPlayer play];
+        [self.mPlayer play];
     } else if([state isEqualToString:PAUSE]){
-        [mPlayer pause];
+        [self.mPlayer pause];
     }
 }
 
@@ -328,20 +356,37 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         [self updateMiniPlayer:nextSong];
         NSString *currentUser = [[PFUser currentUser] objectId];
         if([self.currentJukebox.authorId isEqualToString:currentUser])
-            [self updateJukebox];
+            [self updateJukeboxSong];
         NSLog(@"%@", nextSong.title);
     }
 }
 
--(void) updateJukebox {
+
+-(void) updateJukeboxSong {
+    [self updateJukeboxForSong: YES andState:NO];
+    
+}
+-(void) updateJukeboxPlayState {
+    [self updateJukeboxForSong: NO andState:YES];
+}
+
+-(void) updateJukeboxForSong:(BOOL) song andState:(BOOL) state{
     PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
     [query getObjectInBackgroundWithId:self.currentJukebox.objectId block:^(PFObject *jukebox, NSError *error) {
-        NSLog(@"%@", jukebox);
-        
-        PFObject *lastPlayed = jukebox[@"playQueue"][0];
-        if(lastPlayed != nil){
-            [jukebox addObject:lastPlayed forKey:@"playedSongs"];
-            [jukebox removeObject:lastPlayed forKey:@"playQueue"];
+       // NSLog(@"%@", jukebox);
+        if(state){
+            
+            [jukebox setValue:[NSNumber numberWithBool:self.currentJukebox.isPlaying]  forKey:@"isPlaying" ];
+            NSInteger elapsed = (NSInteger)self.mPlayer.currentPlaybackTime;
+            [jukebox setValue:@(elapsed) forKey:@"time"];
+            
+        } else if(song){
+            PFObject *lastPlayed = jukebox[@"playQueue"][0];
+            if(lastPlayed != nil){
+                [jukebox addObject:lastPlayed forKey:@"playedSongs"];
+                [jukebox removeObject:lastPlayed forKey:@"playQueue"];
+            }
+            [jukebox setValue:@0 forKey:@"time"];
         }
         [jukebox saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
 
@@ -423,26 +468,29 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
                                                object:nil];
 
-    [self updateMiniPlayerState:mPlayer.playbackState];
+    [self updateMiniPlayerState:self.mPlayer.playbackState];
     
 }
 
 - (void)MPMoviePlayerPlaybackStateDidChange:(NSNotification *)notification
 {
-    if([mPlayer.view isHidden])
-       [mPlayer.view setHidden:NO];
-    [self updateMiniPlayerState:mPlayer.playbackState];
-    [videoPlayer updatePlayerState:mPlayer.playbackState];
+    if([self.mPlayer.view isHidden])
+       [self.mPlayer.view setHidden:NO];
+    [self updateMiniPlayerState:self.mPlayer.playbackState];
+    [videoPlayer updatePlayerState:self.mPlayer.playbackState];
     
 }
 
 - (void)MPMoviePlayerLoadStateDidChange:(NSNotification *)notification
 {
-    if((mPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable)
+    if((self.mPlayer.loadState & MPMovieLoadStatePlayable) == MPMovieLoadStatePlayable)
     {
         [videoPlayer hideVideoSpinner];
 
         [statusSpinner stopAnimating];
+        if(self.currentJukebox){
+            [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime];
+        }
         
     } else {
         
@@ -494,8 +542,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         d = (NSInteger) CMTimeGetSeconds(audioStremarPlayer.currentItem.duration);
         c = (NSInteger) CMTimeGetSeconds(audioStremarPlayer.currentItem.currentTime);
     } else {
-        d = (NSInteger) mPlayer.duration;
-        c =(NSInteger)  mPlayer.currentPlaybackTime;
+        d = (NSInteger) self.mPlayer.duration;
+        c =(NSInteger)  self.mPlayer.currentPlaybackTime;
     }
 
     if(d < 0 ){

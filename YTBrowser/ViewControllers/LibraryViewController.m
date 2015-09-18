@@ -17,7 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
     titleLabel.text = @"MY MUSIC";
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
@@ -79,6 +79,7 @@
                 scroller.frame = (CGRect){0,0,self.view.frame.size.width, self.view.frame.size.height-44};
                 playerBar.hidden= NO;
             }
+            [[MediaManager sharedInstance] setCurrentJukebox: nil];
             [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:counter];
             [[MediaManager sharedInstance] playWithVideo:video];
            

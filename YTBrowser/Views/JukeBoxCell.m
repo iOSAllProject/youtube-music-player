@@ -66,7 +66,7 @@
     // BOOL isBgLight =[self isLightColor:self.backgroundColor];
     CGFloat hPadding = 10;
     CGFloat vPadding = 5;
-    CGFloat titleSize = 20;
+    CGFloat titleSize = 22;
     CGFloat authorSize = 17;
     CGFloat songSize = 17;
     CGFloat allTextSize = titleSize + authorSize + songSize + 2*vPadding;
