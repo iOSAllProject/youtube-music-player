@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import <INTULocationManager/INTULocationManager.h>
 #import "MapPin.h"
+
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define TOTAL_IMAGES           28
 #define IPHONE_INITIAL_IMAGES  28
@@ -93,13 +94,11 @@
     
     // i'll be using this a lot
     arrow = [UIImage imageNamed:@"arrow"];
-    
-    // setup the main scroller (using a grid layout)
-    scroller.contentLayoutMode = MGLayoutGridStyle;
-    scroller.bottomPadding = 8;
+
     
     // iPhone or iPad grid?
     CGSize photosGridSize = CGSizeMake(self.view.frame.size.width,0);
+    [self enabledPullToRefresh:scroller];
     
     // the photos grid
     photosGrid = [MGBox boxWithSize:photosGridSize];
@@ -113,26 +112,44 @@
     
     tablesGrid.contentLayoutMode = MGLayoutGridStyle;
     [scroller.boxes addObject:tablesGrid];
-
-        PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
-        [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-            if (!error) {
-                // The find succeeded.
-                NSLog(@"Successfully retrieved %d jukeboxes.", objects.count);
-                // Do something with the found objects
-                [self createJukeboxListView:objects];
-            } else {
-                // Log details of the failure
-                NSLog(@"Error: %@ %@", error, [error userInfo]);
-            }
-        }];
+    [self loadDatas];
+ 
     
 
     
     
 
 }
+- (void)loadDatas
+{
+    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+    [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            // The find succeeded.
+            NSLog(@"Successfully retrieved %d jukeboxes.", objects.count);
+            // Do something with the found objects
+            [self createJukeboxListView:objects];
+            [self endRefresh];
+        } else {
+            // Log details of the failure
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
+}
 
+- (void)endRefresh
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.pullToRefreshView.isRefreshing) {
+            [self.pullToRefreshView endRefresh];
+        }
+        
+        if (self.loadMoreView.isRefreshing) {
+            [self.loadMoreView endRefresh];
+        }
+        
+    });
+}
 -(void) createJukeboxListView: (NSArray *) jukeboxes {
     _jukeboxes = [[NSMutableArray alloc] init];
     _jukeboxCells = [[NSMutableArray alloc] init];
@@ -153,12 +170,13 @@
         [_jukeboxes addObject:entry];
         [_jukeboxCells addObject: cell];
     }
-    animateOnce = YES;
+   
     [photosGrid layout];
     [tablesGrid layout];
     
     //Animate table view rows
-    if(animateOnce){
+    if(!animateOnce){
+         animateOnce = YES;
         for(int i = 0; i <[photosGrid.boxes count]; i++){
             CGFloat tableHeight = scroller.frame.size.height;
             MGBox *box =[photosGrid.boxes objectAtIndex:i];
@@ -173,10 +191,10 @@
             } completion:nil];
         }
         
-        animateOnce = NO;
+        
     }
     
-    //Create map view with jukeboxes
+    //Create map view with jukeboxes©
     [self setupLocationManager];
 }
 

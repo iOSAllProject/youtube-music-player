@@ -19,7 +19,7 @@
 #import <Parse/Parse.h>
 #import "RMSaveButton.h"
 #import "SearchYoutubeViewController.h"
-
+#import "MusicApp-Swift.h"
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define HEADER_HEIGHT 320.0f
@@ -38,6 +38,7 @@ const CGFloat kBlurFadeInFactor = 0.05f;
 const CGFloat kTextFadeOutFactor = 0.007f;
 const CGFloat kCommentCellHeight = 50.0f;
 
+@class PeriscommentView;
 @interface JukeboxPostViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @end
@@ -67,6 +68,8 @@ const CGFloat kCommentCellHeight = 50.0f;
     NSMutableArray *comments;
     NSTimer *timer;
     NSInteger lastUpdated;
+    UIView *liveChatView;
+    PeriscommentView *liveChatMessages;
 }
 
 - (id)initWithJukeBox: (JukeboxEntry*) entry {
@@ -102,6 +105,8 @@ const CGFloat kCommentCellHeight = 50.0f;
         _thumbImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _thumbImageView.layer.cornerRadius = 10;
         _thumbImageView.layer.masksToBounds = YES;
+        
+        
         _textLabel = [[UILabel alloc] initWithFrame:TITLE_INIT_FRAME];
         [_textLabel setText:entry.title];
         [_textLabel setFont:[UIFont fontWithName:@"HelveticaNeue" size:22.0f]];
@@ -197,13 +202,32 @@ const CGFloat kCommentCellHeight = 50.0f;
         queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 30, 25.0, 25.0)];
         [queue setBackgroundImage:[UIImage imageNamed:@"more_juke"] forState:UIControlStateNormal];
         [self.view addSubview:queue];
+
+        
         [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
         [[MediaManager sharedInstance] setUserPaused:NO];
         [self loadSongs];
         timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
         
+        liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];
+        [self.view addSubview:liveChatView];
+        liveChatView.hidden = YES;
+        liveChatMessages =[[PeriscommentView alloc] initWithFrame:liveChatView.frame];
+        [liveChatView addSubview:liveChatMessages];
+        UIButton *closeChatButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 25.0, 25.0)];
+        [closeChatButton addTarget:self
+                          action:@selector(closeChat)
+                forControlEvents:UIControlEventTouchUpInside];
+        [closeChatButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        [liveChatView addSubview:closeChatButton];
+        
     }
     return self;
+}
+
+-(void) closeChat {
+    liveChatView.hidden = YES;
 }
 
 -(void) searchForSong {
@@ -417,7 +441,9 @@ const CGFloat kCommentCellHeight = 50.0f;
         if(delta > 128){
             queue.alpha = _textLabel.alpha;
             dismissButton.alpha = _textLabel.alpha;
+            [self showLiveChat];
         }
+
     } else {
         delta = _mainScrollView.contentOffset.y;
         CGFloat playerBarOffset = 0;//playerBar.isHidden ? 0 : 44;
@@ -535,7 +561,20 @@ const CGFloat kCommentCellHeight = 50.0f;
     [[MediaManager sharedInstance] runInBackground];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
+-(void) showLiveChat {
+    if([liveChatView isHidden]){
+        [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
+        liveChatView.hidden = NO;
+        [self addHeart];
+        
+        [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
+         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
+         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
+         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
+        [_mainScrollView setContentOffset:(CGPointMake(0, 0))];
+    }
+    
+}
 
 - (void)viewWillLayoutSubviews {
     // Your adjustments accd to
@@ -550,7 +589,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 - (void)addHeart {
     UIImageView *heartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth / 2.0 - 14, kScreenHeight - 100, 28, 26)];
     
-    heartImageView.image = [UIImage imageNamed:@"heart"];
+    heartImageView.image = [UIImage imageNamed:@"happy_face"];
     heartImageView.transform = CGAffineTransformMakeScale(0, 0);
     [self.view addSubview:heartImageView];
     

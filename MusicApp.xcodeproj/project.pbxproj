@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		063D1CA3A7D92BA6F78B5005 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246D5FC00FA17C06377F560D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		30358F6D1BAD0E3600C2BB5E /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F641BAD0E3600C2BB5E /* FBKVOController.m */; };
+		30358F6E1BAD0E3600C2BB5E /* JCLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F661BAD0E3600C2BB5E /* JCLoadMoreView.m */; };
+		30358F6F1BAD0E3600C2BB5E /* JCPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F681BAD0E3600C2BB5E /* JCPullToRefreshView.m */; };
+		30358F701BAD0E3600C2BB5E /* UIButton+JCAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F6A1BAD0E3600C2BB5E /* UIButton+JCAdditions.m */; };
+		30358F711BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F6C1BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.m */; };
+		303B8ACE1BAE003300F20BB6 /* PeriscommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303B8ACA1BAE003300F20BB6 /* PeriscommentCell.swift */; };
+		303B8ACF1BAE003300F20BB6 /* PeriscommentMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303B8ACB1BAE003300F20BB6 /* PeriscommentMark.swift */; };
+		303B8AD01BAE003300F20BB6 /* PeriscommentUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303B8ACC1BAE003300F20BB6 /* PeriscommentUtils.swift */; };
+		303B8AD11BAE003300F20BB6 /* PeriscommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 303B8ACD1BAE003300F20BB6 /* PeriscommentView.swift */; };
 		30788D4A1B8A6049002A598C /* PXAlertView+Customization.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D451B8A6049002A598C /* PXAlertView+Customization.m */; };
 		30788D4B1B8A6049002A598C /* PXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D471B8A6049002A598C /* PXAlertView.m */; };
 		30788D4C1B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m in Sources */ = {isa = PBXBuildFile; fileRef = 30788D491B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m */; };
@@ -87,7 +97,6 @@
 		9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F621695DABA00FFE7B9 /* iTunesArtwork */; };
 		9CBC4F701695DAE000FFE7B9 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F6F1695DAE000FFE7B9 /* Icon.png */; };
 		9CBC4F721695DAEA00FFE7B9 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CBC4F711695DAEA00FFE7B9 /* Icon@2x.png */; };
-		A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */; };
 		B7133C8A1B8BB761000BBEB0 /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7133C761B8BB761000BBEB0 /* Configuration.plist */; };
 		B7133C8B1B8BB761000BBEB0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7133C771B8BB761000BBEB0 /* Info.plist */; };
 		B7133C8C1B8BB761000BBEB0 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */ = {isa = PBXBuildFile; fileRef = B7133C791B8BB761000BBEB0 /* MPMoviePlayerController+BackgroundPlayback.m */; };
@@ -103,6 +112,21 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		246D5FC00FA17C06377F560D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30358F631BAD0E3600C2BB5E /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBKVOController.h; path = ../JCPullToRefresh/FBKVOController.h; sourceTree = "<group>"; };
+		30358F641BAD0E3600C2BB5E /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBKVOController.m; path = ../JCPullToRefresh/FBKVOController.m; sourceTree = "<group>"; };
+		30358F651BAD0E3600C2BB5E /* JCLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCLoadMoreView.h; path = ../JCPullToRefresh/JCLoadMoreView.h; sourceTree = "<group>"; };
+		30358F661BAD0E3600C2BB5E /* JCLoadMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCLoadMoreView.m; path = ../JCPullToRefresh/JCLoadMoreView.m; sourceTree = "<group>"; };
+		30358F671BAD0E3600C2BB5E /* JCPullToRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCPullToRefreshView.h; path = ../JCPullToRefresh/JCPullToRefreshView.h; sourceTree = "<group>"; };
+		30358F681BAD0E3600C2BB5E /* JCPullToRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JCPullToRefreshView.m; path = ../JCPullToRefresh/JCPullToRefreshView.m; sourceTree = "<group>"; };
+		30358F691BAD0E3600C2BB5E /* UIButton+JCAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+JCAdditions.h"; path = "../JCPullToRefresh/UIButton+JCAdditions.h"; sourceTree = "<group>"; };
+		30358F6A1BAD0E3600C2BB5E /* UIButton+JCAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIButton+JCAdditions.m"; path = "../JCPullToRefresh/UIButton+JCAdditions.m"; sourceTree = "<group>"; };
+		30358F6B1BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+JCAdditionsPage.h"; path = "../JCPullToRefresh/UIViewController+JCAdditionsPage.h"; sourceTree = "<group>"; };
+		30358F6C1BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+JCAdditionsPage.m"; path = "../JCPullToRefresh/UIViewController+JCAdditionsPage.m"; sourceTree = "<group>"; };
+		303B8ACA1BAE003300F20BB6 /* PeriscommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriscommentCell.swift; path = Periscope/PeriscommentView/PeriscommentCell.swift; sourceTree = SOURCE_ROOT; };
+		303B8ACB1BAE003300F20BB6 /* PeriscommentMark.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriscommentMark.swift; path = Periscope/PeriscommentView/PeriscommentMark.swift; sourceTree = SOURCE_ROOT; };
+		303B8ACC1BAE003300F20BB6 /* PeriscommentUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriscommentUtils.swift; path = Periscope/PeriscommentView/PeriscommentUtils.swift; sourceTree = SOURCE_ROOT; };
+		303B8ACD1BAE003300F20BB6 /* PeriscommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PeriscommentView.swift; path = Periscope/PeriscommentView/PeriscommentView.swift; sourceTree = SOURCE_ROOT; };
 		30788D441B8A6049002A598C /* PXAlertView+Customization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PXAlertView+Customization.h"; sourceTree = "<group>"; };
 		30788D451B8A6049002A598C /* PXAlertView+Customization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PXAlertView+Customization.m"; sourceTree = "<group>"; };
 		30788D461B8A6049002A598C /* PXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAlertView.h; sourceTree = "<group>"; };
@@ -205,6 +229,7 @@
 		30DC883C1B815D2500A7ABD8 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		30DC883D1B815D2500A7ABD8 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		30DC88571B81684200A7ABD8 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		30DD72AC1BACEF2100555F81 /* MusicApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MusicApp-Bridging-Header.h"; sourceTree = "<group>"; };
 		30E201681B5C6E3300D37DA2 /* UIFont+SecretFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+SecretFont.h"; sourceTree = "<group>"; };
 		30E201691B5C6E3300D37DA2 /* UIFont+SecretFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+SecretFont.m"; sourceTree = "<group>"; };
 		30E2016A1B5C6E3300D37DA2 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -273,7 +298,6 @@
 		B71345171B8BBB94000BBEB0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		B71345191B8BBBA3000BBEB0 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		B713451B1B8BBBAA000BBEB0 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
-		E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,13 +330,30 @@
 				9CA624361695927C003F6334 /* CoreText.framework in Frameworks */,
 				9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */,
 				9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */,
-				A939D78D8FB9E486E2BE2F41 /* libPods.a in Frameworks */,
+				063D1CA3A7D92BA6F78B5005 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		30358F721BAD112700C2BB5E /* PullToRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				30358F631BAD0E3600C2BB5E /* FBKVOController.h */,
+				30358F641BAD0E3600C2BB5E /* FBKVOController.m */,
+				30358F651BAD0E3600C2BB5E /* JCLoadMoreView.h */,
+				30358F661BAD0E3600C2BB5E /* JCLoadMoreView.m */,
+				30358F671BAD0E3600C2BB5E /* JCPullToRefreshView.h */,
+				30358F681BAD0E3600C2BB5E /* JCPullToRefreshView.m */,
+				30358F691BAD0E3600C2BB5E /* UIButton+JCAdditions.h */,
+				30358F6A1BAD0E3600C2BB5E /* UIButton+JCAdditions.m */,
+				30358F6B1BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.h */,
+				30358F6C1BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.m */,
+			);
+			path = PullToRefresh;
+			sourceTree = SOURCE_ROOT;
+		};
 		30788D431B8A6049002A598C /* PXAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,6 +471,7 @@
 				30DC87F51B7FD4D900A7ABD8 /* MediaPlayerViewController.m */,
 				30DC87F61B7FD4D900A7ABD8 /* SearchYoutubeViewController.h */,
 				30DC87F71B7FD4D900A7ABD8 /* SearchYoutubeViewController.m */,
+				30DD72AC1BACEF2100555F81 /* MusicApp-Bridging-Header.h */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -613,7 +655,7 @@
 				9CA623DC169591AC003F6334 /* UIKit.framework */,
 				9CA623DE169591AC003F6334 /* Foundation.framework */,
 				9CA623E0169591AC003F6334 /* CoreGraphics.framework */,
-				E1DD4CDDF9DDB5D5B1CE3A84 /* libPods.a */,
+				246D5FC00FA17C06377F560D /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -621,6 +663,11 @@
 		9CA623E2169591AC003F6334 /* YTBrowser */ = {
 			isa = PBXGroup;
 			children = (
+				303B8ACA1BAE003300F20BB6 /* PeriscommentCell.swift */,
+				303B8ACB1BAE003300F20BB6 /* PeriscommentMark.swift */,
+				303B8ACC1BAE003300F20BB6 /* PeriscommentUtils.swift */,
+				303B8ACD1BAE003300F20BB6 /* PeriscommentView.swift */,
+				30358F721BAD112700C2BB5E /* PullToRefresh */,
 				30DC88041B7FD79800A7ABD8 /* Managers */,
 				30DC87FD1B7FD60A00A7ABD8 /* Models */,
 				30DC87ED1B7FD4D900A7ABD8 /* ViewControllers */,
@@ -687,6 +734,7 @@
 				9CA623D5169591AC003F6334 /* Frameworks */,
 				9CA623D6169591AC003F6334 /* Resources */,
 				EC16E190A591410E24B402E4 /* Copy Pods Resources */,
+				CA7E8037DF8376749F19E6B5 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -762,6 +810,21 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		CA7E8037DF8376749F19E6B5 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		EC16E190A591410E24B402E4 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -784,11 +847,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				303B8AD11BAE003300F20BB6 /* PeriscommentView.swift in Sources */,
 				30DC87FA1B7FD4D900A7ABD8 /* LibraryViewController.m in Sources */,
 				B7133C901B8BB761000BBEB0 /* XCDYouTubeVideoOperation.m in Sources */,
 				9CA623E9169591AC003F6334 /* main.m in Sources */,
 				30788D4C1B8A6049002A598C /* UIAlertView+PXAlertViewOverride.m in Sources */,
 				309483141AFF3325005E44B9 /* AHKActionSheetViewController.m in Sources */,
+				30358F6F1BAD0E3600C2BB5E /* JCPullToRefreshView.m in Sources */,
 				30916CE61AF0928B00327CAA /* MGTableBox.m in Sources */,
 				30DC883E1B815D2500A7ABD8 /* LoginViewController.m in Sources */,
 				30916CE71AF0928B00327CAA /* MGTableBoxStyled.m in Sources */,
@@ -799,13 +864,16 @@
 				30916CE01AF0928B00327CAA /* MGBlockWrapper.m in Sources */,
 				30E2017E1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				30DC87F81B7FD4D900A7ABD8 /* LeftMenuViewController.m in Sources */,
+				30358F6D1BAD0E3600C2BB5E /* FBKVOController.m in Sources */,
 				30DC880D1B7FD79800A7ABD8 /* JBCoreDataStack.m in Sources */,
 				B7133C8D1B8BB761000BBEB0 /* XCDYouTubeClient.m in Sources */,
 				30DC88031B7FD60A00A7ABD8 /* Song.m in Sources */,
+				30358F711BAD0E3600C2BB5E /* UIViewController+JCAdditionsPage.m in Sources */,
 				30916CDF1AF0928B00327CAA /* UIView+MGEasyFrame.m in Sources */,
 				30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */,
 				9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */,
 				309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */,
+				303B8AD01BAE003300F20BB6 /* PeriscommentUtils.swift in Sources */,
 				30DC880C1B7FD79800A7ABD8 /* AppDelegate.m in Sources */,
 				30916CE31AF0928B00327CAA /* MGLayoutManager.m in Sources */,
 				30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */,
@@ -813,16 +881,20 @@
 				B7133C8E1B8BB761000BBEB0 /* XCDYouTubePlayerScript.m in Sources */,
 				30916CDE1AF0928B00327CAA /* NSObject+MGEvents.m in Sources */,
 				9C9BB3B716BAE6AE00C8AB3A /* JSONModelArray.m in Sources */,
+				303B8ACF1BAE003300F20BB6 /* PeriscommentMark.swift in Sources */,
 				30DC87EC1B7FD45800A7ABD8 /* VoteCell.m in Sources */,
 				B7133C8F1B8BB761000BBEB0 /* XCDYouTubeVideo.m in Sources */,
 				9C9BB3B816BAE6AE00C8AB3A /* JSONModelClassProperty.m in Sources */,
+				30358F701BAD0E3600C2BB5E /* UIButton+JCAdditions.m in Sources */,
 				3096DF8F1B78459800031465 /* RMSaveButton.m in Sources */,
 				30E201711B5C6E3300D37DA2 /* UIFont+SecretFont.m in Sources */,
 				309483161AFF3325005E44B9 /* UIWindow+AHKAdditions.m in Sources */,
+				303B8ACE1BAE003300F20BB6 /* PeriscommentCell.swift in Sources */,
 				3093C0C41B09793C00EEC6F7 /* CarbonSwipeRefresh.m in Sources */,
 				30788D4A1B8A6049002A598C /* PXAlertView+Customization.m in Sources */,
 				9C9BB3B916BAE6AE00C8AB3A /* JSONModelError.m in Sources */,
 				309483131AFF3325005E44B9 /* AHKActionSheet.m in Sources */,
+				30358F6E1BAD0E3600C2BB5E /* JCLoadMoreView.m in Sources */,
 				9C9BB3BA16BAE6AE00C8AB3A /* NSArray+JSONModel.m in Sources */,
 				30788D4B1B8A6049002A598C /* PXAlertView.m in Sources */,
 				B7133C921B8BB761000BBEB0 /* XCDYouTubeVideoWebpage.m in Sources */,
@@ -920,6 +992,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -930,8 +1004,11 @@
 				GCC_PREFIX_HEADER = "YTBrowser/MusicApp-Prefix.pch";
 				INFOPLIST_FILE = "YTBrowser/MusicApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = MusicApp;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "YTBrowser/ViewControllers/MusicApp-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -945,6 +1022,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEFINES_MODULE = YES;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
@@ -958,8 +1037,10 @@
 				GCC_PREFIX_HEADER = "YTBrowser/MusicApp-Prefix.pch";
 				INFOPLIST_FILE = "YTBrowser/MusicApp-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = MusicApp;
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "YTBrowser/ViewControllers/MusicApp-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

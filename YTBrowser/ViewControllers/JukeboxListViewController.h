@@ -19,7 +19,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 #import <MapKit/MKAnnotation.h>
-
-@interface JukeboxListViewController : UIViewController  <CLLocationManagerDelegate, MKMapViewDelegate>
+#import "UIViewController+JCAdditionsPage.h"
+@interface JukeboxListViewController : UIViewController  <CLLocationManagerDelegate, MKMapViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong) MediaPlayerViewController *videoPlayer;
 @end
