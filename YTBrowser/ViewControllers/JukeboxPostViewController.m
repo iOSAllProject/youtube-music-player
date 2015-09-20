@@ -210,12 +210,19 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self loadSongs];
         timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
         
-        liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+        liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44-44)];
         liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];
         [self.view addSubview:liveChatView];
         liveChatView.hidden = YES;
         liveChatMessages =[[PeriscommentView alloc] initWithFrame:liveChatView.frame];
         [liveChatView addSubview:liveChatMessages];
+        
+        writeChatView = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 44 - 44, self.view.frame.size.width, 44)];
+        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, 0, writeChatView.frame.size.width, writeChatView.frame.size.height)];
+        textView.text = @"Say something";
+        [writeChatView addSubview:textView];
+        [liveChatView addSubview:writeChatView];
+
         UIButton *closeChatButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 25.0, 25.0)];
         [closeChatButton addTarget:self
                           action:@selector(closeChat)
@@ -529,6 +536,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         _commentsViewContainer.frame = (CGRect){_commentsViewContainer.frame.origin.x,_commentsViewContainer.origin.y,self.view.frame.size.width, listViewHeight};
 
         _mainScrollView.frame = window.frame;
+        
     } else {
         _scroller.frame = (CGRect){_scroller.frame.origin.x,_scroller.origin.y,self.view.frame.size.width, listViewHeight-44};
         _commentsViewContainer.frame = (CGRect){_commentsViewContainer.frame.origin.x,_commentsViewContainer.origin.y,self.view.frame.size.width, listViewHeight-44};

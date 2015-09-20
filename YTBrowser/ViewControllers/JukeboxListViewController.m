@@ -153,6 +153,8 @@
 -(void) createJukeboxListView: (NSArray *) jukeboxes {
     _jukeboxes = [[NSMutableArray alloc] init];
     _jukeboxCells = [[NSMutableArray alloc] init];
+    [photosGrid.boxes removeAllObjects];
+    
     for (PFObject *j in jukeboxes){
         JukeboxEntry *entry = [[JukeboxEntry alloc] init];
         [entry setTitle:j[@"name"]];
