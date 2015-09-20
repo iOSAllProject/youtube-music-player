@@ -69,6 +69,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     NSTimer *timer;
     NSInteger lastUpdated;
     UIView *liveChatView;
+    UIView *writeChatView;
     PeriscommentView *liveChatMessages;
 }
 

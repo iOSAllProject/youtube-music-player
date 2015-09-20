@@ -488,7 +488,9 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         [videoPlayer hideVideoSpinner];
 
         [statusSpinner stopAnimating];
-        if(self.currentJukebox){
+        
+        NSString *currentUser =[[PFUser currentUser] objectId];
+        if(self.currentJukebox && ![currentUser isEqualToString:self.currentJukebox.authorId] ){
             [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime];
         }
         
