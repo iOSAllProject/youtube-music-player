@@ -24,7 +24,7 @@
 -(void) hideVideoSpinner;
 
 @property (nonatomic, strong) NSString *title;
-
+@property (nonatomic, strong) UIImage *bgImg;
 @property (nonatomic, strong) NSString *videoId;
 
 

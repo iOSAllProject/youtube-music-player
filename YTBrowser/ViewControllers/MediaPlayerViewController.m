@@ -43,6 +43,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     UIActivityIndicatorView *videoSpinner;
     UIView *playerBg;
     UIView *topView;
+    BOOL jukeboxMode;
 }
 @property (nonatomic) int counter;
 
@@ -59,9 +60,10 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         backgroundColor = [UIColor whiteColor];
         textColor = [UIColor blackColor];
         self.view.backgroundColor = backgroundColor;//RGB(34,34,34);
-        
-        UIView *blurView = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)];
+        backgroundImage =[[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)];
+        UIImageView *blurView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)];
         blurView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7f];
+        [self.view addSubview:backgroundImage];
         [self.view addSubview:blurView];
         CGFloat topPaddingBar = 170.0;
         playerBg = [[UIView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, topPaddingBar + 211)];
@@ -94,12 +96,12 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 
         elapsed = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.origin.x+10, slider.frame.origin.y+10.0, time_size, 20.0)];
         elapsed.text = @"0:00";
-        elapsed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
+        elapsed.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
         elapsed.textAlignment = NSTextAlignmentCenter;
         elapsed.textColor = textColor;
         duration = [[UILabel alloc] initWithFrame:CGRectMake(slider.frame.size.width+slider.frame.origin.x-time_size-10, slider.frame.origin.y+10, time_size, 20.0)];
         duration.text = @"0:00";
-        duration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:10.0f];
+        duration.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:12.0f];
         duration.textAlignment = NSTextAlignmentCenter;
         duration.textColor = textColor;
         [self.view addSubview:elapsed];
@@ -123,10 +125,10 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
                 forControlEvents:UIControlEventTouchUpInside];
         [dismissButton setBackgroundImage:[UIImage imageNamed:@"down"] forState:UIControlStateNormal];
         [self.view addSubview:dismissButton];
-
+/*
         UIButton *queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 25, 25.0, 25.0)];
         [queue setBackgroundImage:[UIImage imageNamed:@"minus"] forState:UIControlStateNormal];
-        [self.view addSubview:queue];
+        [self.view addSubview:queue];*/
         player = [[MediaManager sharedInstance] getVideoPlayer];
         [player presentInView:playerContainer];
         [self setupPlayerControls];
@@ -161,6 +163,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 
 - (void) setupPlayerControls {
     
+    
     CGFloat bar_size = self.view.frame.size.width-80;
     
     CGFloat buttonSize = 20.0;
@@ -180,7 +183,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [playButton setTintColor:textColor];
     
     [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet"] forState:UIControlStateNormal];*/
-    VBFPopFlatButton *moreOptions = [[VBFPopFlatButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - buttonSize - 10, self.view.frame.size.height - buttonSize - 10 , buttonSize, buttonSize)   buttonType:buttonSquareType
+    /*VBFPopFlatButton *moreOptions = [[VBFPopFlatButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width - buttonSize - 10, self.view.frame.size.height - buttonSize - 10 , buttonSize, buttonSize)   buttonType:buttonSquareType
                                                                 buttonStyle:buttonRoundedStyle
                                                       animateToInitialState:YES];
     moreOptions.tintColor = [UIColor blackColor];
@@ -189,7 +192,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     [self.view addSubview:moreOptions];
     [moreOptions addTarget:self
                     action:@selector(showMore:)
-          forControlEvents:UIControlEventTouchUpInside];
+          forControlEvents:UIControlEventTouchUpInside];*/
     
     CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,playerSpeed.frame.origin.y - 40, bar_size ,5);
     // sliderAction will respond to the updated slider value
@@ -245,6 +248,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 }
 
 - (void)updateTime:(NSTimer *)timer {
+    if(jukeboxMode) return;
     
     NSInteger d = (NSInteger) mPlayer.duration;
     NSInteger c =(NSInteger)  mPlayer.currentPlaybackTime;
@@ -314,11 +318,27 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     mPlayer = player.moviePlayer;
   //  [self updatePlayerState:mPlayer.playbackState];
   //  titleLabel.text = currentVideo.title;
+    
+    jukeboxMode = [[MediaManager sharedInstance] currentJukebox] != nil;
+    if(jukeboxMode){
+        nextButton.enabled = NO;
+        prevButton.enabled = NO;
+        playerSpeed.hidden = YES;
+        slider.enabled = NO;
+        duration.text = @"Live";
+        elapsed.text = @"-:--";
+    } else {
+        nextButton.enabled = YES;
+        prevButton.enabled = YES;
+        playerSpeed.hidden = NO;
+    }
+    
+    backgroundImage.image = [self blurredImageWithImage:self.bgImg];
 }
 -(void) updatePlayerTrack{
     currentVideo =  [[MediaManager sharedInstance] getCurrentlyPlaying];
     titleLabel.text = currentVideo.title;
-    
+    backgroundImage.image = [self blurredImageWithImage:self.bgImg];
 }
 
 
@@ -330,7 +350,6 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     
     //[player.moviePlayer setControlStyle:MPMovieControlStyleNone];
 
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[self blurredImageWithImage:[UIImage imageNamed:@"Stars"]]];
     
 }
 

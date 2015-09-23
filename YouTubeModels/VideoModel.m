@@ -15,7 +15,9 @@
     return [[JSONKeyMapper alloc] initWithDictionary:@{
             @"snippet.title": @"title",
             @"id.videoId":@"videoId",
-            @"snippet.thumbnails.high.url":@"thumbnail",
+            @"snippet.thumbnails.medium.url":@"thumbnail",
+            @"snippet.thumbnails.high.url":@"largeImg"
+            
             }];
 }
 

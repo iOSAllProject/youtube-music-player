@@ -375,42 +375,45 @@ const CGFloat kCommentCellHeight = 50.0f;
 }
 
 -(void) loadSongs {
-    
-    //if(isLoading) return;
-    JukeboxEntry *playJukebox = [[MediaManager sharedInstance] currentJukebox];
-
-    if((playJukebox != nil && ![jukeboxEntry.objectId isEqualToString:playJukebox.objectId]) || playJukebox == nil){
-        [timer invalidate];
-        return;
-    }
-    if([[MediaManager sharedInstance] userPaused])
-        return;
-    @synchronized(self) {
-        isLoading = YES;
-    //clean the old videos
+    dispatch_async(dispatch_get_main_queue(), ^{
 
 
-    PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
-    [query includeKey:@"playQueue"];
-    //if (lastUpdated != nil)
-     //   [query whereKey:@"updatedAt" greaterThan:lastUpdated];
-    [query getObjectInBackgroundWithId:jukeboxEntry.objectId block:^(PFObject *jukebox, NSError *error) {
-        //NSLog(@"%@", jukebox[@"isPlaying"]);
+        //if(isLoading) return;
+        JukeboxEntry *playJukebox = [[MediaManager sharedInstance] currentJukebox];
 
-        
-        
-        BOOL songChange = [self updatePlaylist: jukebox];
-        //update the current song
-        jukeboxEntry = [self createJukeBoxEntry:jukebox];
-        [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
-        [self updateCurrentPlayBack];
-        if(songChange){
-            [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
+        if((playJukebox != nil && ![jukeboxEntry.objectId isEqualToString:playJukebox.objectId]) || playJukebox == nil){
+            [timer invalidate];
+            return;
         }
-        isLoading = NO;
-    }];
-        
-    }
+        if([[MediaManager sharedInstance] userPaused])
+            return;
+        @synchronized(self) {
+            isLoading = YES;
+        //clean the old videos
+
+
+        PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
+        [query includeKey:@"playQueue"];
+        //if (lastUpdated != nil)
+         //   [query whereKey:@"updatedAt" greaterThan:lastUpdated];
+        [query getObjectInBackgroundWithId:jukeboxEntry.objectId block:^(PFObject *jukebox, NSError *error) {
+            //NSLog(@"%@", jukebox[@"isPlaying"]);
+
+            
+            
+            BOOL songChange = [self updatePlaylist: jukebox];
+            //update the current song
+            jukeboxEntry = [self createJukeBoxEntry:jukebox];
+            [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
+            [self updateCurrentPlayBack];
+            if(songChange){
+                [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
+            }
+            isLoading = NO;
+        }];
+            
+        }
+    });
     
     
 }
