@@ -39,7 +39,7 @@ const CGFloat kTextFadeOutFactor = 0.007f;
 const CGFloat kCommentCellHeight = 50.0f;
 
 @class PeriscommentView;
-@interface JukeboxPostViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface JukeboxPostViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @end
 
@@ -69,7 +69,8 @@ const CGFloat kCommentCellHeight = 50.0f;
     NSTimer *timer;
     NSInteger lastUpdated;
     UIView *liveChatView;
-    UIView *writeChatView;
+    UITextField *textView;
+
     PeriscommentView *liveChatMessages;
 }
 
@@ -210,32 +211,84 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self loadSongs];
         timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
         
-        liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44-44)];
+        liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
         liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];
+        UITapGestureRecognizer *gesRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]; // Declare the Gesture.
+        gesRecognizer.delegate = self;
+        [liveChatView addGestureRecognizer:gesRecognizer]; // Add Gesture to your view.
+
         [self.view addSubview:liveChatView];
         liveChatView.hidden = YES;
-        liveChatMessages =[[PeriscommentView alloc] initWithFrame:liveChatView.frame];
+        liveChatMessages =[[PeriscommentView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height-44-44-5)];
         [liveChatView addSubview:liveChatMessages];
         
-        writeChatView = [[UIView alloc] initWithFrame:CGRectMake(0.0, self.view.frame.size.height - 44 - 44, self.view.frame.size.width, 44)];
-        UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0.0, 0, writeChatView.frame.size.width, writeChatView.frame.size.height)];
-        textView.text = @"Say something";
-        [writeChatView addSubview:textView];
-        [liveChatView addSubview:writeChatView];
 
+        textView = [[UITextField alloc] initWithFrame:CGRectMake(5, self.view.frame.size.height - 44 - 44 - 5, self.view.frame.size.width-10, 44)];
+        textView.placeholder = @"Say something";
+        [textView.layer setCornerRadius:5.0f];
+        textView.textAlignment = UITextAlignmentLeft;          //for text Alignment
+        textView.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0]; // text font
+        textView.adjustsFontSizeToFitWidth = YES;     //adjust the font size to fit width.
+        textView.backgroundColor = [UIColor whiteColor];
+        textView.textColor = [UIColor blackColor];             //text color
+        textView.keyboardType = UIKeyboardTypeAlphabet;        //keyboard type of ur choice
+        textView.returnKeyType = UIReturnKeyDone;              //returnKey type for keyboard
+        textView.delegate = self;
+        UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
+        [textView setLeftViewMode:UITextFieldViewModeAlways];
+        [textView setLeftView:spacerView];
+        
+         [liveChatView addSubview:textView];
         UIButton *closeChatButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 25.0, 25.0)];
         [closeChatButton addTarget:self
                           action:@selector(closeChat)
                 forControlEvents:UIControlEventTouchUpInside];
         [closeChatButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [liveChatView addSubview:closeChatButton];
-        
+       //sa [self.view endEditing:YES];
     }
     return self;
 }
 
+- (void)handleTap:(UITapGestureRecognizer *)gestureRecognizer{
+        [textView resignFirstResponder];
+}
+
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: YES];
+}
+
+
+    
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self animateTextField: textField up: NO];
+}
+
+- (void) animateTextField: (UITextField*) textField up: (BOOL) up
+{
+    const int movementDistance = 220; // tweak as needed
+    const float movementDuration = 0.3f; // tweak as needed
+    
+    int movement = (up ? -movementDistance : movementDistance);
+    
+    [UIView beginAnimations: @"anim" context: nil];
+    [UIView setAnimationBeginsFromCurrentState: YES];
+    [UIView setAnimationDuration: movementDuration];
+    textField.frame = CGRectOffset(textView.frame, 0, movement);
+    liveChatMessages.frame = CGRectOffset(liveChatMessages.frame, 0, movement);
+    [UIView commitAnimations];
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return NO;
+}
 -(void) closeChat {
+    [textView resignFirstResponder];
     liveChatView.hidden = YES;
+    
 }
 
 -(void) searchForSong {
@@ -575,11 +628,16 @@ const CGFloat kCommentCellHeight = 50.0f;
         [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
         liveChatView.hidden = NO;
         [self addHeart];
-        
-        [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
-         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
-         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
-         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Etan likes to shit shoot"];
+        // Delay 2 seconds
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Your music rocks"];
+        });
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Matan" comment:@"ROCK ON!"];
+        });
+
+         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Ori" comment:@"Good stuff"];
+         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Etan" comment:@"Chillstep plis"];
         [_mainScrollView setContentOffset:(CGPointMake(0, 0))];
     }
     
