@@ -237,7 +237,7 @@ static NSString *const suggestionQuery =@"http://suggestqueries.google.com/compl
                                   completion:^(NSDictionary *json, JSONModelError *err) {
                                       
                                       //got JSON back
-                                      NSLog(@"Got JSON from web: %@", json);
+                                      //NSLog(@"Got JSON from web: %@", json);
                                       
                                       if (err) {
                                           [[[UIAlertView alloc] initWithTitle:@"Error"
@@ -277,7 +277,7 @@ static NSString *const suggestionQuery =@"http://suggestqueries.google.com/compl
                                   completion:^(NSDictionary *json, JSONModelError *err) {
                                       
                                       //got JSON back
-                                      NSLog(@"Got JSON from web: %@", json);
+                                    //  NSLog(@"Got JSON from web: %@", json);
                                       NSMutableArray *results = [[NSMutableArray alloc] init];
                                       for (id item in json){
                                           [results addObject:item];

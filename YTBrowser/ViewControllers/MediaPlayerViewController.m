@@ -62,7 +62,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         self.view.backgroundColor = backgroundColor;//RGB(34,34,34);
         backgroundImage =[[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)];
         UIImageView *blurView = [[UIImageView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)];
-        blurView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.7f];
+        blurView.backgroundColor = [[UIColor whiteColor] colorWithAlphaComponent:0.5f];
         [self.view addSubview:backgroundImage];
         [self.view addSubview:blurView];
         CGFloat topPaddingBar = 170.0;
