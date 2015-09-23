@@ -421,7 +421,11 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         [jukebox addObject:mySong forKey:@"playQueue"];
         [jukebox saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [SVProgressHUD dismiss];
+                [SVProgressHUD showSuccessWithStatus:@"Success!"];
+                [SVProgressHUD animateWithDuration:2.0 animations:nil completion:^(BOOL finished) {
+                    [SVProgressHUD dismiss];
+                }];
+
             });
             if(succeeded){
            //     [self popViewController:nil];

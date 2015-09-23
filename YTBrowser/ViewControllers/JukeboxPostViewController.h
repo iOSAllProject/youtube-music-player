@@ -13,4 +13,6 @@
 
 -(id) initWithJukeBox:(JukeboxEntry *) jukeboxEntry;
 @property (nonatomic, strong) NSMutableArray *currentLibrary;
+@property (atomic) BOOL isLiveChatShowing;
+@property (nonatomic, strong) dispatch_queue_t concurrentPhotoQueue;
 @end

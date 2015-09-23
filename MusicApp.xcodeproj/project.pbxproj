@@ -44,6 +44,7 @@
 		309AE31E1B094D1B004CF1E2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 309AE31D1B094D1B004CF1E2 /* CoreData.framework */; };
 		309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 309AE31F1B094D61004CF1E2 /* Model.xcdatamodeld */; };
 		30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */; };
+		30C7F8DE1BB2807200EDC252 /* JukeboxPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88171B7FD9F000A7ABD8 /* JukeboxPostViewController.m */; };
 		30DC87E91B7FD45800A7ABD8 /* JukeBoxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E21B7FD45800A7ABD8 /* JukeBoxCell.m */; };
 		30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E61B7FD45800A7ABD8 /* SongCell.m */; };
 		30DC87EC1B7FD45800A7ABD8 /* VoteCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC87E81B7FD45800A7ABD8 /* VoteCell.m */; };
@@ -59,7 +60,6 @@
 		30DC880E1B7FD79800A7ABD8 /* MediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC880B1B7FD79800A7ABD8 /* MediaManager.m */; };
 		30DC88141B7FD87100A7ABD8 /* VideoLink.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88111B7FD87100A7ABD8 /* VideoLink.m */; };
 		30DC88151B7FD87100A7ABD8 /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88131B7FD87100A7ABD8 /* VideoModel.m */; };
-		30DC88181B7FD9F000A7ABD8 /* JukeboxPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30DC88171B7FD9F000A7ABD8 /* JukeboxPostViewController.m */; };
 		30DC881E1B812E4D00A7ABD8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC881D1B812E4D00A7ABD8 /* AudioToolbox.framework */; };
 		30DC88201B812E5600A7ABD8 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30DC881F1B812E5600A7ABD8 /* CFNetwork.framework */; };
 		30DC88211B812E6000A7ABD8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CA623E0169591AC003F6334 /* CoreGraphics.framework */; };
@@ -902,10 +902,10 @@
 				9C9BB3BB16BAE6AE00C8AB3A /* JSONAPI.m in Sources */,
 				B7133C8C1B8BB761000BBEB0 /* MPMoviePlayerController+BackgroundPlayback.m in Sources */,
 				30DC87EB1B7FD45800A7ABD8 /* SongCell.m in Sources */,
+				30C7F8DE1BB2807200EDC252 /* JukeboxPostViewController.m in Sources */,
 				30DC88141B7FD87100A7ABD8 /* VideoLink.m in Sources */,
 				30916CE41AF0928B00327CAA /* MGLine.m in Sources */,
 				9C9BB3BC16BAE6AE00C8AB3A /* JSONHTTPClient.m in Sources */,
-				30DC88181B7FD9F000A7ABD8 /* JukeboxPostViewController.m in Sources */,
 				30916CE11AF0928B00327CAA /* MGBox.m in Sources */,
 				B7133C911B8BB761000BBEB0 /* XCDYouTubeVideoPlayerViewController.m in Sources */,
 				30DC880E1B7FD79800A7ABD8 /* MediaManager.m in Sources */,

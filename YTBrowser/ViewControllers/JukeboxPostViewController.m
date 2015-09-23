@@ -67,8 +67,9 @@ const CGFloat kCommentCellHeight = 50.0f;
     BOOL isLoading;
     NSMutableArray *comments;
     NSTimer *timer;
-    NSInteger lastUpdated;
     UIView *liveChatView;
+    NSInteger lastUpdated;
+    UIImageView *liveChatBg;
     UITextField *textView;
 
     PeriscommentView *liveChatMessages;
@@ -210,15 +211,21 @@ const CGFloat kCommentCellHeight = 50.0f;
         [[MediaManager sharedInstance] setUserPaused:NO];
         [self loadSongs];
         timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
-        
         liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
-        liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];
+        liveChatBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
+        liveChatBg.image = jukeboxEntry.image;
+        liveChatBg.contentMode = UIViewContentModeScaleAspectFill;
+      //  liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];
+        CGPoint centerImageView = self.view.center;
+        [liveChatBg setCenter:CGPointMake(centerImageView.x, liveChatBg.center.y)];
+        [liveChatView addSubview:liveChatBg];
         UITapGestureRecognizer *gesRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]; // Declare the Gesture.
         gesRecognizer.delegate = self;
         [liveChatView addGestureRecognizer:gesRecognizer]; // Add Gesture to your view.
 
         [self.view addSubview:liveChatView];
-        liveChatView.hidden = YES;
+        self.isLiveChatShowing = NO;
+        [liveChatView setHidden:YES];
         liveChatMessages =[[PeriscommentView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height-44-44-5)];
         [liveChatView addSubview:liveChatMessages];
         
@@ -246,6 +253,10 @@ const CGFloat kCommentCellHeight = 50.0f;
         [closeChatButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [liveChatView addSubview:closeChatButton];
        //sa [self.view endEditing:YES];
+
+           self.concurrentPhotoQueue = dispatch_queue_create("live_chat_loading",DISPATCH_QUEUE_CONCURRENT);
+  
+        
     }
     return self;
 }
@@ -287,7 +298,10 @@ const CGFloat kCommentCellHeight = 50.0f;
 }
 -(void) closeChat {
     [textView resignFirstResponder];
-    liveChatView.hidden = YES;
+    @synchronized(self){
+        self.isLiveChatShowing = NO;
+        [liveChatView setHidden:YES];
+    }
     
 }
 
@@ -494,7 +508,7 @@ const CGFloat kCommentCellHeight = 50.0f;
             _blurImageView.alpha = MIN(1 , 64+delta * kBlurFadeInFactor);
             _userLabel.frame =CGRectMake(CGRectGetMinX(userRect) + delta / 2.0f, CGRectGetMinY(userRect) + delta,CGRectGetWidth(userRect), CGRectGetHeight(userRect));
         } else {
-            NSLog(@"scroll is: %f   delta is: %f ", _mainScrollView.contentOffset.y,delta);
+         //   NSLog(@"scroll is: %f   delta is: %f ", _mainScrollView.contentOffset.y,delta);
                 _blurImageView.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor);
                 _textLabel.alpha = MIN(1.0f, 1.0f - delta * kTextFadeOutFactor)/8;
                 _thumbImageView.alpha = _textLabel.alpha;
@@ -505,7 +519,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         if(delta > 128){
             queue.alpha = _textLabel.alpha;
             dismissButton.alpha = _textLabel.alpha;
-            [self showLiveChat];
+            [self showLiveChat: delta];
         }
 
     } else {
@@ -626,23 +640,32 @@ const CGFloat kCommentCellHeight = 50.0f;
     [[MediaManager sharedInstance] runInBackground];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
--(void) showLiveChat {
-    if([liveChatView isHidden]){
-        [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
-        liveChatView.hidden = NO;
-        [self addHeart];
-        // Delay 2 seconds
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-           [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Your music rocks"];
-        });
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Matan" comment:@"ROCK ON!"];
-        });
+-(void) showLiveChat:(CGFloat) delta {
+    dispatch_sync( self.concurrentPhotoQueue, ^{
+        // Critical section
+       
+        if(!self.isLiveChatShowing && delta != 450){
+             NSLog(@"Delta is %f", delta);
+            [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
+            self.isLiveChatShowing = YES;
+            [liveChatView setHidden:NO];
+            [self addHeart];
+            // Delay 2 seconds
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+               [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Your music rocks"];
+                [self addHeart];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Matan" comment:@"ROCK ON!"];
+                [self addHeart];
+                [self addHeart];
+            });
 
-         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Ori" comment:@"Good stuff"];
-         [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Etan" comment:@"Chillstep plis"];
-        [_mainScrollView setContentOffset:(CGPointMake(0, 0))];
-    }
+             [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Ori" comment:@"Good stuff"];
+             [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Etan" comment:@"Chillstep plis"];
+            [_mainScrollView setContentOffset:(CGPointMake(0, 0))];
+        }
+    });
     
 }
 
