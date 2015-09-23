@@ -16,5 +16,6 @@
 @property (strong, nonatomic) NSString* title;
 @property (strong, nonatomic) NSString *videoId;
 @property (strong, nonatomic) NSString *thumbnail;
+@property (strong, nonatomic) NSString *largeImg;
 
 @end

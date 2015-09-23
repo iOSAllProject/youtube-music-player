@@ -107,7 +107,7 @@
     video.title = song[@"title"];
     video.videoId = song[@"vid"];
     video.thumbnail = song[@"thumbnail"];
-
+    video.largeImg = song[@"largeImg"];
     return video;
 }
 

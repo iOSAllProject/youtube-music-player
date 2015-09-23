@@ -261,7 +261,9 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
 -(void) updateMiniPlayer: (VideoModel *) video {
     pLabel.text = video.title;
-    NSURL *url = [NSURL URLWithString:video.thumbnail];
+    NSURL *url = [NSURL URLWithString:video.largeImg];
+    if(!url)
+        url = [NSURL URLWithString:video.thumbnail];
     [self loadThumbnailImage:url];
     pAction.image = nil;
     [statusSpinner startAnimating];
@@ -281,6 +283,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
             UIImage *blurredImg = [imgBlur applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0.0 alpha:0.0] saturationDeltaFactor:1.8 maskImage:nil];
             miniPlayer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             miniPlayer.backgroundColor = [UIColor colorWithPatternImage:blurredImg];
+            
+            videoPlayer.bgImg = img;
             
             
         });

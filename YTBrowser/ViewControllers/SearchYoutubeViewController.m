@@ -416,6 +416,7 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
         PFObject *mySong = [PFObject objectWithClassName:@"Songs"];
         mySong[@"title"] = song.title;
         mySong[@"thumbnail"] = song.thumbnail;
+        mySong[@"largeImg"] = song.largeImg;
         mySong[@"vid"] = song.videoId;
         [jukebox addObject:mySong forKey:@"playQueue"];
         [jukebox saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
