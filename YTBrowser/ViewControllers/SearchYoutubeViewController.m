@@ -11,11 +11,12 @@
 #import <SVProgressHUD/SVProgressHUD.h>
 #import <Parse/Parse.h>
 static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/search?q=%@&order=relevance&part=snippet&maxResults=50&type=video&key=AIzaSyBfXPGjGR3V49O30aEMk3VPHVwEQQ_XkN8";
-
+static NSString *const suggestionQuery =@"http://suggestqueries.google.com/complete/search?hl=en&ds=yt&client=youtube&hjson=t&cp=1&alt=json&q=%@";
 
 @interface SearchYoutubeViewController () <AMScrollingNavbarDelegate>
 {
     MGScrollView* scroller;
+    MGScrollView *sBox;
     NSArray* videos;
     UISearchBar *searchBar;
     UIView *playerBar;
@@ -23,10 +24,12 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     NSMutableArray *currentLibrary;
     UIImageView *searchIcon;
     UILabel *searchLabel;
-    
+    UIView *shadow;
     JukeboxEntry *_jukeboxEntry;
     //Flag for whether music should be played when a result is clicked on
     BOOL playMusic;
+    
+    
     
 }
 @end
@@ -137,6 +140,23 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     // Stops the scrolling if the content fits inside the frame
     [self setShouldScrollWhenContentFits:NO];
     
+    shadow = [[UIView alloc] initWithFrame:self.view.frame];
+    shadow.backgroundColor = [UIColor blackColor];
+    shadow.alpha = .3;
+    UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideSuggestion)];
+    [shadow addGestureRecognizer:playerTap];
+    
+    
+    [self.view addSubview:shadow];
+    
+    sBox = [[MGScrollView alloc] init];
+    sBox.frame = CGRectMake(0.0, 60.0, self.view.frame.size.width, 220);
+    [sBox setScrollEnabled:NO];
+    [shadow setHidden: YES];
+    [self.view addSubview:sBox];
+    
+
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -145,6 +165,10 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
 }
 
+-(void) hideSuggestion {
+    [sBox setHidden:YES];
+    [shadow setHidden: YES];
+}
 
 -(void) viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
@@ -171,7 +195,17 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     scroller.hidden = YES;
     
 }
+- (void)searchBar:(UISearchBar *)theSearchBar textDidChange:(NSString *)searchText {
 
+    if(searchText == nil || [searchText isEqualToString:@""]){
+        [sBox setHidden:YES];
+        [shadow setHidden: YES];
+        return;
+    }
+    [sBox setHidden:NO];
+    [shadow setHidden: NO];
+    [self searchYoutubeSuggestions:searchText];
+}
 
 -(void) searchClicked:(id) sender{
     searchBar.hidden = NO;
@@ -187,7 +221,9 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 -(void)searchYoutubeVideosForTerm:(NSString*)term
 {
     NSLog(@"Searching for '%@' ...", term);
-    
+    searchIcon.alpha = 0.0;
+    searchLabel.alpha = 0.0;
+    [searchBar resignFirstResponder];
     //URL escape the term
     term = [term stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
@@ -195,8 +231,8 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
     NSString *searchCall2 = [NSString stringWithFormat:searchQuery, term];
     
     NSLog(@"%@", searchCall2);
-    
-    
+    [sBox setHidden:YES];
+    [shadow setHidden: YES];
     [JSONHTTPClient getJSONFromURLWithString: searchCall2
                                   completion:^(NSDictionary *json, JSONModelError *err) {
                                       
@@ -223,6 +259,70 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
                                       [self showVideos];
                                       
                                   }];
+}
+-(void)searchYoutubeSuggestions:(NSString*)term
+{
+    NSLog(@"Searching for '%@' ...", term);
+    
+    //URL escape the term
+    term = [term stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    //make HTTP call
+    NSString *searchCall2 = [NSString stringWithFormat:suggestionQuery, term];
+    
+    NSLog(@"%@", searchCall2);
+    
+    
+    [JSONHTTPClient getJSONFromURLWithString: searchCall2
+                                  completion:^(NSDictionary *json, JSONModelError *err) {
+                                      
+                                      //got JSON back
+                                      NSLog(@"Got JSON from web: %@", json);
+                                      NSMutableArray *results = [[NSMutableArray alloc] init];
+                                      for (id item in json){
+                                          [results addObject:item];
+                                      }
+                                      [self parseSuggestions: [results objectAtIndex:1]];
+                                      if (err) {
+                                          [[[UIAlertView alloc] initWithTitle:@"Error"
+                                                                      message:[err localizedDescription]
+                                                                     delegate:nil
+                                                            cancelButtonTitle:@"Close"
+                                                            otherButtonTitles: nil] show];
+                                          return;
+                                      }
+                                      
+                                      
+                                  }];
+}
+-(void) parseSuggestions:(NSArray *) obj{
+    NSMutableArray *suggestions = [[NSMutableArray alloc] init];
+    for (NSArray *pair in obj){
+        Suggestion *s = [[Suggestion alloc] init];
+        s.value = pair[0];
+        [suggestions addObject:s];
+    }
+    [self showSuggestions:suggestions];
+}
+
+-(void) showSuggestions:(NSArray *) suggestions {
+    if([sBox.boxes count] > 0){
+         [sBox.boxes removeObjectsInRange:NSMakeRange(0, sBox.boxes.count)];
+    }
+    
+    for(Suggestion *s in suggestions){
+        MGLine *line = [MGLine lineWithLeft:s.value right:nil size:(CGSize){self.view.frame.size.width, 44}];
+        line.backgroundColor = [UIColor whiteColor];
+        line.leftPadding = 10;
+        line.rightPadding = 10;
+        line.font =[UIFont fontWithName:@"HelveticaNeue" size:17.0f];
+        line.onTap = ^{
+            searchBar.text = s.value;
+            [self searchYoutubeVideosForTerm:s.value];
+        };
+        [sBox.boxes addObject:line];
+    }
+    [sBox layout];
 }
 
 -(void)showVideos
@@ -290,9 +390,6 @@ static NSString *const searchQuery = @"https://www.googleapis.com/youtube/v3/sea
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    searchIcon.alpha = 0.0;
-    searchLabel.alpha = 0.0;
-    [searchBar resignFirstResponder];
     [self searchYoutubeVideosForTerm:searchBar.text];
 }
 /*

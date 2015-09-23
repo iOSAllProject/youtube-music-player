@@ -18,5 +18,6 @@
 @property (nonatomic, strong) NSString *currentlyPlaying;
 @property  NSInteger elapsedTime;
 @property  BOOL isPlaying;
+@property  NSInteger updatedAt;
 @property  (nonatomic, readwrite) CLLocationCoordinate2D location;
 @end

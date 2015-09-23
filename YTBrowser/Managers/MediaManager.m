@@ -482,6 +482,12 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
        [self.mPlayer.view setHidden:NO];
     [self updateMiniPlayerState:self.mPlayer.playbackState];
     [videoPlayer updatePlayerState:self.mPlayer.playbackState];
+    NSString *currentUser =[[PFUser currentUser] objectId];
+    if(self.currentJukebox && ![currentUser isEqualToString:self.currentJukebox.authorId] ){
+        NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
+        NSInteger diff = currentTime - self.currentJukebox.updatedAt;
+        [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime +diff];
+    }
     
 }
 
@@ -493,10 +499,6 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
         [statusSpinner stopAnimating];
         
-        NSString *currentUser =[[PFUser currentUser] objectId];
-        if(self.currentJukebox && ![currentUser isEqualToString:self.currentJukebox.authorId] ){
-            [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime];
-        }
         
     } else {
         

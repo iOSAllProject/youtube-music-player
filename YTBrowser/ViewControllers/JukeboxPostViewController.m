@@ -476,6 +476,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     jbe.authorId = pf[@"userId"];
     jbe.isPlaying = [pf[@"isPlaying"] boolValue];
     jbe.elapsedTime = [pf[@"time"] integerValue];
+    jbe.updatedAt = [pf.updatedAt timeIntervalSince1970];
     
     return jbe;
     
