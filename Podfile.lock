@@ -1,5 +1,6 @@
 PODS:
   - AMScrollingNavbar (1.3.4)
+  - AutoScrollLabel (0.4.0)
   - EstimoteSDK (2.4.0)
   - INTULocationManager (2.0.2)
   - pop (1.0.7)
@@ -11,6 +12,7 @@ PODS:
 
 DEPENDENCIES:
   - AMScrollingNavbar
+  - AutoScrollLabel
   - EstimoteSDK
   - INTULocationManager
   - RESideMenu (~> 4.0.7)
@@ -29,6 +31,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AMScrollingNavbar: 3318f0cc0fd24c972d5e8c84112edcfe61529506
+  AutoScrollLabel: f4ce01b28ca1ec5d2b39918f05359422de13e6a1
   EstimoteSDK: 6abcf32ed821e6669cf75d62457dded2c0951e7f
   INTULocationManager: 83bec34472a706e178face50a4e5e21ca986b7d2
   pop: 2f14a1ea61339767af9e66741b418c831b3844df
@@ -37,4 +40,4 @@ SPEC CHECKSUMS:
   VBFPopFlatButton: 79ca72185b76c2dff8861263118a8c47ef1c1043
   YXTMotionView: cef229d560c50fc8e4fd2897b3715bec208ac95f
 
-COCOAPODS: 0.37.1
+COCOAPODS: 0.38.2

@@ -285,14 +285,14 @@ static NSString *const suggestionQuery =@"http://suggestqueries.google.com/compl
                                           }
                                           [self parseSuggestions: [results objectAtIndex:1]];
                                       }
-                                      if (err) {
+                                     /* if (err) {
                                           [[[UIAlertView alloc] initWithTitle:@"Error"
                                                                       message:[err localizedDescription]
                                                                      delegate:nil
                                                             cancelButtonTitle:@"Close"
                                                             otherButtonTitles: nil] show];
                                           return;
-                                      }
+                                      }*/
                                       
                                       
                                   }];

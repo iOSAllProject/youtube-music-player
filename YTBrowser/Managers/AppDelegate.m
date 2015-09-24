@@ -129,5 +129,17 @@
     [PFPush handlePush:userInfo];
 }
 
+-(void)remoteControlReceivedWithEvent:(UIEvent *)event{
+    if (event.type == UIEventTypeRemoteControl){
+        switch (event.subtype) {
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                // Toggle play pause
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 
 @end

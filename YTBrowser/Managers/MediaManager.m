@@ -3,7 +3,7 @@
 #import "AppConstant.h"
 #import "UIImage+ImageEffects.h"
 #import "UIView+GradientMask.h"
-
+#import <AutoScrollLabel/CBAutoScrollLabel.h>
 static MediaManager *sharedInstance = nil;
 
 @interface MediaManager (){
@@ -18,7 +18,7 @@ static MediaManager *sharedInstance = nil;
     BOOL isInitialized;
     UIView *miniPlayer;
     //UIImageView *pImage;
-    UILabel *pLabel;
+    CBAutoScrollLabel *pLabel;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
 
@@ -87,16 +87,22 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     CGFloat TITLE_SPACE = (miniPlayer.frame.size.height - TITLE_HEIGHT )/2;
     
 
-    pLabel = [[UILabel alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width/2 - TITLE_WIDTH/2, TITLE_SPACE, TITLE_WIDTH, TITLE_HEIGHT)];
+    pLabel = [[CBAutoScrollLabel alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width/2 - TITLE_WIDTH/2, TITLE_SPACE, TITLE_WIDTH, TITLE_HEIGHT)];
     pLabel.textColor = [UIColor whiteColor];
     pLabel.font = [UIFont fontWithName:@"Helvetica" size:13.0f];
-    pLabel.numberOfLines = 0;
     pLabel.textAlignment = NSTextAlignmentCenter;
     pLabel.layer.shadowColor = [[UIColor blackColor] CGColor];
     pLabel.layer.shadowOffset = CGSizeMake(0.0, 0.0);
     pLabel.layer.shadowRadius = 3.0;
     pLabel.layer.shadowOpacity = 0.5;
-    
+    pLabel.textAlignment = NSTextAlignmentCenter;
+    pLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:15.0f];
+    pLabel.labelSpacing = 30; // distance between start and end labels
+    pLabel.pauseInterval = 1.7; // seconds of pause before scrolling starts again
+    pLabel.scrollSpeed = 30; // pixels per second
+    pLabel.fadeLength = 12.f; // length of the left and right edge fade, 0 to disable
+    pLabel.scrollDirection = CBAutoScrollDirectionLeft;
+    [pLabel observeApplicationNotifications];
     
     
     
@@ -115,7 +121,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     CGFloat buttonPadding = (miniPlayer.frame.size.height - buttonSize)/2;
     UIButton *moreOptions = [[UIButton alloc] initWithFrame:CGRectMake(miniPlayer.frame.size.width-buttonSize-10, buttonPadding, buttonSize, buttonSize)];
     
-    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet_white"] forState:UIControlStateNormal];
+    [moreOptions setBackgroundImage:[UIImage imageNamed:@"internet_white"] forState:UIControlSta©teNormal];
     [miniPlayer addSubview:moreOptions];
     [moreOptions addTarget:self
                     action:nil
@@ -486,6 +492,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     if(self.currentJukebox && ![currentUser isEqualToString:self.currentJukebox.authorId] ){
         NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
         NSInteger diff = currentTime - self.currentJukebox.updatedAt;
+        if(diff < 20)
+            diff = 0;
         [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime +diff];
     }
     

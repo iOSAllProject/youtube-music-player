@@ -11,6 +11,7 @@
 #import "AHKActionSheet.h"
 #import "AppConstant.h"
 #import <VBFPopFlatButton/VBFPopFlatButton.h>
+#import <AutoScrollLabel/CBAutoScrollLabel.h>
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
 #define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
@@ -28,7 +29,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     UIProgressView *progress;
     UILabel *elapsed;
     UILabel *duration;
-    UILabel *titleLabel;
+    CBAutoScrollLabel *titleLabel;
     UIView *playerContainer;
     VideoModel *currentVideo;
     UISlider *slider;
@@ -80,7 +81,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         
         
         CGFloat h_padding = 10.0;
-        CGFloat time_size = 40.0;
+        CGFloat time_size = 50.0;
         CGFloat bar_size = self.view.frame.size.width;
         CGRect frame = CGRectMake((self.view.frame.size.width-bar_size)/2,playerBg.frame.origin.y + playerBg.frame.size.height-2, bar_size ,5);
         // sliderAction will respond to the updated slider value
@@ -110,10 +111,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         //pass song info to video view controller
 
 
-        titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, slider.frame.origin.y + slider.frame.size.height + 40, self.view.frame.size.width-20, 30)];
-        titleLabel.textAlignment = NSTextAlignmentCenter;
-        titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
-        titleLabel.textColor = textColor;
+        titleLabel = [[CBAutoScrollLabel alloc] initWithFrame:CGRectMake(5, slider.frame.origin.y + slider.frame.size.height + 40, self.view.frame.size.width-10, 30)];
 
         [self.view addSubview:titleLabel];
 
@@ -130,7 +128,6 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         [queue setBackgroundImage:[UIImage imageNamed:@"minus"] forState:UIControlStateNormal];
         [self.view addSubview:queue];*/
         player = [[MediaManager sharedInstance] getVideoPlayer];
-        [player presentInView:playerContainer];
         [self setupPlayerControls];
         
         // add a loading spinner
@@ -310,6 +307,9 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
      [[self navigationController] setNavigationBarHidden:YES animated:NO];
 
     player = [[MediaManager sharedInstance] getVideoPlayer];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    [self becomeFirstResponder];
     /*[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(MPMoviePlayerPlaybackStateDidChange:)
                                                  name:MPMoviePlayerPlaybackStateDidChangeNotification
@@ -318,7 +318,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     mPlayer = player.moviePlayer;
   //  [self updatePlayerState:mPlayer.playbackState];
   //  titleLabel.text = currentVideo.title;
-    
+    [player presentInView:playerContainer];
     jukeboxMode = [[MediaManager sharedInstance] currentJukebox] != nil;
     if(jukeboxMode){
         nextButton.enabled = NO;
@@ -331,14 +331,39 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
         nextButton.enabled = YES;
         prevButton.enabled = YES;
         playerSpeed.hidden = NO;
+        slider.enabled = YES;
     }
-    
+    titleLabel.textAlignment = NSTextAlignmentCenter;
+    titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
+    titleLabel.textColor = textColor;
+    titleLabel.labelSpacing = 30; // distance between start and end labels
+    titleLabel.pauseInterval = 1.7; // seconds of pause before scrolling starts again
+    titleLabel.scrollSpeed = 30; // pixels per second
+    titleLabel.fadeLength = 12.f; // length of the left and right edge fade, 0 to disable
+    titleLabel.scrollDirection = CBAutoScrollDirectionLeft;
+    [titleLabel observeApplicationNotifications];
     backgroundImage.image = [self blurredImageWithImage:self.bgImg];
 }
+
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event {
+    switch (event.subtype) {
+        case UIEventSubtypeRemoteControlPlay:
+            [mPlayer play];
+            break;
+        case UIEventSubtypeRemoteControlPause:
+            [mPlayer pause];
+            break;
+        default:
+            break;
+    }
+}
+
 -(void) updatePlayerTrack{
     currentVideo =  [[MediaManager sharedInstance] getCurrentlyPlaying];
     titleLabel.text = currentVideo.title;
     backgroundImage.image = [self blurredImageWithImage:self.bgImg];
+    player = [[MediaManager sharedInstance] getVideoPlayer];
+    [player presentInView:playerContainer];
 }
 
 

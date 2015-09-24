@@ -18,7 +18,7 @@ public class PeriscommentView: UIView {
         self.init(frame: frame, config: config)
     }
 
-    required public init(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         self.config = PeriscommentConfig()
         super.init(coder: aDecoder)
     }
@@ -60,7 +60,7 @@ public class PeriscommentView: UIView {
     }
     
     public func addCell(profileImage: UIImage, name: String, comment: String) {
-        let rect = CGRect.zeroRect
+        let rect = CGRect.zero
         let cell = PeriscommentCell(frame: rect, profileImage: profileImage, name: name, comment: comment, config: self.config)
 
         self.addCell(cell)
