@@ -20,6 +20,7 @@
 #import "RMSaveButton.h"
 #import "SearchYoutubeViewController.h"
 #import "MusicApp-Swift.h"
+#import "YXTMotionView.h"
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define HEADER_HEIGHT 320.0f
@@ -69,7 +70,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     NSTimer *timer;
     UIView *liveChatView;
     NSInteger lastUpdated;
-    UIImageView *liveChatBg;
+    YXTMotionView *liveChatBg;
     UITextField *textView;
 
     PeriscommentView *liveChatMessages;
@@ -212,7 +213,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self loadSongs];
         timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
         liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
-        liveChatBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
+        liveChatBg = [[YXTMotionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
         liveChatBg.image = jukeboxEntry.image;
         liveChatBg.contentMode = UIViewContentModeScaleAspectFill;
       //  liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];

@@ -7,6 +7,7 @@ PODS:
   - SVProgressHUD (1.1.2)
   - VBFPopFlatButton (0.0.6):
     - pop
+  - YXTMotionView (0.1)
 
 DEPENDENCIES:
   - AMScrollingNavbar
@@ -15,6 +16,16 @@ DEPENDENCIES:
   - RESideMenu (~> 4.0.7)
   - SVProgressHUD
   - VBFPopFlatButton
+  - YXTMotionView (from `https://github.com/hanton/YXTMotionView`)
+
+EXTERNAL SOURCES:
+  YXTMotionView:
+    :git: https://github.com/hanton/YXTMotionView
+
+CHECKOUT OPTIONS:
+  YXTMotionView:
+    :commit: b40625f643d681844c86cb2dc8199541a53840a0
+    :git: https://github.com/hanton/YXTMotionView
 
 SPEC CHECKSUMS:
   AMScrollingNavbar: 3318f0cc0fd24c972d5e8c84112edcfe61529506
@@ -24,5 +35,6 @@ SPEC CHECKSUMS:
   RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
   SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
   VBFPopFlatButton: 79ca72185b76c2dff8861263118a8c47ef1c1043
+  YXTMotionView: cef229d560c50fc8e4fd2897b3715bec208ac95f
 
 COCOAPODS: 0.37.1

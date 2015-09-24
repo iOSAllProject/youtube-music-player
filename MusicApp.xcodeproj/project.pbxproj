@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		063D1CA3A7D92BA6F78B5005 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 246D5FC00FA17C06377F560D /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		30358F6D1BAD0E3600C2BB5E /* FBKVOController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F641BAD0E3600C2BB5E /* FBKVOController.m */; };
 		30358F6E1BAD0E3600C2BB5E /* JCLoadMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F661BAD0E3600C2BB5E /* JCLoadMoreView.m */; };
 		30358F6F1BAD0E3600C2BB5E /* JCPullToRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 30358F681BAD0E3600C2BB5E /* JCPullToRefreshView.m */; };
@@ -110,10 +109,10 @@
 		B71345161B8BBB6D000BBEB0 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71345151B8BBB6D000BBEB0 /* Parse.framework */; };
 		B713451A1B8BBBA3000BBEB0 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71345191B8BBBA3000BBEB0 /* ParseFacebookUtils.framework */; };
 		B713451D1B8BBBD8000BBEB0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71345171B8BBB94000BBEB0 /* FacebookSDK.framework */; };
+		CF909122728BE4904CB774FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C228F2F461DE6DB6AE7E2CCB /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		246D5FC00FA17C06377F560D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30358F631BAD0E3600C2BB5E /* FBKVOController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FBKVOController.h; path = ../JCPullToRefresh/FBKVOController.h; sourceTree = "<group>"; };
 		30358F641BAD0E3600C2BB5E /* FBKVOController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FBKVOController.m; path = ../JCPullToRefresh/FBKVOController.m; sourceTree = "<group>"; };
 		30358F651BAD0E3600C2BB5E /* JCLoadMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JCLoadMoreView.h; path = ../JCPullToRefresh/JCLoadMoreView.h; sourceTree = "<group>"; };
@@ -301,6 +300,7 @@
 		B71345171B8BBB94000BBEB0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		B71345191B8BBBA3000BBEB0 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		B713451B1B8BBBAA000BBEB0 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
+		C228F2F461DE6DB6AE7E2CCB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -333,7 +333,7 @@
 				9CA624361695927C003F6334 /* CoreText.framework in Frameworks */,
 				9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */,
 				9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */,
-				063D1CA3A7D92BA6F78B5005 /* Pods.framework in Frameworks */,
+				CF909122728BE4904CB774FC /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,7 +660,7 @@
 				9CA623DC169591AC003F6334 /* UIKit.framework */,
 				9CA623DE169591AC003F6334 /* Foundation.framework */,
 				9CA623E0169591AC003F6334 /* CoreGraphics.framework */,
-				246D5FC00FA17C06377F560D /* Pods.framework */,
+				C228F2F461DE6DB6AE7E2CCB /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -739,7 +739,6 @@
 				9CA623D5169591AC003F6334 /* Frameworks */,
 				9CA623D6169591AC003F6334 /* Resources */,
 				EC16E190A591410E24B402E4 /* Copy Pods Resources */,
-				CA7E8037DF8376749F19E6B5 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -813,21 +812,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		CA7E8037DF8376749F19E6B5 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EC16E190A591410E24B402E4 /* Copy Pods Resources */ = {

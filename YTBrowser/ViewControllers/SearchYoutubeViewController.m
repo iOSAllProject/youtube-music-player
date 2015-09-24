@@ -279,10 +279,12 @@ static NSString *const suggestionQuery =@"http://suggestqueries.google.com/compl
                                       //got JSON back
                                     //  NSLog(@"Got JSON from web: %@", json);
                                       NSMutableArray *results = [[NSMutableArray alloc] init];
-                                      for (id item in json){
-                                          [results addObject:item];
+                                      if(json != nil && [json count] > 0){
+                                          for (id item in json){
+                                              [results addObject:item];
+                                          }
+                                          [self parseSuggestions: [results objectAtIndex:1]];
                                       }
-                                      [self parseSuggestions: [results objectAtIndex:1]];
                                       if (err) {
                                           [[[UIAlertView alloc] initWithTitle:@"Error"
                                                                       message:[err localizedDescription]
