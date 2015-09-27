@@ -1,43 +1,131 @@
 PODS:
+  - AFAmazonS3Manager (3.2.1):
+    - AFNetworking/NSURLConnection (~> 2.4)
+  - AFNetworking/NSURLConnection (2.6.0):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.0)
+  - AFNetworking/Security (2.6.0)
+  - AFNetworking/Serialization (2.6.0)
   - AMScrollingNavbar (1.3.4)
   - AutoScrollLabel (0.4.0)
+  - CocoaAsyncSocket (7.4.1)
+  - CocoaLumberjack (1.9.2):
+    - CocoaLumberjack/Extensions (= 1.9.2)
+  - CocoaLumberjack/Core (1.9.2)
+  - CocoaLumberjack/Extensions (1.9.2):
+    - CocoaLumberjack/Core
   - EstimoteSDK (2.4.0)
   - INTULocationManager (2.0.2)
+  - JSQMessagesViewController (7.2.0):
+    - JSQSystemSoundPlayer (~> 2.0.1)
+  - JSQSystemSoundPlayer (2.0.1)
+  - Mantle (1.5.4):
+    - Mantle/extobjc (= 1.5.4)
+  - Mantle/extobjc (1.5.4)
+  - MDMCoreData (1.5.0):
+    - MDMCoreData/MDMCoreDataCore (= 1.5.0)
+    - MDMCoreData/MDMFetchedResultsCollectionDataSource (= 1.5.0)
+    - MDMCoreData/MDMFetchedResultsTableDataSource (= 1.5.0)
+    - MDMCoreData/MDMPersistenceController (= 1.5.0)
+    - MDMCoreData/NSManagedObject+MDMCoreDataAdditions (= 1.5.0)
+  - MDMCoreData/MDMCoreDataCore (1.5.0)
+  - MDMCoreData/MDMFetchedResultsCollectionDataSource (1.5.0):
+    - MDMCoreData/MDMCoreDataCore
+  - MDMCoreData/MDMFetchedResultsTableDataSource (1.5.0):
+    - MDMCoreData/MDMCoreDataCore
+  - MDMCoreData/MDMPersistenceController (1.5.0):
+    - MDMCoreData/MDMCoreDataCore
+  - MDMCoreData/NSManagedObject+MDMCoreDataAdditions (1.5.0):
+    - MDMCoreData/MDMCoreDataCore
+  - MMX (1.9.2):
+    - CocoaAsyncSocket (= 7.4.1)
+    - CocoaLumberjack (= 1.9.2)
+    - Mantle (= 1.5.4)
+    - MDMCoreData (= 1.5.0)
+    - MMXXMPPFramework (= 3.6.12)
+  - MMXXMPPFramework (3.6.12):
+    - MMXXMPPFramework/Core (= 3.6.12)
+    - MMXXMPPFramework/CoreDataStorage (= 3.6.12)
+    - MMXXMPPFramework/Reconnect (= 3.6.12)
+    - MMXXMPPFramework/Roster (= 3.6.12)
+    - MMXXMPPFramework/XEP-0060 (= 3.6.12)
+    - MMXXMPPFramework/XEP-0082 (= 3.6.12)
+    - MMXXMPPFramework/XEP-0106 (= 3.6.12)
+    - MMXXMPPFramework/XEP-0203 (= 3.6.12)
+  - MMXXMPPFramework/Core (3.6.12):
+    - CocoaAsyncSocket (~> 7.4.1)
+    - CocoaLumberjack (~> 1.9)
+  - MMXXMPPFramework/CoreDataStorage (3.6.12):
+    - MMXXMPPFramework/Core
+  - MMXXMPPFramework/Reconnect (3.6.12):
+    - MMXXMPPFramework/Core
+  - MMXXMPPFramework/Roster (3.6.12):
+    - MMXXMPPFramework/Core
+    - MMXXMPPFramework/CoreDataStorage
+    - MMXXMPPFramework/XEP-0203
+  - MMXXMPPFramework/XEP-0060 (3.6.12):
+    - MMXXMPPFramework/Core
+  - MMXXMPPFramework/XEP-0082 (3.6.12):
+    - MMXXMPPFramework/Core
+  - MMXXMPPFramework/XEP-0106 (3.6.12):
+    - MMXXMPPFramework/Core
+  - MMXXMPPFramework/XEP-0203 (3.6.12):
+    - MMXXMPPFramework/Core
+    - MMXXMPPFramework/XEP-0082
   - pop (1.0.7)
-  - RESideMenu (4.0.7)
   - SVProgressHUD (1.1.2)
   - VBFPopFlatButton (0.0.6):
     - pop
   - YXTMotionView (0.1)
 
 DEPENDENCIES:
+  - AFAmazonS3Manager (~> 3.2)
   - AMScrollingNavbar
   - AutoScrollLabel
   - EstimoteSDK
   - INTULocationManager
-  - RESideMenu (~> 4.0.7)
+  - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
+    branch `develop`)
+  - MMX
   - SVProgressHUD
   - VBFPopFlatButton
   - YXTMotionView (from `https://github.com/hanton/YXTMotionView`)
 
 EXTERNAL SOURCES:
+  JSQMessagesViewController:
+    :branch: develop
+    :git: https://github.com/jessesquires/JSQMessagesViewController.git
   YXTMotionView:
     :git: https://github.com/hanton/YXTMotionView
 
 CHECKOUT OPTIONS:
+  JSQMessagesViewController:
+    :commit: 553f5ecbb889351ff8883d87a89511e3e3a43a34
+    :git: https://github.com/jessesquires/JSQMessagesViewController.git
   YXTMotionView:
     :commit: b40625f643d681844c86cb2dc8199541a53840a0
     :git: https://github.com/hanton/YXTMotionView
 
 SPEC CHECKSUMS:
+  AFAmazonS3Manager: 688f9238511bb86011159d0155fcda09838b0e0d
+  AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   AMScrollingNavbar: 3318f0cc0fd24c972d5e8c84112edcfe61529506
-  AutoScrollLabel: f4ce01b28ca1ec5d2b39918f05359422de13e6a1
-  EstimoteSDK: 6abcf32ed821e6669cf75d62457dded2c0951e7f
-  INTULocationManager: 83bec34472a706e178face50a4e5e21ca986b7d2
-  pop: 2f14a1ea61339767af9e66741b418c831b3844df
-  RESideMenu: a9c1cd2e64e60e1d3166ddac01a83e215a0e4d30
-  SVProgressHUD: da7a49e789af645d9279ffbca62318945a832438
-  VBFPopFlatButton: 79ca72185b76c2dff8861263118a8c47ef1c1043
+  AutoScrollLabel: fe9042dec82291b461a34726930d0c58064a0727
+  CocoaAsyncSocket: 7cbf214b27f8e7f7574db6a3fd96352ffaed433d
+  CocoaLumberjack: 628fca2e88ef06f7cf6817309aa405f325d9a6fa
+  EstimoteSDK: d130c9d111b1c0522222afc97b43f245660cbd7c
+  INTULocationManager: 4eb51ce242d95950676a535208056d9cb246d879
+  JSQMessagesViewController: 73cab48aa92fc2d512f3b6724f3425cc47a19eb5
+  JSQSystemSoundPlayer: c5850e77a4363ffd374cd851154b9af93264ed8d
+  Mantle: 60acd0cd363e27d945bda0a6b8e90577112d28f3
+  MDMCoreData: 402f754cda90865026a209243f1667824e775649
+  MMX: 3fb0af8bd0bbaf492b629874351f24168cb18113
+  MMXXMPPFramework: 20ad9c176eac51ff190c361204876c6583347878
+  pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  SVProgressHUD: 3afb875b9eb23acd1bed9b82495695c68621a8b2
+  VBFPopFlatButton: 782344da63f104c279a857d806e065117a7e1196
   YXTMotionView: cef229d560c50fc8e4fd2897b3715bec208ac95f
 
 COCOAPODS: 0.38.2

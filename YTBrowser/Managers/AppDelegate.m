@@ -8,13 +8,16 @@
 
 #import "AppDelegate.h"
 #import "LibraryViewController.h"
-#import "RESideMenu.h"
+#import <RESideMenu/RESideMenu.h>
 #import "LeftMenuViewController.h"
 #import "AppConstant.h"
 #import "JukeboxListViewController.h"
 #import <Parse/Parse.h>
 #import <ParseFacebookUtils/PFFacebookUtils.h>
 #import "LoginViewController.h"
+#import <MMX/MMX.h>
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -24,7 +27,8 @@
                   clientKey:@"nbeYYYVWWCKjpvZKZbIunQpF606bllZWahJTY5UX"];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     [PFFacebookUtils initializeFacebook];
-
+    
+    [MMX setupWithConfiguration:@"default"];
     
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[JukeboxListViewController alloc] init]];
     self.leftMenuViewController = [[LeftMenuViewController alloc] init];

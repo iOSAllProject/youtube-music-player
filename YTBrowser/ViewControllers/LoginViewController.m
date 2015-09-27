@@ -26,6 +26,7 @@
 #import <RESideMenu/RESideMenu.h>
 #import "LeftMenuViewController.h"
 #import "AppDelegate.h"
+
 @implementation LoginViewController
 
 #pragma mark -
@@ -90,6 +91,7 @@
             } else {
                 NSLog(@"User with facebook logged in!");
             }
+            [self _loadData];
             [self _presentUserDetailsViewControllerAnimated:YES];
         }
     }];
@@ -103,6 +105,69 @@
 - (void)_presentUserDetailsViewControllerAnimated:(BOOL)animated {
     [self dismissViewControllerAnimated:YES completion:nil];
 
+}
+
+- (void)_loadData {
+    // If the user is already logged in, display any previously cached values before we get the latest from Facebook.
+    if ([PFUser currentUser]) {
+        
+    }
+    
+    // Send request to Facebook
+    FBRequest *request = [FBRequest requestForMe];
+    [request startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {
+        // handle response
+        if (!error) {
+            // Parse the data received
+            NSDictionary *userData = (NSDictionary *)result;
+            
+            NSString *facebookID = userData[@"id"];
+            
+            
+            NSMutableDictionary *userProfile = [NSMutableDictionary dictionaryWithCapacity:7];
+            
+            if (facebookID) {
+                userProfile[@"facebookId"] = facebookID;
+            }
+            
+            NSString *name = userData[@"name"];
+            if (name) {
+                userProfile[@"name"] = name;
+            }
+            
+            NSString *location = userData[@"location"][@"name"];
+            if (location) {
+                userProfile[@"location"] = location;
+            }
+            
+            NSString *gender = userData[@"gender"];
+            if (gender) {
+                userProfile[@"gender"] = gender;
+            }
+            
+            NSString *birthday = userData[@"birthday"];
+            if (birthday) {
+                userProfile[@"birthday"] = birthday;
+            }
+            
+            NSString *relationshipStatus = userData[@"relationship_status"];
+            if (relationshipStatus) {
+                userProfile[@"relationship"] = relationshipStatus;
+            }
+            
+            userProfile[@"pictureURL"] = [NSString stringWithFormat:@"https://graph.facebook.com/%@/picture?type=large&return_ssl_resources=1", facebookID];
+            
+            [[PFUser currentUser] setObject:userProfile forKey:@"profile"];
+            [[PFUser currentUser] saveInBackground];
+            
+        } else if ([[[[error userInfo] objectForKey:@"error"] objectForKey:@"type"]
+                    isEqualToString: @"OAuthException"]) { // Since the request failed, we can check if it was due to an invalid session
+            NSLog(@"The facebook session was invalidated");
+            [PFUser logOut];
+        } else {
+            NSLog(@"Some other error: %@", error);
+        }
+    }];
 }
 
 @end

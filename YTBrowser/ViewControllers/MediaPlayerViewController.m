@@ -153,9 +153,16 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(handleReturnToForeground)
+                                                 name: UIApplicationWillEnterForegroundNotification
+                                               object: nil];
     [[self navigationController] setNavigationBarHidden:YES animated:NO];
 
+}
+
+-(void) handleReturnToForeground {
+    [self updatePlayerTrack];
 }
 
 - (void) setupPlayerControls {

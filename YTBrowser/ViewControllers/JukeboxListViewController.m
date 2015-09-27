@@ -12,6 +12,7 @@
 #import <Parse/Parse.h>
 #import <INTULocationManager/INTULocationManager.h>
 #import "MapPin.h"
+#import <MMX/MMX.h>
 
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define TOTAL_IMAGES           28
@@ -51,6 +52,7 @@
     NSMutableArray *_jukeboxes;
     NSMutableArray *_jukeboxCells;
     JukeBoxCell *mapCell;
+    NSURLCredential *currentCredential;
     
 }
 
@@ -112,13 +114,30 @@
     
     tablesGrid.contentLayoutMode = MGLayoutGridStyle;
     [scroller.boxes addObject:tablesGrid];
-    [self loadDatas];
- 
-    
-
     
     
-
+    if(![PFUser currentUser]){
+        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
+        [self presentViewController:navController animated:NO completion:nil];
+        
+    }
+    PFUser *currentUser = [PFUser currentUser];
+    
+    //Creating a new NSURLCredential
+    self->currentCredential = [NSURLCredential credentialWithUser:currentUser.objectId password:currentUser.objectId persistence:NSURLCredentialPersistenceNone];
+    MMXUser *user = [MMXUser new];
+    user.username = currentUser.objectId;
+    user.displayName = currentUser.username;
+    
+    [user registerWithCredential:currentCredential success:^{
+        [self logIn];
+    } failure:^(NSError *error) {
+        if (error.code == 409) {
+            //Already registered
+            [self logIn];
+        }
+    }];
+    
 }
 - (void)loadDatas
 {
@@ -163,14 +182,55 @@
         [entry setCurrentlyPlaying:j[@"currentlyPlaying"]];
         [entry setObjectId:j.objectId];
         [entry setAuthorId: j[@"userId"]];
+        
         PFGeoPoint *gp = j[@"location"];
         if(gp){
             entry.location = CLLocationCoordinate2DMake(gp.latitude, gp.longitude);
         }
+        
         JukeBoxCell *cell = [self photoBoxFor:entry];
         [photosGrid.boxes addObject:cell];
         [_jukeboxes addObject:entry];
         [_jukeboxCells addObject: cell];
+        /*
+         *  Creating a new MMXChannel object.
+         *	I am setting a summary to potentially display to future users as part of channel discovery.
+         */
+        NSString *channelName = entry.objectId;
+        NSString *channelSummary = entry.author;
+        
+        /*
+         *  Creating a new channel by passing my MMXChannel object.
+         *	When a user creates a channel they are automatically subscribed to it.
+         */
+        [MMXChannel createWithName:channelName summary:channelSummary isPublic:YES success:^(MMXChannel *channel) {
+            
+
+            
+        } failure:^(NSError *error) {
+            //The error code for "duplicate channel" is 409. This means the channel already exists and I can continue to subscribe.
+            if (error.code == 409) {
+                [MMXChannel channelForName:channelName isPublic:YES success:^(MMXChannel *channel) {
+                    [channel subscribeWithSuccess:^{
+                        // Fetching channels again to make sure that the company_announcements channel show up under subscribed.
+                        //[self fetchChannels];
+                    } failure:^(NSError *subscribeError) {
+                        /*
+                         *  Logging an error.
+                         */
+                        [[MMXLogger sharedLogger] error:@"creating jukebox chat channel error setupChannels subscribeWithSuccess Error = %@", subscribeError.localizedFailureReason];
+                    }];
+                } failure:^(NSError *error) {
+                    /*
+                     *  Logging an error.
+                     */
+                    [[MMXLogger sharedLogger] error:@"ChannelListTableViewController setupChannels channelForName Error = %@", error.localizedFailureReason];
+                }];
+            }
+        }];
+        
+        
+
     }
    
     [photosGrid layout];
@@ -199,6 +259,30 @@
     //Create map view with jukeboxes©
     [self setupLocationManager];
 }
+
+- (void)fetchChannels {
+    //[self.refreshControl beginRefreshing];
+    [MMXChannel allPublicChannelsWithLimit:100 offset:0 success:^(int totalCount, NSArray *channels) {
+        
+        NSPredicate *subscribedPredicate = [NSPredicate predicateWithFormat:@"isSubscribed == YES"];
+        NSPredicate *notSubscribedPredicate = [NSPredicate predicateWithFormat:@"isSubscribed == NO"];
+        
+        //self.subscribedChannelsList = [channels filteredArrayUsingPredicate:subscribedPredicate];
+        //self.unSubscribedChannelsList = [channels filteredArrayUsingPredicate:notSubscribedPredicate];
+        
+        //[self.tableView reloadData];
+        //[self.refreshControl endRefreshing];
+        
+    } failure:^(NSError *error) {
+        /*
+         *  Logging an error.
+         */
+        //[[MMXLogger sharedLogger] error:@"ChannelListTableViewController fetchChannels Error = %@", error.localizedFailureReason];
+        
+        //[self.refreshControl endRefreshing];
+    }];
+}
+
 
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -324,11 +408,7 @@
     [super viewWillAppear:animated];
     //setup music player at bottom of screen
     playerBar = [[MediaManager sharedInstance] getMiniPlayer];
-    if(![PFUser currentUser]){
-        UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
-        [self presentViewController:navController animated:NO completion:nil];
-        
-    }
+    
     
     UITapGestureRecognizer *playerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(displayDetailedPlayer)];
     [playerBar addGestureRecognizer:playerTap];
@@ -345,6 +425,21 @@
 
 
     
+}
+
+- (void)logIn {
+    if (currentCredential != nil) {
+        [MMXUser logInWithCredential:self->currentCredential success:^(MMXUser *user) {
+            //self.currentRecipient = [self me];
+            // Indicate that you are ready to receive messages now!
+            [MMX start];
+            //[self setupChannels];
+            [self loadDatas];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"logInWithCredentials Failure = %@",error);
+        }];
+    }
 }
 
 - (void)viewWillLayoutSubviews {

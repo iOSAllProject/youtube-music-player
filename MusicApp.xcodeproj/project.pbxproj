@@ -109,7 +109,10 @@
 		B71345161B8BBB6D000BBEB0 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71345151B8BBB6D000BBEB0 /* Parse.framework */; };
 		B713451A1B8BBBA3000BBEB0 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71345191B8BBBA3000BBEB0 /* ParseFacebookUtils.framework */; };
 		B713451D1B8BBBD8000BBEB0 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B71345171B8BBB94000BBEB0 /* FacebookSDK.framework */; };
-		CF909122728BE4904CB774FC /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C228F2F461DE6DB6AE7E2CCB /* libPods.a */; };
+		B73CFDF71BB76CC60089F967 /* Configurations.plist in Resources */ = {isa = PBXBuildFile; fileRef = B73CFDF61BB76CC60089F967 /* Configurations.plist */; settings = {ASSET_TAGS = (); }; };
+		B7694FCE1BB7962600B9EE69 /* QuickStartUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = B7694FCA1BB7962600B9EE69 /* QuickStartUtils.m */; settings = {ASSET_TAGS = (); }; };
+		B7694FCF1BB7962700B9EE69 /* UIColor+QuickStart.m in Sources */ = {isa = PBXBuildFile; fileRef = B7694FCC1BB7962600B9EE69 /* UIColor+QuickStart.m */; settings = {ASSET_TAGS = (); }; };
+		ED1974D6D042C838255F9D96 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 54BD524E9238C6D695FBD4D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -241,6 +244,7 @@
 		30E2017C1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MPMoviePlayerController+BackgroundPlayback.h"; sourceTree = "<group>"; };
 		30E2017D1B5C9C4C00D37DA2 /* MPMoviePlayerController+BackgroundPlayback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MPMoviePlayerController+BackgroundPlayback.m"; sourceTree = "<group>"; };
 		30F663401AECD24A00CF0C12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		54BD524E9238C6D695FBD4D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		99F1E7367826DA1FED34C34F /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		9C9BB39E16BAE6AE00C8AB3A /* JSONModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONModel.h; sourceTree = "<group>"; };
 		9C9BB39F16BAE6AE00C8AB3A /* JSONModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONModel.m; sourceTree = "<group>"; };
@@ -300,7 +304,11 @@
 		B71345171B8BBB94000BBEB0 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = Frameworks/FacebookSDK.framework; sourceTree = "<group>"; };
 		B71345191B8BBBA3000BBEB0 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Frameworks/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		B713451B1B8BBBAA000BBEB0 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
-		C228F2F461DE6DB6AE7E2CCB /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B73CFDF61BB76CC60089F967 /* Configurations.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Configurations.plist; sourceTree = SOURCE_ROOT; };
+		B7694FC91BB7962600B9EE69 /* QuickStartUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuickStartUtils.h; sourceTree = "<group>"; };
+		B7694FCA1BB7962600B9EE69 /* QuickStartUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuickStartUtils.m; sourceTree = "<group>"; };
+		B7694FCB1BB7962600B9EE69 /* UIColor+QuickStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+QuickStart.h"; sourceTree = "<group>"; };
+		B7694FCC1BB7962600B9EE69 /* UIColor+QuickStart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+QuickStart.m"; sourceTree = "<group>"; };
 		E39520E43AA5860009ADA7D1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -333,7 +341,7 @@
 				9CA624361695927C003F6334 /* CoreText.framework in Frameworks */,
 				9CA623DD169591AC003F6334 /* UIKit.framework in Frameworks */,
 				9CA623DF169591AC003F6334 /* Foundation.framework in Frameworks */,
-				CF909122728BE4904CB774FC /* libPods.a in Frameworks */,
+				ED1974D6D042C838255F9D96 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -615,6 +623,7 @@
 				9CA623E2169591AC003F6334 /* YTBrowser */,
 				9CA623DB169591AC003F6334 /* Frameworks */,
 				9CA623D9169591AC003F6334 /* Products */,
+				B7694FCD1BB7962600B9EE69 /* Utils */,
 				6B7F827E2AADC0D2D1F39933 /* Pods */,
 			);
 			sourceTree = "<group>";
@@ -660,7 +669,7 @@
 				9CA623DC169591AC003F6334 /* UIKit.framework */,
 				9CA623DE169591AC003F6334 /* Foundation.framework */,
 				9CA623E0169591AC003F6334 /* CoreGraphics.framework */,
-				C228F2F461DE6DB6AE7E2CCB /* libPods.a */,
+				54BD524E9238C6D695FBD4D7 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -682,6 +691,7 @@
 				30B44DCE1B243F0D008CBD69 /* LaunchScreen.xib */,
 				30F663401AECD24A00CF0C12 /* Images.xcassets */,
 				9CA623F4169591AC003F6334 /* MainStoryboard.storyboard */,
+				B73CFDF61BB76CC60089F967 /* Configurations.plist */,
 				9CA623E3169591AC003F6334 /* Supporting Files */,
 			);
 			path = YTBrowser;
@@ -725,6 +735,17 @@
 				B7133C891B8BB761000BBEB0 /* XCDYouTubeVideoWebpage.m */,
 			);
 			path = XCDYouTubeKit;
+			sourceTree = "<group>";
+		};
+		B7694FCD1BB7962600B9EE69 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				B7694FC91BB7962600B9EE69 /* QuickStartUtils.h */,
+				B7694FCA1BB7962600B9EE69 /* QuickStartUtils.m */,
+				B7694FCB1BB7962600B9EE69 /* UIColor+QuickStart.h */,
+				B7694FCC1BB7962600B9EE69 /* UIColor+QuickStart.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -794,6 +815,7 @@
 				9CBC4F6D1695DABA00FFE7B9 /* iTunesArtwork in Resources */,
 				30B44DCF1B243F0D008CBD69 /* LaunchScreen.xib in Resources */,
 				9CBC4F701695DAE000FFE7B9 /* Icon.png in Resources */,
+				B73CFDF71BB76CC60089F967 /* Configurations.plist in Resources */,
 				9CBC4F721695DAEA00FFE7B9 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -864,9 +886,11 @@
 				30E201731B5C6E3300D37DA2 /* UIView+GradientMask.m in Sources */,
 				9C9BB3B616BAE6AE00C8AB3A /* JSONModel.m in Sources */,
 				309AE3211B094D61004CF1E2 /* Model.xcdatamodeld in Sources */,
+				B7694FCF1BB7962700B9EE69 /* UIColor+QuickStart.m in Sources */,
 				303B8AD01BAE003300F20BB6 /* PeriscommentUtils.swift in Sources */,
 				30DC880C1B7FD79800A7ABD8 /* AppDelegate.m in Sources */,
 				30916CE31AF0928B00327CAA /* MGLayoutManager.m in Sources */,
+				B7694FCE1BB7962600B9EE69 /* QuickStartUtils.m in Sources */,
 				30E201721B5C6E3300D37DA2 /* UIImage+ImageEffects.m in Sources */,
 				309483151AFF3325005E44B9 /* UIImage+AHKAdditions.m in Sources */,
 				B7133C8E1B8BB761000BBEB0 /* XCDYouTubePlayerScript.m in Sources */,

@@ -8,3 +8,4 @@
 
 #define PLAY @"play"
 #define PAUSE @"pause"
+#define kTextContent = @"textContent";

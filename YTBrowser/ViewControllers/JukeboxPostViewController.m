@@ -8,6 +8,7 @@
 
 #import "JukeboxPostViewController.h"
 #import "UIImage+ImageEffects.h"
+#import "AppConstant.h"
 #import "UIView+GradientMask.h"
 #import "MediaManager.h"
 #import "JukeboxEntry.h"
@@ -20,7 +21,8 @@
 #import "RMSaveButton.h"
 #import "SearchYoutubeViewController.h"
 #import "MusicApp-Swift.h"
-#import "YXTMotionView.h"
+#import <MMX/MMX.h>
+#import "QuickStartUtils.h"
 #define kScreenWidth [[UIScreen mainScreen] bounds].size.width
 #define kScreenHeight [[UIScreen mainScreen] bounds].size.height
 #define HEADER_HEIGHT 320.0f
@@ -43,6 +45,8 @@ const CGFloat kCommentCellHeight = 50.0f;
 @interface JukeboxPostViewController () <UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
 
 @end
+
+
 
 @implementation JukeboxPostViewController {
     UIScrollView *_mainScrollView;
@@ -70,10 +74,11 @@ const CGFloat kCommentCellHeight = 50.0f;
     NSTimer *timer;
     UIView *liveChatView;
     NSInteger lastUpdated;
-    YXTMotionView *liveChatBg;
+    UIImageView *liveChatBg;
     UITextField *textView;
-
+    NSString *id;
     PeriscommentView *liveChatMessages;
+    
 }
 
 - (id)initWithJukeBox: (JukeboxEntry*) entry {
@@ -213,7 +218,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         [self loadSongs];
         timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
         liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
-        liveChatBg = [[YXTMotionView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
+        liveChatBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
         liveChatBg.image = jukeboxEntry.image;
         liveChatBg.contentMode = UIViewContentModeScaleAspectFill;
       //  liveChatView.backgroundColor = [UIColor colorWithPatternImage: jukeboxEntry.image];
@@ -240,7 +245,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         textView.backgroundColor = [UIColor whiteColor];
         textView.textColor = [UIColor blackColor];             //text color
         textView.keyboardType = UIKeyboardTypeAlphabet;        //keyboard type of ur choice
-        textView.returnKeyType = UIReturnKeyDone;              //returnKey type for keyboard
+        textView.returnKeyType = UIReturnKeySend;              //returnKey type for keyboard
         textView.delegate = self;
         UIView *spacerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
         [textView setLeftViewMode:UITextFieldViewModeAlways];
@@ -279,6 +284,9 @@ const CGFloat kCommentCellHeight = 50.0f;
     [self animateTextField: textField up: NO];
 }
 
+
+
+
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
     const int movementDistance = 220; // tweak as needed
@@ -293,10 +301,7 @@ const CGFloat kCommentCellHeight = 50.0f;
     liveChatMessages.frame = CGRectOffset(liveChatMessages.frame, 0, movement);
     [UIView commitAnimations];
 }
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [textField resignFirstResponder];
-    return NO;
-}
+
 -(void) closeChat {
     [textView resignFirstResponder];
     @synchronized(self){
@@ -473,12 +478,12 @@ const CGFloat kCommentCellHeight = 50.0f;
     jbe.title = pf[@"name"];
     jbe.author = pf[@"username"];
     jbe.objectId = pf.objectId;
+    
     jbe.imageURL = pf[@"image"];
     jbe.authorId = pf[@"userId"];
     jbe.isPlaying = [pf[@"isPlaying"] boolValue];
     jbe.elapsedTime = [pf[@"time"] integerValue];
     jbe.updatedAt = [pf.updatedAt timeIntervalSince1970];
-    
     return jbe;
     
 }
@@ -579,6 +584,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMessage:) name:MMXDidReceiveMessageNotification object:nil];
 }
 
 
@@ -645,7 +651,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 -(void) showLiveChat:(CGFloat) delta {
     dispatch_sync( self.concurrentPhotoQueue, ^{
         // Critical section
-       
+
         if(!self.isLiveChatShowing && delta != 450){
              NSLog(@"Delta is %f", delta);
             [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
@@ -653,18 +659,41 @@ const CGFloat kCommentCellHeight = 50.0f;
             [liveChatView setHidden:NO];
             [self addHeart];
             // Delay 2 seconds
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-               [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:@"Your music rocks"];
-                [self addHeart];
-            });
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Matan" comment:@"ROCK ON!"];
-                [self addHeart];
-                [self addHeart];
-            });
-
-             [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Ori" comment:@"Good stuff"];
-             [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Etan" comment:@"Chillstep plis"];
+            [MMX start];
+            JukeboxEntry *currentJukebox = [[MediaManager sharedInstance] currentJukebox];
+            [MMXChannel channelsStartingWith: currentJukebox.objectId
+                                       limit:10
+                                     success:^(int totalCount, NSArray *channels) {
+                                         MMXChannel *channel = channels[0];
+                                         self.currentChannel = channel;
+                                         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+                                         dateComponents.hour = -1;
+                                         
+                                         NSCalendar *theCalendar = [NSCalendar currentCalendar];
+                                         NSDate *now = [NSDate date];
+                                         NSDate *anHourAgo = [theCalendar dateByAddingComponents:dateComponents toDate:now options:0];
+                                         /*
+                                         [channel fetchMessagesBetweenStartDate:anHourAgo
+                                                                                endDate:now
+                                                                                  limit:10
+                                                                              ascending:NO
+                                                                                success:^(int totalCount, NSArray *messages) {
+                                                                                    self.messages = messages;
+                                                                                    for (MMXMessage *msg in self.messages){
+                                                                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                                                                            NSDictionary *dict = msg.messageContent;
+                                                                                            [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:[dict objectForKey:@"textContent"]];
+                                                                                        });
+                                                                                    }
+                                                                                    
+                                                                         } failure:^(NSError *error) {
+                                                                                    
+                                                                                }];*/
+                                     }
+                                     failure:^(NSError *error) {
+                                         
+                                     }];
+        
             [_mainScrollView setContentOffset:(CGPointMake(0, 0))];
         }
     });
@@ -733,4 +762,68 @@ const CGFloat kCommentCellHeight = 50.0f;
     CGPathRelease(path);
     return animation;
 }
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if (textField == textView) {
+        if([textView.text isEqualToString:@""])
+            return YES;
+        NSString *name = [PFUser currentUser][@"profile"][@"name"];
+        NSString *imageURL = [PFUser currentUser][@"profile"][@"pictureURL"];
+        MMXMessage *msg = [MMXMessage messageToChannel:self.currentChannel messageContent:@{@"textContent":textView.text, @"sender":name, @"imageURL":imageURL}];
+        
+        [msg sendWithSuccess:nil failure:nil];
+        
+        NSDictionary *messageDict = @{@"messageContent":textView.text, @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:[NSDate date]],@"senderUsername": name ,@"isOutboundMessage":@(YES)};
+        
+        NSMutableArray *tempMessageList = self.messages.mutableCopy;
+        [tempMessageList insertObject:messageDict atIndex:0];
+        self.messages = tempMessageList.copy;
+        
+        [textField resignFirstResponder];
+        
+        return NO;
+    }
+    return YES;
+}
+- (void)didReceiveMessage:(NSNotification*) noti {
+    if (noti.userInfo) {
+        NSDictionary *notificationDict =  noti.userInfo;
+        MMXMessage *message = notificationDict[MMXMessageKey];
+        if (message) {
+            NSDictionary *messageDict = @{@"messageContent":message.messageContent[@"textContent"] ?: @"Message content missing",
+                                          @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:message.timestamp],
+                                          @"senderUsername":message.messageContent[@"sender"],
+                                          @"imageURL":message.messageContent[@"imageURL"],
+                                          @"isOutboundMessage":@(NO)};
+            
+            NSMutableArray *tempMessageList = self.messages.mutableCopy;
+            [tempMessageList insertObject:messageDict atIndex:0];
+            self.messages= tempMessageList.copy;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSString *textContent = [messageDict objectForKey:@"messageContent"];
+                NSString *sender = [messageDict objectForKey:@"senderUsername"];
+                NSString *userProfilePhotoURLString = [messageDict objectForKey:@"imageURL"];
+                // Download the user's facebook profile picture
+                if (userProfilePhotoURLString) {
+                    NSURL *pictureURL = [NSURL URLWithString:userProfilePhotoURLString];
+                    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+                    
+                    [NSURLConnection sendAsynchronousRequest:urlRequest
+                                                       queue:[NSOperationQueue mainQueue]
+                                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                               if (connectionError == nil && data != nil) {
+                                                   [liveChatMessages addCell:[UIImage imageWithData:data] name:sender comment:textContent];
+                                               } else {
+                                                   NSLog(@"Failed to load profile photo.");
+                                               }
+                                           }];
+                }
+                
+            });
+            
+        }
+    }
+}
+
+
+
 @end
