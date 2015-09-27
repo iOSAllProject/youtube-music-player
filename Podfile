@@ -1,5 +1,6 @@
 
 pod 'EstimoteSDK'
+pod 'RESideMenu'
 pod 'AMScrollingNavbar'
 pod 'SVProgressHUD'
 pod 'INTULocationManager'

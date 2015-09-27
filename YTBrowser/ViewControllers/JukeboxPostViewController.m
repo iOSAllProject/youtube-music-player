@@ -225,7 +225,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         CGPoint centerImageView = self.view.center;
         [liveChatBg setCenter:CGPointMake(centerImageView.x, liveChatBg.center.y)];
         [liveChatView addSubview:liveChatBg];
-        UITapGestureRecognizer *gesRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addHeart)]; // Declare the Gesture.
+        UITapGestureRecognizer *gesRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sendRemoteAnimation)]; // Declare the Gesture.
         gesRecognizer.delegate = self;
         [liveChatView addGestureRecognizer:gesRecognizer]; // Add Gesture to your view.
 
@@ -785,8 +785,9 @@ const CGFloat kCommentCellHeight = 50.0f;
     if (noti.userInfo) {
         NSDictionary *notificationDict =  noti.userInfo;
         MMXMessage *message = notificationDict[MMXMessageKey];
+        NSString *msgType = message.messageContent[@"type"];
         if (message) {
-            if(message.messageContent[@"type"] && [message.messageContent[@"type"] isEqualToString:@"text"]){
+            if(msgType && [msgType isEqualToString:@"text"]){
                 NSDictionary *messageDict = @{@"messageContent":message.messageContent[@"textContent"] ?: @"Message content missing",
                                               @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:message.timestamp],
                                               @"senderUsername":message.messageContent[@"sender"],
@@ -818,17 +819,17 @@ const CGFloat kCommentCellHeight = 50.0f;
                     
                 });
                 
+            }else if(msgType && [msgType isEqualToString:@"like"]){
+                NSDictionary *messageDict = @{
+                                              @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:message.timestamp],
+                                              @"senderUsername":message.messageContent[@"sender"],
+                                              @"isOutboundMessage":@(NO)};
+                NSString *sender = [messageDict objectForKey:@"senderUsername"];
+                if(![sender isEqualToString:[[PFUser currentUser] objectId]]){
+                    [self addHeart];
                 }
-        } else if(message.messageContent[@"type"] && [message.messageContent[@"type"] isEqualToString:@"like"]){
-            NSDictionary *messageDict = @{
-                                          @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:message.timestamp],
-                                          @"senderUsername":message.messageContent[@"sender"],
-                                          @"isOutboundMessage":@(NO)};
-            NSString *sender = [messageDict objectForKey:@"senderUsername"];
-            if(![sender isEqualToString:[[PFUser currentUser] objectId]]){
-                [self addHeart];
+                
             }
-
         }
     }
 }

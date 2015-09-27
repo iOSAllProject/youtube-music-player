@@ -75,6 +75,7 @@ PODS:
     - MMXXMPPFramework/Core
     - MMXXMPPFramework/XEP-0082
   - pop (1.0.7)
+  - RESideMenu (4.0.7)
   - SVProgressHUD (1.1.2)
   - VBFPopFlatButton (0.0.6):
     - pop
@@ -89,6 +90,7 @@ DEPENDENCIES:
   - JSQMessagesViewController (from `https://github.com/jessesquires/JSQMessagesViewController.git`,
     branch `develop`)
   - MMX
+  - RESideMenu
   - SVProgressHUD
   - VBFPopFlatButton
   - YXTMotionView (from `https://github.com/hanton/YXTMotionView`)
@@ -124,6 +126,7 @@ SPEC CHECKSUMS:
   MMX: 3fb0af8bd0bbaf492b629874351f24168cb18113
   MMXXMPPFramework: 20ad9c176eac51ff190c361204876c6583347878
   pop: 628ffc631644601567ee8bfaaaea493ebd7d0923
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   SVProgressHUD: 3afb875b9eb23acd1bed9b82495695c68621a8b2
   VBFPopFlatButton: 782344da63f104c279a857d806e065117a7e1196
   YXTMotionView: cef229d560c50fc8e4fd2897b3715bec208ac95f
