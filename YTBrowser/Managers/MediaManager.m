@@ -388,6 +388,9 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
             
             [jukebox setValue:[NSNumber numberWithBool:self.currentJukebox.isPlaying]  forKey:@"isPlaying" ];
             NSInteger elapsed = (NSInteger)self.mPlayer.currentPlaybackTime;
+            NSArray *songs = jukebox[@"playQueue"];
+            PFObject *song = [songs objectAtIndex:0];
+            [jukebox setValue:song[@"title"] forKey:@"currentlyPlaying"];
             [jukebox setValue:@(elapsed) forKey:@"time"];
             
         } else if(song){

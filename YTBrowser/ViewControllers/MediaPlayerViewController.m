@@ -327,6 +327,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
   //  titleLabel.text = currentVideo.title;
     [player presentInView:playerContainer];
     jukeboxMode = [[MediaManager sharedInstance] currentJukebox] != nil;
+    jukeboxMode = NO;
     if(jukeboxMode){
         nextButton.enabled = NO;
         prevButton.enabled = NO;

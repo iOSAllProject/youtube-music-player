@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" variant="6xAndEarlier" propertyAccessControl="none" useAutolayout="YES" promptedForUpgradeToXcode5="NO" initialViewController="YJY-E2-yUc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="YJY-E2-yUc">
     <dependencies>
-        <development version="4600" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -10,12 +10,16 @@
         <scene sceneID="5">
             <objects>
                 <viewController title="YouTube search" id="2" customClass="SearchViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Sbl-YT-dJq"/>
+                        <viewControllerLayoutGuide type="bottom" id="503-Ja-gw5"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oUo-Nf-xJR" customClass="MGScrollView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7mO-xU-P9W">
                                         <rect key="frame" x="-8" y="-8" width="320" height="504"/>
@@ -26,8 +30,8 @@
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="7mO-xU-P9W" firstAttribute="bottom" secondItem="oUo-Nf-xJR" secondAttribute="bottomMargin" type="default" id="5gO-RG-22F"/>
-                                    <constraint firstItem="7mO-xU-P9W" firstAttribute="trailing" secondItem="oUo-Nf-xJR" secondAttribute="trailingMargin" type="default" id="Y6Q-D1-FeT"/>
+                                    <constraint firstItem="7mO-xU-P9W" firstAttribute="bottom" secondItem="oUo-Nf-xJR" secondAttribute="bottomMargin" id="5gO-RG-22F"/>
+                                    <constraint firstItem="7mO-xU-P9W" firstAttribute="trailing" secondItem="oUo-Nf-xJR" secondAttribute="trailingMargin" id="Y6Q-D1-FeT"/>
                                     <constraint firstItem="7mO-xU-P9W" firstAttribute="leading" secondItem="oUo-Nf-xJR" secondAttribute="leading" constant="-8" id="dNt-Wd-BfA"/>
                                     <constraint firstItem="7mO-xU-P9W" firstAttribute="top" secondItem="oUo-Nf-xJR" secondAttribute="top" constant="-8" id="hrD-QD-TCN"/>
                                 </constraints>
@@ -35,10 +39,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" type="default" id="3Ac-3M-6w0"/>
-                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="top" secondItem="3" secondAttribute="top" type="default" id="Nrw-4O-ptt"/>
-                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="leading" secondItem="3" secondAttribute="leading" type="default" id="VaX-0D-hdH"/>
-                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" type="default" id="ncM-o9-xzq"/>
+                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="bottom" secondItem="3" secondAttribute="bottom" id="3Ac-3M-6w0"/>
+                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="top" secondItem="3" secondAttribute="top" id="Nrw-4O-ptt"/>
+                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="leading" secondItem="3" secondAttribute="leading" id="VaX-0D-hdH"/>
+                            <constraint firstItem="oUo-Nf-xJR" firstAttribute="trailing" secondItem="3" secondAttribute="trailing" id="ncM-o9-xzq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="YouTube search" id="XGC-wi-7fG"/>
@@ -55,12 +59,16 @@
         <scene sceneID="t3z-KS-nMC">
             <objects>
                 <viewController id="kjy-Jf-xoT" customClass="WebVideoViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="jur-Xo-mFx"/>
+                        <viewControllerLayoutGuide type="bottom" id="22I-u3-fbA"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8GR-ev-bMr">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" useAutomaticPreferredMaxLayoutWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MYC-k1-hHD">
-                                <rect key="frame" x="139" y="309" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYC-k1-hHD">
+                                <rect key="frame" x="139" y="373" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="ZZx-Xf-3mz"/>
                                 </constraints>
@@ -68,8 +76,8 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-du-qFP">
-                                <rect key="frame" x="0.0" y="73" width="320" height="269"/>
+                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-du-qFP">
+                                <rect key="frame" x="0.0" y="72" width="320" height="269"/>
                                 <color key="backgroundColor" red="0.92549026012420654" green="0.93333339691162109" blue="0.94509810209274292" alpha="1" colorSpace="deviceRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="269" id="rlP-YX-IHw"/>
@@ -78,10 +86,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.86274516582489014" green="0.86274516582489014" blue="0.86274516582489014" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstItem="MYC-k1-hHD" firstAttribute="centerX" secondItem="pfn-du-qFP" secondAttribute="centerX" type="default" id="Vgr-PN-APl"/>
+                            <constraint firstItem="MYC-k1-hHD" firstAttribute="centerX" secondItem="pfn-du-qFP" secondAttribute="centerX" id="Vgr-PN-APl"/>
                             <constraint firstAttribute="bottom" secondItem="MYC-k1-hHD" secondAttribute="bottom" constant="174" id="ViF-iS-cFx"/>
-                            <constraint firstItem="pfn-du-qFP" firstAttribute="leading" secondItem="8GR-ev-bMr" secondAttribute="leading" type="default" id="XmD-fB-vvk"/>
-                            <constraint firstItem="pfn-du-qFP" firstAttribute="trailing" secondItem="8GR-ev-bMr" secondAttribute="trailing" type="default" id="ZPc-Ht-bOv"/>
+                            <constraint firstItem="pfn-du-qFP" firstAttribute="leading" secondItem="8GR-ev-bMr" secondAttribute="leading" id="XmD-fB-vvk"/>
+                            <constraint firstItem="pfn-du-qFP" firstAttribute="trailing" secondItem="8GR-ev-bMr" secondAttribute="trailing" id="ZPc-Ht-bOv"/>
                             <constraint firstItem="pfn-du-qFP" firstAttribute="top" secondItem="8GR-ev-bMr" secondAttribute="top" constant="73" id="gFK-HF-jE1"/>
                         </constraints>
                     </view>
@@ -116,10 +124,15 @@
         <scene sceneID="a4B-d1-Nfj">
             <objects>
                 <viewController id="xvR-VD-D1o" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GcK-IR-Scp"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Ue-UP-3r0"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="GOM-Pf-6ie">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 2" id="Lkf-YE-0P6"/>
                 </viewController>
@@ -130,8 +143,12 @@
         <scene sceneID="cm6-To-nvc">
             <objects>
                 <viewController id="1rz-P7-99X" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IVg-f5-hAC"/>
+                        <viewControllerLayoutGuide type="bottom" id="Lsq-Vi-mrs"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TbQ-iN-QwU">
-                        <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -160,9 +177,4 @@
             </objects>
         </scene>
     </scenes>
-    <simulatedMetricsContainer key="defaultSimulatedMetrics">
-        <simulatedStatusBarMetrics key="statusBar"/>
-        <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4"/>
-    </simulatedMetricsContainer>
 </document>

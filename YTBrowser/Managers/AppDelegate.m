@@ -33,7 +33,7 @@
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[JukeboxListViewController alloc] init]];
     self.leftMenuViewController = [[LeftMenuViewController alloc] init];
     
-    
+    /*
     self.sideMenuViewController = [[RESideMenu alloc] initWithContentViewController:navigationController
                                                                     leftMenuViewController:self.leftMenuViewController
                                                                    rightMenuViewController:nil];
@@ -45,7 +45,8 @@
     self.sideMenuViewController.contentViewShadowOpacity = 0.6;
     self.sideMenuViewController.contentViewShadowRadius = 12;
     self.sideMenuViewController.contentViewShadowEnabled = YES;
-    self.window.rootViewController =  self.sideMenuViewController;
+    */
+    self.window.rootViewController =  navigationController;
     
     
     self.window.backgroundColor = [UIColor whiteColor];
@@ -62,8 +63,9 @@
         // Load resources for iOS 6.1 or earlier
         [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]];
     } else {
-        [[UINavigationBar appearance]setTintColor:RGB(19, 143, 213)]; // it set color of bar button item text
-        [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set title color of Navigation Bar
+        [[UINavigationBar appearance]setTintColor:[UIColor whiteColor]]; // it set color of bar button item text
+        [[UINavigationBar appearance] setBarTintColor:RGB(65,105,225)];
+        [[UINavigationBar appearance]setTitleTextAttributes:@{UITextAttributeTextColor : [UIColor whiteColor]}]; //It set
         // Load resources for iOS 7 or later
         
     }
