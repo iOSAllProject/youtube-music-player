@@ -225,7 +225,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         CGPoint centerImageView = self.view.center;
         [liveChatBg setCenter:CGPointMake(centerImageView.x, liveChatBg.center.y)];
         [liveChatView addSubview:liveChatBg];
-        UITapGestureRecognizer *gesRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)]; // Declare the Gesture.
+        UITapGestureRecognizer *gesRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(addHeart)]; // Declare the Gesture.
         gesRecognizer.delegate = self;
         [liveChatView addGestureRecognizer:gesRecognizer]; // Add Gesture to your view.
 
@@ -289,7 +289,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 
 - (void) animateTextField: (UITextField*) textField up: (BOOL) up
 {
-    const int movementDistance = 220; // tweak as needed
+    const int movementDistance = 210; // tweak as needed
     const float movementDuration = 0.3f; // tweak as needed
     
     int movement = (up ? -movementDistance : movementDistance);
@@ -380,9 +380,7 @@ const CGFloat kCommentCellHeight = 50.0f;
             NSString *authorId = entry.authorId;
             NSString *currentUser =[[PFUser currentUser] objectId];
             if(![authorId isEqualToString:currentUser]){
-                [self addHeart];
-                [self addHeart];
-                [self addHeart];
+                [self sendRemoteAnimation];
             }
         };
         counter++;
@@ -657,7 +655,6 @@ const CGFloat kCommentCellHeight = 50.0f;
             [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
             self.isLiveChatShowing = YES;
             [liveChatView setHidden:NO];
-            [self addHeart];
             // Delay 2 seconds
             [MMX start];
             JukeboxEntry *currentJukebox = [[MediaManager sharedInstance] currentJukebox];
@@ -671,7 +668,7 @@ const CGFloat kCommentCellHeight = 50.0f;
                                          
                                          NSCalendar *theCalendar = [NSCalendar currentCalendar];
                                          NSDate *now = [NSDate date];
-                                         NSDate *anHourAgo = [theCalendar dateByAddingComponents:dateComponents toDate:now options:0];
+                                        // NSDate *anHourAgo = [theCalendar dateByAddingComponents:dateComponents toDate:now options:0];
                                          /*
                                          [channel fetchMessagesBetweenStartDate:anHourAgo
                                                                                 endDate:now
@@ -711,7 +708,7 @@ const CGFloat kCommentCellHeight = 50.0f;
 
 
 - (void)addHeart {
-    UIImageView *heartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth / 2.0 - 14, kScreenHeight - 100, 28, 26)];
+    UIImageView *heartImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth / 2.0 - 14, textView.frame.origin.y +5 , 28, 26)];
     
     heartImageView.image = [UIImage imageNamed:@"happy_face"];
     heartImageView.transform = CGAffineTransformMakeScale(0, 0);
@@ -768,16 +765,16 @@ const CGFloat kCommentCellHeight = 50.0f;
             return YES;
         NSString *name = [PFUser currentUser][@"profile"][@"name"];
         NSString *imageURL = [PFUser currentUser][@"profile"][@"pictureURL"];
-        MMXMessage *msg = [MMXMessage messageToChannel:self.currentChannel messageContent:@{@"textContent":textView.text, @"sender":name, @"imageURL":imageURL}];
+        MMXMessage *msg = [MMXMessage messageToChannel:self.currentChannel messageContent:@{@"textContent":textView.text, @"sender":name, @"imageURL":imageURL, @"type":@"text"}];
         
         [msg sendWithSuccess:nil failure:nil];
         
-        NSDictionary *messageDict = @{@"messageContent":textView.text, @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:[NSDate date]],@"senderUsername": name ,@"isOutboundMessage":@(YES)};
+        NSDictionary *messageDict = @{@"messageContent":textView.text, @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:[NSDate date]],@"senderUsername": [[PFUser currentUser] objectId] ,@"isOutboundMessage":@(YES)};
         
         NSMutableArray *tempMessageList = self.messages.mutableCopy;
         [tempMessageList insertObject:messageDict atIndex:0];
         self.messages = tempMessageList.copy;
-        
+        textView.text = @"";
         [textField resignFirstResponder];
         
         return NO;
@@ -789,41 +786,58 @@ const CGFloat kCommentCellHeight = 50.0f;
         NSDictionary *notificationDict =  noti.userInfo;
         MMXMessage *message = notificationDict[MMXMessageKey];
         if (message) {
-            NSDictionary *messageDict = @{@"messageContent":message.messageContent[@"textContent"] ?: @"Message content missing",
+            if(message.messageContent[@"type"] && [message.messageContent[@"type"] isEqualToString:@"text"]){
+                NSDictionary *messageDict = @{@"messageContent":message.messageContent[@"textContent"] ?: @"Message content missing",
+                                              @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:message.timestamp],
+                                              @"senderUsername":message.messageContent[@"sender"],
+                                              @"imageURL":message.messageContent[@"imageURL"],
+                                              @"isOutboundMessage":@(NO)};
+                
+                NSMutableArray *tempMessageList = self.messages.mutableCopy;
+                [tempMessageList insertObject:messageDict atIndex:0];
+                self.messages= tempMessageList.copy;
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    NSString *textContent = [messageDict objectForKey:@"messageContent"];
+                    NSString *sender = [messageDict objectForKey:@"senderUsername"];
+                    NSString *userProfilePhotoURLString = [messageDict objectForKey:@"imageURL"];
+                    // Download the user's facebook profile picture
+                    if (userProfilePhotoURLString) {
+                        NSURL *pictureURL = [NSURL URLWithString:userProfilePhotoURLString];
+                        NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
+                        
+                        [NSURLConnection sendAsynchronousRequest:urlRequest
+                                                           queue:[NSOperationQueue mainQueue]
+                                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                                                   if (connectionError == nil && data != nil) {
+                                                       [liveChatMessages addCell:[UIImage imageWithData:data] name:sender comment:textContent];
+                                                   } else {
+                                                       NSLog(@"Failed to load profile photo.");
+                                                   }
+                                               }];
+                    }
+                    
+                });
+                
+                }
+        } else if(message.messageContent[@"type"] && [message.messageContent[@"type"] isEqualToString:@"like"]){
+            NSDictionary *messageDict = @{
                                           @"timestampString":[[QuickStartUtils friendlyDateFormatter] stringFromDate:message.timestamp],
                                           @"senderUsername":message.messageContent[@"sender"],
-                                          @"imageURL":message.messageContent[@"imageURL"],
                                           @"isOutboundMessage":@(NO)};
-            
-            NSMutableArray *tempMessageList = self.messages.mutableCopy;
-            [tempMessageList insertObject:messageDict atIndex:0];
-            self.messages= tempMessageList.copy;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSString *textContent = [messageDict objectForKey:@"messageContent"];
-                NSString *sender = [messageDict objectForKey:@"senderUsername"];
-                NSString *userProfilePhotoURLString = [messageDict objectForKey:@"imageURL"];
-                // Download the user's facebook profile picture
-                if (userProfilePhotoURLString) {
-                    NSURL *pictureURL = [NSURL URLWithString:userProfilePhotoURLString];
-                    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:pictureURL];
-                    
-                    [NSURLConnection sendAsynchronousRequest:urlRequest
-                                                       queue:[NSOperationQueue mainQueue]
-                                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                                               if (connectionError == nil && data != nil) {
-                                                   [liveChatMessages addCell:[UIImage imageWithData:data] name:sender comment:textContent];
-                                               } else {
-                                                   NSLog(@"Failed to load profile photo.");
-                                               }
-                                           }];
-                }
-                
-            });
-            
+            NSString *sender = [messageDict objectForKey:@"senderUsername"];
+            if(![sender isEqualToString:[[PFUser currentUser] objectId]]){
+                [self addHeart];
+            }
+
         }
     }
 }
 
-
+-(void) sendRemoteAnimation {
+    [self addHeart];
+    NSString *name = [PFUser currentUser][@"profile"][@"name"];
+    MMXMessage *msg = [MMXMessage messageToChannel:self.currentChannel messageContent:@{@"sender":[[PFUser currentUser] objectId], @"type":@"like"}];
+    [msg sendWithSuccess:nil failure:nil];
+}
 
 @end
