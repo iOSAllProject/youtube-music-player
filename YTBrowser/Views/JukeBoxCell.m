@@ -4,7 +4,7 @@
 
 #import "JukeBoxCell.h"
 #import <QuartzCore/QuartzCore.h>
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){80, 80}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){375, 130}
 #define ROW_HEIGHT 100
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
 #define IV_FRAME CGRectMake((ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height)
@@ -20,8 +20,9 @@
 
   // positioning
     
-    //self.leftMargin = (IPHONE_PORTRAIT_GRID.width - 2*IPHONE_PORTRAIT_PHOTO.width)/3;
-    self.topMargin = self.leftMargin;
+    self.leftMargin = 10;
+    self.rightMargin = 10;
+    self.bottomMargin = 10;
 
   // background
   self.backgroundColor = [UIColor whiteColor];
@@ -41,6 +42,8 @@
   box.jukeBoxEntry = [[JukeboxEntry alloc] init];
   // style and tag
   box.tag = -1;
+  box.layer.cornerRadius = 5;
+  box.layer.masksToBounds = YES;
   // add the add image
   UIImage *add = [UIImage imageNamed:@"add"];
   UIImageView *addView = [[UIImageView alloc] initWithImage:add];
@@ -70,7 +73,7 @@
     CGFloat authorSize = 17;
     CGFloat songSize = 17;
     CGFloat allTextSize = titleSize + authorSize + songSize + 2*vPadding;
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(IV_FRAME.size.width + IV_FRAME.origin.x + 10, ROW_HEIGHT/2 - (allTextSize+vPadding)/2, box.frame.size.width - IV_FRAME.size.width-25 - vPadding, titleSize)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, IPHONE_PORTRAIT_PHOTO.height + 10, size.width, titleSize)];
     title.text = jukeboxEntry.title;
     title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     // title.textAlignment = NSTextAlignmentCenter;
@@ -81,7 +84,7 @@
     //  title.backgroundColor = [UIColor redColor];
     [box addSubview:title];
 
-    UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, authorSize)];
+    UILabel *author = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x, title.frame.origin.y + title.frame.size.height + vPadding , size.width, authorSize)];
     author.text =  jukeboxEntry.author;
     // author.textAlignment = NSTextAlignmentCenter;
     author.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
@@ -96,13 +99,13 @@
     UIImageView *playingIcon = [[UIImageView alloc] initWithFrame:CGRectMake(title.frame.origin.x, author.frame.origin.y + author.frame.size.height + vPadding , 17, 17)];
     playingIcon.image = [UIImage imageNamed:@"currently_playing"];
     [box addSubview:playingIcon];
-    UILabel *currentlyPlaying = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x+ 24, author.frame.origin.y + author.frame.size.height + vPadding ,  box.frame.size.width - IV_FRAME.size.width-40, songSize)];
+    UILabel *currentlyPlaying = [[UILabel alloc] initWithFrame:CGRectMake(title.frame.origin.x + playingIcon.frame.origin.x + playingIcon.frame.size.width, author.frame.origin.y + author.frame.size.height + vPadding ,  box.frame.size.width, songSize)];
     currentlyPlaying.text = jukeboxEntry.currentlyPlaying;
     currentlyPlaying.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:14.0f];
     currentlyPlaying.textColor = RGB(19, 143, 213);
     
     [box addSubview:currentlyPlaying];
-    
+    /*
     CGFloat moreSize = 25;
     UIImageView *more = [[UIImageView alloc] initWithFrame:CGRectMake(box.frame.size.width -moreSize-10, box.frame.size.height/2-moreSize/2, moreSize, moreSize)];
     more.image = [UIImage imageNamed:@"right_arrow"];
@@ -111,7 +114,7 @@
     UIView *border = [[UIView alloc] initWithFrame:CGRectMake(10, ROW_HEIGHT-1, box.frame.size.width-20, 0.3)];
     border.backgroundColor = RGB(236, 238, 241);
     [box addSubview:border];
-    
+    */
     // add a loading spinner
         UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc]
                                             initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -173,13 +176,14 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self addSubview:imageView];
-      imageView.frame = (CGRect) {(ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height};
+      imageView.frame = (CGRect) {0, 0, IPHONE_PORTRAIT_PHOTO.width-20, IPHONE_PORTRAIT_PHOTO.height};
     //imageView.size = IPHONE_PORTRAIT_PHOTO;
     imageView.alpha = 1;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
         | UIViewAutoresizingFlexibleHeight;
+      imageView.contentMode = UIViewContentModeScaleAspectFill;
       imageView.backgroundColor = [UIColor blackColor];
-      imageView.layer.cornerRadius = 10;
+     // imageView.layer.cornerRadius = 10;
       imageView.layer.masksToBounds = YES;
       
 

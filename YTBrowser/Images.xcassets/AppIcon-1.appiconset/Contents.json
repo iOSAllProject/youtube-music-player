@@ -28,8 +28,9 @@
       "scale" : "3x"
     },
     {
-      "idiom" : "iphone",
       "size" : "57x57",
+      "idiom" : "iphone",
+      "filename" : "AppIconWhite_60pt.png",
       "scale" : "1x"
     },
     {
@@ -38,9 +39,8 @@
       "scale" : "2x"
     },
     {
-      "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "AppIconWhite_60pt.png",
+      "size" : "60x60",
       "scale" : "2x"
     },
     {

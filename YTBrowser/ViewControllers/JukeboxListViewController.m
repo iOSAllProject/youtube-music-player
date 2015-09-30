@@ -21,8 +21,8 @@
 
 #define ROW_SIZE               (CGSize){375, 180}
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width, 100}
-#define IPHONE_PORTRAIT_CELL  (CGSize){self.view.frame.size.width, 100}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width, 210}
+#define IPHONE_PORTRAIT_CELL  (CGSize){self.view.frame.size.width-20, 210}
 #define IPHONE_LANDSCAPE_PHOTO (CGSize){152, 152}
 
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 180}
@@ -82,13 +82,13 @@
     scroller = [MGScrollView scrollerWithSize:self.view.size];
     //setup the scroll view
     scroller.contentLayoutMode = MGLayoutGridStyle;
-    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height - 45 );
-    scroller.sizingMode = MGResizingShrinkWrap;
+    scroller.frame = CGRectMake(0.0, 0.0, self.view.size.width, self.view.size.height);
+
     scroller.bottomPadding = 0;
+    scroller.backgroundColor = RGB(240, 239, 240);
     
-    scroller.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:scroller];
-    [self.view addSubview:mapView];
+    //[self.view addSubview:mapView];
     [mapView setHidden:YES];
     // iPhone or iPad?
     UIDevice *device = UIDevice.currentDevice;
@@ -105,15 +105,15 @@
     // the photos grid
     photosGrid = [MGBox boxWithSize:photosGridSize];
     photosGrid.contentLayoutMode = MGLayoutGridStyle;
-    [scroller.boxes addObject:photosGrid];
+    //[scroller.boxes addObject:photosGrid];
     //[photosGrid layout];
     
     // the tables grid
-    CGSize tablesGridSize = phone ? IPHONE_TABLES_GRID : IPAD_TABLES_GRID;
-    tablesGrid = [MGBox boxWithSize:tablesGridSize];
+    //CGSize tablesGridSize = phone ? IPHONE_TABLES_GRID : IPAD_TABLES_GRID;
+    //tablesGrid = [MGBox boxWithSize:tablesGridSize];
     
-    tablesGrid.contentLayoutMode = MGLayoutGridStyle;
-    [scroller.boxes addObject:tablesGrid];
+   // tablesGrid.contentLayoutMode = MGLayoutGridStyle;
+   // [scroller.boxes addObject:tablesGrid];
     
     
     if(![PFUser currentUser]){
@@ -172,7 +172,7 @@
 -(void) createJukeboxListView: (NSArray *) jukeboxes {
     _jukeboxes = [[NSMutableArray alloc] init];
     _jukeboxCells = [[NSMutableArray alloc] init];
-    [photosGrid.boxes removeAllObjects];
+    [scroller.boxes removeAllObjects];
     
     for (PFObject *j in jukeboxes){
         JukeboxEntry *entry = [[JukeboxEntry alloc] init];
@@ -189,7 +189,7 @@
         }
         
         JukeBoxCell *cell = [self photoBoxFor:entry];
-        [photosGrid.boxes addObject:cell];
+        [scroller.boxes addObject:cell];
         [_jukeboxes addObject:entry];
         [_jukeboxCells addObject: cell];
         /*
@@ -233,22 +233,22 @@
 
     }
    
-    [photosGrid layout];
-    [tablesGrid layout];
+    [scroller layout];
+    //[tablesGrid layout];
     
     //Animate table view rows
     if(!animateOnce){
          animateOnce = YES;
-        for(int i = 0; i <[photosGrid.boxes count]; i++){
+        for(int i = 0; i <[scroller.boxes count]; i++){
             CGFloat tableHeight = scroller.frame.size.height;
-            MGBox *box =[photosGrid.boxes objectAtIndex:i];
+            MGBox *box =[scroller.boxes objectAtIndex:i];
             box.transform = CGAffineTransformMakeTranslation(0, tableHeight);
         }
         
-        for (int i = 0; i < [photosGrid.boxes count]; i++){
+        for (int i = 0; i < [scroller.boxes count]; i++){
             // fade the image in
             [UIView animateWithDuration:1.5 delay:(0.05 * i) usingSpringWithDamping:.8 initialSpringVelocity:0 options:nil animations:^{
-                MGBox *box = [photosGrid.boxes objectAtIndex:i];
+                MGBox *box = [scroller.boxes objectAtIndex:i];
                 box.transform = CGAffineTransformMakeTranslation(0, 0);
             } completion:nil];
         }
