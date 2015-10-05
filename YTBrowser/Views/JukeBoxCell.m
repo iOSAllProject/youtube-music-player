@@ -4,7 +4,7 @@
 
 #import "JukeBoxCell.h"
 #import <QuartzCore/QuartzCore.h>
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){375, 130}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){375, 180}
 #define ROW_HEIGHT 100
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
 #define IV_FRAME CGRectMake((ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height)
@@ -20,11 +20,13 @@
 
   // positioning
     
-    self.leftMargin = 10;
-    self.rightMargin = 10;
+
     self.bottomMargin = 10;
 
   // background
+    self.layer.borderColor = RGB(234,234,234).CGColor;
+    self.layer.borderWidth = .5;
+    
   self.backgroundColor = [UIColor whiteColor];
   // shadow
   self.layer.shadowColor = [UIColor colorWithWhite:0.12 alpha:1].CGColor;
@@ -42,7 +44,7 @@
   box.jukeBoxEntry = [[JukeboxEntry alloc] init];
   // style and tag
   box.tag = -1;
-  box.layer.cornerRadius = 5;
+  box.layer.cornerRadius = 20;
   box.layer.masksToBounds = YES;
   // add the add image
   UIImage *add = [UIImage imageNamed:@"add"];
@@ -65,7 +67,6 @@
 
     box.jukeBoxEntry = jukeboxEntry;
 
-
     // BOOL isBgLight =[self isLightColor:self.backgroundColor];
     CGFloat hPadding = 10;
     CGFloat vPadding = 5;
@@ -73,7 +74,7 @@
     CGFloat authorSize = 17;
     CGFloat songSize = 17;
     CGFloat allTextSize = titleSize + authorSize + songSize + 2*vPadding;
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, IPHONE_PORTRAIT_PHOTO.height + 10, size.width, titleSize)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, IPHONE_PORTRAIT_PHOTO.height + 10+20, size.width, titleSize)];
     title.text = jukeboxEntry.title;
     title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     // title.textAlignment = NSTextAlignmentCenter;
@@ -176,7 +177,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self addSubview:imageView];
-      imageView.frame = (CGRect) {0, 0, IPHONE_PORTRAIT_PHOTO.width-20, IPHONE_PORTRAIT_PHOTO.height};
+      imageView.frame = (CGRect) {0, 20, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height};
     //imageView.size = IPHONE_PORTRAIT_PHOTO;
     imageView.alpha = 1;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth

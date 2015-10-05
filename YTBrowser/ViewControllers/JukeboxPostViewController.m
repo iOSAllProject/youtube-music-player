@@ -192,24 +192,36 @@ const CGFloat kCommentCellHeight = 50.0f;
         [_commentsViewContainer addSubview:_commentsTableView];
         [_mainScrollView addSubview:_commentsViewContainer];
         [self.view addSubview:_titleSmallLabel];
-
+/*
         _addButton = [[RMSaveButton alloc] initWithFrame: ADD_SONG_INIT_FRAME];
         _addButton.label = @"Queue Song";
         [_mainScrollView addSubview:_addButton];
         _addButton.startHandler = ^void() { [self searchForSong]; };
         _addButton.interruptHandler = ^void() {};
         _addButton.completionHandler = ^void() {};
+        */
         
+        UIImageView *dismissButtonIcon = [[UIImageView alloc] initWithFrame:CGRectMake(10, 30, 25.0, 25.0)];
+        dismissButtonIcon.image = [UIImage imageNamed:@"close"];
+        [self.view addSubview:dismissButtonIcon];
         
-        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 25.0, 25.0)];
+        dismissButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 75.0, 75.0)];
         [dismissButton addTarget:self
                           action:@selector(done)
                 forControlEvents:UIControlEventTouchUpInside];
-        [dismissButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
+        //[dismissButton setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
         [self.view addSubview: dismissButton];
         
-        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-25, 30, 25.0, 25.0)];
-        [queue setBackgroundImage:[UIImage imageNamed:@"more_juke"] forState:UIControlStateNormal];
+        UIImageView *queueButtonIcon = [[UIImageView alloc] initWithFrame:CGRectMake(self.view.frame.size.width-10-22, 30, 20.0, 20.0)];
+        queueButtonIcon.image = [UIImage imageNamed:@"Plus"];
+        [self.view addSubview:queueButtonIcon];
+        queue = [[UIButton alloc] initWithFrame:CGRectMake(self.view.frame.size.width-50, 0, 75.0, 75.0)];
+       // [queue setBackgroundImage:[UIImage imageNamed:@"Plus"] forState:UIControlStateNormal];
+        queue.backgroundColor = [UIColor clearColor];
+        [queue addTarget:self
+                          action:@selector(searchForSong)
+                forControlEvents:UIControlEventTouchUpInside];
+
         [self.view addSubview:queue];
 
         

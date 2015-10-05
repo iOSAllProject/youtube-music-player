@@ -14,6 +14,7 @@
 #import "MapPin.h"
 #import <MMX/MMX.h>
 
+
 #define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define TOTAL_IMAGES           28
 #define IPHONE_INITIAL_IMAGES  28
@@ -21,8 +22,8 @@
 
 #define ROW_SIZE               (CGSize){375, 180}
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width, 210}
-#define IPHONE_PORTRAIT_CELL  (CGSize){self.view.frame.size.width-20, 210}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width, 280}
+#define IPHONE_PORTRAIT_CELL  (CGSize){self.view.frame.size.width, 280}
 #define IPHONE_LANDSCAPE_PHOTO (CGSize){152, 152}
 
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 180}
@@ -61,7 +62,16 @@
     list = true;
     self.view.backgroundColor = [UIColor whiteColor];
     UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.size.width/2 -30.0, 0.0, 60.0, 44.0)];
-    titleLabel.text = @"STREAMS";
+    NSString *string = @"Metamusic";
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:string];
+    
+    float spacing = 2.0f;
+    [attributedString addAttribute:NSKernAttributeName
+                             value:@(spacing)
+                             range:NSMakeRange(0, [string length])];
+    
+    titleLabel.attributedText = attributedString;
+
     titleLabel.textColor = [[UINavigationBar appearance] tintColor];
     
     titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
@@ -75,8 +85,7 @@
     //setup mapview
     mapView = [[MKMapView alloc] initWithFrame:self.view.frame];
     mapView.delegate = self;
-    
-    
+
     
     // Do any additional setup after loading the view, typically from a nib.
     scroller = [MGScrollView scrollerWithSize:self.view.size];
@@ -86,6 +95,19 @@
 
     scroller.bottomPadding = 0;
     scroller.backgroundColor = RGB(240, 239, 240);
+    
+    // Just call this line to enable the scrolling navbar
+    [self followScrollView:scroller withDelay:100];
+    
+    // Set it to YES if the scrollview being watched is contained in the main view
+    // Set it to NO if the scrollview IS the main view (e.g.: subclasses of UITableViewController)
+    [self setUseSuperview:NO];
+    
+    // Enable the autolayout-friendly handling of the view
+    //[self setScrollableViewConstraint:self.headerConstraint withOffset:60];
+    
+    // Stops the scrolling if the content fits inside the frame
+    [self setShouldScrollWhenContentFits:NO];
     
     [self.view addSubview:scroller];
     //[self.view addSubview:mapView];
@@ -139,6 +161,11 @@
     }];
     
 }
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return UIStatusBarStyleLightContent;
+}
+
 - (void)loadDatas
 {
     PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];

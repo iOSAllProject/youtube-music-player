@@ -75,7 +75,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     miniPlayer.layer.shadowOpacity = 0.5f;
     miniPlayer.layer.shadowPath = shadowPath.CGPath;
     UIView *playerBlackFilter = [[UIView alloc] initWithFrame: CGRectMake(0, 0, miniPlayer.frame.size.width, miniPlayer.frame.size.height)];
-    playerBlackFilter.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5f];
+    playerBlackFilter.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.87f];
     [miniPlayer addSubview:playerBlackFilter];
     
     
@@ -286,7 +286,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         dispatch_async(dispatch_get_main_queue(), ^{
 
             UIImage *imgBlur = [self croppIngimageByImageName:img toRect:CGRectMake(0,180,miniPlayer.frame.size.width, miniPlayer.frame.size.height)];
-            UIImage *blurredImg = [imgBlur applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0.0 alpha:0.0] saturationDeltaFactor:1.8 maskImage:nil];
+            UIImage *blurredImg = [imgBlur applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0.0 alpha:0.0] saturationDeltaFactor:10.8 maskImage:nil];
             miniPlayer.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
             miniPlayer.backgroundColor = [UIColor colorWithPatternImage:blurredImg];
             
@@ -388,9 +388,9 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
             
             [jukebox setValue:[NSNumber numberWithBool:self.currentJukebox.isPlaying]  forKey:@"isPlaying" ];
             NSInteger elapsed = (NSInteger)self.mPlayer.currentPlaybackTime;
-            NSArray *songs = jukebox[@"playQueue"];
-            PFObject *song = [songs objectAtIndex:0];
-            [jukebox setValue:song[@"title"] forKey:@"currentlyPlaying"];
+            
+            VideoModel *song = [currentPlaylist objectAtIndex:currentSongIndex];
+            [jukebox setValue:song.title forKey:@"currentlyPlaying"];
             [jukebox setValue:@(elapsed) forKey:@"time"];
             
         } else if(song){
@@ -497,7 +497,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
         NSInteger diff = currentTime - self.currentJukebox.updatedAt;
         if(diff < 20)
             diff = 0;
-        [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime +diff];
+        [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime +diff+5];
     }
     
 }
