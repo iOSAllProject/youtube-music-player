@@ -67,36 +67,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MYC-k1-hHD">
-                                <rect key="frame" x="139" y="373" width="42" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="ZZx-Xf-3mz"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <webView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pfn-du-qFP">
-                                <rect key="frame" x="0.0" y="72" width="320" height="269"/>
-                                <color key="backgroundColor" red="0.94117647058823528" green="0.93725490196078431" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="269" id="rlP-YX-IHw"/>
-                                </constraints>
-                            </webView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F5e-bS-MRk" customClass="JukeBoxCell">
+                                <rect key="frame" x="0.0" y="287" width="319" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.86274516582489014" green="0.86274516582489014" blue="0.86274516582489014" alpha="1" colorSpace="deviceRGB"/>
-                        <constraints>
-                            <constraint firstItem="MYC-k1-hHD" firstAttribute="centerX" secondItem="pfn-du-qFP" secondAttribute="centerX" id="Vgr-PN-APl"/>
-                            <constraint firstAttribute="bottom" secondItem="MYC-k1-hHD" secondAttribute="bottom" constant="174" id="ViF-iS-cFx"/>
-                            <constraint firstItem="pfn-du-qFP" firstAttribute="leading" secondItem="8GR-ev-bMr" secondAttribute="leading" id="XmD-fB-vvk"/>
-                            <constraint firstItem="pfn-du-qFP" firstAttribute="trailing" secondItem="8GR-ev-bMr" secondAttribute="trailing" id="ZPc-Ht-bOv"/>
-                            <constraint firstItem="pfn-du-qFP" firstAttribute="top" secondItem="8GR-ev-bMr" secondAttribute="top" constant="73" id="gFK-HF-jE1"/>
-                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gsC-eX-Kj8"/>
-                    <connections>
-                        <outlet property="webView" destination="pfn-du-qFP" id="Rsa-WW-n3u"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pd2-89-f3b" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

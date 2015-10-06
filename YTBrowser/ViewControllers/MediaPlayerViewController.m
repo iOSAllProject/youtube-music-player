@@ -372,6 +372,7 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
     backgroundImage.image = [self blurredImageWithImage:self.bgImg];
     player = [[MediaManager sharedInstance] getVideoPlayer];
     [player presentInView:playerContainer];
+    [player.moviePlayer setControlStyle:MPMovieControlStyleNone];
 }
 
 
@@ -657,4 +658,6 @@ static NSString const *api_key =@"AIzaSyAnNzksYIn-iEWWIvy8slUZM44jH6WjtP8"; // p
 -(void) hideVideoSpinner {
     [videoSpinner stopAnimating];
 }
+
+
 @end

@@ -22,7 +22,7 @@
 
 #define ROW_SIZE               (CGSize){375, 180}
 
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width, 280}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){self.view.frame.size.width-20, 280}
 #define IPHONE_PORTRAIT_CELL  (CGSize){self.view.frame.size.width, 280}
 #define IPHONE_LANDSCAPE_PHOTO (CGSize){152, 152}
 

@@ -7,6 +7,7 @@
 #import "AppConstant.h"
 #import <QuartzCore/QuartzCore.h>
 #import "JukeboxEntry.h"
+#import <MMX/MMX.h>
 @interface MediaManager : NSObject{
     
 }
@@ -28,8 +29,14 @@
 -(void) skipToPrevSong;
 -(void) updateJukeboxPlayState;
 
-@property(nonatomic, strong) NSTimer *jukeboxTimer;
+@property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
+@property (nonatomic, strong) NSArray *currentPlaylist;
+
 @property(nonatomic, strong) JukeboxEntry* currentJukebox;
 @property(nonatomic,strong)     MPMoviePlayerController *mPlayer;
+@property(nonatomic, strong) MMXChannel *currentChannel;
+@property NSInteger elapsed;
+@property NSInteger lastTimeStamp;
+@property NSInteger latency;
 @property BOOL userPaused;
 @end

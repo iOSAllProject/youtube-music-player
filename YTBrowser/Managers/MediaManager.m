@@ -21,9 +21,9 @@ static MediaManager *sharedInstance = nil;
     CBAutoScrollLabel *pLabel;
     UIImageView *pAction;
     UIActivityIndicatorView *statusSpinner;
-
+    
     MediaPlayerViewController *videoPlayer;
-    NSArray *currentPlaylist;
+    
     NSMutableSet *songsInLibrary;
     NSInteger  currentSongIndex;
     UISlider *slider;
@@ -32,7 +32,7 @@ static MediaManager *sharedInstance = nil;
     BOOL AUDIO_ENABLED;
     
 }
-@property (nonatomic, strong) XCDYouTubeVideoPlayerViewController *videoPlayerViewController;
+
 @end
 @implementation MediaManager
 static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
@@ -240,8 +240,8 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 -(void)playerItemDidReachEnd:(NSNotification *)notification
 {
     
-    currentSongIndex = (currentSongIndex+1) % [currentPlaylist count];
-    VideoModel *nextSong = [currentPlaylist objectAtIndex:currentSongIndex];
+    currentSongIndex = (currentSongIndex+1) % [self.currentPlaylist count];
+    VideoModel *nextSong = [self.currentPlaylist objectAtIndex:currentSongIndex];
     [[XCDYouTubeClient defaultClient] getVideoWithIdentifier:nextSong.videoId completionHandler:^(XCDYouTubeVideo *video, NSError *error) {
         if (video)
         {
@@ -338,11 +338,11 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 -(void) updateMiniPlayerState:(MPMoviePlaybackState)state {
     [statusSpinner stopAnimating];
     if (state == MPMoviePlaybackStatePlaying) { //playing
-        isPlaying = TRUE;
+        isPlaying = YES;
         pAction.image = [UIImage imageNamed:@"pause_white_128"];
     } if (state== MPMoviePlaybackStateStopped) { //stopped
     } if (state == MPMoviePlaybackStatePaused) { //paused
-        isPlaying = FALSE;
+        isPlaying = NO;
         pAction.image = [UIImage imageNamed:@"play_white_128"];
         
     }if (state == MPMoviePlaybackStateInterrupted)
@@ -359,15 +359,23 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 {
     MPMovieFinishReason finishReason = [notification.userInfo[MPMoviePlayerPlaybackDidFinishReasonUserInfoKey] integerValue];
     if (finishReason == MPMovieFinishReasonPlaybackEnded) {
-        currentSongIndex = (currentSongIndex+1) % [currentPlaylist count];
-        VideoModel *nextSong = [currentPlaylist objectAtIndex:currentSongIndex];
-        self.videoPlayerViewController.videoIdentifier = nextSong.videoId;
-        [videoPlayer updatePlayerTrack];
-        [self updateMiniPlayer:nextSong];
-        NSString *currentUser = [[PFUser currentUser] objectId];
-        if([self.currentJukebox.authorId isEqualToString:currentUser])
-            [self updateJukeboxSong];
-        NSLog(@"%@", nextSong.title);
+        currentSongIndex = (currentSongIndex+1) % [self.currentPlaylist count];
+         NSString *currentUser = [[PFUser currentUser] objectId];
+        if([self.currentPlaylist count] > 1){
+            VideoModel *nextSong = [self.currentPlaylist objectAtIndex:currentSongIndex];
+            self.videoPlayerViewController.videoIdentifier = nextSong.videoId;
+            [videoPlayer updatePlayerTrack];
+            [self updateMiniPlayer:nextSong];
+           
+            if([self.currentJukebox.authorId isEqualToString:currentUser])
+                [self updateJukeboxSong];
+        } else {
+            miniPlayer.hidden = YES;
+            [self.mPlayer pause];
+            if([self.currentJukebox.authorId isEqualToString:currentUser])
+                [self updateJukeboxSong];
+        }
+
     }
 }
 
@@ -378,20 +386,42 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 }
 -(void) updateJukeboxPlayState {
     [self updateJukeboxForSong: NO andState:YES];
+    
 }
 
 -(void) updateJukeboxForSong:(BOOL) song andState:(BOOL) state{
+    
+    VideoModel *songModel = [self.currentPlaylist objectAtIndex:currentSongIndex];
+    if(self.currentChannel && [self.currentChannel.name isEqualToString:self.currentJukebox.objectId]){
+        
+        //send message to listeners
+        NSInteger elapsed = (NSInteger)self.mPlayer.currentPlaybackTime;
+        if(elapsed < 0)
+            elapsed = 0;
+        NSString *elapsedString = [NSString stringWithFormat:@"%ld",(long) elapsed];
+       
+        NSInteger currentTime = [[NSDate date] timeIntervalSince1970];
+        NSString *currentTimeString = [NSString stringWithFormat:@"%ld",(long) currentTime];
+        NSString *isPlaying = (self.mPlayer.playbackState == MPMoviePlaybackStatePlaying) ? @"1" : @"0";
+        MMXMessage *msg = [MMXMessage messageToChannel:self.currentChannel messageContent:@{@"videoId":songModel.videoId, @"title":songModel.title, @"elapsed":elapsedString,@"timestamp":currentTimeString, @"state": isPlaying, @"type":@"audio"}];
+        
+        [msg sendWithSuccess:^{
+            NSLog(@"SUCCESS!");
+        }failure:^(NSError *error){
+            NSLog(@"Error");
+        }];
+    }
+    
     PFQuery *query = [PFQuery queryWithClassName:@"Jukeboxes"];
     [query getObjectInBackgroundWithId:self.currentJukebox.objectId block:^(PFObject *jukebox, NSError *error) {
        // NSLog(@"%@", jukebox);
         if(state){
-            
+            /*
             [jukebox setValue:[NSNumber numberWithBool:self.currentJukebox.isPlaying]  forKey:@"isPlaying" ];
             NSInteger elapsed = (NSInteger)self.mPlayer.currentPlaybackTime;
-            
-            VideoModel *song = [currentPlaylist objectAtIndex:currentSongIndex];
-            [jukebox setValue:song.title forKey:@"currentlyPlaying"];
-            [jukebox setValue:@(elapsed) forKey:@"time"];
+*/
+            [jukebox setValue:songModel.title forKey:@"currentlyPlaying"];
+  //          [jukebox setValue:@(elapsed) forKey:@"time"];
             
         } else if(song){
             PFObject *lastPlayed = jukebox[@"playQueue"][0];
@@ -472,7 +502,7 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 
 
 -(VideoModel *) getCurrentlyPlaying {
-    return [currentPlaylist objectAtIndex:currentSongIndex];
+    return [self.currentPlaylist objectAtIndex:currentSongIndex];
 }
 
 -(void) runInBackground {
@@ -494,10 +524,10 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
     NSString *currentUser =[[PFUser currentUser] objectId];
     if(self.currentJukebox && ![currentUser isEqualToString:self.currentJukebox.authorId] ){
         NSTimeInterval currentTime = [[NSDate date] timeIntervalSince1970];
-        NSInteger diff = currentTime - self.currentJukebox.updatedAt;
+        NSInteger diff = currentTime - self.lastTimeStamp;
         if(diff < 20)
             diff = 0;
-        [self.mPlayer setCurrentPlaybackTime:self.currentJukebox.elapsedTime +diff+5];
+        [self.mPlayer setCurrentPlaybackTime:self.elapsed+diff+self.latency];
     }
     
 }
@@ -525,13 +555,13 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 }
 
 -(void) setPlaylist:(NSArray *) songs andSongIndex:(NSInteger) index {
-    currentPlaylist = songs;
+    self.currentPlaylist = songs;
     currentSongIndex = index;
 }
 
 -(void) setCurrentLibrary:(NSArray *)songs {
     songsInLibrary = [[NSMutableSet alloc] initWithArray:songs];
-    currentPlaylist = songs;
+    self.currentPlaylist = songs;
 
 }
 -(BOOL) isInLibrary:(VideoModel *)song {
@@ -546,12 +576,12 @@ static void *MoviePlayerContentURLContext = &MoviePlayerContentURLContext;
 }
 
 -(void) skipToNextSong {
-    currentSongIndex = (currentSongIndex +1)% [currentPlaylist count];
-    [self playWithVideo:[currentPlaylist objectAtIndex:currentSongIndex]];
+    currentSongIndex = (currentSongIndex +1)% [self.currentPlaylist count];
+    [self playWithVideo:[self.currentPlaylist objectAtIndex:currentSongIndex]];
 }
 -(void) skipToPrevSong {
-    currentSongIndex = (currentSongIndex -1)% [currentPlaylist count];
-    [self playWithVideo:[currentPlaylist objectAtIndex:currentSongIndex]];
+    currentSongIndex = (currentSongIndex -1)% [self.currentPlaylist count];
+    [self playWithVideo:[self.currentPlaylist objectAtIndex:currentSongIndex]];
 }
 
 - (void)updateTime:(NSTimer *)timer {

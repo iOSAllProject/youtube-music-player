@@ -228,7 +228,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
         [[MediaManager sharedInstance] setUserPaused:NO];
         [self loadSongs];
-        timer = [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
+        timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(loadSongs) userInfo:nil repeats:YES];
         liveChatView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
         liveChatBg = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-44)];
         liveChatBg.image = jukeboxEntry.image;
@@ -435,7 +435,9 @@ const CGFloat kCommentCellHeight = 50.0f;
             //update the current song
             jukeboxEntry = [self createJukeBoxEntry:jukebox];
             [[MediaManager sharedInstance] setCurrentJukebox: jukeboxEntry];
+            [self startChannel];
             [self updateCurrentPlayBack];
+            
             if(songChange){
                 [[MediaManager sharedInstance] setCurrentLibrary:self.currentLibrary];
             }
@@ -448,17 +450,43 @@ const CGFloat kCommentCellHeight = 50.0f;
     
 }
 -(void) updateCurrentPlayBack {
-    
+    JukeboxEntry *currentJukeBox = [[MediaManager sharedInstance] currentJukebox];
+    NSString *currentUser =[[PFUser currentUser] objectId];
+    if([self.currentLibrary count] == 0) {
+        playerBar.hidden = YES;
+        return;
+    }
+    if([currentUser isEqualToString:currentJukeBox.authorId]){
+        //Broadcast to other listeners current song details
+        BOOL miniPlayerOff = playerBar.isHidden;
+        VideoModel *currentSong = nil;
+        if([[[MediaManager sharedInstance] currentPlaylist] count] > 0)
+            currentSong = [[MediaManager sharedInstance] getCurrentlyPlaying];
+        VideoModel *video = [self.currentLibrary objectAtIndex:0];
+        MPMoviePlayerController *moviePlayer = [[MediaManager sharedInstance] mPlayer];
+        if((![video.videoId isEqualToString:currentSong.videoId] && [jukeboxEntry.authorId isEqualToString:currentJukeBox.authorId]) || miniPlayerOff){
+            
+            [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:0];
+            [[MediaManager sharedInstance] playWithVideo:video];
+            
+            //  [moviePlayer pause];
+            //[moviePlayer setCurrentPlaybackTime:jukeboxEntry.elapsedTime];
+            [self adjustScrollViewToPlayer];
+        }
+        [[MediaManager sharedInstance] updateJukeboxPlayState];
+    }
+        /*
     VideoModel *video = [self.currentLibrary objectAtIndex:0];
     VideoModel *currentSong = [[MediaManager sharedInstance] getCurrentlyPlaying];
     JukeboxEntry *currentJukeBox = [[MediaManager sharedInstance] currentJukebox];
     BOOL miniPlayerOff = playerBar.isHidden;
-     MPMoviePlayerController *moviePlayer = [[MediaManager sharedInstance] mPlayer];
+    MPMoviePlayerController *moviePlayer = [[MediaManager sharedInstance] mPlayer];
+    
     if((![currentSong.videoId isEqualToString:video.videoId] && [jukeboxEntry.authorId isEqualToString:currentJukeBox.authorId]) || miniPlayerOff){
         
         [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:0];
         [[MediaManager sharedInstance] playWithVideo:video];
-       
+       [self adjustScrollViewToPlayer];
       //  [moviePlayer pause];
         //[moviePlayer setCurrentPlaybackTime:jukeboxEntry.elapsedTime];
         [moviePlayer play];
@@ -480,7 +508,7 @@ const CGFloat kCommentCellHeight = 50.0f;
         }
     } else {
         [[MediaManager sharedInstance] updateJukeboxPlayState];
-    }
+    }*/
 }
 
 -(JukeboxEntry*) createJukeBoxEntry: (PFObject *) pf{
@@ -595,8 +623,50 @@ const CGFloat kCommentCellHeight = 50.0f;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didReceiveMessage:) name:MMXDidReceiveMessageNotification object:nil];
+
 }
 
+-(void) startChannel {
+    // Delay 2 seconds
+    if(!self.currentChannel){
+        [MMX start];
+        JukeboxEntry *currentJukebox = [[MediaManager sharedInstance] currentJukebox];
+        [MMXChannel channelsStartingWith: currentJukebox.objectId
+                                   limit:10
+                                 success:^(int totalCount, NSArray *channels) {
+                                     MMXChannel *channel = channels[0];
+                                     self.currentChannel = channel;
+                                     [[MediaManager sharedInstance] setCurrentChannel:self.currentChannel];
+                                     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
+                                     dateComponents.hour = -1;
+                                     
+                                     NSCalendar *theCalendar = [NSCalendar currentCalendar];
+                                     NSDate *now = [NSDate date];
+                                     // NSDate *anHourAgo = [theCalendar dateByAddingComponents:dateComponents toDate:now options:0];
+                                     /*
+                                      [channel fetchMessagesBetweenStartDate:anHourAgo
+                                      endDate:now
+                                      limit:10
+                                      ascending:NO
+                                      success:^(int totalCount, NSArray *messages) {
+                                      self.messages = messages;
+                                      for (MMXMessage *msg in self.messages){
+                                      dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                                      NSDictionary *dict = msg.messageContent;
+                                      [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:[dict objectForKey:@"textContent"]];
+                                      });
+                                      }
+                                      
+                                      } failure:^(NSError *error) {
+                                      
+                                      }];*/
+                                 }
+                                 failure:^(NSError *error) {
+                                     NSLog(@"Error creating channel");
+                                 }];
+        
+    }
+}
 
 -(void) displayDetailedPlayer {
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[MediaManager sharedInstance] getVideoPlayerViewController]];
@@ -637,6 +707,8 @@ const CGFloat kCommentCellHeight = 50.0f;
 
 -(void)viewWillDisappear {
     [playerBar removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 - (void)didReceiveMemoryWarning
 {
@@ -667,42 +739,6 @@ const CGFloat kCommentCellHeight = 50.0f;
             [_mainScrollView setContentOffset:(CGPointMake(0, -450))];
             self.isLiveChatShowing = YES;
             [liveChatView setHidden:NO];
-            // Delay 2 seconds
-            [MMX start];
-            JukeboxEntry *currentJukebox = [[MediaManager sharedInstance] currentJukebox];
-            [MMXChannel channelsStartingWith: currentJukebox.objectId
-                                       limit:10
-                                     success:^(int totalCount, NSArray *channels) {
-                                         MMXChannel *channel = channels[0];
-                                         self.currentChannel = channel;
-                                         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
-                                         dateComponents.hour = -1;
-                                         
-                                         NSCalendar *theCalendar = [NSCalendar currentCalendar];
-                                         NSDate *now = [NSDate date];
-                                        // NSDate *anHourAgo = [theCalendar dateByAddingComponents:dateComponents toDate:now options:0];
-                                         /*
-                                         [channel fetchMessagesBetweenStartDate:anHourAgo
-                                                                                endDate:now
-                                                                                  limit:10
-                                                                              ascending:NO
-                                                                                success:^(int totalCount, NSArray *messages) {
-                                                                                    self.messages = messages;
-                                                                                    for (MMXMessage *msg in self.messages){
-                                                                                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                                                                                            NSDictionary *dict = msg.messageContent;
-                                                                                            [liveChatMessages addCell:[UIImage imageNamed:@"unknown"] name:@"Meir" comment:[dict objectForKey:@"textContent"]];
-                                                                                        });
-                                                                                    }
-                                                                                    
-                                                                         } failure:^(NSError *error) {
-                                                                                    
-                                                                                }];*/
-                                     }
-                                     failure:^(NSError *error) {
-                                         
-                                     }];
-        
             [_mainScrollView setContentOffset:(CGPointMake(0, 0))];
         }
     });
@@ -841,9 +877,62 @@ const CGFloat kCommentCellHeight = 50.0f;
                     [self addHeart];
                 }
                 
+            } else if(msgType && [msgType isEqualToString:@"audio"]){
+                JukeboxEntry *currentJukeBox = [[MediaManager sharedInstance] currentJukebox];
+                NSString *currentUser =[[PFUser currentUser] objectId];
+                NSInteger timestamp = [message.messageContent[@"timestamp"] intValue];
+                NSInteger elapsed = [message.messageContent[@"elapsed"] intValue];
+                NSInteger currentTimeCalculation = elapsed + (timestamp - [[NSDate date] timeIntervalSince1970]);
+              
+                XCDYouTubeVideoPlayerViewController *t = [[MediaManager sharedInstance] videoPlayerViewController];
+                NSInteger latency = 4;
+               // NSLog(@"Testing: the time i sent out was %i and my time is %i. Our latency is: %i\n", currentTimeCalculation, (NSInteger)t.moviePlayer.currentPlaybackTime, latency) ;
+                if([jukeboxEntry.authorId isEqualToString:currentUser])
+                    return;
+                VideoModel *receivedSong = [self convertMessageToModel: message.messageContent];
+
+                BOOL isPlaying = [message.messageContent[@"state"] boolValue];
+                [[MediaManager sharedInstance] setElapsed:elapsed];
+                [[MediaManager sharedInstance] setLastTimeStamp:timestamp];
+                [[MediaManager sharedInstance] setLatency:latency];
+                BOOL miniPlayerOff = playerBar.isHidden;
+
+                VideoModel *currentSong = [self.currentLibrary objectAtIndex:0];
+            
+                
+                
+                //Update current song
+                if((![currentSong.videoId isEqualToString:receivedSong.videoId] && [self.currentChannel.name isEqualToString:jukeboxEntry.objectId]) || miniPlayerOff){
+                    
+                    [[MediaManager sharedInstance] setPlaylist:self.currentLibrary andSongIndex:0];
+                    [[MediaManager sharedInstance] playWithVideo:receivedSong];
+                    [self adjustScrollViewToPlayer];
+                }
+                //update player state
+                if(![jukeboxEntry.authorId isEqualToString:currentUser]) {
+                    MPMoviePlaybackState state = [[[MediaManager sharedInstance] mPlayer] playbackState];
+                    BOOL myIsPlaying = (state == MPMoviePlaybackStatePlaying);
+                    if(myIsPlaying != isPlaying) {
+                        if(!isPlaying){
+                            [[[MediaManager sharedInstance] mPlayer] pause];
+                        }
+                        else
+                            [[[MediaManager sharedInstance] mPlayer] play];
+                    }
+                }
+
+                
+                
             }
         }
     }
+}
+
+-(VideoModel *) convertMessageToModel:(NSDictionary*) message {
+    VideoModel *result = [[VideoModel alloc] init];
+    result.videoId = message[@"videoId"];
+    result.title = message[@"title"];
+    return result;
 }
 
 -(void) sendRemoteAnimation {

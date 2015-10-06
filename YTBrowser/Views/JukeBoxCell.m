@@ -4,7 +4,7 @@
 
 #import "JukeBoxCell.h"
 #import <QuartzCore/QuartzCore.h>
-#define IPHONE_PORTRAIT_PHOTO  (CGSize){375, 180}
+#define IPHONE_PORTRAIT_PHOTO  (CGSize){box.size.width-20, 180}
 #define ROW_HEIGHT 100
 #define IPHONE_PORTRAIT_GRID   (CGSize){375, 0}
 #define IV_FRAME CGRectMake((ROW_HEIGHT- IPHONE_PORTRAIT_PHOTO.height)/2, (ROW_HEIGHT - IPHONE_PORTRAIT_PHOTO.height)/2, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height)
@@ -64,9 +64,8 @@
 
   // box with photo number tag
     JukeBoxCell *box = [JukeBoxCell boxWithSize:size];
-
+    box.size = size;
     box.jukeBoxEntry = jukeboxEntry;
-
     // BOOL isBgLight =[self isLightColor:self.backgroundColor];
     CGFloat hPadding = 10;
     CGFloat vPadding = 5;
@@ -74,7 +73,7 @@
     CGFloat authorSize = 17;
     CGFloat songSize = 17;
     CGFloat allTextSize = titleSize + authorSize + songSize + 2*vPadding;
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(5, IPHONE_PORTRAIT_PHOTO.height + 10+20, size.width, titleSize)];
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(10, IPHONE_PORTRAIT_PHOTO.height + 10+20, size.width, titleSize)];
     title.text = jukeboxEntry.title;
     title.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18.0f];
     // title.textAlignment = NSTextAlignmentCenter;
@@ -149,7 +148,7 @@
 #pragma mark - Photo box loading
 
 - (void)loadPhoto {
-
+  JukeBoxCell *box = self;
   // photo url
   NSString *fullPath = self.jukeBoxEntry.imageURL;
   NSURL *url = [NSURL URLWithString:fullPath];
@@ -177,7 +176,7 @@
     
     UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
     [self addSubview:imageView];
-      imageView.frame = (CGRect) {0, 20, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height};
+      imageView.frame = (CGRect) {10, 20, IPHONE_PORTRAIT_PHOTO.width, IPHONE_PORTRAIT_PHOTO.height};
     //imageView.size = IPHONE_PORTRAIT_PHOTO;
     imageView.alpha = 1;
     imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth
